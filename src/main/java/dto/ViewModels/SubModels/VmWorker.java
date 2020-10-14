@@ -1,6 +1,6 @@
 package dto.ViewModels.SubModels;
 
-import dto.ViewModels.Request.Enums.BlWorkerStatus;
+import dto.ViewModels.Enums.BlWorkerStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class VmWorker {

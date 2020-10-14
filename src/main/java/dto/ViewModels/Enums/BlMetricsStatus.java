@@ -1,4 +1,4 @@
-package dto.ViewModels.Request.Enums;
+package dto.ViewModels.Enums;
 
 public enum BlMetricsStatus {
     normal,
