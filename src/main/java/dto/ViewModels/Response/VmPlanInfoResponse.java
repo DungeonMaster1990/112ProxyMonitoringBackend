@@ -1,6 +1,6 @@
 package dto.ViewModels.Response;
 
-import dto.ViewModels.Request.Enums.BlPlanStatus;
+import dto.ViewModels.Enums.BlPlanStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Calendar;
