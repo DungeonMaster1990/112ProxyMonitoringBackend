@@ -1,6 +1,6 @@
 package dto.ViewModels.Request;
 
-import dto.ViewModels.Request.Enums.BlWorkType;
+import dto.ViewModels.Enums.BlWorkType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 
