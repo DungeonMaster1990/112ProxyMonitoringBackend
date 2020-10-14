@@ -1,6 +1,7 @@
 package dto.ViewModels.Response;
 
 import dto.ViewModels.Request.Enums.BlPlanStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Calendar;
 
@@ -19,6 +20,7 @@ public class VmPlanInfoResponse {
     private Calendar startDownDate;
     private Calendar finishDownDate;
 
+    @Autowired
     public VmPlanInfoResponse(String id, String name, String status, BlPlanStatus statusType, String description, String impactDescription, String degradationRate, String configurationUnit, String[] affectedSystems, Calendar startDate, Calendar finishDate, Calendar startDownDate, Calendar finishDownDate) {
         this.id = id;
         this.name = name;
