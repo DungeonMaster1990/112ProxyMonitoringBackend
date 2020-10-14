@@ -1,11 +1,13 @@
 package dto.ViewModels.Response;
 
 import dto.ViewModels.SubModels.VmHistoryRecord;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class VmAccidentHistoryResponse {
     private VmHistoryRecord[] completedHistory;
     private VmHistoryRecord[] planHistory;
 
+    @Autowired
     public VmAccidentHistoryResponse(VmHistoryRecord[] completedHistory, VmHistoryRecord[] planHistory) {
         this.completedHistory = completedHistory;
         this.planHistory = planHistory;
