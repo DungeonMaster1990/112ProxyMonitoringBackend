@@ -1,5 +1,7 @@
 package dto.ViewModels.SubModels;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Calendar;
 
 public class VmHistoryRecord {
@@ -8,6 +10,7 @@ public class VmHistoryRecord {
     private String role;
     private String description;
 
+    @Autowired
     public VmHistoryRecord(String name, Calendar finishDate, String role, String description) {
         this.name = name;
         this.finishDate = finishDate;
