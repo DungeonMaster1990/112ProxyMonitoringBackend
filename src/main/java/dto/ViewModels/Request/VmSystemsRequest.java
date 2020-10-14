@@ -7,6 +7,7 @@ public class VmSystemsRequest extends VmPageRequestBase {
     @Nullable
     private Boolean onlyMine;
     private String keyword;
+
     @Autowired
     public VmSystemsRequest(@Nullable Boolean onlyMine, String keyword, int limit, int page) {
         super(limit, page);

@@ -1,5 +1,7 @@
 package dto.ViewModels.Request;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.Calendar;
 
 public class VmMetricInfoRequest extends VmPageRequestBase {
@@ -7,6 +9,7 @@ public class VmMetricInfoRequest extends VmPageRequestBase {
     private Calendar startDate;
     private Calendar finishDate;
 
+    @Autowired
     public VmMetricInfoRequest(String id, Calendar startDate, Calendar finishDate, int limit, int page) {
         super(limit, page);
         this.id = id;

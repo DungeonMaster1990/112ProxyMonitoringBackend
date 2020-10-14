@@ -8,6 +8,7 @@ public class VmMetricsRequest extends VmPageRequestBase {
     @Nullable
     private Boolean onlyMine;
     private String keyword;
+
     @Autowired
     public VmMetricsRequest(@Nullable Boolean onlyMine, String keyword, int limit, int page) {
         super(limit, page);

@@ -1,11 +1,13 @@
 package dto.ViewModels.Request;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Required;
 
 public class VmPageRequestBase {
     private int limit;
     private int page;
 
+    @Autowired
     public VmPageRequestBase(int limit, int page) {
         this.limit = limit;
         this.page = page;
