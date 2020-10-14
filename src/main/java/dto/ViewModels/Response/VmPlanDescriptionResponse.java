@@ -1,9 +1,12 @@
 package dto.ViewModels.Response;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class VmPlanDescriptionResponse {
     private String name;
     private String value;
 
+    @Autowired
     public VmPlanDescriptionResponse(String name, String value) {
         this.name = name;
         this.value = value;
