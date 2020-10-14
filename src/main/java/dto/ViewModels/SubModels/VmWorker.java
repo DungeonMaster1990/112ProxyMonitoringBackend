@@ -1,16 +1,15 @@
 package dto.ViewModels.SubModels;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import dto.ViewModels.Request.Enums.BlWorkerStatus;
 
-public class VmManager {
+public class VmWorker {
     private String name;
-    private String avatar;
+    private BlWorkerStatus status;
     private String role;
 
-    @Autowired
-    public VmManager(String name, String avatar, String role) {
+    public VmWorker(String name, BlWorkerStatus status, String role) {
         this.name = name;
-        this.avatar = avatar;
+        this.status = status;
         this.role = role;
     }
 
@@ -22,12 +21,12 @@ public class VmManager {
         this.name = name;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public BlWorkerStatus getStatus() {
+        return status;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public void setStatus(BlWorkerStatus status) {
+        this.status = status;
     }
 
     public String getRole() {
