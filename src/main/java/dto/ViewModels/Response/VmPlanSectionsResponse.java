@@ -5,10 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class VmPlanSectionsResponse {
     private String id;
     private String name;
-    private String count;
+    private int count;
 
     @Autowired
-    public VmPlanSectionsResponse(String id, String name, String count) {
+    public VmPlanSectionsResponse(String id, String name, int count) {
         this.id = id;
         this.name = name;
         this.count = count;
@@ -30,11 +30,11 @@ public class VmPlanSectionsResponse {
         this.name = name;
     }
 
-    public String getCount() {
+    public int getCount() {
         return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(int count) {
         this.count = count;
     }
 }
