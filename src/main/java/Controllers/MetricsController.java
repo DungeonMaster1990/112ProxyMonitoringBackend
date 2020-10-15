@@ -24,7 +24,7 @@ public class MetricsController {
     @PostMapping(value = "/update", consumes = "application/json", produces = "application/json")
     public VmUpdateResponse updateMetrics(@RequestBody String[] vmUpdateRequest)
     {
-        return VmMock.updateMetricsOrSystem
+        return VmMock.updateMetricsOrSystem;
     }
 
     @PostMapping(value = "/info", consumes = "application/json", produces = "application/json")
