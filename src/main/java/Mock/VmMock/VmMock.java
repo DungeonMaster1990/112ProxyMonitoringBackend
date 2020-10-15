@@ -2,6 +2,7 @@ package Mock.VmMock;
 
 import dto.ViewModels.Enums.BlAccidentStatusType;
 import dto.ViewModels.Enums.BlPlanStatusType;
+import dto.ViewModels.Enums.BlWorkType;
 import dto.ViewModels.Enums.BlWorkerStatus;
 import dto.ViewModels.Response.*;
 import dto.ViewModels.SubModels.VmHistoryRecord;
@@ -104,4 +105,12 @@ public class VmMock {
                     new VmAccidentDescriptionResponse("Для сотрудников","Выявлена недоступность АБС М-Банк, инстанс main. Последствия — в ВТБ Онлайн профиль клиентов, имеющих продукты экс-БМ собираются из кэш. Во время сбоя в ВТБ-онлайн было невозможно проведение операций по части ранее выпущенных карт (только бывшего Банка Москвы)."),
                     new VmAccidentDescriptionResponse("Для СМИ", "Ранее зафиксированные проблемы в ВТБ-Онлайн полностью устранены, работа мобильного приложения восстановлена.\nРанее в системе наблюдался кратковременный технический сбой, в ходе которого в адрес клиентов произошла выгрузка ошибочных СМС о ранее проведённых архивных транзакциях, однако никаких списаний денежных средств не производилось.\nПриносим свои извинения за неудобства, наши IT специалисты делают все возможное для усовершенствования онлайн-сервисов.")
             };
+
+    public static VmEventResponse[] vmEventResponse =
+            new VmEventResponse[]
+                    {
+                            new VmEventResponse("1", new GregorianCalendar(2020, Calendar.AUGUST, 2), BlWorkType.accident),
+                            new VmEventResponse("2", new GregorianCalendar(2020, Calendar.JUNE, 20), BlWorkType.plan)
+                    };
+
 }
