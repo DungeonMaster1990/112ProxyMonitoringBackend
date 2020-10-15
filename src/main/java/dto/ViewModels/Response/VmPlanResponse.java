@@ -1,6 +1,7 @@
 package dto.ViewModels.Response;
 
 import dto.ViewModels.Enums.BlAccidentStatusType;
+import dto.ViewModels.Enums.BlPlanStatusType;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Calendar;
@@ -9,13 +10,13 @@ public class VmPlanResponse {
     private String id;
     private String name;
     private String status;
-    private BlAccidentStatusType statusType;
+    private BlPlanStatusType statusType;
     private String description;
     private String[] affectedSystems;
     private Calendar startDate;
 
     @Autowired
-    public VmPlanResponse(String id, String name, String status, BlAccidentStatusType statusType, String description, String[] affectedSystems, Calendar startDate) {
+    public VmPlanResponse(String id, String name, String status, BlPlanStatusType statusType, String description, String[] affectedSystems, Calendar startDate) {
         this.id = id;
         this.name = name;
         this.status = status;
@@ -49,11 +50,11 @@ public class VmPlanResponse {
         this.status = status;
     }
 
-    public BlAccidentStatusType getStatusType() {
+    public BlPlanStatusType getStatusType() {
         return statusType;
     }
 
-    public void setStatusType(BlAccidentStatusType statusType) {
+    public void setStatusType(BlPlanStatusType statusType) {
         this.statusType = statusType;
     }
 

@@ -30,9 +30,9 @@ public class PlansController {
     }
 
     @GetMapping(value = "/workers", consumes = "application/json", produces = "application/json")
-    public VmPlanWorkers getPlanWorkers(@RequestParam String id)
+    public VmPlanWorkersResponse getPlanWorkers(@RequestParam String id)
     {
-        return  VmMock.vmPlanWorkers;
+        return  VmMock.vmPlanWorkersResponse;
     }
 
     @GetMapping(value = "/history", consumes = "application/json", produces = "application/json")
@@ -42,7 +42,7 @@ public class PlansController {
     }
 
     @GetMapping(value = "/descriptions", consumes = "application/json", produces = "application/json")
-    public VmPlanDescriptionResponse[] AccidentDescriptions(@RequestParam String id)
+    public VmPlanDescriptionResponse[] getPlanDescriptions(@RequestParam String id)
     {
         return VmMock.vmPlanDescriptionResponse;
     }
