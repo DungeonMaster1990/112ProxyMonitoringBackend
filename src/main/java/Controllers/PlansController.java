@@ -17,32 +17,32 @@ public class PlansController {
         return VmMock.vmPlanSectionsResponse;
     }
 
-    @PostMapping("/")
+    @PostMapping(value = "/", consumes = "application/json", produces = "application/json")
     public VmPlanResponse[] get(@RequestBody VmPlanRequest vmPlanRequest)
     {
         return VmMock.vmPlanResponse;
     }
 
-    @GetMapping("/info/{id}")
-    public VmPlanResponse[] getPlanInfo(@PathVariable String id)
+    @GetMapping(value = "/info", consumes = "application/json", produces = "application/json")
+    public VmPlanResponse[] getPlanInfo(@RequestParam String id)
     {
         return  VmMock.vmPlanResponse;
     }
 
-    @GetMapping("/workers")
-    public VmPlanWorkers getPlanWorkers(@PathVariable String id)
+    @GetMapping(value = "/workers", consumes = "application/json", produces = "application/json")
+    public VmPlanWorkers getPlanWorkers(@RequestParam String id)
     {
         return  VmMock.vmPlanWorkers;
     }
 
-    @GetMapping("/history")
-    public VmPlanHistoryResponse getPlanHistory(@PathVariable String id)
+    @GetMapping(value = "/history", consumes = "application/json", produces = "application/json")
+    public VmPlanHistoryResponse getPlanHistory(@RequestParam String id)
     {
         return VmMock.vmPlanHistoryResponse;
     }
 
-    @GetMapping("/descriptions")
-    public VmPlanDescriptionResponse[] AccidentDescriptions(@PathVariable String id)
+    @GetMapping(value = "/descriptions", consumes = "application/json", produces = "application/json")
+    public VmPlanDescriptionResponse[] AccidentDescriptions(@RequestParam String id)
     {
         return VmMock.vmPlanDescriptionResponse;
     }
