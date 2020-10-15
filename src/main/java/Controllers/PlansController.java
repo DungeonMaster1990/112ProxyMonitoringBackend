@@ -3,9 +3,7 @@ package Controllers;
 import Mock.VmMock.VmMock;
 import dto.ViewModels.Request.VmPlanRequest;
 import dto.ViewModels.Request.VmPlanSectionRequest;
-import dto.ViewModels.Response.VmPlanInfoResponse;
-import dto.ViewModels.Response.VmPlanResponse;
-import dto.ViewModels.Response.VmPlanSectionsResponse;
+import dto.ViewModels.Response.*;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +17,7 @@ public class PlansController {
         return VmMock.vmPlanSectionsResponse;
     }
 
-    @PostMapping("")
+    @PostMapping("/")
     public VmPlanResponse[] get(@RequestBody VmPlanRequest vmPlanRequest)
     {
         return VmMock.vmPlanResponse;
@@ -29,5 +27,23 @@ public class PlansController {
     public VmPlanResponse[] getPlanInfo(@PathVariable String id)
     {
         return  VmMock.vmPlanResponse;
+    }
+
+    @GetMapping("/workers")
+    public VmPlanWorkers getPlanWorkers(@PathVariable String id)
+    {
+        return  VmMock.vmPlanWorkers;
+    }
+
+    @GetMapping("/history")
+    public VmPlanHistoryResponse getPlanHistory(@PathVariable String id)
+    {
+        return VmMock.vmPlanHistoryResponse;
+    }
+
+    @GetMapping("/descriptions")
+    public VmPlanDescriptionResponse[] AccidentDescriptions(@PathVariable String id)
+    {
+        return VmMock.vmPlanDescriptionResponse;
     }
 }
