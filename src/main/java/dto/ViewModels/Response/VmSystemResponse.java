@@ -7,17 +7,17 @@ public class VmSystemResponse {
     private String name;
     private Boolean mine;
     private int criticalAccidents;
-    private int majorAccedents;
-    private int minorAccedents;
+    private int majorAccidents;
+    private int minorAccidents;
 
     @Autowired
-    public VmSystemResponse(String id, String name, Boolean mine, int criticalAccidents, int majorAccedents, int minorAccedents) {
+    public VmSystemResponse(String id, String name, Boolean mine, int criticalAccidents, int majorAccidents, int minorAccidents) {
         this.id = id;
         this.name = name;
         this.mine = mine;
         this.criticalAccidents = criticalAccidents;
-        this.majorAccedents = majorAccedents;
-        this.minorAccedents = minorAccedents;
+        this.majorAccidents = majorAccidents;
+        this.minorAccidents = minorAccidents;
     }
 
     public String getId() {
@@ -52,19 +52,19 @@ public class VmSystemResponse {
         this.criticalAccidents = criticalAccidents;
     }
 
-    public int getMajorAccedents() {
-        return majorAccedents;
+    public int getMajorAccidents() {
+        return majorAccidents;
     }
 
-    public void setMajorAccedents(int majorAccedents) {
-        this.majorAccedents = majorAccedents;
+    public void setMajorAccidents(int majorAccidents) {
+        this.majorAccidents = majorAccidents;
     }
 
-    public int getMinorAccedents() {
-        return minorAccedents;
+    public int getMinorAccidents() {
+        return minorAccidents;
     }
 
-    public void setMinorAccedents(int minorAccedents) {
-        this.minorAccedents = minorAccedents;
+    public void setMinorAccidents(int minorAccidents) {
+        this.minorAccidents = minorAccidents;
     }
 }
