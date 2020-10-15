@@ -1,9 +1,6 @@
 package Mock.VmMock;
 
-import dto.ViewModels.Enums.BlAccidentStatusType;
-import dto.ViewModels.Enums.BlPlanStatusType;
-import dto.ViewModels.Enums.BlWorkType;
-import dto.ViewModels.Enums.BlWorkerStatus;
+import dto.ViewModels.Enums.*;
 import dto.ViewModels.Response.*;
 import dto.ViewModels.SubModels.VmHistoryRecord;
 import dto.ViewModels.SubModels.VmManager;
@@ -113,4 +110,46 @@ public class VmMock {
                             new VmEventResponse("2", new GregorianCalendar(2020, Calendar.JUNE, 20), BlWorkType.plan)
                     };
 
+    public static String[] failurePoints = new String[]
+            {
+                    "Profile", // Название точки сбоя
+                    "УСБС – бэк",
+                    "Сервисы Мультикарта",
+                    "Каналы связи",
+                    "Golden Gate",
+                    "Service Manager"
+            };
+
+    public static VmMetricsResponse[] vmMetricsResponse = new
+            VmMetricsResponse[]
+    {
+            new VmMetricsResponse("1", "Клиентов в ВТБ Онлайн", true, "65024", -56, -0.6, BlMetricsStatus.warning, 0.5),
+            new VmMetricsResponse("2", "Очередь на исполнение документов БО", true, "0", -5, -0.3, BlMetricsStatus.normal, 0.15),
+            new VmMetricsResponse("3", "Количество новых операций в ВТБ-онлайн", true, "0", 2, -0.1, BlMetricsStatus.normal, 0.7),
+    };
+
+    public static VmUpdateResponse  updateMetricsOrSystem = new VmUpdateResponse("true");
+
+    public static VmMetricInfoResponse[] vmMetricInfoResponse =
+            new VmMetricInfoResponse[]
+        {
+            new VmMetricInfoResponse(65056, 0, 0, BlMetricsStatus.normal, new GregorianCalendar(2020, Calendar.JUNE, 20)),
+            new VmMetricInfoResponse(65000, -56, -0.6, BlMetricsStatus.warning, new GregorianCalendar(2020, Calendar.JUNE, 20))
+        };
+
+    public static VmSystemResponse[] vmSystemResponse =
+            new VmSystemResponse[]
+                {
+                        new VmSystemResponse("1", "Бизнес операции", true, 1, 3, 10),
+                        new VmSystemResponse("2", "Другие бизнес-опреации", false, 2, 3, 11)
+                };
+
+    public static String[] affectedSystems = new String[]
+    {
+        "Платежи", // Название затронутой системы
+        "Переводы",
+        "Интернет банк",
+        "Мобильный банк",
+        "Вклады"
+    };
 }
