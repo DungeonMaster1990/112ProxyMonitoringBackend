@@ -15,7 +15,6 @@ public class VmAccidentsResponse {
     private String status;
     private BlAccidentStatusType statusType;
 
-    @Autowired
     public VmAccidentsResponse(String id, String name, int category, String description, String[] affectedSystems, Calendar detectionDate, String status, BlAccidentStatusType statusType) {
         this.id = id;
         this.name = name;

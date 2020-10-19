@@ -7,7 +7,6 @@ public class VmPageRequestBase {
     private int limit;
     private int page;
 
-    @Autowired
     public VmPageRequestBase(int limit, int page) {
         this.limit = limit;
         this.page = page;

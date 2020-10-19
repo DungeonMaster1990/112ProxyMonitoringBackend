@@ -1,4 +1,4 @@
-package Controllers;
+package Monitoring.Monitoring.controllers;
 
 import Mock.VmMock.VmMock;
 import dto.ViewModels.Request.VmPlanRequest;
@@ -8,40 +8,39 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v{1.0}/plans")
 public class PlansController {
 
-    @PostMapping(value = "/sections", consumes = "application/json", produces = "application/json")
+    @PostMapping("/api/v1.0/plans/sections")
     public VmPlanSectionsResponse[] getPlanSections(@RequestBody VmPlanSectionRequest vmPlanSectionRequest)
     {
         return VmMock.vmPlanSectionsResponse;
     }
 
-    @PostMapping(value = "/", consumes = "application/json", produces = "application/json")
+    @PostMapping("/api/v1.0/plans")
     public VmPlanResponse[] get(@RequestBody VmPlanRequest vmPlanRequest)
     {
         return VmMock.vmPlanResponse;
     }
 
-    @GetMapping(value = "/info", consumes = "application/json", produces = "application/json")
+    @GetMapping("/api/v1.0/plans/info")
     public VmPlanResponse[] getPlanInfo(@RequestParam String id)
     {
         return  VmMock.vmPlanResponse;
     }
 
-    @GetMapping(value = "/workers", consumes = "application/json", produces = "application/json")
+    @GetMapping("/api/v1.0/plans/workers")
     public VmPlanWorkersResponse getPlanWorkers(@RequestParam String id)
     {
         return  VmMock.vmPlanWorkersResponse;
     }
 
-    @GetMapping(value = "/history", consumes = "application/json", produces = "application/json")
+    @GetMapping("/api/v1.0/plans/history")
     public VmPlanHistoryResponse getPlanHistory(@RequestParam String id)
     {
         return VmMock.vmPlanHistoryResponse;
     }
 
-    @GetMapping(value = "/descriptions", consumes = "application/json", produces = "application/json")
+    @GetMapping("/api/v1.0/plans/descriptions")
     public VmPlanDescriptionResponse[] getPlanDescriptions(@RequestParam String id)
     {
         return VmMock.vmPlanDescriptionResponse;

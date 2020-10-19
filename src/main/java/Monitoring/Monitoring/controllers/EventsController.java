@@ -1,4 +1,4 @@
-package Controllers;
+package Monitoring.Monitoring.controllers;
 
 import Mock.VmMock.VmMock;
 import dto.ViewModels.Request.VmEventRequest;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v{1.0}/events")
 public class EventsController {
-    @PostMapping(value = "/", consumes = "application/json", produces = "application/json")
+
+    @PostMapping("/api/v1.0/events")
     public VmEventResponse[] get(@RequestBody VmEventRequest vmEventRequest)
     {
         return VmMock.vmEventResponse;

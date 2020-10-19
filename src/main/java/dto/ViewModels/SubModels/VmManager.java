@@ -7,7 +7,6 @@ public class VmManager {
     private String avatar;
     private String role;
 
-    @Autowired
     public VmManager(String name, String avatar, String role) {
         this.name = name;
         this.avatar = avatar;

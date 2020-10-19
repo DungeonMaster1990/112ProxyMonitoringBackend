@@ -6,7 +6,6 @@ public class VmErrorResponse {
     private String errorMessage;
     private String requestCode;
 
-    @Autowired
     public VmErrorResponse(String errorMessage, String requestCode) {
         this.errorMessage = errorMessage;
         this.requestCode = requestCode;

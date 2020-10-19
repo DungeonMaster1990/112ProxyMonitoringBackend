@@ -8,7 +8,6 @@ public class VmWorker {
     private BlWorkerStatus status;
     private String role;
 
-    @Autowired
     public VmWorker(String name, BlWorkerStatus status, String role) {
         this.name = name;
         this.status = status;

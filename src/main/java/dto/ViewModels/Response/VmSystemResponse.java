@@ -10,7 +10,6 @@ public class VmSystemResponse {
     private int majorAccidents;
     private int minorAccidents;
 
-    @Autowired
     public VmSystemResponse(String id, String name, Boolean mine, int criticalAccidents, int majorAccidents, int minorAccidents) {
         this.id = id;
         this.name = name;

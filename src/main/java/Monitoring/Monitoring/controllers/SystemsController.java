@@ -1,4 +1,4 @@
-package Controllers;
+package Monitoring.Monitoring.controllers;
 
 import Mock.VmMock.VmMock;
 import dto.ViewModels.Request.VmSystemsRequest;
@@ -10,22 +10,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v{1.0}/systems")
 public class SystemsController {
 
-    @GetMapping(value = "/", consumes = "application/json", produces = "application/json")
+    @GetMapping(value = "/api/v1.0/systems", consumes = "application/json", produces = "application/json")
     public VmSystemResponse[] get(@RequestParam VmSystemsRequest vmSystemsRequest)
     {
         return VmMock.vmSystemResponse;
     }
 
-    @GetMapping(value = "/affected", consumes = "application/json", produces = "application/json")
+    @GetMapping(value = "/api/v1.0/systems/affected", consumes = "application/json", produces = "application/json")
     public String[] getAffectedSystem()
     {
         return VmMock.affectedSystems;
     }
 
-    @GetMapping(value = "/update", consumes = "application/json", produces = "application/json")
+    @GetMapping(value = "/api/v1.0/systems/update", consumes = "application/json", produces = "application/json")
     public VmUpdateResponse updateSystems()
     {
         return VmMock.updateMetricsOrSystem;

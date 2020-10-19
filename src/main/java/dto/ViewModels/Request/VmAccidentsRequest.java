@@ -15,7 +15,6 @@ public class VmAccidentsRequest extends VmPageRequestBase {
     private int planTypeId;
     private String keyword;
 
-    @Autowired
     public VmAccidentsRequest(Calendar startDate, String[] affectedSystems, String[] failurePoints, Long systemId, int planTypeId, String keyword, int limit, int page) {
         super(limit, page);
         this.startDate = startDate;

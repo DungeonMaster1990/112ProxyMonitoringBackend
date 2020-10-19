@@ -10,7 +10,6 @@ public class VmEventResponse {
     private Calendar date;
     private BlWorkType type;
 
-    @Autowired
     public VmEventResponse(String id, Calendar date, BlWorkType type) {
         this.id = id;
         this.date = date;

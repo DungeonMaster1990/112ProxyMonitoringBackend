@@ -9,7 +9,6 @@ public class VmMetricInfoRequest extends VmPageRequestBase {
     private Calendar startDate;
     private Calendar finishDate;
 
-    @Autowired
     public VmMetricInfoRequest(String id, Calendar startDate, Calendar finishDate, int limit, int page) {
         super(limit, page);
         this.id = id;

@@ -10,7 +10,6 @@ public class VmHistoryRecord {
     private String role;
     private String description;
 
-    @Autowired
     public VmHistoryRecord(String name, Calendar finishDate, String role, String description) {
         this.name = name;
         this.finishDate = finishDate;

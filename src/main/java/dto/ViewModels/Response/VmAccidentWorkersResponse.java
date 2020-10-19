@@ -8,7 +8,6 @@ public class VmAccidentWorkersResponse {
     private VmManager manager;
     private VmWorker[] workers;
 
-    @Autowired
     public VmAccidentWorkersResponse(VmManager manager, VmWorker[] workers) {
         this.manager = manager;
         this.workers = workers;

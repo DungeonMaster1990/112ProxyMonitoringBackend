@@ -8,7 +8,6 @@ public class VmPlanRequest extends VmPageRequestBase {
 
     private int planSectionId;
 
-    @Autowired
     public VmPlanRequest(String keyword, int planSectionId, int limit, int page) {
         super(limit, page);
         this.keyword = keyword;

@@ -12,7 +12,6 @@ public class VmMetricInfoResponse {
     private BlMetricsStatus deltaStatus;
     private Calendar date;
 
-    @Autowired
     public VmMetricInfoResponse(long value, long delta, double deltaPercent, BlMetricsStatus deltaStatus, Calendar date) {
         this.value = value;
         this.delta = delta;

@@ -7,7 +7,6 @@ public class VmPlanHistoryResponse {
     private VmHistoryRecord[] completedHistory;
     private VmHistoryRecord[] planHistory;
 
-    @Autowired
     public VmPlanHistoryResponse(VmHistoryRecord[] completedHistory, VmHistoryRecord[] planHistory) {
         this.completedHistory = completedHistory;
         this.planHistory = planHistory;

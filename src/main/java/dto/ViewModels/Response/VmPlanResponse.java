@@ -15,7 +15,6 @@ public class VmPlanResponse {
     private String[] affectedSystems;
     private Calendar startDate;
 
-    @Autowired
     public VmPlanResponse(String id, String name, String status, BlPlanStatusType statusType, String description, String[] affectedSystems, Calendar startDate) {
         this.id = id;
         this.name = name;

@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class VmUpdateResponse {
     private String result;
 
-    @Autowired
     public VmUpdateResponse(String result) {
         this.result = result;
     }

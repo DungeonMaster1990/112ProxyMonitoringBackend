@@ -7,7 +7,6 @@ public class VmPlanSectionsResponse {
     private String name;
     private int count;
 
-    @Autowired
     public VmPlanSectionsResponse(String id, String name, int count) {
         this.id = id;
         this.name = name;

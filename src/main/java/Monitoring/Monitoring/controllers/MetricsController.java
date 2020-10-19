@@ -1,4 +1,4 @@
-package Controllers;
+package Monitoring.Monitoring.controllers;
 
 import Mock.VmMock.VmMock;
 import dto.ViewModels.Request.VmMetricInfoRequest;
@@ -12,22 +12,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v{1.0}/metrics")
 public class MetricsController {
 
-    @PostMapping(value = "/", consumes = "application/json", produces = "application/json")
+    @PostMapping("/api/v1.0/metrics")
     public VmMetricsResponse[] get(@RequestBody VmMetricsRequest vmMetricsRequest)
     {
         return VmMock.vmMetricsResponse;
     }
 
-    @PostMapping(value = "/update", consumes = "application/json", produces = "application/json")
+    @PostMapping("/api/v1.0/metrics/update")
     public VmUpdateResponse updateMetrics(@RequestBody String[] vmUpdateRequest)
     {
         return VmMock.updateMetricsOrSystem;
     }
 
-    @PostMapping(value = "/info", consumes = "application/json", produces = "application/json")
+    @PostMapping("/api/v1.0/metrics/info")
     public VmMetricInfoResponse[] getMetricInfo(@RequestBody VmMetricInfoRequest vmMetricInfoRequest)
     {
         return VmMock.vmMetricInfoResponse;

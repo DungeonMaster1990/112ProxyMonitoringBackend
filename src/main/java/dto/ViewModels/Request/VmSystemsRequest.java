@@ -8,7 +8,6 @@ public class VmSystemsRequest extends VmPageRequestBase {
     private Boolean onlyMine;
     private String keyword;
 
-    @Autowired
     public VmSystemsRequest(@Nullable Boolean onlyMine, String keyword, int limit, int page) {
         super(limit, page);
         this.onlyMine = onlyMine;

@@ -12,7 +12,6 @@ public class VmEventRequest {
     @Nullable
     private BlWorkType type;
 
-    @Autowired
     public VmEventRequest(Calendar startDate, Calendar finishDate, @Nullable BlWorkType type) {
         this.startDate = startDate;
         this.finishDate = finishDate;

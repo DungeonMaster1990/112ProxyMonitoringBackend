@@ -13,7 +13,6 @@ public class VmMetricsResponse {
     private BlMetricsStatus deltaStatus;
     private double totalPercent;
 
-    @Autowired
     public VmMetricsResponse(String id, String name, Boolean mine, String value, long delta, double deltaPercent, BlMetricsStatus deltaStatus, double totalPercent) {
         this.id = id;
         this.name = name;

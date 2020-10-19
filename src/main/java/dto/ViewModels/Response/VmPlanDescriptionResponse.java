@@ -6,7 +6,6 @@ public class VmPlanDescriptionResponse {
     private String name;
     private String value;
 
-    @Autowired
     public VmPlanDescriptionResponse(String name, String value) {
         this.name = name;
         this.value = value;

@@ -6,7 +6,6 @@ public class VmNewAccidentResponse {
     private String id;
     private String name;
 
-    @Autowired
     public VmNewAccidentResponse(String id, String name) {
         this.id = id;
         this.name = name;
