@@ -27,7 +27,7 @@ public class AccidentsController {
     }
 
     @GetMapping(value = "/api/v1/accidents/workers", consumes = "application/json", produces = "application/json")
-    public VmAccidentWorkersResponse getPlanWorkers(@RequestParam String id)
+    public VmAccidentWorkersResponse getWorkers(@RequestParam String id)
     {
         return  VmMock.vmAccidentWorkersResponse;
     }
