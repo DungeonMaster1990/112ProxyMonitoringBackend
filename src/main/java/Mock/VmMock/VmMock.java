@@ -1,10 +1,10 @@
 package Mock.VmMock;
 
-import dto.viewmodels.enums.*;
-import dto.viewmodels.response.*;
-import dto.viewmodels.submodels.VmHistoryRecord;
-import dto.viewmodels.submodels.VmManager;
-import dto.viewmodels.submodels.VmWorker;
+import dto.ViewModels.Enums.*;
+import dto.ViewModels.Response.*;
+import dto.ViewModels.SubModels.VmHistoryRecord;
+import dto.ViewModels.SubModels.VmManager;
+import dto.ViewModels.SubModels.VmWorker;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

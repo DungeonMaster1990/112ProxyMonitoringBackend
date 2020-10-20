@@ -4,9 +4,9 @@ plugins {
 	id 'java'
 }
 
-group = 'ru.vtb.monitoring'
-version = '1.0'
-sourceCompatibility = '1.8'
+group = '112Monitoring'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '15'
 
 repositories {
 	mavenCentral()
@@ -23,10 +23,4 @@ dependencies {
 
 test {
 	useJUnitPlatform()
-}
-
-jar {
-	manifest{
-		attributes( 'Main-Class': 'ru.vtb.monitoring.proxy.Application')
-	}
 }
