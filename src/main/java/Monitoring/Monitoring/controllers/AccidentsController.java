@@ -33,7 +33,7 @@ public class AccidentsController {
     }
 
     @GetMapping(value = "/api/v1/accidents/history", consumes = "application/json", produces = "application/json")
-    public VmAccidentHistoryResponse getPlanHistory(@RequestParam String id)
+    public VmAccidentHistoryResponse getHistory(@RequestParam String id)
     {
         return VmMock.vmAccidentHistoryResponse;
     }
