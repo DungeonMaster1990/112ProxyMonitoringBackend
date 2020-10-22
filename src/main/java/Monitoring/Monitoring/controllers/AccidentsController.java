@@ -1,8 +1,8 @@
 package Monitoring.Monitoring.controllers;
 
-import Mock.VmMock.VmMock;
-import dto.ViewModels.Request.VmPlanRequest;
-import dto.ViewModels.Response.*;
+import Monitoring.Monitoring.VmMock.VmMock;
+import Monitoring.Monitoring.dto.viewmodels.request.VmPlanRequest;
+import Monitoring.Monitoring.dto.viewmodels.response.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

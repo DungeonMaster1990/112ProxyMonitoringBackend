@@ -1,10 +1,9 @@
 package Monitoring.Monitoring.controllers;
 
-import Mock.VmMock.VmMock;
-import dto.ViewModels.Request.VmPlanRequest;
-import dto.ViewModels.Request.VmPlanSectionRequest;
-import dto.ViewModels.Response.*;
-import org.springframework.beans.factory.annotation.Required;
+import Monitoring.Monitoring.VmMock.VmMock;
+import Monitoring.Monitoring.dto.viewmodels.request.VmPlanRequest;
+import Monitoring.Monitoring.dto.viewmodels.request.VmPlanSectionRequest;
+import Monitoring.Monitoring.dto.viewmodels.response.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

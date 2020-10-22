@@ -1,11 +1,10 @@
 package Monitoring.Monitoring.controllers;
 
-import Mock.VmMock.VmMock;
-import dto.ViewModels.Request.VmEventRequest;
-import dto.ViewModels.Response.VmEventResponse;
+import Monitoring.Monitoring.VmMock.VmMock;
+import Monitoring.Monitoring.dto.viewmodels.request.VmEventRequest;
+import Monitoring.Monitoring.dto.viewmodels.response.VmEventResponse;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
