@@ -1,12 +1,20 @@
 package Monitoring.Monitoring.controllers;
 
 import Monitoring.Monitoring.VmMock.VmMock;
+import Monitoring.Monitoring.db.models.Accident;
+import Monitoring.Monitoring.db.repositories.AccidentsRepository;
 import Monitoring.Monitoring.dto.viewmodels.request.VmPlanRequest;
 import Monitoring.Monitoring.dto.viewmodels.response.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class AccidentsController {
+
+    @Autowired
+    private AccidentsRepository accidentRepository;
 
     @PostMapping("/api/v1.0/accidents")
     public VmAccidentResponse[] get(@RequestBody VmPlanRequest vmAccidentsRequest)
@@ -42,5 +50,11 @@ public class AccidentsController {
     public VmAccidentDescriptionResponse[] getAccidentDescriptions(@RequestParam String id)
     {
         return VmMock.vmAccidentDescriptionResponse;
+    }
+
+    @GetMapping("/api/v1.0/accidents/callDb")
+    public List<Accident> getAllAccidents()
+    {
+        return accidentRepository.getAccidents();
     }
 }
