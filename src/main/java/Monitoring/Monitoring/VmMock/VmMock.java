@@ -33,6 +33,12 @@ public class VmMock {
               }
             );
 
+    public static VmPlanInfoResponse vmPlanInfoResponse =
+            new VmPlanInfoResponse("10", "Изменение IM-283501", "Согласование", BlPlanStatus.warning, "" +
+                    "Описание", "Описание последствий", "Не влияет", "М-Банк", new String[] { "Платежи", "Переводы" },
+                    new GregorianCalendar(2016, Calendar.JULY, 5), new GregorianCalendar(2017, Calendar.OCTOBER, 14), new GregorianCalendar(2016, Calendar.JULY, 19),
+                    new GregorianCalendar(2017, Calendar.JANUARY, 10));
+
     public static VmPlanHistoryResponse vmPlanHistoryResponse =
             new VmPlanHistoryResponse(
                     new VmHistoryRecord[] { new VmHistoryRecord("Соколов А. А.", new GregorianCalendar(2020, Calendar.AUGUST, 2),"Роль","Описание работы")},
