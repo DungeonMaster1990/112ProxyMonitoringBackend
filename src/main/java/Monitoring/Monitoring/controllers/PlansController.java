@@ -22,9 +22,9 @@ public class PlansController {
     }
 
     @GetMapping("/api/v1.0/plans/info")
-    public VmPlanResponse[] getPlanInfo(@RequestParam String id)
+    public VmPlanInfoResponse getPlanInfo(@RequestParam String id)
     {
-        return  VmMock.vmPlanResponse;
+        return  VmMock.vmPlanInfoResponse;
     }
 
     @GetMapping("/api/v1.0/plans/workers")
