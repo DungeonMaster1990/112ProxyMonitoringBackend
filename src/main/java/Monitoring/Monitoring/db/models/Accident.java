@@ -8,6 +8,30 @@ import java.util.Calendar;
 @Entity
 @Table(name="accidents")
 public class Accident {
+
+
+    public Accident() {
+    }
+
+    public Accident(int id, String foreignId, String name, int priority, int statusId, String shortDescription, String description, String impactDescription, String failurePoint, Calendar detectionDate, Calendar startDate, Calendar finishDate, Calendar predictDate, String affectedSystems, String localizationAndRemediationActions, int specialistUserId) {
+        this.id = id;
+        this.foreignId = foreignId;
+        this.name = name;
+        this.priority = priority;
+        this.statusId = statusId;
+        this.shortDescription = shortDescription;
+        this.description = description;
+        this.impactDescription = impactDescription;
+        this.failurePoint = failurePoint;
+        this.detectionDate = detectionDate;
+        this.startDate = startDate;
+        this.finishDate = finishDate;
+        this.predictDate = predictDate;
+        this.affectedSystems = affectedSystems;
+        this.localizationAndRemediationActions = localizationAndRemediationActions;
+        this.specialistUserId = specialistUserId;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
