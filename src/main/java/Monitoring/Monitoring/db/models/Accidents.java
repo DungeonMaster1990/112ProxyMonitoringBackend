@@ -6,14 +6,14 @@ import javax.persistence.*;
 import java.util.Calendar;
 
 @Entity
-@Table(name="accidents")
-public class Accident {
+@Table(name="accidents", schema = "monitoring")
+public class Accidents {
 
 
-    public Accident() {
+    public Accidents() {
     }
 
-    public Accident(int id, String foreignId, String name, int priority, int statusId, String shortDescription, String description, String impactDescription, String failurePoint, Calendar detectionDate, Calendar startDate, Calendar finishDate, Calendar predictDate, String affectedSystems, String localizationAndRemediationActions, int specialistUserId) {
+    public Accidents(int id, String foreignId, String name, int priority, int statusId, String shortDescription, String description, String impactDescription, String failurePoint, Calendar detectionDate, Calendar startDate, Calendar finishDate, Calendar predictDate, String affectedSystems, String localizationAndRemediationActions, int specialistUserId) {
         this.id = id;
         this.foreignId = foreignId;
         this.name = name;

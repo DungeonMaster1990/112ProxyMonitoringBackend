@@ -1,7 +1,9 @@
 package Monitoring.Monitoring.db.repositories.interfaces;
 
-import Monitoring.Monitoring.db.models.Accident;
-import org.springframework.data.repository.CrudRepository;
+import Monitoring.Monitoring.db.models.Accidents;
 
-public interface AccidentsRepository extends CrudRepository<Accident, Long> {
+import java.util.List;
+
+public interface AccidentsRepository {
+    List<Accidents> getAccidents();
 }

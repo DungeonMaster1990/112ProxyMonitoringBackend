@@ -1,7 +1,7 @@
 package Monitoring.Monitoring.controllers;
 
 import Monitoring.Monitoring.VmMock.VmMock;
-import Monitoring.Monitoring.db.models.Accident;
+import Monitoring.Monitoring.db.models.Accidents;
 import Monitoring.Monitoring.db.repositories.interfaces.AccidentsRepository;
 import Monitoring.Monitoring.dto.viewmodels.request.VmPlanRequest;
 import Monitoring.Monitoring.dto.viewmodels.response.*;
@@ -57,8 +57,8 @@ public class AccidentsController {
     }
 
     @GetMapping("/api/v1.0/accidents/callDb")
-    public Iterable<Accident> getAllAccidents()
+    public List<Accidents> getAllAccidents()
     {
-        return accidentRepository.findAll();
+        return accidentRepository.getAccidents();
     }
 }
