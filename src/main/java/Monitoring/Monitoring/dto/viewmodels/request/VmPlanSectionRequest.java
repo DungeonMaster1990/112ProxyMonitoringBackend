@@ -2,34 +2,34 @@ package Monitoring.Monitoring.dto.viewmodels.request;
 
 import org.springframework.lang.Nullable;
 
-import java.util.Calendar;
+import java.time.ZonedDateTime;
 
 public class VmPlanSectionRequest {
     @Nullable
-    private Calendar startDate;
+    private ZonedDateTime startDate;
     @Nullable
-    private Calendar finishDate;
+    private ZonedDateTime finishDate;
 
-    public VmPlanSectionRequest(@Nullable Calendar startDate, @Nullable Calendar finishDate) {
+    public VmPlanSectionRequest(@Nullable ZonedDateTime startDate, @Nullable ZonedDateTime finishDate) {
         this.startDate = startDate;
         this.finishDate = finishDate;
     }
 
     @Nullable
-    public Calendar getStartDate() {
+    public ZonedDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(@Nullable Calendar startDate) {
+    public void setStartDate(@Nullable ZonedDateTime startDate) {
         this.startDate = startDate;
     }
 
     @Nullable
-    public Calendar getFinishDate() {
+    public ZonedDateTime getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(@Nullable Calendar finishDate) {
+    public void setFinishDate(@Nullable ZonedDateTime finishDate) {
         this.finishDate = finishDate;
     }
 }

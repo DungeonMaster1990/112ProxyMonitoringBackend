@@ -6,8 +6,7 @@ import Monitoring.Monitoring.dto.viewmodels.submodels.VmHistoryRecord;
 import Monitoring.Monitoring.dto.viewmodels.submodels.VmManager;
 import Monitoring.Monitoring.dto.viewmodels.submodels.VmWorker;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.time.*;
 
 public class VmMock {
     public static VmPlanSectionsResponse[] vmPlanSectionsResponse =
@@ -19,8 +18,8 @@ public class VmMock {
     public static VmPlanResponse[] vmPlanResponse =
             new VmPlanResponse[]
     {
-        new VmPlanResponse("1", "Изменение IM-283501", "Согласование", BlPlanStatusType.warning, "Описание", new String[]{"Платежи", "Переводы"}, new GregorianCalendar(2020, Calendar.AUGUST, 2)),
-        new VmPlanResponse("2", "Изменение IM-283501", "Выполнено", BlPlanStatusType.normal, "Описание", new String[]{ "Платежи" }, new GregorianCalendar(2016, Calendar.JULY, 5))
+        new VmPlanResponse("1", "Изменение IM-283501", "Согласование", BlPlanStatusType.warning, "Описание", new String[]{"Платежи", "Переводы"}, ZonedDateTime.of(2020, 7, 2, 0, 0, 0, 0, ZoneId.of("UTC"))),
+        new VmPlanResponse("2", "Изменение IM-283501", "Выполнено", BlPlanStatusType.normal, "Описание", new String[]{ "Платежи" }, ZonedDateTime.of(2016, 6, 5, 0, 0, 0, 0, ZoneId.of("UTC")))
     };
 
     public static VmPlanWorkersResponse vmPlanWorkersResponse =
@@ -36,13 +35,16 @@ public class VmMock {
     public static VmPlanInfoResponse vmPlanInfoResponse =
             new VmPlanInfoResponse("10", "Изменение IM-283501", "Согласование", BlPlanStatus.warning, "" +
                     "Описание", "Описание последствий", "Не влияет", "М-Банк", new String[] { "Платежи", "Переводы" },
-                    new GregorianCalendar(2016, Calendar.JULY, 5), new GregorianCalendar(2017, Calendar.OCTOBER, 14), new GregorianCalendar(2016, Calendar.JULY, 19),
-                    new GregorianCalendar(2017, Calendar.JANUARY, 10));
+                    ZonedDateTime.of(2016, 5, 5, 0, 0, 0, 0, ZoneId.of("UTC")),
+                    ZonedDateTime.of(2017, 9, 14, 0, 0, 0, 0, ZoneId.of("UTC")),
+                    ZonedDateTime.of(2017, 11, 10, 0, 0, 0, 0, ZoneId.of("UTC")),
+                    ZonedDateTime.of(2018, 11, 10, 0, 0, 0, 0, ZoneId.of("UTC"))
+            );
 
     public static VmPlanHistoryResponse vmPlanHistoryResponse =
             new VmPlanHistoryResponse(
-                    new VmHistoryRecord[] { new VmHistoryRecord("Соколов А. А.", new GregorianCalendar(2020, Calendar.AUGUST, 2),"Роль","Описание работы")},
-                    new VmHistoryRecord[] { new VmHistoryRecord("Иванов И. И.", new GregorianCalendar(2020, Calendar.AUGUST, 2),"Другая роль","Описание другой работы")}
+                    new VmHistoryRecord[] { new VmHistoryRecord("Соколов А. А.", ZonedDateTime.of(2020, 8, 2, 0, 0, 0, 0, ZoneId.of("UTC")),"Роль","Описание работы")},
+                    new VmHistoryRecord[] { new VmHistoryRecord("Иванов И. И.", ZonedDateTime.of(2016, 5, 5, 0, 0, 0, 0, ZoneId.of("UTC")),"Другая роль","Описание другой работы")}
             );
 
     public static VmPlanDescriptionResponse[] vmPlanDescriptionResponse =
@@ -60,7 +62,7 @@ public class VmMock {
                                     10,
                                     "Описание",
                                     new String[] { "Платежи","Переводы" },
-                                    new GregorianCalendar(2016, Calendar.JULY, 6),
+                                    ZonedDateTime.of(2016, 6, 10, 0, 0, 0, 0, ZoneId.of("UTC")),
                                     "Устранение последствий",
                                     BlAccidentStatusType.warning)
                     };
@@ -80,9 +82,9 @@ public class VmMock {
                     "М-Банк",
                     "М-Банк",
                     new String[] { "Платежи", "Переводы" },
-                    new GregorianCalendar(2016, Calendar.JULY, 26),
-                    new GregorianCalendar(2016, Calendar.JULY, 20),
-                    new GregorianCalendar(2016, Calendar.JULY, 21),
+                    ZonedDateTime.of(2016, 6, 26, 0, 0, 0, 0, ZoneId.of("UTC")),
+                    ZonedDateTime.of(2016, 6, 20, 0, 0, 0, 0, ZoneId.of("UTC")),
+                    ZonedDateTime.of(2016, 6, 21, 0, 0, 0, 0, ZoneId.of("UTC")),
                     "https://bankvtb.webex.com/meet/xxx",
                     "https://t.me/vtb"
             );
@@ -99,8 +101,8 @@ public class VmMock {
 
     public static VmAccidentHistoryResponse vmAccidentHistoryResponse =
             new VmAccidentHistoryResponse(
-                    new VmHistoryRecord[] { new VmHistoryRecord("Соколов А. А.", new GregorianCalendar(2020, Calendar.AUGUST, 2),"Роль","Описание работы")},
-                    new VmHistoryRecord[] { new VmHistoryRecord("Иванов И. И.", new GregorianCalendar(2020, Calendar.AUGUST, 2),"Другая роль","Описание другой работы")}
+                    new VmHistoryRecord[] { new VmHistoryRecord("Соколов А. А.", ZonedDateTime.of(2020, 7, 2, 0, 0, 0, 0, ZoneId.of("UTC")),"Роль","Описание работы")},
+                    new VmHistoryRecord[] { new VmHistoryRecord("Иванов И. И.", ZonedDateTime.of(2020, 7, 2, 0, 0, 0, 0, ZoneId.of("UTC")),"Другая роль","Описание другой работы")}
             );
 
     public static VmAccidentDescriptionResponse[] vmAccidentDescriptionResponse =
@@ -112,8 +114,8 @@ public class VmMock {
     public static VmEventResponse[] vmEventResponse =
             new VmEventResponse[]
                     {
-                            new VmEventResponse("1", new GregorianCalendar(2020, Calendar.AUGUST, 2), BlWorkType.accident),
-                            new VmEventResponse("2", new GregorianCalendar(2020, Calendar.JUNE, 20), BlWorkType.plan)
+                            new VmEventResponse("1", ZonedDateTime.of(2020, 04, 20, 0,0,0,0, ZoneId.of("UTC")), BlWorkType.accident),
+                            new VmEventResponse("2", ZonedDateTime.of(2020, 04, 20, 0,0,0,0, ZoneId.of("UTC")), BlWorkType.plan)
                     };
 
     public static String[] failurePoints = new String[]
@@ -139,8 +141,8 @@ public class VmMock {
     public static VmMetricInfoResponse[] vmMetricInfoResponse =
             new VmMetricInfoResponse[]
         {
-            new VmMetricInfoResponse(65056, 0, 0, BlMetricsStatus.normal, new GregorianCalendar(2020, Calendar.JUNE, 20)),
-            new VmMetricInfoResponse(65000, -56, -0.6, BlMetricsStatus.warning, new GregorianCalendar(2020, Calendar.JUNE, 20))
+            new VmMetricInfoResponse(65056, 0, 0, BlMetricsStatus.normal, ZonedDateTime.of(2020, 5, 20, 0, 0, 0, 0, ZoneId.of("UTC"))),
+            new VmMetricInfoResponse(65000, -56, -0.6, BlMetricsStatus.warning, ZonedDateTime.of(2020, 5, 20, 0, 0, 0, 0, ZoneId.of("UTC")))
         };
 
     public static VmSystemResponse[] vmSystemResponse =

@@ -2,7 +2,8 @@ package Monitoring.Monitoring.dto.viewmodels.response;
 
 import Monitoring.Monitoring.dto.viewmodels.enums.BlAccidentStatusType;
 
-import java.util.Calendar;
+import java.time.ZonedDateTime;
+
 
 public class VmAccidentsResponse {
     private String id;
@@ -10,11 +11,11 @@ public class VmAccidentsResponse {
     private int category;
     private String description;
     private String[] affectedSystems;
-    private Calendar detectionDate;
+    private ZonedDateTime detectionDate;
     private String status;
     private BlAccidentStatusType statusType;
 
-    public VmAccidentsResponse(String id, String name, int category, String description, String[] affectedSystems, Calendar detectionDate, String status, BlAccidentStatusType statusType) {
+    public VmAccidentsResponse(String id, String name, int category, String description, String[] affectedSystems, ZonedDateTime detectionDate, String status, BlAccidentStatusType statusType) {
         this.id = id;
         this.name = name;
         this.category = category;
@@ -65,11 +66,11 @@ public class VmAccidentsResponse {
         this.affectedSystems = affectedSystems;
     }
 
-    public Calendar getDetectionDate() {
+    public ZonedDateTime getDetectionDate() {
         return detectionDate;
     }
 
-    public void setDetectionDate(Calendar detectionDate) {
+    public void setDetectionDate(ZonedDateTime detectionDate) {
         this.detectionDate = detectionDate;
     }
 

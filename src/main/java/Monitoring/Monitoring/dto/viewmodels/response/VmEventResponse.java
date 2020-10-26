@@ -2,14 +2,14 @@ package Monitoring.Monitoring.dto.viewmodels.response;
 
 import Monitoring.Monitoring.dto.viewmodels.enums.BlWorkType;
 
-import java.util.Calendar;
+import java.time.ZonedDateTime;
 
 public class VmEventResponse {
     private String id;
-    private Calendar date;
+    private ZonedDateTime date;
     private BlWorkType type;
 
-    public VmEventResponse(String id, Calendar date, BlWorkType type) {
+    public VmEventResponse(String id, ZonedDateTime date, BlWorkType type) {
         this.id = id;
         this.date = date;
         this.type = type;
@@ -23,11 +23,11 @@ public class VmEventResponse {
         this.id = id;
     }
 
-    public Calendar getDate() {
+    public ZonedDateTime getDate() {
         return date;
     }
 
-    public void setDate(Calendar date) {
+    public void setDate(ZonedDateTime date) {
         this.date = date;
     }
 

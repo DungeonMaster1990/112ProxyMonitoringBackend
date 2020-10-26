@@ -2,10 +2,10 @@ package Monitoring.Monitoring.dto.viewmodels.request;
 
 import org.springframework.lang.Nullable;
 
-import java.util.Calendar;
+import java.time.ZonedDateTime;
 
 public class VmAccidentsRequest extends VmPageRequestBase {
-    private Calendar startDate;
+    private ZonedDateTime startDate;
     private String[] affectedSystems;
     private String[] failurePoints;
     @Nullable
@@ -14,7 +14,7 @@ public class VmAccidentsRequest extends VmPageRequestBase {
     private int planTypeId;
     private String keyword;
 
-    public VmAccidentsRequest(Calendar startDate, String[] affectedSystems, String[] failurePoints, Long systemId, int planTypeId, String keyword, int limit, int page) {
+    public VmAccidentsRequest(ZonedDateTime startDate, String[] affectedSystems, String[] failurePoints, Long systemId, int planTypeId, String keyword, int limit, int page) {
         super(limit, page);
         this.startDate = startDate;
         this.affectedSystems = affectedSystems;
@@ -24,11 +24,11 @@ public class VmAccidentsRequest extends VmPageRequestBase {
         this.keyword = keyword;
     }
 
-    public Calendar getStartDate() {
+    public ZonedDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Calendar startDate) {
+    public void setStartDate(ZonedDateTime startDate) {
         this.startDate = startDate;
     }
 
