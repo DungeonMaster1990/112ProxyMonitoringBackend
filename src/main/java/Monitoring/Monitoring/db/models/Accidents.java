@@ -33,7 +33,7 @@ public class Accidents {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(name = "foreignId", unique = false, nullable = false)
     private String foreignId;

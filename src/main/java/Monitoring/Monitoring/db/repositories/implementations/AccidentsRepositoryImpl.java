@@ -16,7 +16,7 @@ public class AccidentsRepositoryImpl implements AccidentsRepository {
 
     public List<Accidents> getAccidents(){
 
-        Query accidentsQuery = entityManager.createQuery("from monitoring.Accidents", Accidents.class);
+        Query accidentsQuery = entityManager.createQuery("select a from Accidents a", Accidents.class);
         System.out.println(accidentsQuery.toString());
         List<Accidents> accidentsList = accidentsQuery.getResultList();
 
