@@ -1,9 +1,7 @@
 package Monitoring.Monitoring.db.models;
 
-import com.sun.istack.Nullable;
-
 import javax.persistence.*;
-import java.util.Calendar;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name="accidents", schema = "monitoring")
@@ -13,7 +11,7 @@ public class Accidents {
     public Accidents() {
     }
 
-    public Accidents(int id, String foreignId, String name, int priority, int statusId, String shortDescription, String description, String impactDescription, String failurePoint, Calendar detectionDate, Calendar startDate, Calendar finishDate, Calendar predictDate, String affectedSystems, String localizationAndRemediationActions, int specialistUserId) {
+    public Accidents(int id, String foreignId, String name, int priority, int statusId, String shortDescription, String description, String impactDescription, String failurePoint, ZonedDateTime detectionDate, ZonedDateTime startDate, ZonedDateTime finishDate, ZonedDateTime predictDate, String affectedSystems, String localizationAndRemediationActions, int specialistUserId) {
         this.id = id;
         this.foreignId = foreignId;
         this.name = name;
@@ -35,7 +33,7 @@ public class Accidents {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    @Column(name = "foreignId", unique = false, nullable = false)
+    @Column(name = "foreign_id", unique = false, nullable = false)
     private String foreignId;
 
     @Column(name = "name", unique = false, nullable = false)
@@ -44,40 +42,40 @@ public class Accidents {
     @Column(name = "priority", unique = false, nullable = true)
     private int priority;
 
-    @Column(name = "statusId", unique = false, nullable = true)
+    @Column(name = "status_id", unique = false, nullable = true)
     private int statusId;
 
-    @Column(name = "shortDescription", unique = false, nullable = true)
+    @Column(name = "short_description", unique = false, nullable = true)
     private String shortDescription;
 
     @Column(name = "description", unique = false, nullable = true)
     private String description;
 
-    @Column(name = "impactDescription", unique = false, nullable = true)
+    @Column(name = "impact_description", unique = false, nullable = true)
     private String impactDescription;
 
-    @Column(name = "failurePoint", unique = false, nullable = true)
+    @Column(name = "failure_point", unique = false, nullable = true)
     private String failurePoint;
 
-    @Column(name = "detectionDate", unique = false, nullable = false)
-    private Calendar detectionDate;
+    @Column(name = "detection_date", unique = false, nullable = false)
+    private ZonedDateTime detectionDate;
 
-    @Column(name = "startDate", unique = false, nullable = true)
-    private Calendar startDate;
+    @Column(name = "start_date", unique = false, nullable = true)
+    private ZonedDateTime startDate;
 
-    @Column(name = "finishDate", unique = false, nullable = true)
-    private Calendar finishDate;
+    @Column(name = "finish_date", unique = false, nullable = true)
+    private ZonedDateTime finishDate;
 
-    @Column(name = "predictDate", unique = false, nullable = true)
-    private Calendar predictDate;
+    @Column(name = "predict_date", unique = false, nullable = true)
+    private ZonedDateTime predictDate;
 
-    @Column(name = "affectedSystems", unique = false, nullable = true)
+    @Column(name = "affected_systems", unique = false, nullable = true)
     private String affectedSystems;
 
-    @Column(name = "localizationAndRemediationActions", unique = false, nullable = true)
+    @Column(name = "localization_and_remediation_actions", unique = false, nullable = true)
     private String localizationAndRemediationActions;
 
-    @Column(name = "specialistUserId", unique = false, nullable = true)
+    @Column(name = "specialist_user_d", unique = false, nullable = true)
     private int specialistUserId;
 
     public int getId() {
@@ -152,35 +150,33 @@ public class Accidents {
         this.failurePoint = failurePoint;
     }
 
-    public Calendar getDetectionDate() {
+    public ZonedDateTime getDetectionDate() {
         return detectionDate;
     }
 
-    public void setDetectionDate(Calendar detectionDate) {
+    public void setDetectionDate(ZonedDateTime detectionDate) {
         this.detectionDate = detectionDate;
     }
 
-    public Calendar getStartDate() {
+    public ZonedDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Calendar startDate) {
+    public void setStartDate(ZonedDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public Calendar getFinishDate() {
+    public ZonedDateTime getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(Calendar finishDate) {
-        this.finishDate = finishDate;
-    }
+    public void setFinishDate(ZonedDateTime finishDate) { this.finishDate = finishDate; }
 
-    public Calendar getPredictDate() {
+    public ZonedDateTime getPredictDate() {
         return predictDate;
     }
 
-    public void setPredictDate(Calendar predictDate) {
+    public void setPredictDate(ZonedDateTime predictDate) {
         this.predictDate = predictDate;
     }
 
