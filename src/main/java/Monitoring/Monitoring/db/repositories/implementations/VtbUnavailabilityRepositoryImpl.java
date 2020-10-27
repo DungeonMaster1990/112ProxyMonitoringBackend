@@ -17,7 +17,7 @@ public class VtbUnavailabilityRepositoryImpl implements VtbUnavailabilityReposit
 
     @Override
     public List<VtbUnavailability> getAllVtbUnavailabilities() {
-        Query vtbUnavailabilityQuery = entityManager.createQuery("from monitoring.VtbUnavailability", VtbUnavailability.class);
+        Query vtbUnavailabilityQuery = entityManager.createQuery("select a from VtbUnavailability a", VtbUnavailability.class);
         List<VtbUnavailability> vtbIncidents = vtbUnavailabilityQuery.getResultList();
         return vtbIncidents;
     }
@@ -33,7 +33,7 @@ public class VtbUnavailabilityRepositoryImpl implements VtbUnavailabilityReposit
 
     @Override
     public VtbUnavailability getVtbUnavailability(int id) {
-        String query =  String.format("from monitoring.VtbUnavailability where id=%s;", id);
+        String query =  String.format("select a from VtbUnavailability a where id=%s;", id);
         VtbUnavailability vtbUnavailability = entityManager.createQuery(query, VtbUnavailability.class)
                 .getSingleResult();
         return vtbUnavailability;

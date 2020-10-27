@@ -16,7 +16,7 @@ public class VtbIncidentsRepositoryImpl implements VtbIncidentsRepository {
 
     @Override
     public List<VtbIncidents> getAllVtbIncidents() {
-        Query vtbIncidentsQuery = entityManager.createQuery("from monitoring.VtbIncidents", VtbIncidents.class);
+        Query vtbIncidentsQuery = entityManager.createQuery("select a from VtbIncidents a", VtbIncidents.class);
         List<VtbIncidents> vtbIncidents = vtbIncidentsQuery.getResultList();
         return vtbIncidents;
     }
@@ -32,7 +32,7 @@ public class VtbIncidentsRepositoryImpl implements VtbIncidentsRepository {
 
     @Override
     public VtbIncidents getVtbIncident(int id) {
-        String query =  String.format("from monitoring.VtbIncidents where id=%s;", id);
+        String query =  String.format("select a from VtbIncidents a where id=%s;", id);
         VtbIncidents vtbIncident = entityManager.createQuery(query, VtbIncidents.class)
                 .getSingleResult();
         return  vtbIncident;
