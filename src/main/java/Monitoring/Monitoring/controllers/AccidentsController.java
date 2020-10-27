@@ -56,9 +56,9 @@ public class AccidentsController {
         return VmMock.vmAccidentDescriptionResponse;
     }
 
-    @GetMapping("/api/v1.0/accidents/callDb")
-    public List<Accidents> getAllAccidents()
-    {
-        return accidentRepository.getAccidents();
-    }
+//    @GetMapping("/api/v1.0/accidents/callDb")
+//    public List<Accidents> getAllAccidents()
+//    {
+//        return accidentRepository.getAllAccidents();
+//    }
 }
