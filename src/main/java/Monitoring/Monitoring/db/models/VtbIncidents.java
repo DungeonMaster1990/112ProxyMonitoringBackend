@@ -5,7 +5,6 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="vtbIncidents", schema = "monitoring")
-
 public class VtbIncidents {
     public VtbIncidents(int id, String incidentId, ZonedDateTime createdAt, ZonedDateTime expiredAt, int authorId, int contactId, int serviceId, String category, String failurePoint, int configurationItemId, String title, String description, String impact, String severity, int groupId, String assigneeId, String status, String closeCode, String resolution, String comment, ZonedDateTime updatedAt, String type, ZonedDateTime slaStartTime, String jiraNumber, String templateName, String extOrganization, String extId, String extStatus, String extAssigneeTime, String source, String specialistId, String priority, ZonedDateTime identedAt, ZonedDateTime factEndAt, ZonedDateTime factBeginAt) {
         this.id = id;
