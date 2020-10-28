@@ -16,7 +16,7 @@ public class AccidentsRepositoryImpl implements AccidentsRepository {
     private EntityManager entityManager;
 
     public List<Accidents> getAllAccidents() {
-        Query accidentsQuery = entityManager.createQuery("from monitoring.Accidents", Accidents.class);
+        Query accidentsQuery = entityManager.createQuery("select a from Accidents a", Accidents.class);
         List<Accidents> accidentsList = accidentsQuery.getResultList();
         return accidentsList;
     }
@@ -32,7 +32,7 @@ public class AccidentsRepositoryImpl implements AccidentsRepository {
 
     @Override
     public Accidents getVtbAccident(int id) {
-        String query = String.format("from monitoring.Accidents where id=%s;", id);
+        String query = String.format("select a from accidents a where id=%s;", id);
         Accidents vtbAccident = entityManager.createQuery(query, Accidents.class)
                 .getSingleResult();
         return vtbAccident;
