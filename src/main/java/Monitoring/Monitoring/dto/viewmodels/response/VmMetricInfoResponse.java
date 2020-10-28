@@ -2,16 +2,16 @@ package Monitoring.Monitoring.dto.viewmodels.response;
 
 import Monitoring.Monitoring.dto.viewmodels.enums.BlMetricsStatus;
 
-import java.util.Calendar;
+import java.time.ZonedDateTime;
 
 public class VmMetricInfoResponse {
     private long value;
     private long delta;
     private double deltaPercent;
     private BlMetricsStatus deltaStatus;
-    private Calendar date;
+    private ZonedDateTime date;
 
-    public VmMetricInfoResponse(long value, long delta, double deltaPercent, BlMetricsStatus deltaStatus, Calendar date) {
+    public VmMetricInfoResponse(long value, long delta, double deltaPercent, BlMetricsStatus deltaStatus, ZonedDateTime date) {
         this.value = value;
         this.delta = delta;
         this.deltaPercent = deltaPercent;
@@ -51,11 +51,11 @@ public class VmMetricInfoResponse {
         this.deltaStatus = deltaStatus;
     }
 
-    public Calendar getDate() {
+    public ZonedDateTime getDate() {
         return date;
     }
 
-    public void setDate(Calendar date) {
+    public void setDate(ZonedDateTime date) {
         this.date = date;
     }
 }

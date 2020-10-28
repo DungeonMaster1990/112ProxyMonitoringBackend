@@ -2,7 +2,7 @@ package Monitoring.Monitoring.dto.viewmodels.response;
 
 import Monitoring.Monitoring.dto.viewmodels.enums.BlPlanStatusType;
 
-import java.util.Calendar;
+import java.time.ZonedDateTime;
 
 public class VmPlanResponse {
     private String id;
@@ -11,9 +11,9 @@ public class VmPlanResponse {
     private BlPlanStatusType statusType;
     private String description;
     private String[] affectedSystems;
-    private Calendar startDate;
+    private ZonedDateTime startDate;
 
-    public VmPlanResponse(String id, String name, String status, BlPlanStatusType statusType, String description, String[] affectedSystems, Calendar startDate) {
+    public VmPlanResponse(String id, String name, String status, BlPlanStatusType statusType, String description, String[] affectedSystems, ZonedDateTime startDate) {
         this.id = id;
         this.name = name;
         this.status = status;
@@ -71,11 +71,11 @@ public class VmPlanResponse {
         this.affectedSystems = affectedSystems;
     }
 
-    public Calendar getStartDate() {
+    public ZonedDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Calendar startDate) {
+    public void setStartDate(ZonedDateTime startDate) {
         this.startDate = startDate;
     }
 }

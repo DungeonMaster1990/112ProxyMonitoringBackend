@@ -3,33 +3,33 @@ package Monitoring.Monitoring.dto.viewmodels.request;
 import Monitoring.Monitoring.dto.viewmodels.enums.BlWorkType;
 import org.springframework.lang.Nullable;
 
-import java.util.Calendar;
+import java.time.ZonedDateTime;
 
 public class VmEventRequest {
-    private Calendar startDate;
-    private Calendar finishDate;
+    private ZonedDateTime startDate;
+    private ZonedDateTime finishDate;
     @Nullable
     private BlWorkType type;
 
-    public VmEventRequest(Calendar startDate, Calendar finishDate, @Nullable BlWorkType type) {
+    public VmEventRequest(ZonedDateTime startDate, ZonedDateTime finishDate, @Nullable BlWorkType type) {
         this.startDate = startDate;
         this.finishDate = finishDate;
         this.type = type;
     }
 
-    public Calendar getStartDate() {
+    public ZonedDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Calendar startDate) {
+    public void setStartDate(ZonedDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public Calendar getFinishDate() {
+    public ZonedDateTime getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(Calendar finishDate) {
+    public void setFinishDate(ZonedDateTime finishDate) {
         this.finishDate = finishDate;
     }
 

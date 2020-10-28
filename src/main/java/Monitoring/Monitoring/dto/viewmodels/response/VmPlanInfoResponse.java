@@ -2,7 +2,7 @@ package Monitoring.Monitoring.dto.viewmodels.response;
 
 import Monitoring.Monitoring.dto.viewmodels.enums.BlPlanStatus;
 
-import java.util.Calendar;
+import java.time.ZonedDateTime;
 
 public class VmPlanInfoResponse {
     private String id;
@@ -14,12 +14,12 @@ public class VmPlanInfoResponse {
     private String degradationRate;
     private String configurationUnit;
     private String[] affectedSystems;
-    private Calendar startDate;
-    private Calendar finishDate;
-    private Calendar startDownDate;
-    private Calendar finishDownDate;
+    private ZonedDateTime startDate;
+    private ZonedDateTime finishDate;
+    private ZonedDateTime startDownDate;
+    private ZonedDateTime finishDownDate;
 
-    public VmPlanInfoResponse(String id, String name, String status, BlPlanStatus statusType, String description, String impactDescription, String degradationRate, String configurationUnit, String[] affectedSystems, Calendar startDate, Calendar finishDate, Calendar startDownDate, Calendar finishDownDate) {
+    public VmPlanInfoResponse(String id, String name, String status, BlPlanStatus statusType, String description, String impactDescription, String degradationRate, String configurationUnit, String[] affectedSystems, ZonedDateTime startDate, ZonedDateTime finishDate, ZonedDateTime startDownDate, ZonedDateTime finishDownDate) {
         this.id = id;
         this.name = name;
         this.status = status;
@@ -107,35 +107,35 @@ public class VmPlanInfoResponse {
         this.affectedSystems = affectedSystems;
     }
 
-    public Calendar getStartDate() {
+    public ZonedDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Calendar startDate) {
+    public void setStartDate(ZonedDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public Calendar getFinishDate() {
+    public ZonedDateTime getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(Calendar finishDate) {
+    public void setFinishDate(ZonedDateTime finishDate) {
         this.finishDate = finishDate;
     }
 
-    public Calendar getStartDownDate() {
+    public ZonedDateTime getStartDownDate() {
         return startDownDate;
     }
 
-    public void setStartDownDate(Calendar startDownDate) {
+    public void setStartDownDate(ZonedDateTime startDownDate) {
         this.startDownDate = startDownDate;
     }
 
-    public Calendar getFinishDownDate() {
+    public ZonedDateTime getFinishDownDate() {
         return finishDownDate;
     }
 
-    public void setFinishDownDate(Calendar finishDownDate) {
+    public void setFinishDownDate(ZonedDateTime finishDownDate) {
         this.finishDownDate = finishDownDate;
     }
 }

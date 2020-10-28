@@ -2,7 +2,7 @@ package Monitoring.Monitoring.dto.viewmodels.response;
 
 import Monitoring.Monitoring.dto.viewmodels.enums.BlAccidentStatusType;
 
-import java.util.Calendar;
+import java.time.ZonedDateTime;
 
 public class VmAccidentInfoResponse {
     private String id;
@@ -15,13 +15,13 @@ public class VmAccidentInfoResponse {
     private String failurePoint;
     private String configurationUnit;
     private String[] affectedSystems;
-    private Calendar startDate;
-    private Calendar detectionDate;
-    private Calendar predictDate;
+    private ZonedDateTime startDate;
+    private ZonedDateTime detectionDate;
+    private ZonedDateTime predictDate;
     private String conferenceLink;
     private String telegramLink;
 
-    public VmAccidentInfoResponse(String id, String name, int category, String status, BlAccidentStatusType statusType, String description, String impactDescription, String failurePoint, String configurationUnit, String[] affectedSystems, Calendar startDate, Calendar detectionDate, Calendar predictDate, String conferenceLink, String telegramLink) {
+    public VmAccidentInfoResponse(String id, String name, int category, String status, BlAccidentStatusType statusType, String description, String impactDescription, String failurePoint, String configurationUnit, String[] affectedSystems, ZonedDateTime startDate, ZonedDateTime detectionDate, ZonedDateTime predictDate, String conferenceLink, String telegramLink) {
         this.id = id;
         this.name = name;
         this.category = category;
@@ -119,27 +119,27 @@ public class VmAccidentInfoResponse {
         this.affectedSystems = affectedSystems;
     }
 
-    public Calendar getStartDate() {
+    public ZonedDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Calendar startDate) {
+    public void setStartDate(ZonedDateTime startDate) {
         this.startDate = startDate;
     }
 
-    public Calendar getDetectionDate() {
+    public ZonedDateTime getDetectionDate() {
         return detectionDate;
     }
 
-    public void setDetectionDate(Calendar detectionDate) {
+    public void setDetectionDate(ZonedDateTime detectionDate) {
         this.detectionDate = detectionDate;
     }
 
-    public Calendar getPredictDate() {
+    public ZonedDateTime getPredictDate() {
         return predictDate;
     }
 
-    public void setPredictDate(Calendar predictDate) {
+    public void setPredictDate(ZonedDateTime predictDate) {
         this.predictDate = predictDate;
     }
 

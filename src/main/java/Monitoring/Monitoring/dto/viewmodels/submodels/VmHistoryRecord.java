@@ -1,14 +1,14 @@
 package Monitoring.Monitoring.dto.viewmodels.submodels;
 
-import java.util.Calendar;
+import java.time.ZonedDateTime;
 
 public class VmHistoryRecord {
     private String name;
-    private Calendar finishDate;
+    private ZonedDateTime finishDate;
     private String role;
     private String description;
 
-    public VmHistoryRecord(String name, Calendar finishDate, String role, String description) {
+    public VmHistoryRecord(String name, ZonedDateTime finishDate, String role, String description) {
         this.name = name;
         this.finishDate = finishDate;
         this.role = role;
@@ -23,11 +23,11 @@ public class VmHistoryRecord {
         this.name = name;
     }
 
-    public Calendar getFinishDate() {
+    public ZonedDateTime getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(Calendar finishDate) {
+    public void setFinishDate(ZonedDateTime finishDate) {
         this.finishDate = finishDate;
     }
 
