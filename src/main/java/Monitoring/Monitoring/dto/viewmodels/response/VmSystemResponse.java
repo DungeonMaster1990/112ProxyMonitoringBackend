@@ -17,6 +17,8 @@ public class VmSystemResponse {
         this.minorAccidents = minorAccidents;
     }
 
+    public VmSystemResponse(){}
+
     public String getId() {
         return id;
     }

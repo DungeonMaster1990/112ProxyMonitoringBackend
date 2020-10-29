@@ -23,6 +23,8 @@ public class VmPlanResponse {
         this.startDate = startDate;
     }
 
+    public VmPlanResponse(){}
+
     public String getId() {
         return id;
     }

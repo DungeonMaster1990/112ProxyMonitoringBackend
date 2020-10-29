@@ -9,6 +9,8 @@ public class VmPlanDescriptionResponse {
         this.value = value;
     }
 
+    public VmPlanDescriptionResponse(){}
+
     public String getName() {
         return name;
     }

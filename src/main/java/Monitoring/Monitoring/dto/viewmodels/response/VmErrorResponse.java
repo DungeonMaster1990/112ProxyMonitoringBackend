@@ -9,6 +9,8 @@ public class VmErrorResponse {
         this.requestCode = requestCode;
     }
 
+    public VmErrorResponse(){}
+
     public String getErrorMessage() {
         return errorMessage;
     }

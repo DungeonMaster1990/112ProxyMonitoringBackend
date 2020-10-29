@@ -12,6 +12,8 @@ public class VmAccidentWorkersResponse {
         this.workers = workers;
     }
 
+    public VmAccidentWorkersResponse(){}
+
     public VmManager getManager() {
         return manager;
     }
