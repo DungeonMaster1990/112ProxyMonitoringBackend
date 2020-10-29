@@ -16,12 +16,13 @@ import java.util.List;
 @Service
 public class AccidentsServiceImpl implements AccidentsService {
     private AccidentsRepository accidentsRepository;
+
     private ModelMapper modelMapper;
 
     @Autowired
-    public AccidentsServiceImpl(AccidentsRepository accidentsRepository, ModelMapper modelMapper) {
+    public AccidentsServiceImpl(AccidentsRepository accidentsRepository) {
         this.accidentsRepository = accidentsRepository;
-        this.modelMapper = modelMapper;
+        this.modelMapper = new ModelMapper();
     }
 
     @Override
