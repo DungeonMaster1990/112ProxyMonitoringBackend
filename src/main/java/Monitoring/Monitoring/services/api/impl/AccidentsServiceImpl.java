@@ -1,6 +1,6 @@
-package Monitoring.Monitoring.services.impl;
+package Monitoring.Monitoring.services.api.impl;
 
-import Monitoring.Monitoring.services.interfaces.AccidentsService;
+import Monitoring.Monitoring.services.api.interfaces.AccidentsService;
 import org.springframework.stereotype.Service;
 
 @Service
