@@ -1,8 +1,8 @@
 package Monitoring.Monitoring.controllers;
 
 import Monitoring.Monitoring.VmMock.VmMock;
-import Monitoring.Monitoring.dto.viewmodels.request.VmEventRequest;
-import Monitoring.Monitoring.dto.viewmodels.response.VmEventResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.request.VmEventRequest;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmEventResponse;
 import Monitoring.Monitoring.services.api.interfaces.EventsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

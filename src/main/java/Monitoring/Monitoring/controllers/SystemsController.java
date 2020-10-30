@@ -1,8 +1,8 @@
 package Monitoring.Monitoring.controllers;
 
 import Monitoring.Monitoring.VmMock.VmMock;
-import Monitoring.Monitoring.dto.viewmodels.response.VmSystemResponse;
-import Monitoring.Monitoring.dto.viewmodels.response.VmUpdateResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmSystemResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmUpdateResponse;
 import Monitoring.Monitoring.services.api.interfaces.SystemsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

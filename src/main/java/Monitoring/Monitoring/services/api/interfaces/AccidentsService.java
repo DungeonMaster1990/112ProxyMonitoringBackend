@@ -1,8 +1,8 @@
 package Monitoring.Monitoring.services.api.interfaces;
 
-import Monitoring.Monitoring.dto.viewmodels.request.VmAccidentsRequest;
-import Monitoring.Monitoring.dto.viewmodels.response.VmAccidentResponse;
-import Monitoring.Monitoring.dto.viewmodels.response.VmAccidentsResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.request.VmAccidentsRequest;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmAccidentResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmAccidentsResponse;
 
 import java.util.ArrayList;
 import java.util.List;

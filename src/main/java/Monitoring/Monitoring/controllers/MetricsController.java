@@ -1,11 +1,11 @@
 package Monitoring.Monitoring.controllers;
 
 import Monitoring.Monitoring.VmMock.VmMock;
-import Monitoring.Monitoring.dto.viewmodels.request.VmMetricInfoRequest;
-import Monitoring.Monitoring.dto.viewmodels.request.VmMetricsRequest;
-import Monitoring.Monitoring.dto.viewmodels.response.VmMetricInfoResponse;
-import Monitoring.Monitoring.dto.viewmodels.response.VmMetricsResponse;
-import Monitoring.Monitoring.dto.viewmodels.response.VmUpdateResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.request.VmMetricInfoRequest;
+import Monitoring.Monitoring.dto.api.viewmodels.request.VmMetricsRequest;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmMetricInfoResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmMetricsResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmUpdateResponse;
 import Monitoring.Monitoring.services.api.interfaces.MetricsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

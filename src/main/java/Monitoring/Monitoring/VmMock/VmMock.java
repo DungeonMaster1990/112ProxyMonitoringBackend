@@ -1,10 +1,10 @@
 package Monitoring.Monitoring.VmMock;
 
-import Monitoring.Monitoring.dto.viewmodels.enums.*;
-import Monitoring.Monitoring.dto.viewmodels.response.*;
-import Monitoring.Monitoring.dto.viewmodels.submodels.VmHistoryRecord;
-import Monitoring.Monitoring.dto.viewmodels.submodels.VmManager;
-import Monitoring.Monitoring.dto.viewmodels.submodels.VmWorker;
+import Monitoring.Monitoring.dto.api.viewmodels.enums.*;
+import Monitoring.Monitoring.dto.api.viewmodels.response.*;
+import Monitoring.Monitoring.dto.api.viewmodels.submodels.VmHistoryRecord;
+import Monitoring.Monitoring.dto.api.viewmodels.submodels.VmManager;
+import Monitoring.Monitoring.dto.api.viewmodels.submodels.VmWorker;
 
 import java.time.*;
 

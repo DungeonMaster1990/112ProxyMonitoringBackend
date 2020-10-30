@@ -2,9 +2,9 @@ package Monitoring.Monitoring.services.api.impl;
 
 import Monitoring.Monitoring.db.models.Accidents;
 import Monitoring.Monitoring.db.repositories.interfaces.AccidentsRepository;
-import Monitoring.Monitoring.dto.viewmodels.request.VmAccidentsRequest;
-import Monitoring.Monitoring.dto.viewmodels.response.VmAccidentResponse;
-import Monitoring.Monitoring.dto.viewmodels.response.VmAccidentsResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.request.VmAccidentsRequest;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmAccidentResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmAccidentsResponse;
 import Monitoring.Monitoring.services.api.interfaces.AccidentsService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
