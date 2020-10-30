@@ -6,30 +6,6 @@ import java.time.ZonedDateTime;
 @Entity
 @Table(name="accidents", schema = "monitoring")
 public class Accidents {
-
-
-    public Accidents() {
-    }
-
-    public Accidents(int id, String foreignId, String name, int priority, int statusId, String shortDescription, String description, String impactDescription, String failurePoint, ZonedDateTime detectionDate, ZonedDateTime startDate, ZonedDateTime finishDate, ZonedDateTime predictDate, String affectedSystems, String localizationAndRemediationActions, int specialistUserId) {
-        this.id = id;
-        this.foreignId = foreignId;
-        this.name = name;
-        this.priority = priority;
-        this.statusId = statusId;
-        this.shortDescription = shortDescription;
-        this.description = description;
-        this.impactDescription = impactDescription;
-        this.failurePoint = failurePoint;
-        this.detectionDate = detectionDate;
-        this.startDate = startDate;
-        this.finishDate = finishDate;
-        this.predictDate = predictDate;
-        this.affectedSystems = affectedSystems;
-        this.localizationAndRemediationActions = localizationAndRemediationActions;
-        this.specialistUserId = specialistUserId;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -77,6 +53,27 @@ public class Accidents {
 
     @Column(name = "specialist_user_d", unique = false, nullable = true)
     private int specialistUserId;
+
+    public Accidents() {}
+
+    public Accidents(int id, String foreignId, String name, int priority, int statusId, String shortDescription, String description, String impactDescription, String failurePoint, ZonedDateTime detectionDate, ZonedDateTime startDate, ZonedDateTime finishDate, ZonedDateTime predictDate, String affectedSystems, String localizationAndRemediationActions, int specialistUserId) {
+        this.id = id;
+        this.foreignId = foreignId;
+        this.name = name;
+        this.priority = priority;
+        this.statusId = statusId;
+        this.shortDescription = shortDescription;
+        this.description = description;
+        this.impactDescription = impactDescription;
+        this.failurePoint = failurePoint;
+        this.detectionDate = detectionDate;
+        this.startDate = startDate;
+        this.finishDate = finishDate;
+        this.predictDate = predictDate;
+        this.affectedSystems = affectedSystems;
+        this.localizationAndRemediationActions = localizationAndRemediationActions;
+        this.specialistUserId = specialistUserId;
+    }
 
     public int getId() {
         return id;
