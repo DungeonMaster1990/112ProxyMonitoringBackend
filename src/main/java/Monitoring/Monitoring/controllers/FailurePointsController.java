@@ -1,7 +1,7 @@
 package Monitoring.Monitoring.controllers;
 
 import Monitoring.Monitoring.VmMock.VmMock;
-import Monitoring.Monitoring.services.interfaces.FailurePointsService;
+import Monitoring.Monitoring.services.api.interfaces.FailurePointsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

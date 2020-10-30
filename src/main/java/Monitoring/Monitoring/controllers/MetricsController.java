@@ -6,7 +6,7 @@ import Monitoring.Monitoring.dto.viewmodels.request.VmMetricsRequest;
 import Monitoring.Monitoring.dto.viewmodels.response.VmMetricInfoResponse;
 import Monitoring.Monitoring.dto.viewmodels.response.VmMetricsResponse;
 import Monitoring.Monitoring.dto.viewmodels.response.VmUpdateResponse;
-import Monitoring.Monitoring.services.interfaces.MetricsService;
+import Monitoring.Monitoring.services.api.interfaces.MetricsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

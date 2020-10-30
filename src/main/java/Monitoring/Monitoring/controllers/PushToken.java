@@ -1,7 +1,7 @@
 package Monitoring.Monitoring.controllers;
 
 import Monitoring.Monitoring.dto.viewmodels.request.VmPushTokenRequest;
-import Monitoring.Monitoring.services.interfaces.PushTokenService;
+import Monitoring.Monitoring.services.api.interfaces.PushTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;

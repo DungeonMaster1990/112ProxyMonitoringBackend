@@ -1,11 +1,11 @@
-package Monitoring.Monitoring.services.impl;
+package Monitoring.Monitoring.services.api.impl;
 
 import Monitoring.Monitoring.db.models.Accidents;
 import Monitoring.Monitoring.db.repositories.interfaces.AccidentsRepository;
 import Monitoring.Monitoring.dto.viewmodels.request.VmAccidentsRequest;
 import Monitoring.Monitoring.dto.viewmodels.response.VmAccidentResponse;
 import Monitoring.Monitoring.dto.viewmodels.response.VmAccidentsResponse;
-import Monitoring.Monitoring.services.interfaces.AccidentsService;
+import Monitoring.Monitoring.services.api.interfaces.AccidentsService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

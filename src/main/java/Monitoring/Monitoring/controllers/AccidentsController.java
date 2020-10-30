@@ -1,17 +1,11 @@
 package Monitoring.Monitoring.controllers;
 
 import Monitoring.Monitoring.VmMock.VmMock;
-import Monitoring.Monitoring.db.models.Accidents;
-import Monitoring.Monitoring.db.repositories.interfaces.AccidentsRepository;
 import Monitoring.Monitoring.dto.viewmodels.request.VmAccidentsRequest;
-import Monitoring.Monitoring.dto.viewmodels.request.VmPlanRequest;
 import Monitoring.Monitoring.dto.viewmodels.response.*;
-import Monitoring.Monitoring.services.interfaces.AccidentsService;
-import org.modelmapper.ModelMapper;
+import Monitoring.Monitoring.services.api.interfaces.AccidentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class AccidentsController {
