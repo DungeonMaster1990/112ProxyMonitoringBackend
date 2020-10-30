@@ -25,6 +25,8 @@ public class VmAccidentResponse {
         this.statusType = statusType;
     }
 
+    public VmAccidentResponse(){}
+
     public String getId() {
         return id;
     }

@@ -39,6 +39,8 @@ public class VmAccidentInfoResponse {
         this.telegramLink = telegramLink;
     }
 
+    public VmAccidentInfoResponse(){}
+
     public String getId() {
         return id;
     }

@@ -23,6 +23,8 @@ public class VmMetricsResponse {
         this.totalPercent = totalPercent;
     }
 
+    public VmMetricsResponse(){}
+
     public String getId() {
         return id;
     }

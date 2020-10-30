@@ -15,6 +15,8 @@ public class VmEventResponse {
         this.type = type;
     }
 
+    public VmEventResponse(){}
+
     public String getId() {
         return id;
     }

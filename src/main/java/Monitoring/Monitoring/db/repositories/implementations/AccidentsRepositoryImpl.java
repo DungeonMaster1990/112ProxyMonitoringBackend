@@ -31,7 +31,7 @@ public class AccidentsRepositoryImpl implements AccidentsRepository {
     }
 
     @Override
-    public Accidents getVtbAccident(int id) {
+    public Accidents getAccident(int id) {
         String query = String.format("select a from accidents a where id=%s;", id);
         Accidents vtbAccident = entityManager.createQuery(query, Accidents.class)
                 .getSingleResult();

@@ -7,6 +7,8 @@ public class VmUpdateResponse {
         this.result = result;
     }
 
+    public VmUpdateResponse(){}
+
     public String getResult() {
         return result;
     }

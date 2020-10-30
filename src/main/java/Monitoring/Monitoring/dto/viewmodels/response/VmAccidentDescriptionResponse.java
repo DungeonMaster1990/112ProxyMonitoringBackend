@@ -9,6 +9,8 @@ public class VmAccidentDescriptionResponse {
         this.value = value;
     }
 
+    public VmAccidentDescriptionResponse(){}
+
     public String getName() { return name; }
 
     public void setName(String name) {

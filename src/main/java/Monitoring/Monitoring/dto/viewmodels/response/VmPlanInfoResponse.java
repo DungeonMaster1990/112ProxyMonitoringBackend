@@ -35,6 +35,8 @@ public class VmPlanInfoResponse {
         this.finishDownDate = finishDownDate;
     }
 
+    public VmPlanInfoResponse(){}
+
     public String getId() {
         return id;
     }

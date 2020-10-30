@@ -9,6 +9,8 @@ public class VmNewAccidentResponse {
         this.name = name;
     }
 
+    public VmNewAccidentResponse(){}
+
     public String getId() {
         return id;
     }

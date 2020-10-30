@@ -7,5 +7,5 @@ import java.util.List;
 public interface AccidentsRepository {
     List<Accidents> getAllAccidents();
     void putAccidents(List<Accidents> vtbAccidents);
-    Accidents getVtbAccident(int id);
+    Accidents getAccident(int id);
 }

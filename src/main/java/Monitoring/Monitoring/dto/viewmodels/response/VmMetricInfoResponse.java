@@ -19,6 +19,8 @@ public class VmMetricInfoResponse {
         this.date = date;
     }
 
+    public VmMetricInfoResponse(){}
+
     public long getValue() {
         return value;
     }

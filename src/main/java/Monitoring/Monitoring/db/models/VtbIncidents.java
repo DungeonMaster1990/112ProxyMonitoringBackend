@@ -6,43 +6,6 @@ import javax.persistence.*;
 @Entity
 @Table(name="vtbIncidents", schema = "monitoring")
 public class VtbIncidents {
-    public VtbIncidents(int id, String incidentId, ZonedDateTime createdAt, ZonedDateTime expiredAt, int authorId, int contactId, int serviceId, String category, String failurePoint, int configurationItemId, String title, String description, String impact, String severity, int groupId, String assigneeId, String status, String closeCode, String resolution, String comment, ZonedDateTime updatedAt, String type, ZonedDateTime slaStartTime, String jiraNumber, String templateName, String extOrganization, String extId, String extStatus, String extAssigneeTime, String source, String specialistId, String priority, ZonedDateTime identedAt, ZonedDateTime factEndAt, ZonedDateTime factBeginAt) {
-        this.id = id;
-        this.incidentId = incidentId;
-        this.createdAt = createdAt;
-        this.expiredAt = expiredAt;
-        this.authorId = authorId;
-        this.contactId = contactId;
-        this.serviceId = serviceId;
-        this.category = category;
-        this.failurePoint = failurePoint;
-        this.configurationItemId = configurationItemId;
-        this.title = title;
-        this.description = description;
-        this.impact = impact;
-        this.severity = severity;
-        this.groupId = groupId;
-        this.assigneeId = assigneeId;
-        this.status = status;
-        this.closeCode = closeCode;
-        this.resolution = resolution;
-        this.comment = comment;
-        this.updatedAt = updatedAt;
-        this.type = type;
-        this.slaStartTime = slaStartTime;
-        this.jiraNumber = jiraNumber;
-        this.templateName = templateName;
-        this.extOrganization = extOrganization;
-        this.extId = extId;
-        this.extStatus = extStatus;
-        this.extAssigneeTime = extAssigneeTime;
-        this.source = source;
-        this.specialistId = specialistId;
-        this.priority = priority;
-        this.identedAt = identedAt;
-        this.factEndAt = factEndAt;
-        this.factBeginAt = factBeginAt;
-    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -148,6 +111,46 @@ public class VtbIncidents {
 
     @Column(name = "fact_begin_at", unique = false, nullable = true)
     private ZonedDateTime factBeginAt;
+
+    public VtbIncidents(){}
+
+    public VtbIncidents(int id, String incidentId, ZonedDateTime createdAt, ZonedDateTime expiredAt, int authorId, int contactId, int serviceId, String category, String failurePoint, int configurationItemId, String title, String description, String impact, String severity, int groupId, String assigneeId, String status, String closeCode, String resolution, String comment, ZonedDateTime updatedAt, String type, ZonedDateTime slaStartTime, String jiraNumber, String templateName, String extOrganization, String extId, String extStatus, String extAssigneeTime, String source, String specialistId, String priority, ZonedDateTime identedAt, ZonedDateTime factEndAt, ZonedDateTime factBeginAt) {
+        this.id = id;
+        this.incidentId = incidentId;
+        this.createdAt = createdAt;
+        this.expiredAt = expiredAt;
+        this.authorId = authorId;
+        this.contactId = contactId;
+        this.serviceId = serviceId;
+        this.category = category;
+        this.failurePoint = failurePoint;
+        this.configurationItemId = configurationItemId;
+        this.title = title;
+        this.description = description;
+        this.impact = impact;
+        this.severity = severity;
+        this.groupId = groupId;
+        this.assigneeId = assigneeId;
+        this.status = status;
+        this.closeCode = closeCode;
+        this.resolution = resolution;
+        this.comment = comment;
+        this.updatedAt = updatedAt;
+        this.type = type;
+        this.slaStartTime = slaStartTime;
+        this.jiraNumber = jiraNumber;
+        this.templateName = templateName;
+        this.extOrganization = extOrganization;
+        this.extId = extId;
+        this.extStatus = extStatus;
+        this.extAssigneeTime = extAssigneeTime;
+        this.source = source;
+        this.specialistId = specialistId;
+        this.priority = priority;
+        this.identedAt = identedAt;
+        this.factEndAt = factEndAt;
+        this.factBeginAt = factBeginAt;
+    }
 
     public int getId() {
         return id;

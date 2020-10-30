@@ -12,6 +12,8 @@ public class VmPlanWorkersResponse {
         this.workers = workers;
     }
 
+    public VmPlanWorkersResponse(){}
+
     public VmManager getManager() {
         return manager;
     }

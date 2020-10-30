@@ -1,6 +1,7 @@
 package Monitoring.Monitoring.dto.viewmodels.response;
 
 import Monitoring.Monitoring.dto.viewmodels.enums.BlAccidentStatusType;
+import Monitoring.Monitoring.dto.viewmodels.request.VmAccidentsRequest;
 
 import java.time.ZonedDateTime;
 
@@ -25,6 +26,8 @@ public class VmAccidentsResponse {
         this.status = status;
         this.statusType = statusType;
     }
+
+    public VmAccidentsResponse(){}
 
     public String getId() {
         return id;

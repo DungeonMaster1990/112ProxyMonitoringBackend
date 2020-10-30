@@ -11,6 +11,8 @@ public class VmAccidentHistoryResponse {
         this.planHistory = planHistory;
     }
 
+    public VmAccidentHistoryResponse(){}
+
     public VmHistoryRecord[] getCompletedHistory() {
         return completedHistory;
     }

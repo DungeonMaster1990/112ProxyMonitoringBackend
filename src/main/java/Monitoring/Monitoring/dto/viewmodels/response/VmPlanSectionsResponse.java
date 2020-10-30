@@ -11,6 +11,8 @@ public class VmPlanSectionsResponse {
         this.count = count;
     }
 
+    public VmPlanSectionsResponse(){}
+
     public String getId() {
         return id;
     }

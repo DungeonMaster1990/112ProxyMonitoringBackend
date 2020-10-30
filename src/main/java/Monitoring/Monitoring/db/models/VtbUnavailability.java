@@ -6,6 +6,7 @@ import java.time.ZonedDateTime;
 @Entity
 @Table(name="vtbUnavailability", schema = "monitoring")
 public class VtbUnavailability {
+    public VtbUnavailability(){}
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
