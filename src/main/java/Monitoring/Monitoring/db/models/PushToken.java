@@ -1,6 +1,7 @@
 package Monitoring.Monitoring.db.models;
 
 import javax.persistence.*;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name="pushToken", schema = "monitoring")
@@ -18,13 +19,15 @@ public class PushToken {
     @Column(name = "platform", unique = false, nullable = false)
     private String platform;
 
-    public PushToken(){}
+    @Column(name = "update_token_date", unique = false, nullable = false)
+    private ZonedDateTime updateTokenDate;
 
-    public PushToken(int id, String token, String installId, String platform) {
+    public PushToken(int id, String token, String installId, String platform, ZonedDateTime updateTokenDate) {
         this.id = id;
         this.token = token;
         this.installId = installId;
         this.platform = platform;
+        this.updateTokenDate = updateTokenDate;
     }
 
     public int getId() {
@@ -57,5 +60,13 @@ public class PushToken {
 
     public void setPlatform(String platform) {
         this.platform = platform;
+    }
+
+    public ZonedDateTime getUpdateTokenDate() {
+        return updateTokenDate;
+    }
+
+    public void setUpdateTokenDate(ZonedDateTime updateTokenDate) {
+        this.updateTokenDate = updateTokenDate;
     }
 }
