@@ -1,6 +1,7 @@
 package Monitoring.Monitoring.dto.api.viewmodels.response;
 
 import Monitoring.Monitoring.dto.api.viewmodels.enums.BlMetricsStatus;
+import com.fasterxml.jackson.annotation.JsonGetter;
 
 public class VmMetricsResponse {
     private String id;
@@ -73,6 +74,7 @@ public class VmMetricsResponse {
         this.deltaPercent = deltaPercent;
     }
 
+    @JsonGetter
     public BlMetricsStatus getDeltaStatus() {
         return deltaStatus;
     }

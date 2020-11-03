@@ -1,6 +1,7 @@
 package Monitoring.Monitoring.dto.api.viewmodels.response;
 
 import Monitoring.Monitoring.dto.api.viewmodels.enums.BlMetricsStatus;
+import com.fasterxml.jackson.annotation.JsonGetter;
 
 import java.time.ZonedDateTime;
 
@@ -45,6 +46,7 @@ public class VmMetricInfoResponse {
         this.deltaPercent = deltaPercent;
     }
 
+    @JsonGetter
     public BlMetricsStatus getDeltaStatus() {
         return deltaStatus;
     }

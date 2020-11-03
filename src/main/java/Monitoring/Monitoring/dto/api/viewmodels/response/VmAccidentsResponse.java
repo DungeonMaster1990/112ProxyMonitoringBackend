@@ -1,6 +1,7 @@
 package Monitoring.Monitoring.dto.api.viewmodels.response;
 
 import Monitoring.Monitoring.dto.api.viewmodels.enums.BlAccidentStatusType;
+import com.fasterxml.jackson.annotation.JsonGetter;
 
 import java.time.ZonedDateTime;
 
@@ -84,6 +85,7 @@ public class VmAccidentsResponse {
         this.status = status;
     }
 
+    @JsonGetter
     public BlAccidentStatusType getStatusType() {
         return statusType;
     }

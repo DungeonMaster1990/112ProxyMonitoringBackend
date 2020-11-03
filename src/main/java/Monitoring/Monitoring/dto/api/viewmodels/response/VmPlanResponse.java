@@ -1,6 +1,7 @@
 package Monitoring.Monitoring.dto.api.viewmodels.response;
 
 import Monitoring.Monitoring.dto.api.viewmodels.enums.BlPlanStatusType;
+import com.fasterxml.jackson.annotation.JsonGetter;
 
 import java.time.ZonedDateTime;
 
@@ -49,6 +50,7 @@ public class VmPlanResponse {
         this.status = status;
     }
 
+    @JsonGetter
     public BlPlanStatusType getStatusType() {
         return statusType;
     }

@@ -1,6 +1,7 @@
 package Monitoring.Monitoring.dto.api.viewmodels.response;
 
 import Monitoring.Monitoring.dto.api.viewmodels.enums.BlWorkType;
+import com.fasterxml.jackson.annotation.JsonGetter;
 
 import java.time.ZonedDateTime;
 
@@ -33,6 +34,7 @@ public class VmEventResponse {
         this.date = date;
     }
 
+    @JsonGetter
     public BlWorkType getType() {
         return type;
     }

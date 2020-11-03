@@ -1,6 +1,7 @@
 package Monitoring.Monitoring.dto.api.viewmodels.submodels;
 
 import Monitoring.Monitoring.dto.api.viewmodels.enums.BlWorkerStatus;
+import com.fasterxml.jackson.annotation.JsonGetter;
 
 public class VmWorker {
     private String name;
@@ -21,6 +22,7 @@ public class VmWorker {
         this.name = name;
     }
 
+    @JsonGetter
     public BlWorkerStatus getStatus() {
         return status;
     }
