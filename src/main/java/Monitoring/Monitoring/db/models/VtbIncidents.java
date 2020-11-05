@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Table(name="vtbIncidents", schema = "monitoring")
 public class VtbIncidents {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column(name = "incident_id", unique = false, nullable = false)

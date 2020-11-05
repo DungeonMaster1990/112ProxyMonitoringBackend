@@ -7,7 +7,7 @@ import java.time.ZonedDateTime;
 @Table(name="pushToken", schema = "monitoring")
 public class PushToken {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @Column(name = "token", unique = false, nullable = false)
