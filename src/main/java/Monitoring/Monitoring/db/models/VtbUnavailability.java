@@ -8,7 +8,7 @@ import java.time.ZonedDateTime;
 public class VtbUnavailability {
     public VtbUnavailability(){}
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
     @Column(name = "fault_id", unique = false, nullable = false)

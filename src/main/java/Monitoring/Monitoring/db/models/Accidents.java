@@ -7,7 +7,7 @@ import java.time.ZonedDateTime;
 @Table(name="accidents", schema = "monitoring")
 public class Accidents {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     @Column(name = "foreign_id", unique = false, nullable = false)
     private String foreignId;
