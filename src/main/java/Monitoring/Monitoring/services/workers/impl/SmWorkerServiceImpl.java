@@ -1,13 +1,12 @@
 package Monitoring.Monitoring.services.workers.impl;
 
 import Monitoring.Monitoring.config.AppConfig;
-import Monitoring.Monitoring.db.models.VtbIncidents;
+import Monitoring.Monitoring.db.models.Incidents;
 import Monitoring.Monitoring.db.repositories.interfaces.VtbIncidentsRepository;
 import Monitoring.Monitoring.db.repositories.interfaces.VtbUnavailabilityRepository;
 import Monitoring.Monitoring.dto.services.viewmodels.response.VmVtbIncidentResponse;
 import Monitoring.Monitoring.dto.services.viewmodels.response.VmVtbUnavailabilityResponse;
 import Monitoring.Monitoring.services.workers.interfaces.SmWorkerService;
-import io.swagger.models.Model;
 import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +56,7 @@ public class SmWorkerServiceImpl implements SmWorkerService {
         var unavailabilitiesFromDb = vtbUnavailabilityRepository.getVtbUnavailabilities(faultIds, serviceIds);
     }
 
-    private List<VtbIncidents> saveIncidentsFromSm() throws Exception {
+    private List<Incidents> saveIncidentsFromSm() throws Exception {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<VmVtbIncidentResponse[]> response = restTemplate.getForEntity(getVtbIncidentsRequestString(), VmVtbIncidentResponse[].class);
         if (!response.getStatusCode().is2xxSuccessful()){
@@ -77,17 +76,17 @@ public class SmWorkerServiceImpl implements SmWorkerService {
         return appConfig.getSmIncidentUrl();
     }
 
-    private List<VtbIncidents> saveVtbIncidentsFromResponse(@NotNull ResponseEntity<VmVtbIncidentResponse[]> response){
+    private List<Incidents> saveVtbIncidentsFromResponse(@NotNull ResponseEntity<VmVtbIncidentResponse[]> response){
         var vtbIncidents = response.getBody();
-        ArrayList<VtbIncidents> incidents = new ArrayList<VtbIncidents>();
-        var incidentsDTO = mapArray(vtbIncidents, VtbIncidents.class);
+        ArrayList<Incidents> incidents = new ArrayList<Incidents>();
+        var incidentsDTO = mapArray(vtbIncidents, Incidents.class);
         var incidentsForeignIds = incidentsDTO.stream()
                 .map(incedent -> incedent.getIncidentId())
                 .collect(Collectors.toList());
 
         var oldVtbIncidents = vtbIncidentsRepository.getVtbIncidents(incidentsForeignIds)
                 .stream()
-                .collect(Collectors.toMap(VtbIncidents::getIncidentId, VtbIncidents::getId));
+                .collect(Collectors.toMap(Incidents::getIncidentId, Incidents::getId));
 
         for (var incident : incidentsDTO){
             var foreignIncidentId = incident.getIncidentId();
@@ -99,7 +98,7 @@ public class SmWorkerServiceImpl implements SmWorkerService {
         return incidentsDTO;
     }
 
-    private List<VmVtbUnavailabilityResponse> getVtbUnavailabilitiesFromSm(List<VtbIncidents> incidents) throws Exception {
+    private List<VmVtbUnavailabilityResponse> getVtbUnavailabilitiesFromSm(List<Incidents> incidents) throws Exception {
         ArrayList<VmVtbUnavailabilityResponse> results = new ArrayList<>();
 
         for(var incident : incidents){
@@ -109,7 +108,7 @@ public class SmWorkerServiceImpl implements SmWorkerService {
         return results;
     }
 
-    private VmVtbUnavailabilityResponse getVtbUnavailabilityFromSm(VtbIncidents incident) throws Exception {
+    private VmVtbUnavailabilityResponse getVtbUnavailabilityFromSm(Incidents incident) throws Exception {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<VmVtbUnavailabilityResponse> response = restTemplate.getForEntity(getVtbUnavailabilityRequestString(incident), VmVtbUnavailabilityResponse.class);
         if (!response.getStatusCode().is2xxSuccessful()){
@@ -118,7 +117,7 @@ public class SmWorkerServiceImpl implements SmWorkerService {
         return response.getBody();
     }
 
-    private String getVtbUnavailabilityRequestString(VtbIncidents incident){
+    private String getVtbUnavailabilityRequestString(Incidents incident){
         return appConfig.getSmIncidentUrl();
     }
 

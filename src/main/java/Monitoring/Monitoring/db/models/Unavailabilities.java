@@ -50,9 +50,9 @@ public class Unavailabilities {
     private ZonedDateTime updatedAt;
 
     @Column(name = "updated_by_id", unique = false, nullable = false)
-    private int updatedById;
+    private Integer updatedById;
 
-    public Unavailabilities(int id, ZonedDateTime beginAt, ZonedDateTime endAt, String duration, String serviceName, String type, String serviceId, ZonedDateTime createdAt, String createdById, ZonedDateTime updatedAt, int updatedById) {
+    public Unavailabilities(int id, ZonedDateTime beginAt, ZonedDateTime endAt, String duration, String serviceName, String type, String serviceId, ZonedDateTime createdAt, String createdById, ZonedDateTime updatedAt, Integer updatedById) {
         this.id = id;
         this.beginAt = beginAt;
         this.endAt = endAt;
@@ -146,11 +146,11 @@ public class Unavailabilities {
         this.updatedAt = updatedAt;
     }
 
-    public int getUpdatedById() {
+    public Integer getUpdatedById() {
         return updatedById;
     }
 
-    public void setUpdatedById(int updatedById) {
+    public void setUpdatedById(Integer updatedById) {
         this.updatedById = updatedById;
     }
 }

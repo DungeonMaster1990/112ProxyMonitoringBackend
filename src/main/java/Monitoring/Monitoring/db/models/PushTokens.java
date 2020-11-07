@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.time.ZonedDateTime;
 
 @Entity
-@Table(name="pushToken", schema = "monitoring")
-public class PushToken {
+@Table(name="pushtokens", schema = "monitoring")
+public class PushTokens {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
@@ -22,7 +22,7 @@ public class PushToken {
     @Column(name = "update_token_date", unique = false, nullable = false)
     private ZonedDateTime updateTokenDate;
 
-    public PushToken(int id, String token, String installId, String platform, ZonedDateTime updateTokenDate) {
+    public PushTokens(int id, String token, String installId, String platform, ZonedDateTime updateTokenDate) {
         this.id = id;
         this.token = token;
         this.installId = installId;

@@ -52,11 +52,11 @@ public class Accidents {
     private String localizationAndRemediationActions;
 
     @Column(name = "specialist_user_d", unique = false, nullable = true)
-    private int specialistUserId;
+    private Integer specialistUserId;
 
     public Accidents() {}
 
-    public Accidents(int id, String foreignId, String name, int priority, int statusId, String shortDescription, String description, String impactDescription, String failurePoint, ZonedDateTime detectionDate, ZonedDateTime startDate, ZonedDateTime finishDate, ZonedDateTime predictDate, String affectedSystems, String localizationAndRemediationActions, int specialistUserId) {
+    public Accidents(int id, String foreignId, String name, int priority, int statusId, String shortDescription, String description, String impactDescription, String failurePoint, ZonedDateTime detectionDate, ZonedDateTime startDate, ZonedDateTime finishDate, ZonedDateTime predictDate, String affectedSystems, String localizationAndRemediationActions, Integer specialistUserId) {
         this.id = id;
         this.foreignId = foreignId;
         this.name = name;
@@ -193,11 +193,11 @@ public class Accidents {
         this.localizationAndRemediationActions = localizationAndRemediationActions;
     }
 
-    public int getSpecialistUserId() {
+    public Integer getSpecialistUserId() {
         return specialistUserId;
     }
 
-    public void setSpecialistUserId(int specialistUserId) {
+    public void setSpecialistUserId(Integer specialistUserId) {
         this.specialistUserId = specialistUserId;
     }
 }

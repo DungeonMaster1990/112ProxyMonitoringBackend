@@ -1,17 +1,17 @@
 package Monitoring.Monitoring.db.repositories.interfaces;
 
-import Monitoring.Monitoring.db.models.VtbIncidents;
+import Monitoring.Monitoring.db.models.Incidents;
 
 import java.util.List;
 
 public interface VtbIncidentsRepository {
-    List<VtbIncidents> getAllVtbIncidents();
+    List<Incidents> getAllVtbIncidents();
 
-    List<VtbIncidents> getTimeFilteredVtbIncidents(long daysDiff);
+    List<Incidents> getTimeFilteredVtbIncidents(long daysDiff);
 
-    void putVtbIncidents(List<VtbIncidents> vtbIncidents);
+    void putVtbIncidents(List<Incidents> incidents);
 
-    VtbIncidents getVtbIncident(int id);
+    Incidents getVtbIncident(int id);
 
-    public List<VtbIncidents> getVtbIncidents(List<String> incidentIds);
+    public List<Incidents> getVtbIncidents(List<String> incidentIds);
 }
