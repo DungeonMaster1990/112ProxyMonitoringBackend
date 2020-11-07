@@ -4,12 +4,20 @@ import javax.persistence.*;
 import java.time.ZonedDateTime;
 
 @Entity
-@Table(name="vtbUnavailability", schema = "monitoring")
-public class VtbUnavailability {
-    public VtbUnavailability(){}
+@Table(name="unavailabilities", schema = "monitoring")
+public class Unavailabilities {
+    public Unavailabilities(){}
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
+    public String getFaultId() {
+        return FaultId;
+    }
+
+    public void setFaultId(String faultId) {
+        FaultId = faultId;
+    }
 
     @Column(name = "fault_id", unique = false, nullable = false)
     private String FaultId;
@@ -30,7 +38,7 @@ public class VtbUnavailability {
     private String type;
 
     @Column(name = "service_id", unique = false, nullable = false)
-    private int serviceId;
+    private String serviceId;
 
     @Column(name = "created_at", unique = false, nullable = false)
     private ZonedDateTime createdAt;
@@ -44,7 +52,7 @@ public class VtbUnavailability {
     @Column(name = "updated_by_id", unique = false, nullable = false)
     private int updatedById;
 
-    public VtbUnavailability(int id, ZonedDateTime beginAt, ZonedDateTime endAt, String duration, String serviceName, String type, int serviceId, ZonedDateTime createdAt, String createdById, ZonedDateTime updatedAt, int updatedById) {
+    public Unavailabilities(int id, ZonedDateTime beginAt, ZonedDateTime endAt, String duration, String serviceName, String type, String serviceId, ZonedDateTime createdAt, String createdById, ZonedDateTime updatedAt, int updatedById) {
         this.id = id;
         this.beginAt = beginAt;
         this.endAt = endAt;
@@ -106,11 +114,11 @@ public class VtbUnavailability {
         this.type = type;
     }
 
-    public int getServiceId() {
+    public String getServiceId() {
         return serviceId;
     }
 
-    public void setServiceId(int serviceId) {
+    public void setServiceId(String serviceId) {
         this.serviceId = serviceId;
     }
 

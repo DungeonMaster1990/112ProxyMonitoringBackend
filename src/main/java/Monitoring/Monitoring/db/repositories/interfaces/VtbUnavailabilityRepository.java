@@ -1,14 +1,15 @@
 package Monitoring.Monitoring.db.repositories.interfaces;
 
-import Monitoring.Monitoring.db.models.VtbIncidents;
-import Monitoring.Monitoring.db.models.VtbUnavailability;
+import Monitoring.Monitoring.db.models.Unavailabilities;
 
 import java.util.List;
 
 public interface VtbUnavailabilityRepository {
-    List<VtbUnavailability> getAllVtbUnavailabilities();
+    List<Unavailabilities> getAllVtbUnavailabilities();
 
-    void putVtbUnavailabilities(List<VtbUnavailability> vtbIncidents);
+    void putVtbUnavailabilities(List<Unavailabilities> vtbIncidents);
 
-    VtbUnavailability getVtbUnavailability(int id);
+    Unavailabilities getVtbUnavailability(int id);
+
+    List<Unavailabilities> getVtbUnavailabilities(String[] faultIds, String[] serviceIds);
 }

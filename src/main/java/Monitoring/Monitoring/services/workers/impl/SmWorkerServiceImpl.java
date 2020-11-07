@@ -46,7 +46,15 @@ public class SmWorkerServiceImpl implements SmWorkerService {
         RestTemplate restTemplate = new RestTemplate();
         var incidents = saveIncidentsFromSm();
         var unavailabilities = getVtbUnavailabilitiesFromSm(incidents);
-        //var unavalabilitiesFromDb = getVtbUnavailabilitiesFromDb
+        var faultIds = unavailabilities
+                .stream()
+                .map(VmVtbUnavailabilityResponse::getFaultId)
+                .toArray(String[]::new);
+        var serviceIds = unavailabilities
+                .stream()
+                .map(VmVtbUnavailabilityResponse::getServiceId)
+                .toArray(String[]::new);
+        var unavailabilitiesFromDb = vtbUnavailabilityRepository.getVtbUnavailabilities(faultIds, serviceIds);
     }
 
     private List<VtbIncidents> saveIncidentsFromSm() throws Exception {

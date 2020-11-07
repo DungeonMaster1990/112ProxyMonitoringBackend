@@ -22,29 +22,6 @@ create table if not exists monitoring.systems
 alter sequence monitoring.systems_id_seq
 owned by monitoring.systems.id;
 
-create sequence if not exists monitoring.accidents_id_seq;
-create table if not exists monitoring.accidents
-(
-    id                                   integer not null default nextval('monitoring.accidents_id_seq'),
-    foreign_id                           varchar   not null,
-    name                                 varchar   not null,
-    priority                             int,
-    status_id                            int,
-    short_description                    varchar,
-    description                          varchar,
-    impact_description                   varchar,
-    failure_point                        varchar,
-    detection_date                       timestamp not null,
-    start_date                           timestamp,
-    finish_date                          timestamp,
-    predict_date                         timestamp,
-    affected_systems                     varchar,
-    localization_and_remediation_actions varchar,
-    specialist_user_id                   int
-);
-
-ALTER SEQUENCE monitoring.accidents_id_seq
-OWNED BY monitoring.accidents.id;
 create table if not exists monitoring.plantypes
 (
     id   serial primary key,
@@ -80,8 +57,8 @@ create table if not exists monitoring.plans
 alter sequence monitoring.plans_id_seq
 owned by monitoring.plans.id;
 
-create sequence if not exists monitoring.VtbIncidents_id_seq;
-create table if not exists monitoring.VtbIncidents
+create sequence if not exists monitoring.incidents_id_seq;
+create table if not exists monitoring.incidents
 (
     id                                   integer not null default nextval('monitoring.VtbIncidents_id_seq'),
     incident_id                          varchar not null,
@@ -120,28 +97,28 @@ create table if not exists monitoring.VtbIncidents
     fact_begin_at                        timestamp
 );
 
-alter sequence monitoring.VtbIncidents_id_seq
-owned by monitoring.VtbIncidents.id;
+alter sequence monitoring.incidents_id_seq
+owned by monitoring.incidents.id;
 
-create sequence if not exists monitoring.VtbUnavailability_id_seq;
-create table monitoring.VtbUnavailability
+create sequence if not exists monitoring.unavailability_id_seq;
+create table monitoring.unavailability
 (
-    id              integer not null default nextval('monitoring.VtbUnavailability_id_seq'),
+    id              integer not null default nextval('monitoring.unavailability_id_seq'),
     fault_id        varchar,
     begin_at        timestamp,
     end_at          timestamp,
     duration        interval,
     service_name    varchar,
     type            varchar,
-    service_id      int,
+    service_id      varchar,
     created_at      varchar,
     created_by_id   varchar,
     updated_at      timestamp,
     updated_by_id   varchar
 );
 
-alter sequence monitoring.VtbUnavailability_id_seq
-owned by monitoring.VtbUnavailability.id;
+alter sequence monitoring.unavailability_id_seq
+owned by monitoring.unavailability.id;
 
 create sequence if not exists monitoring.pushTokens_id_seq;
 create table monitoring.pushTokens
