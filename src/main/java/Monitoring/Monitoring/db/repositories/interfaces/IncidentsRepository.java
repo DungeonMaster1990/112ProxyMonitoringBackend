@@ -4,7 +4,7 @@ import Monitoring.Monitoring.db.models.Incidents;
 
 import java.util.List;
 
-public interface VtbIncidentsRepository {
+public interface IncidentsRepository {
     List<Incidents> getAllVtbIncidents();
 
     List<Incidents> getTimeFilteredVtbIncidents(long daysDiff);

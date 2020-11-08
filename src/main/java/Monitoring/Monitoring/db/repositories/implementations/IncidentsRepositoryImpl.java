@@ -1,7 +1,7 @@
 package Monitoring.Monitoring.db.repositories.implementations;
 
 import Monitoring.Monitoring.db.models.Incidents;
-import Monitoring.Monitoring.db.repositories.interfaces.VtbIncidentsRepository;
+import Monitoring.Monitoring.db.repositories.interfaces.IncidentsRepository;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityManager;
@@ -12,7 +12,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 @Component
-public class VtbIncidentsRepositoryImpl implements VtbIncidentsRepository {
+public class IncidentsRepositoryImpl implements IncidentsRepository {
     @PersistenceContext
     private EntityManager entityManager;
 

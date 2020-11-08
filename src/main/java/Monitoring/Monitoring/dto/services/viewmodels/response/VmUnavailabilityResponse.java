@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.ZonedDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VmVtbUnavailabilityResponse {
+public class VmUnavailabilityResponse {
     private String faultId;
     private ZonedDateTime beginAt;
     private ZonedDateTime endAt;
@@ -18,7 +18,7 @@ public class VmVtbUnavailabilityResponse {
     private ZonedDateTime updatedAt;
     private int updatedById;
 
-    public VmVtbUnavailabilityResponse(String faultId, ZonedDateTime beginAt, ZonedDateTime endAt, String duration, String serviceName, String type, String serviceId, ZonedDateTime createdAt, String createdById, ZonedDateTime updatedAt, int updatedById) {
+    public VmUnavailabilityResponse(String faultId, ZonedDateTime beginAt, ZonedDateTime endAt, String duration, String serviceName, String type, String serviceId, ZonedDateTime createdAt, String createdById, ZonedDateTime updatedAt, int updatedById) {
         this.faultId = faultId;
         this.beginAt = beginAt;
         this.endAt = endAt;

@@ -4,7 +4,7 @@ import Monitoring.Monitoring.db.models.Unavailabilities;
 
 import java.util.List;
 
-public interface VtbUnavailabilityRepository {
+public interface UnavailabilityRepository {
     List<Unavailabilities> getAllVtbUnavailabilities();
 
     void putVtbUnavailabilities(List<Unavailabilities> vtbIncidents);
