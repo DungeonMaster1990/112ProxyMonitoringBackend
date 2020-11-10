@@ -1,25 +1,59 @@
-package Monitoring.Monitoring.dto.services.viewmodels.response;
+package Monitoring.Monitoring.db.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import javax.persistence.*;
 import java.time.ZonedDateTime;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class VmVtbUnavailabilityResponse {
-    private int faultId;
-    private ZonedDateTime beginAt;
-    private ZonedDateTime endAt;
-    private String duration;
-    private String serviceName;
-    private String type;
-    private int serviceId;
-    private ZonedDateTime createdAt;
-    private String createdById;
-    private ZonedDateTime updatedAt;
-    private int updatedById;
+@Entity
+@Table(name="unavailabilities", schema = "monitoring")
+public class Unavailabilities {
+    public Unavailabilities(){}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
 
-    public VmVtbUnavailabilityResponse(int faultId, ZonedDateTime beginAt, ZonedDateTime endAt, String duration, String serviceName, String type, int serviceId, ZonedDateTime createdAt, String createdById, ZonedDateTime updatedAt, int updatedById) {
-        this.faultId = faultId;
+    public String getFaultId() {
+        return FaultId;
+    }
+
+    public void setFaultId(String faultId) {
+        FaultId = faultId;
+    }
+
+    @Column(name = "fault_id", unique = false, nullable = false)
+    private String FaultId;
+
+    @Column(name = "begin_at", unique = false, nullable = false)
+    private ZonedDateTime beginAt;
+
+    @Column(name = "end_at", unique = false, nullable = false)
+    private ZonedDateTime endAt;
+
+    @Column(name = "duration", unique = false, nullable = false)
+    private String duration;
+
+    @Column(name = "service_name", unique = false, nullable = false)
+    private String serviceName;
+
+    @Column(name = "type", unique = false, nullable = false)
+    private String type;
+
+    @Column(name = "service_id", unique = false, nullable = false)
+    private String serviceId;
+
+    @Column(name = "created_at", unique = false, nullable = false)
+    private ZonedDateTime createdAt;
+
+    @Column(name = "created_by_id", unique = false, nullable = false)
+    private String createdById;
+
+    @Column(name = "updated_at", unique = false, nullable = false)
+    private ZonedDateTime updatedAt;
+
+    @Column(name = "updated_by_id", unique = false, nullable = false)
+    private Integer updatedById;
+
+    public Unavailabilities(int id, ZonedDateTime beginAt, ZonedDateTime endAt, String duration, String serviceName, String type, String serviceId, ZonedDateTime createdAt, String createdById, ZonedDateTime updatedAt, Integer updatedById) {
+        this.id = id;
         this.beginAt = beginAt;
         this.endAt = endAt;
         this.duration = duration;
@@ -32,12 +66,12 @@ public class VmVtbUnavailabilityResponse {
         this.updatedById = updatedById;
     }
 
-    public int getFaultId() {
-        return faultId;
+    public int getId() {
+        return id;
     }
 
-    public void setFaultId(int faultId) {
-        this.faultId = faultId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public ZonedDateTime getBeginAt() {
@@ -80,11 +114,11 @@ public class VmVtbUnavailabilityResponse {
         this.type = type;
     }
 
-    public int getServiceId() {
+    public String getServiceId() {
         return serviceId;
     }
 
-    public void setServiceId(int serviceId) {
+    public void setServiceId(String serviceId) {
         this.serviceId = serviceId;
     }
 
@@ -112,11 +146,11 @@ public class VmVtbUnavailabilityResponse {
         this.updatedAt = updatedAt;
     }
 
-    public int getUpdatedById() {
+    public Integer getUpdatedById() {
         return updatedById;
     }
 
-    public void setUpdatedById(int updatedById) {
+    public void setUpdatedById(Integer updatedById) {
         this.updatedById = updatedById;
     }
 }

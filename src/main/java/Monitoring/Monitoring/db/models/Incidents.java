@@ -10,8 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "incidents",
-       schema = "monitoring")
+@Table(name="vtbIncidents", schema = "monitoring")
 public class VtbIncidents {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,9 +40,7 @@ public class VtbIncidents {
     @Column(name = "failure_point", unique = false, nullable = true)
     private String failurePoint;
 
-    @Column(name = "configuration_item_id",
-            unique = false,
-            nullable = true)
+    @Column(name = "configuration_item_id", unique = false, nullable = true)
     private Integer configurationItemId;
 
     @Column(name = "title", unique = false, nullable = true)
@@ -197,27 +194,27 @@ public class VtbIncidents {
         this.expiredAt = expiredAt;
     }
 
-    public int getAuthorId() {
+    public Integer getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(int authorId) {
+    public void setAuthorId(Integer authorId) {
         this.authorId = authorId;
     }
 
-    public int getContactId() {
+    public Integer getContactId() {
         return contactId;
     }
 
-    public void setContactId(int contactId) {
+    public void setContactId(Integer contactId) {
         this.contactId = contactId;
     }
 
-    public int getServiceId() {
+    public Integer getServiceId() {
         return serviceId;
     }
 
-    public void setServiceId(int serviceId) {
+    public void setServiceId(Integer serviceId) {
         this.serviceId = serviceId;
     }
 
@@ -237,11 +234,11 @@ public class VtbIncidents {
         this.failurePoint = failurePoint;
     }
 
-    public int getConfigurationItemId() {
+    public Integer getConfigurationItemId() {
         return configurationItemId;
     }
 
-    public void setConfigurationItemId(int configurationItemId) {
+    public void setConfigurationItemId(Integer configurationItemId) {
         this.configurationItemId = configurationItemId;
     }
 
@@ -277,11 +274,11 @@ public class VtbIncidents {
         this.severity = severity;
     }
 
-    public int getGroupId() {
+    public Integer getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(int groupId) {
+    public void setGroupId(Integer groupId) {
         this.groupId = groupId;
     }
 
