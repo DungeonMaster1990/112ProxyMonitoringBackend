@@ -1,5 +1,9 @@
 package Monitoring.Monitoring.db.repositories.interfaces;
 
-public interface PushTokenRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import Monitoring.Monitoring.db.models.PushToken;
+
+public interface PushTokenRepository extends JpaRepository<PushToken, Integer> {
 
 }

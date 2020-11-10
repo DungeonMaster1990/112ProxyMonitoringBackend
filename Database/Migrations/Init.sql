@@ -80,10 +80,10 @@ create table if not exists monitoring.plans
 alter sequence monitoring.plans_id_seq
 owned by monitoring.plans.id;
 
-create sequence if not exists monitoring.VtbIncidents_id_seq;
-create table if not exists monitoring.VtbIncidents
+create sequence if not exists monitoring.incidents_id_seq;
+create table if not exists monitoring.incidents
 (
-    id                                   integer not null default nextval('monitoring.VtbIncidents_id_seq'),
+    id                                   integer not null default nextval('monitoring.incidents_id_seq'),
     incident_id                          varchar not null,
     created_at                           timestamp,
     expired_at                           timestamp,

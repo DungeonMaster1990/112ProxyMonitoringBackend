@@ -1,14 +1,21 @@
 package Monitoring.Monitoring.db.models;
+
 import java.time.ZonedDateTime;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name="vtbIncidents", schema = "monitoring")
+@Table(name = "incidents",
+       schema = "monitoring")
 public class VtbIncidents {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "incident_id", unique = false, nullable = false)
     private String incidentId;
@@ -20,13 +27,13 @@ public class VtbIncidents {
     private ZonedDateTime expiredAt;
 
     @Column(name = "author_id", unique = false, nullable = true)
-    private int authorId;
+    private Integer authorId;
 
     @Column(name = "contact_id", unique = false, nullable = true)
-    private int contactId;
+    private Integer contactId;
 
     @Column(name = "service_id", unique = false, nullable = true)
-    private int serviceId;
+    private Integer serviceId;
 
     @Column(name = "category", unique = false, nullable = true)
     private String category;
@@ -34,8 +41,10 @@ public class VtbIncidents {
     @Column(name = "failure_point", unique = false, nullable = true)
     private String failurePoint;
 
-    @Column(name = "configuration_item_id", unique = false, nullable = true)
-    private int configurationItemId;
+    @Column(name = "configuration_item_id",
+            unique = false,
+            nullable = true)
+    private Integer configurationItemId;
 
     @Column(name = "title", unique = false, nullable = true)
     private String title;
@@ -50,7 +59,7 @@ public class VtbIncidents {
     private String severity;
 
     @Column(name = "group_id", unique = false, nullable = true)
-    private int groupId;
+    private Integer groupId;
 
     @Column(name = "assignee_id", unique = false, nullable = true)
     private String assigneeId;
@@ -112,9 +121,12 @@ public class VtbIncidents {
     @Column(name = "fact_begin_at", unique = false, nullable = true)
     private ZonedDateTime factBeginAt;
 
+    @Column(name = "notification_sent")
+    private Boolean notificationSent;
+
     public VtbIncidents(){}
 
-    public VtbIncidents(int id, String incidentId, ZonedDateTime createdAt, ZonedDateTime expiredAt, int authorId, int contactId, int serviceId, String category, String failurePoint, int configurationItemId, String title, String description, String impact, String severity, int groupId, String assigneeId, String status, String closeCode, String resolution, String comment, ZonedDateTime updatedAt, String type, ZonedDateTime slaStartTime, String jiraNumber, String templateName, String extOrganization, String extId, String extStatus, String extAssigneeTime, String source, String specialistId, String priority, ZonedDateTime identedAt, ZonedDateTime factEndAt, ZonedDateTime factBeginAt) {
+    public VtbIncidents(int id, String incidentId, ZonedDateTime createdAt, ZonedDateTime expiredAt, int authorId, int contactId, int serviceId, String category, String failurePoint, int configurationItemId, String title, String description, String impact, String severity, int groupId, String assigneeId, String status, String closeCode, String resolution, String comment, ZonedDateTime updatedAt, String type, ZonedDateTime slaStartTime, String jiraNumber, String templateName, String extOrganization, String extId, String extStatus, String extAssigneeTime, String source, String specialistId, String priority, ZonedDateTime identedAt, ZonedDateTime factEndAt, ZonedDateTime factBeginAt, Boolean notificationSent) {
         this.id = id;
         this.incidentId = incidentId;
         this.createdAt = createdAt;
@@ -150,6 +162,7 @@ public class VtbIncidents {
         this.identedAt = identedAt;
         this.factEndAt = factEndAt;
         this.factBeginAt = factBeginAt;
+        this.notificationSent = notificationSent;
     }
 
     public int getId() {
@@ -430,5 +443,13 @@ public class VtbIncidents {
 
     public void setFactBeginAt(ZonedDateTime factBeginAt) {
         this.factBeginAt = factBeginAt;
+    }
+
+    public Boolean getNotificationSent() {
+        return notificationSent;
+    }
+
+    public void setNotificationSent(Boolean notificationSent) {
+        this.notificationSent = notificationSent;
     }
 }
