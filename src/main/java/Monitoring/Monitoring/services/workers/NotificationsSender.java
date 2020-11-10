@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.Serializable;
@@ -12,14 +13,15 @@ import java.util.List;
 import java.util.Map;
 
 import Monitoring.Monitoring.config.AppConfig;
-import Monitoring.Monitoring.db.models.PushToken;
-import Monitoring.Monitoring.db.models.VtbIncidents;
+import Monitoring.Monitoring.db.models.Incidents;
+import Monitoring.Monitoring.db.models.PushTokens;
+import Monitoring.Monitoring.db.repositories.interfaces.IncidentsRepository;
 import Monitoring.Monitoring.db.repositories.interfaces.PushTokenRepository;
-import Monitoring.Monitoring.db.repositories.interfaces.VtbIncidentsRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
+import static org.springframework.util.CollectionUtils.isEmpty;
 
 @Component
 @Slf4j
@@ -28,19 +30,24 @@ public class NotificationsSender {
     AppConfig appConfig;
 
     @Autowired
-    private VtbIncidentsRepository vtbIncidentsRepository;
+    private IncidentsRepository vtbIncidentsRepository;
 
     @Autowired
     private PushTokenRepository pushTokenRepository;
 
     @Scheduled(fixedRateString = "${notificationsender.scheduler.fixedrate}")
     public void sendPushNotifications() {
-        List<VtbIncidents> incidents = vtbIncidentsRepository.getTimeFilteredNonSentVtbIncidents(appConfig.getLastDaysToProcess());
+        List<Incidents> incidents = vtbIncidentsRepository.getTimeFilteredNonSentVtbIncidents(appConfig.getLastDaysToProcess());
+        if (isEmpty(incidents)) {
+            log.debug("Не обнаружено новых инцидентов для отправки.");
+            return;
+        }
+        log.debug("Обнаружено {} новых инцидентов для отправки.", incidents.size());
         RestTemplate restTemplate = new RestTemplate();
         try {
             // TODO отправлять все аварии в одном вызове?
             incidents.forEach(i -> sendNotificationsForIncident(restTemplate, i));
-            var ids = incidents.stream().map(VtbIncidents::getId).collect(toSet());
+            var ids = incidents.stream().map(Incidents::getId).collect(toSet());
             vtbIncidentsRepository.markAsNotificationSent(ids);
         }
         catch (Exception e) {
@@ -48,17 +55,16 @@ public class NotificationsSender {
         }
     }
 
-    private void sendNotificationsForIncident(RestTemplate restTemplate, VtbIncidents i) {
+    private void sendNotificationsForIncident(RestTemplate restTemplate, Incidents i) {
         Map<String, Object> request = Map.of(
                 "accident", buildAccidentInfo(i),
                 "targets", buildTargets(pushTokenRepository.findAll()));
 
-        // TODO добавить обработку результата. Возможно проставлять отметку об отправке уведомления для устройства.
         ResponseEntity<Void> result = restTemplate.postForEntity(appConfig.getPusherUrl(), request, Void.class);
     }
 
     @NotNull
-    private Map<String, Serializable> buildAccidentInfo(VtbIncidents i) {
+    private Map<String, Serializable> buildAccidentInfo(Incidents i) {
         return Map.of(
                 "id", i.getId(),
                 "header", "Авария " + i.getId(),
@@ -67,7 +73,7 @@ public class NotificationsSender {
     }
 
     @NotNull
-    private List<Map<String, String>> buildTargets(List<PushToken> allTokens) {
+    private List<Map<String, String>> buildTargets(List<PushTokens> allTokens) {
         return allTokens
                 .stream()
                 .map(t -> Map.of("token", t.getToken(), "osName", t.getPlatform()))

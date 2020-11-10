@@ -1,17 +1,20 @@
 package Monitoring.Monitoring.db.repositories.implementations;
 
-import Monitoring.Monitoring.db.models.VtbIncidents;
-import Monitoring.Monitoring.db.repositories.interfaces.VtbIncidentsRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Clock;
+import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.time.Clock;
-import java.time.ZonedDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
+import javax.persistence.TypedQuery;
+
+import Monitoring.Monitoring.db.models.Incidents;
+import Monitoring.Monitoring.db.repositories.interfaces.IncidentsRepository;
 
 @Component
 public class IncidentsRepositoryImpl implements IncidentsRepository {
@@ -20,7 +23,7 @@ public class IncidentsRepositoryImpl implements IncidentsRepository {
 
     @Override
     public List<Incidents> getAllVtbIncidents() {
-        Query vtbIncidentsQuery = entityManager.createQuery("select a from VtbIncidents a", Incidents.class);
+        Query vtbIncidentsQuery = entityManager.createQuery("select a from Incidents a", Incidents.class);
         List<Incidents> incidents = vtbIncidentsQuery.getResultList();
         return incidents;
     }
@@ -30,13 +33,13 @@ public class IncidentsRepositoryImpl implements IncidentsRepository {
 
         String qryString = """
                 select i 
-                  from VtbIncidents i 
+                  from Incidents i 
                  where i.factBeginAt >= :twoDaysBackFromNow
                    and i.notificationSent <> true
                 """;
 
         TypedQuery<Incidents> vtbIncidentsQuery = entityManager
-                .createQuery(qryString, VtbIncidents.class)
+                .createQuery(qryString, Incidents.class)
                 .setParameter("twoDaysBackFromNow", ZonedDateTime.now().minusDays(daysDiff));
 
         return vtbIncidentsQuery.getResultList();
@@ -45,7 +48,7 @@ public class IncidentsRepositoryImpl implements IncidentsRepository {
     @Override
     @Transactional
     public void markAsNotificationSent(Set<Integer> incidentsIds) {
-        entityManager.createQuery("update VtbIncidents set notificationSent = true where id in (:ids)")
+        entityManager.createQuery("update Incidents set notificationSent = true where id in (:ids)")
                      .setParameter("ids", incidentsIds)
                      .executeUpdate();
     }

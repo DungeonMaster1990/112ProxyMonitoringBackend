@@ -30,7 +30,7 @@ public class PushTokens {
     @Column(name = "update_token_date", unique = false, nullable = false)
     private ZonedDateTime updateTokenDate;
 
-    public PushToken(int id, String token, String installId, String platform, ZonedDateTime updateTokenDate) {
+    public PushTokens(int id, String token, String installId, String platform, ZonedDateTime updateTokenDate) {
         this.id = id;
         this.token = token;
         this.installId = installId;

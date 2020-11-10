@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="vtbIncidents", schema = "monitoring")
-public class VtbIncidents {
+@Table(name="incidents", schema = "monitoring")
+public class Incidents {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -121,9 +121,9 @@ public class VtbIncidents {
     @Column(name = "notification_sent")
     private Boolean notificationSent;
 
-    public VtbIncidents(){}
+    public Incidents(){}
 
-    public VtbIncidents(int id, String incidentId, ZonedDateTime createdAt, ZonedDateTime expiredAt, int authorId, int contactId, int serviceId, String category, String failurePoint, int configurationItemId, String title, String description, String impact, String severity, int groupId, String assigneeId, String status, String closeCode, String resolution, String comment, ZonedDateTime updatedAt, String type, ZonedDateTime slaStartTime, String jiraNumber, String templateName, String extOrganization, String extId, String extStatus, String extAssigneeTime, String source, String specialistId, String priority, ZonedDateTime identedAt, ZonedDateTime factEndAt, ZonedDateTime factBeginAt, Boolean notificationSent) {
+    public Incidents(int id, String incidentId, ZonedDateTime createdAt, ZonedDateTime expiredAt, int authorId, int contactId, int serviceId, String category, String failurePoint, int configurationItemId, String title, String description, String impact, String severity, int groupId, String assigneeId, String status, String closeCode, String resolution, String comment, ZonedDateTime updatedAt, String type, ZonedDateTime slaStartTime, String jiraNumber, String templateName, String extOrganization, String extId, String extStatus, String extAssigneeTime, String source, String specialistId, String priority, ZonedDateTime identedAt, ZonedDateTime factEndAt, ZonedDateTime factBeginAt, Boolean notificationSent) {
         this.id = id;
         this.incidentId = incidentId;
         this.createdAt = createdAt;
