@@ -130,3 +130,6 @@ create table monitoring.pushTokens
 );
 alter sequence monitoring.pushTokens_id_seq
 owned by monitoring.pushTokens.id;
+
+alter table  monitoring.pushTokens
+add update_token_date timestamp;

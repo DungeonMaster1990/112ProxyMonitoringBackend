@@ -9,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Data;
-
 @Entity
 @Table(name="pushtokens", schema = "monitoring")
 public class PushTokens {
@@ -29,14 +27,6 @@ public class PushTokens {
 
     @Column(name = "update_token_date", unique = false, nullable = false)
     private ZonedDateTime updateTokenDate;
-
-    public PushTokens(int id, String token, String installId, String platform, ZonedDateTime updateTokenDate) {
-        this.id = id;
-        this.token = token;
-        this.installId = installId;
-        this.platform = platform;
-        this.updateTokenDate = updateTokenDate;
-    }
 
     public int getId() {
         return id;
