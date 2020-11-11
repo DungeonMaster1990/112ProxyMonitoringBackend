@@ -1,14 +1,20 @@
 package Monitoring.Monitoring.db.models;
+
 import java.time.ZonedDateTime;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name="incidents", schema = "monitoring")
 public class Incidents {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Integer id;
 
     @Column(name = "incident_id", unique = false, nullable = false)
     private String incidentId;
@@ -35,7 +41,7 @@ public class Incidents {
     private String failurePoint;
 
     @Column(name = "configuration_item_id", unique = false, nullable = true)
-    private int configurationItemId;
+    private Integer configurationItemId;
 
     @Column(name = "title", unique = false, nullable = true)
     private String title;
@@ -112,9 +118,12 @@ public class Incidents {
     @Column(name = "fact_begin_at", unique = false, nullable = true)
     private ZonedDateTime factBeginAt;
 
+    @Column(name = "notification_sent")
+    private Boolean notificationSent;
+
     public Incidents(){}
 
-    public Incidents(int id, String incidentId, ZonedDateTime createdAt, ZonedDateTime expiredAt, Integer authorId, Integer contactId, Integer serviceId, String category, String failurePoint, Integer configurationItemId, String title, String description, String impact, String severity, Integer groupId, String assigneeId, String status, String closeCode, String resolution, String comment, ZonedDateTime updatedAt, String type, ZonedDateTime slaStartTime, String jiraNumber, String templateName, String extOrganization, String extId, String extStatus, String extAssigneeTime, String source, String specialistId, String priority, ZonedDateTime identedAt, ZonedDateTime factEndAt, ZonedDateTime factBeginAt) {
+    public Incidents(int id, String incidentId, ZonedDateTime createdAt, ZonedDateTime expiredAt, int authorId, int contactId, int serviceId, String category, String failurePoint, int configurationItemId, String title, String description, String impact, String severity, int groupId, String assigneeId, String status, String closeCode, String resolution, String comment, ZonedDateTime updatedAt, String type, ZonedDateTime slaStartTime, String jiraNumber, String templateName, String extOrganization, String extId, String extStatus, String extAssigneeTime, String source, String specialistId, String priority, ZonedDateTime identedAt, ZonedDateTime factEndAt, ZonedDateTime factBeginAt, Boolean notificationSent) {
         this.id = id;
         this.incidentId = incidentId;
         this.createdAt = createdAt;
@@ -150,6 +159,7 @@ public class Incidents {
         this.identedAt = identedAt;
         this.factEndAt = factEndAt;
         this.factBeginAt = factBeginAt;
+        this.notificationSent = notificationSent;
     }
 
     public int getId() {
@@ -430,5 +440,13 @@ public class Incidents {
 
     public void setFactBeginAt(ZonedDateTime factBeginAt) {
         this.factBeginAt = factBeginAt;
+    }
+
+    public Boolean getNotificationSent() {
+        return notificationSent;
+    }
+
+    public void setNotificationSent(Boolean notificationSent) {
+        this.notificationSent = notificationSent;
     }
 }
