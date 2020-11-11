@@ -1,4 +1,6 @@
 package Monitoring.Monitoring.db.repositories.implementations;
 
-public class SmRawdataMeasApiImpl {
+import Monitoring.Monitoring.db.vertica.repositories.interfaces.SmRawdataMeasRepository;
+
+public class SmRawdataMeasApiRepositoryImpl implements SmRawdataMeasRepository {
 }

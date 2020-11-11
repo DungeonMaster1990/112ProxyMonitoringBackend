@@ -7,7 +7,7 @@ import java.time.ZonedDateTime;
 
 @Entity
 @Table(name="SM_DEF_MEASUREMENT", schema = "bsm_replica")
-public class SmDefMeasurement {
+public class SmDefMeasurementVertica {
     @Column(name = "session_id", unique = false, nullable = false)
     private Integer SessionId;
 
@@ -65,7 +65,7 @@ public class SmDefMeasurement {
     @Column(name = "is_deleted", unique = false, nullable = false)
     private boolean IsDeleted;
 
-    public SmDefMeasurement(Integer sessionId, Integer measurementId, Integer schedId, Integer categoryId, Integer monitorId, Integer targetId, String msname, String msid, String userRemark, String connectionData, Integer dmConnectionId, Integer active, Character ciId, Character etiId, String integrationName, String profileId, ZonedDateTime modifiedDate, ZonedDateTime creationDate, boolean isDeleted) {
+    public SmDefMeasurementVertica(Integer sessionId, Integer measurementId, Integer schedId, Integer categoryId, Integer monitorId, Integer targetId, String msname, String msid, String userRemark, String connectionData, Integer dmConnectionId, Integer active, Character ciId, Character etiId, String integrationName, String profileId, ZonedDateTime modifiedDate, ZonedDateTime creationDate, boolean isDeleted) {
         SessionId = sessionId;
         MeasurementId = measurementId;
         SchedId = schedId;
@@ -87,7 +87,7 @@ public class SmDefMeasurement {
         IsDeleted = isDeleted;
     }
 
-    public SmDefMeasurement(){}
+    public SmDefMeasurementVertica(){}
 
     public Integer getSessionId() {
         return SessionId;

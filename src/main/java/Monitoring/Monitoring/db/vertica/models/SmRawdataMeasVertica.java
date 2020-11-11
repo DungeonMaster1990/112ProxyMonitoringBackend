@@ -5,7 +5,7 @@ import java.time.ZonedDateTime;
 
 @Entity
 @Table(name="SM_RAWDATA_MEAS", schema = "bsm_replica")
-public class SmRawdataMeas {
+public class SmRawdataMeasVertica {
     @Column(name = "session_id", unique = false, nullable = false)
     private Integer SessionId;
 
@@ -42,7 +42,7 @@ public class SmRawdataMeas {
     @Column(name = "dbdate", unique = false, nullable = true)
     private ZonedDateTime Dbdate;
 
-    public SmRawdataMeas(Integer sessionId, ZonedDateTime timeStamp, Integer measurementId, Float measValue, Integer statusId, String errMsg, Integer rawMonitorId, Integer rawTargetId, Integer rawConnectionId, Integer rawCategoryId, Integer rawThresholdQuality, ZonedDateTime dbdate) {
+    public SmRawdataMeasVertica(Integer sessionId, ZonedDateTime timeStamp, Integer measurementId, Float measValue, Integer statusId, String errMsg, Integer rawMonitorId, Integer rawTargetId, Integer rawConnectionId, Integer rawCategoryId, Integer rawThresholdQuality, ZonedDateTime dbdate) {
         SessionId = sessionId;
         TimeStamp = timeStamp;
         MeasurementId = measurementId;

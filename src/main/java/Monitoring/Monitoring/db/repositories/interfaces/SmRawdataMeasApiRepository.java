@@ -1,4 +1,4 @@
 package Monitoring.Monitoring.db.repositories.interfaces;
 
-public interface SmRawdataMeasApi {
+public interface SmRawdataMeasApiRepository {
 }
