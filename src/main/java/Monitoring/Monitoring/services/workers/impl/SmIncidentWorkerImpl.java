@@ -7,7 +7,7 @@ import Monitoring.Monitoring.db.repositories.interfaces.IncidentsRepository;
 import Monitoring.Monitoring.db.repositories.interfaces.UnavailabilityRepository;
 import Monitoring.Monitoring.dto.services.viewmodels.response.VmIncidentResponse;
 import Monitoring.Monitoring.dto.services.viewmodels.response.VmUnavailabilityResponse;
-import Monitoring.Monitoring.services.workers.interfaces.SmWorkerService;
+import Monitoring.Monitoring.services.workers.interfaces.SmIncidentWorker;
 import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class SmWorkerServiceImpl implements SmWorkerService {
+public class SmIncidentWorkerImpl implements SmIncidentWorker {
 
     private AppConfig appConfig;
     private ModelMapper modelMapper;
@@ -30,7 +30,7 @@ public class SmWorkerServiceImpl implements SmWorkerService {
     private UnavailabilityRepository unavailabilityRepository;
 
     @Autowired
-    private SmWorkerServiceImpl(
+    private SmIncidentWorkerImpl(
             AppConfig appConfig,
             IncidentsRepository incidentsRepository,
             UnavailabilityRepository unavailabilityRepository)
@@ -41,7 +41,7 @@ public class SmWorkerServiceImpl implements SmWorkerService {
         this.unavailabilityRepository = unavailabilityRepository;
     }
 
-    @Scheduled(fixedRate = 30000)
+//    @Scheduled(fixedRate = 30000)
     public void takeDataFromSm() throws Exception {
         var incidents = saveIncidentsFromSm();
         var unavailabilities = getUnavailabilitiesFromSm(incidents);
@@ -73,7 +73,7 @@ public class SmWorkerServiceImpl implements SmWorkerService {
         ArrayList<Incidents> incidents = new ArrayList<Incidents>();
         var incidentsDTO = mapArray(vtbIncidents, Incidents.class);
         var incidentsForeignIds = incidentsDTO.stream()
-                .map(incedent -> incedent.getIncidentId())
+                .map(incident -> incident.getIncidentId())
                 .collect(Collectors.toList());
 
         var oldVtbIncidents = incidentsRepository.getVtbIncidents(incidentsForeignIds)
@@ -132,6 +132,7 @@ public class SmWorkerServiceImpl implements SmWorkerService {
                         && unavailability.getServiceId() == unavailabilityFromDb.getServiceId()){
                     var id = unavailabilityFromDb.getId();
                     unavailability.setId(id);
+                    break;
                 }
             }
         }

@@ -12,6 +12,9 @@ public class AppConfig {
     private String SmIncidentMethod;
     @Value("${sm.methods.unavailability}")
     private String SmUnavailabilityMethod;
+    @Value("${sm.methods.changes}")
+    private String SmChangesMethod;
+
     @Value("${api.timeout}")
     private int Timeout;
     @Value("${api.deep.days}")
@@ -29,5 +32,5 @@ public class AppConfig {
         return this.BaseSmUrl + this.SmUnavailabilityMethod;
     }
 
-
+    public String getSmChangesUrl() { return this.BaseSmUrl + this.SmChangesMethod; }
 }

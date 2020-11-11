@@ -15,7 +15,7 @@ public class FailurePointsController {
         this.failurePointsService = failurePointsService;
     }
 
-    @GetMapping("/api/v1.0/failure")
+    @GetMapping("/api/v1.0/failurePoints")
     public String[] get()
     {
         return VmMock.failurePoints;

@@ -1,4 +1,4 @@
 package Monitoring.Monitoring.services.workers.interfaces;
 
-public interface SmWorkerService {
+public interface SmUnavalabilityWorker {
 }
