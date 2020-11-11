@@ -5,20 +5,20 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.ZonedDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VmVtbUnavailabilityResponse {
-    private int faultId;
+public class VmUnavailabilityResponse {
+    private String faultId;
     private ZonedDateTime beginAt;
     private ZonedDateTime endAt;
     private String duration;
     private String serviceName;
     private String type;
-    private int serviceId;
+    private String serviceId;
     private ZonedDateTime createdAt;
     private String createdById;
     private ZonedDateTime updatedAt;
     private int updatedById;
 
-    public VmVtbUnavailabilityResponse(int faultId, ZonedDateTime beginAt, ZonedDateTime endAt, String duration, String serviceName, String type, int serviceId, ZonedDateTime createdAt, String createdById, ZonedDateTime updatedAt, int updatedById) {
+    public VmUnavailabilityResponse(String faultId, ZonedDateTime beginAt, ZonedDateTime endAt, String duration, String serviceName, String type, String serviceId, ZonedDateTime createdAt, String createdById, ZonedDateTime updatedAt, int updatedById) {
         this.faultId = faultId;
         this.beginAt = beginAt;
         this.endAt = endAt;
@@ -32,11 +32,11 @@ public class VmVtbUnavailabilityResponse {
         this.updatedById = updatedById;
     }
 
-    public int getFaultId() {
+    public String getFaultId() {
         return faultId;
     }
 
-    public void setFaultId(int faultId) {
+    public void setFaultId(String faultId) {
         this.faultId = faultId;
     }
 
@@ -80,11 +80,11 @@ public class VmVtbUnavailabilityResponse {
         this.type = type;
     }
 
-    public int getServiceId() {
+    public String getServiceId() {
         return serviceId;
     }
 
-    public void setServiceId(int serviceId) {
+    public void setServiceId(String serviceId) {
         this.serviceId = serviceId;
     }
 

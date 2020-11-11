@@ -1,14 +1,20 @@
 package Monitoring.Monitoring.db.models;
+
 import java.time.ZonedDateTime;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name="vtbIncidents", schema = "monitoring")
-public class VtbIncidents {
+@Table(name="incidents", schema = "monitoring")
+public class Incidents {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
 
     @Column(name = "incident_id", unique = false, nullable = false)
     private String incidentId;
@@ -20,13 +26,13 @@ public class VtbIncidents {
     private ZonedDateTime expiredAt;
 
     @Column(name = "author_id", unique = false, nullable = true)
-    private int authorId;
+    private Integer authorId;
 
     @Column(name = "contact_id", unique = false, nullable = true)
-    private int contactId;
+    private Integer contactId;
 
     @Column(name = "service_id", unique = false, nullable = true)
-    private int serviceId;
+    private Integer serviceId;
 
     @Column(name = "category", unique = false, nullable = true)
     private String category;
@@ -35,7 +41,7 @@ public class VtbIncidents {
     private String failurePoint;
 
     @Column(name = "configuration_item_id", unique = false, nullable = true)
-    private int configurationItemId;
+    private Integer configurationItemId;
 
     @Column(name = "title", unique = false, nullable = true)
     private String title;
@@ -50,7 +56,7 @@ public class VtbIncidents {
     private String severity;
 
     @Column(name = "group_id", unique = false, nullable = true)
-    private int groupId;
+    private Integer groupId;
 
     @Column(name = "assignee_id", unique = false, nullable = true)
     private String assigneeId;
@@ -112,9 +118,12 @@ public class VtbIncidents {
     @Column(name = "fact_begin_at", unique = false, nullable = true)
     private ZonedDateTime factBeginAt;
 
-    public VtbIncidents(){}
+    @Column(name = "notification_sent")
+    private Boolean notificationSent;
 
-    public VtbIncidents(int id, String incidentId, ZonedDateTime createdAt, ZonedDateTime expiredAt, int authorId, int contactId, int serviceId, String category, String failurePoint, int configurationItemId, String title, String description, String impact, String severity, int groupId, String assigneeId, String status, String closeCode, String resolution, String comment, ZonedDateTime updatedAt, String type, ZonedDateTime slaStartTime, String jiraNumber, String templateName, String extOrganization, String extId, String extStatus, String extAssigneeTime, String source, String specialistId, String priority, ZonedDateTime identedAt, ZonedDateTime factEndAt, ZonedDateTime factBeginAt) {
+    public Incidents(){}
+
+    public Incidents(int id, String incidentId, ZonedDateTime createdAt, ZonedDateTime expiredAt, int authorId, int contactId, int serviceId, String category, String failurePoint, int configurationItemId, String title, String description, String impact, String severity, int groupId, String assigneeId, String status, String closeCode, String resolution, String comment, ZonedDateTime updatedAt, String type, ZonedDateTime slaStartTime, String jiraNumber, String templateName, String extOrganization, String extId, String extStatus, String extAssigneeTime, String source, String specialistId, String priority, ZonedDateTime identedAt, ZonedDateTime factEndAt, ZonedDateTime factBeginAt, Boolean notificationSent) {
         this.id = id;
         this.incidentId = incidentId;
         this.createdAt = createdAt;
@@ -150,6 +159,7 @@ public class VtbIncidents {
         this.identedAt = identedAt;
         this.factEndAt = factEndAt;
         this.factBeginAt = factBeginAt;
+        this.notificationSent = notificationSent;
     }
 
     public int getId() {
@@ -184,27 +194,27 @@ public class VtbIncidents {
         this.expiredAt = expiredAt;
     }
 
-    public int getAuthorId() {
+    public Integer getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(int authorId) {
+    public void setAuthorId(Integer authorId) {
         this.authorId = authorId;
     }
 
-    public int getContactId() {
+    public Integer getContactId() {
         return contactId;
     }
 
-    public void setContactId(int contactId) {
+    public void setContactId(Integer contactId) {
         this.contactId = contactId;
     }
 
-    public int getServiceId() {
+    public Integer getServiceId() {
         return serviceId;
     }
 
-    public void setServiceId(int serviceId) {
+    public void setServiceId(Integer serviceId) {
         this.serviceId = serviceId;
     }
 
@@ -224,11 +234,11 @@ public class VtbIncidents {
         this.failurePoint = failurePoint;
     }
 
-    public int getConfigurationItemId() {
+    public Integer getConfigurationItemId() {
         return configurationItemId;
     }
 
-    public void setConfigurationItemId(int configurationItemId) {
+    public void setConfigurationItemId(Integer configurationItemId) {
         this.configurationItemId = configurationItemId;
     }
 
@@ -264,11 +274,11 @@ public class VtbIncidents {
         this.severity = severity;
     }
 
-    public int getGroupId() {
+    public Integer getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(int groupId) {
+    public void setGroupId(Integer groupId) {
         this.groupId = groupId;
     }
 
@@ -430,5 +440,13 @@ public class VtbIncidents {
 
     public void setFactBeginAt(ZonedDateTime factBeginAt) {
         this.factBeginAt = factBeginAt;
+    }
+
+    public Boolean getNotificationSent() {
+        return notificationSent;
+    }
+
+    public void setNotificationSent(Boolean notificationSent) {
+        this.notificationSent = notificationSent;
     }
 }

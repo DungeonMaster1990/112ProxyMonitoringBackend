@@ -1,239 +1,215 @@
 package Monitoring.Monitoring.db.vertica.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.time.ZonedDateTime;
 
-@Entity
-@Table(name="SM_DEF_MEASUREMENT", schema = "bsm_replica")
 public class SmDefMeasurementVertica {
-    @Column(name = "session_id", unique = false, nullable = false)
-    private Integer SessionId;
+    private Integer sessionId;
 
-    @Column(name = "measurement_id", unique = false, nullable = false)
-    private Integer MeasurementId;
+    private Integer measurementId;
 
-    @Column(name = "sched_id", unique = false, nullable = false)
-    private Integer SchedId;
+    private Integer schedId;
 
-    @Column(name = "category_id", unique = false, nullable = false)
-    private Integer CategoryId;
+    private Integer categoryId;
 
-    @Column(name = "monitor_id", unique = false, nullable = true)
-    private Integer MonitorId;
+    private Integer monitorId;
 
-    @Column(name = "target_id", unique = false, nullable = false)
-    private Integer TargetId;
+    private Integer targetId;
 
-    @Column(name = "msname", unique = false, nullable = false)
-    private String Msname;
+    private String msname;
 
-    @Column(name = "Msid", unique = false, nullable = true)
-    private String Msid;
+    private String msid;
 
-    @Column(name = "user_remark", unique = false, nullable = true)
-    private String UserRemark;
+    private String userRemark;
 
-    @Column(name = "connection_data", unique = false, nullable = true)
-    private String ConnectionData;
+    private String connectionData;
 
-    @Column(name = "dm_connection_id", unique = false, nullable = true)
-    private Integer DmConnectionId;
+    private Integer dmConnectionId;
 
-    @Column(name = "active", unique = false, nullable = false)
-    private Integer Active;
+    private Integer active;
 
-    @Column(name = "ci_id", unique = false, nullable = true)
-    private Character CiId;
+    private Character ciId;
 
-    @Column(name = "eti_id", unique = false, nullable = true)
-    private Character EtiId;
+    private Character etiId;
 
-    @Column(name = "integration_name", unique = false, nullable = true)
-    private String IntegrationName;
+    private String integrationName;
 
-    @Column(name = "profile_id", unique = false, nullable = true)
-    private String ProfileId;
+    private String profileId;
 
-    @Column(name = "modified_date", unique = false, nullable = false)
-    private ZonedDateTime ModifiedDate;
+    private ZonedDateTime modifiedDate;
 
-    @Column(name = "creation_date", unique = false, nullable = false)
-    private ZonedDateTime CreationDate;
+    private ZonedDateTime creationDate;
 
-    @Column(name = "is_deleted", unique = false, nullable = false)
-    private boolean IsDeleted;
+    private boolean isDeleted;
 
     public SmDefMeasurementVertica(Integer sessionId, Integer measurementId, Integer schedId, Integer categoryId, Integer monitorId, Integer targetId, String msname, String msid, String userRemark, String connectionData, Integer dmConnectionId, Integer active, Character ciId, Character etiId, String integrationName, String profileId, ZonedDateTime modifiedDate, ZonedDateTime creationDate, boolean isDeleted) {
-        SessionId = sessionId;
-        MeasurementId = measurementId;
-        SchedId = schedId;
-        CategoryId = categoryId;
-        MonitorId = monitorId;
-        TargetId = targetId;
-        Msname = msname;
-        Msid = msid;
-        UserRemark = userRemark;
-        ConnectionData = connectionData;
-        DmConnectionId = dmConnectionId;
-        Active = active;
-        CiId = ciId;
-        EtiId = etiId;
-        IntegrationName = integrationName;
-        ProfileId = profileId;
-        ModifiedDate = modifiedDate;
-        CreationDate = creationDate;
-        IsDeleted = isDeleted;
+        this.sessionId = sessionId;
+        this.measurementId = measurementId;
+        this.schedId = schedId;
+        this.categoryId = categoryId;
+        this.monitorId = monitorId;
+        this.targetId = targetId;
+        this.msname = msname;
+        this.msid = msid;
+        this.userRemark = userRemark;
+        this.connectionData = connectionData;
+        this.dmConnectionId = dmConnectionId;
+        this.active = active;
+        this.ciId = ciId;
+        this.etiId = etiId;
+        this.integrationName = integrationName;
+        this.profileId = profileId;
+        this.modifiedDate = modifiedDate;
+        this.creationDate = creationDate;
+        this.isDeleted = isDeleted;
     }
 
     public SmDefMeasurementVertica(){}
 
     public Integer getSessionId() {
-        return SessionId;
+        return sessionId;
     }
 
     public void setSessionId(Integer sessionId) {
-        SessionId = sessionId;
+        this.sessionId = sessionId;
     }
 
     public Integer getMeasurementId() {
-        return MeasurementId;
+        return measurementId;
     }
 
     public void setMeasurementId(Integer measurementId) {
-        MeasurementId = measurementId;
+        this.measurementId = measurementId;
     }
 
     public Integer getSchedId() {
-        return SchedId;
+        return schedId;
     }
 
     public Integer getCategoryId() {
-        return CategoryId;
+        return categoryId;
     }
 
     public void setCategoryId(Integer categoryId) {
-        CategoryId = categoryId;
+        this.categoryId = categoryId;
     }
 
     public Integer getMonitorId() {
-        return MonitorId;
+        return monitorId;
     }
 
     public void setMonitorId(Integer monitorId) {
-        MonitorId = monitorId;
+        this.monitorId = monitorId;
     }
 
     public Integer getTargetId() {
-        return TargetId;
+        return targetId;
     }
 
     public void setTargetId(Integer targetId) {
-        TargetId = targetId;
+        this.targetId = targetId;
     }
 
     public String getMsname() {
-        return Msname;
+        return msname;
     }
 
     public void setMsname(String msname) {
-        Msname = msname;
+        this.msname = msname;
     }
 
     public String getMsid() {
-        return Msid;
+        return msid;
     }
 
     public void setMsid(String msid) {
-        Msid = msid;
+        this.msid = msid;
     }
 
     public String getUserRemark() {
-        return UserRemark;
+        return userRemark;
     }
 
     public void setUserRemark(String userRemark) {
-        UserRemark = userRemark;
+        this.userRemark = userRemark;
     }
 
     public String getConnectionData() {
-        return ConnectionData;
+        return connectionData;
     }
 
     public void setConnectionData(String connectionData) {
-        ConnectionData = connectionData;
+        this.connectionData = connectionData;
     }
 
     public Integer getDmConnectionId() {
-        return DmConnectionId;
+        return dmConnectionId;
     }
 
     public void setDmConnectionId(Integer dmConnectionId) {
-        DmConnectionId = dmConnectionId;
+        this.dmConnectionId = dmConnectionId;
     }
 
     public Integer getActive() {
-        return Active;
+        return active;
     }
 
     public void setActive(Integer active) {
-        Active = active;
+        this.active = active;
     }
 
     public Character getCiId() {
-        return CiId;
+        return ciId;
     }
 
     public void setCiId(Character ciId) {
-        CiId = ciId;
+        this.ciId = ciId;
     }
 
     public Character getEtiId() {
-        return EtiId;
+        return etiId;
     }
 
     public void setEtiId(Character etiId) {
-        EtiId = etiId;
+        this.etiId = etiId;
     }
 
     public String getIntegrationName() {
-        return IntegrationName;
+        return integrationName;
     }
 
     public void setIntegrationName(String integrationName) {
-        IntegrationName = integrationName;
+        this.integrationName = integrationName;
     }
 
     public String getProfileId() {
-        return ProfileId;
+        return profileId;
     }
 
     public void setProfileId(String profileId) {
-        ProfileId = profileId;
+        this.profileId = profileId;
     }
 
     public ZonedDateTime getModifiedDate() {
-        return ModifiedDate;
+        return modifiedDate;
     }
 
     public void setModifiedDate(ZonedDateTime modifiedDate) {
-        ModifiedDate = modifiedDate;
+        this.modifiedDate = modifiedDate;
     }
 
     public ZonedDateTime getCreationDate() {
-        return CreationDate;
+        return creationDate;
     }
 
     public void setCreationDate(ZonedDateTime creationDate) {
-        CreationDate = creationDate;
+        this.creationDate = creationDate;
     }
 
     public boolean isDeleted() {
-        return IsDeleted;
+        return isDeleted;
     }
 
     public void setDeleted(boolean deleted) {
-        IsDeleted = deleted;
+        isDeleted = deleted;
     }
 }

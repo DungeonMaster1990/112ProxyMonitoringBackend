@@ -22,6 +22,19 @@ public class AppConfig {
     private String verticaPassword;
     @Value("${spring.verticaDatasource.username}")
     private String verticaUser;
+    private long DeepDays;
+    @Value("${pusher.url}")
+    private String pusherUrl;
+    @Value("${notificationsender.incidents.lastDaysToProcess}")
+    private long   lastDaysToProcess;
+
+    public long getLastDaysToProcess() {
+        return lastDaysToProcess;
+    }
+
+    public String getPusherUrl() {
+        return pusherUrl;
+    }
 
     public long getDeepDays() {
         return deepDays;

@@ -1,7 +1,6 @@
 package Monitoring.Monitoring.db.repositories.implementations;
 
 import Monitoring.Monitoring.db.models.Accidents;
-import Monitoring.Monitoring.db.models.VtbIncidents;
 import Monitoring.Monitoring.db.repositories.interfaces.AccidentsRepository;
 import org.springframework.stereotype.Component;
 

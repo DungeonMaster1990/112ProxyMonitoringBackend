@@ -1,11 +1,19 @@
 package Monitoring.Monitoring.db.models;
 
-import javax.persistence.*;
 import java.time.ZonedDateTime;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import lombok.Data;
+
 @Entity
-@Table(name="pushToken", schema = "monitoring")
-public class PushToken {
+@Table(name="pushtokens", schema = "monitoring")
+public class PushTokens {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
@@ -22,7 +30,7 @@ public class PushToken {
     @Column(name = "update_token_date", unique = false, nullable = false)
     private ZonedDateTime updateTokenDate;
 
-    public PushToken(int id, String token, String installId, String platform, ZonedDateTime updateTokenDate) {
+    public PushTokens(int id, String token, String installId, String platform, ZonedDateTime updateTokenDate) {
         this.id = id;
         this.token = token;
         this.installId = installId;

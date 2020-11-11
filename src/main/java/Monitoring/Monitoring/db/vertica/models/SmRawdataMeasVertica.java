@@ -1,155 +1,140 @@
 package Monitoring.Monitoring.db.vertica.models;
 
-import javax.persistence.*;
 import java.time.ZonedDateTime;
 
-@Entity
-@Table(name="SM_RAWDATA_MEAS", schema = "bsm_replica")
 public class SmRawdataMeasVertica {
-    @Column(name = "session_id", unique = false, nullable = false)
-    private Integer SessionId;
+    private Integer sessionId;
 
-    @Column(name = "time_stamp", unique = false, nullable = false)
-    private ZonedDateTime TimeStamp;
+    private ZonedDateTime timeStamp;
 
-    @Column(name = "measurement_id", unique = false, nullable = false)
-    private Integer MeasurementId;
+    private Integer measurementId;
 
-    @Column(name = "meas_value", unique = false, nullable = false)
-    private Float MeasValue;
+    private Float measValue;
 
-    @Column(name = "status_id", unique = false, nullable = true)
-    private Integer StatusId;
+    private Integer statusId;
 
-    @Column(name = "err_msg", unique = false, nullable = true)
-    private String ErrMsg;
+    private String errMsg;
 
-    @Column(name = "raw_monitor_id", unique = false, nullable = false)
-    private Integer RawMonitorId;
+    private Integer rawMonitorId;
 
-    @Column(name = "raw_target_id", unique = false, nullable = false)
-    private Integer RawTargetId;
+    private Integer rawTargetId;
 
-    @Column(name = "raw_connection_id", unique = false, nullable = false)
-    private Integer RawConnectionId;
+    private Integer rawConnectionId;
 
-    @Column(name = "raw_category_id", unique = false, nullable = false)
-    private Integer RawCategoryId;
+    private Integer rawCategoryId;
 
-    @Column(name = "raw_threshold_quality", unique = false, nullable = true)
-    private Integer RawThresholdQuality;
+    private Integer rawThresholdQuality;
 
-    @Column(name = "dbdate", unique = false, nullable = true)
-    private ZonedDateTime Dbdate;
+    private ZonedDateTime dbdate;
 
     public SmRawdataMeasVertica(Integer sessionId, ZonedDateTime timeStamp, Integer measurementId, Float measValue, Integer statusId, String errMsg, Integer rawMonitorId, Integer rawTargetId, Integer rawConnectionId, Integer rawCategoryId, Integer rawThresholdQuality, ZonedDateTime dbdate) {
-        SessionId = sessionId;
-        TimeStamp = timeStamp;
-        MeasurementId = measurementId;
-        MeasValue = measValue;
-        StatusId = statusId;
-        ErrMsg = errMsg;
-        RawMonitorId = rawMonitorId;
-        RawTargetId = rawTargetId;
-        RawConnectionId = rawConnectionId;
-        RawCategoryId = rawCategoryId;
-        RawThresholdQuality = rawThresholdQuality;
-        Dbdate = dbdate;
+        this.sessionId = sessionId;
+        this.timeStamp = timeStamp;
+        this.measurementId = measurementId;
+        this.measValue = measValue;
+        this.statusId = statusId;
+        this.errMsg = errMsg;
+        this.rawMonitorId = rawMonitorId;
+        this.rawTargetId = rawTargetId;
+        this.rawConnectionId = rawConnectionId;
+        this.rawCategoryId = rawCategoryId;
+        this.rawThresholdQuality = rawThresholdQuality;
+        this.dbdate = dbdate;
     }
 
     public Integer getSessionId() {
-        return SessionId;
+        return sessionId;
     }
 
     public void setSessionId(Integer sessionId) {
-        SessionId = sessionId;
+        this.sessionId = sessionId;
     }
 
     public ZonedDateTime getTimeStamp() {
-        return TimeStamp;
+        return timeStamp;
     }
 
     public void setTimeStamp(ZonedDateTime timeStamp) {
-        TimeStamp = timeStamp;
+        this.timeStamp = timeStamp;
     }
 
     public Integer getMeasurementId() {
-        return MeasurementId;
+        return measurementId;
     }
 
     public void setMeasurementId(Integer measurementId) {
-        MeasurementId = measurementId;
+        this.measurementId = measurementId;
     }
 
     public Float getMeasValue() {
-        return MeasValue;
+        return measValue;
     }
 
     public void setMeasValue(Float measValue) {
-        MeasValue = measValue;
+        this.measValue = measValue;
     }
 
     public Integer getStatusId() {
-        return StatusId;
+        return statusId;
     }
 
     public void setStatusId(Integer statusId) {
-        StatusId = statusId;
+        this.statusId = statusId;
     }
 
     public String getErrMsg() {
-        return ErrMsg;
+        return errMsg;
     }
 
     public void setErrMsg(String errMsg) {
-        ErrMsg = errMsg;
+        this.errMsg = errMsg;
     }
 
     public Integer getRawMonitorId() {
-        return RawMonitorId;
+        return rawMonitorId;
     }
 
     public void setRawMonitorId(Integer rawMonitorId) {
-        RawMonitorId = rawMonitorId;
+        this.rawMonitorId = rawMonitorId;
     }
 
     public Integer getRawTargetId() {
-        return RawTargetId;
+        return rawTargetId;
     }
 
     public void setRawTargetId(Integer rawTargetId) {
-        RawTargetId = rawTargetId;
+        this.rawTargetId = rawTargetId;
     }
 
     public Integer getRawConnectionId() {
-        return RawConnectionId;
+        return rawConnectionId;
     }
 
     public void setRawConnectionId(Integer rawConnectionId) {
-        RawConnectionId = rawConnectionId;
+        this.rawConnectionId = rawConnectionId;
     }
 
     public Integer getRawCategoryId() {
-        return RawCategoryId;
+        return rawCategoryId;
     }
 
     public void setRawCategoryId(Integer rawCategoryId) {
-        RawCategoryId = rawCategoryId;
+        this.rawCategoryId = rawCategoryId;
     }
 
     public Integer getRawThresholdQuality() {
-        return RawThresholdQuality;
+        return this.rawThresholdQuality;
     }
 
     public void setRawThresholdQuality(Integer rawThresholdQuality) {
-        RawThresholdQuality = rawThresholdQuality;
+        this.rawThresholdQuality = rawThresholdQuality;
     }
 
     public ZonedDateTime getDbdate() {
-        return Dbdate;
+        return dbdate;
     }
 
     public void setDbdate(ZonedDateTime dbdate) {
-        Dbdate = dbdate;
+        this.dbdate = dbdate;
     }
 }
