@@ -10,6 +10,7 @@
     <changeSet  author="Shvykin Simon"  id="Init.sql">
 		<sqlFile encoding="UTF-8" path="Migrations/Init.sql"/>
         <sqlFile encoding="UTF-8" path="Migrations/ITOPS-76_add_notif_sent_column.sql"/>
+        <sqlFile encoding="UTF-8" path="Migrations/Vertica.sql"/>
     </changeSet>
 	
 </databaseChangeLog>
