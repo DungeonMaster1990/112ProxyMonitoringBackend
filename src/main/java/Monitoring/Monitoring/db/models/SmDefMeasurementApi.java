@@ -47,10 +47,10 @@ public class SmDefMeasurementApi {
     private Integer active;
 
     @Column(name = "ci_id", unique = false, nullable = true)
-    private Character ciId;
+    private String ciId;
 
     @Column(name = "eti_id", unique = false, nullable = true)
-    private Character etiId;
+    private String etiId;
 
     @Column(name = "integration_name", unique = false, nullable = true)
     private String integrationName;
@@ -67,7 +67,7 @@ public class SmDefMeasurementApi {
     @Column(name = "is_deleted", unique = false, nullable = false)
     private boolean isDeleted;
 
-    public SmDefMeasurementApi(Integer sessionId, Integer measurementId, Integer schedId, Integer categoryId, Integer monitorId, Integer targetId, String msname, String msid, String userRemark, String connectionData, Integer dmConnectionId, Integer active, Character ciId, Character etiId, String integrationName, String profileId, ZonedDateTime modifiedDate, ZonedDateTime creationDate, boolean isDeleted) {
+    public SmDefMeasurementApi(Integer sessionId, Integer measurementId, Integer schedId, Integer categoryId, Integer monitorId, Integer targetId, String msname, String msid, String userRemark, String connectionData, Integer dmConnectionId, Integer active, String ciId, String etiId, String integrationName, String profileId, ZonedDateTime modifiedDate, ZonedDateTime creationDate, boolean isDeleted) {
         this.sessionId = sessionId;
         this.measurementId = measurementId;
         this.schedId = schedId;
@@ -195,19 +195,19 @@ public class SmDefMeasurementApi {
         this.active = active;
     }
 
-    public Character getCiId() {
+    public String getCiId() {
         return ciId;
     }
 
-    public void setCiId(Character ciId) {
+    public void setCiId(String ciId) {
         this.ciId = ciId;
     }
 
-    public Character getEtiId() {
+    public String getEtiId() {
         return etiId;
     }
 
-    public void setEtiId(Character etiId) {
+    public void setEtiId(String etiId) {
         this.etiId = etiId;
     }
 

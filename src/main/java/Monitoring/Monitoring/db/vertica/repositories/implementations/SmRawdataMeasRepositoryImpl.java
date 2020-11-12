@@ -5,11 +5,12 @@ import Monitoring.Monitoring.db.vertica.repositories.interfaces.SmRawdataMeasRep
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 public class SmRawdataMeasRepositoryImpl implements SmRawdataMeasRepository {
 
     @Override
-    public SmRawdataMeasVertica getSmRawdataMeasVertica() {
-        return null;
+    public void putSmRawdataMeasVertica(List<SmRawdataMeasVertica> smRawdataMeasVerticas) {
+
     }
 }

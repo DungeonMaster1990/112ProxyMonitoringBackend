@@ -12,6 +12,6 @@ public class SmDefMeasurementRepositoryImpl implements SmDefMeasurementRepositor
 
     @Override
     public void putSmDefMeasurements(List<SmDefMeasurementApi> smDefMeasurementApis) {
-        
+
     }
 }
