@@ -44,3 +44,13 @@ create table if not exists monitoring.sm_def_measurements
 );
 alter sequence monitoring.sm_def_measurements_id_seq
 owned by monitoring.sm_def_measurements.id;
+
+create sequence if not exists monitoring.metrics_id_seq;
+create table if not exists monitoring.metrics
+(
+    id                         integer not null default nextval('monitoring.metrics_id_seq'),
+    measurement_id             int not null,
+    msname                     varchar not null
+);
+alter sequence monitoring.metrics_id_seq
+owned by monitoring.metrics.id;
