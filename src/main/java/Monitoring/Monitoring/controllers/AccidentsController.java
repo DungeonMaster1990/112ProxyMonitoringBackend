@@ -3,18 +3,11 @@ package Monitoring.Monitoring.controllers;
 import Monitoring.Monitoring.VmMock.VmMock;
 import Monitoring.Monitoring.dto.api.viewmodels.request.VmAccidentsRequest;
 import Monitoring.Monitoring.dto.api.viewmodels.response.*;
-import Monitoring.Monitoring.services.api.interfaces.AccidentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AccidentsController {
-    private AccidentsService accidentsService;
-
-    @Autowired
-    public AccidentsController(AccidentsService accidentsService) {
-        this.accidentsService = accidentsService;
-    }
 
     @PostMapping("/api/v1.0/accidents")
     public VmAccidentResponse[] get(@RequestBody VmAccidentsRequest vmAccidentsRequest)
@@ -51,10 +44,4 @@ public class AccidentsController {
     {
         return VmMock.vmAccidentDescriptionResponse;
     }
-
-//    @GetMapping("/api/v1.0/accidents/callDb")
-//    public List<Accidents> getAllAccidents()
-//    {
-//        return accidentRepository.getAccident();
-//    }
 }
