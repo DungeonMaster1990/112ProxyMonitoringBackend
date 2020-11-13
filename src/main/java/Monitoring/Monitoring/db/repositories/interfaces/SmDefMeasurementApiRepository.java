@@ -1,4 +1,4 @@
 package Monitoring.Monitoring.db.repositories.interfaces;
 
-public interface SmDefMeasurementRepositoryApi {
+public interface SmDefMeasurementApiRepository {
 }

@@ -1,13 +1,13 @@
 package Monitoring.Monitoring.db.repositories.implementations;
 
+import Monitoring.Monitoring.db.repositories.interfaces.SmRawdataMeasApiRepository;
 import Monitoring.Monitoring.db.vertica.models.SmRawdataMeasVertica;
-import Monitoring.Monitoring.db.vertica.repositories.interfaces.SmRawdataMeasRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-public class SmRawdataMeasApiRepositoryImpl implements SmRawdataMeasRepository {
+public class SmRawdataMeasApiRepositoryImpl implements SmRawdataMeasApiRepository {
     @PersistenceContext
     private EntityManager entityManager;
 

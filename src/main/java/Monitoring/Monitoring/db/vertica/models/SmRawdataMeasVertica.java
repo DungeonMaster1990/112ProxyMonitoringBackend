@@ -42,6 +42,8 @@ public class SmRawdataMeasVertica {
         this.dbdate = dbdate;
     }
 
+    public SmRawdataMeasVertica(){}
+
     public Integer getSessionId() {
         return sessionId;
     }

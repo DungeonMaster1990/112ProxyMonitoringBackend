@@ -1,15 +1,13 @@
 package Monitoring.Monitoring.db.repositories.implementations;
 
-import Monitoring.Monitoring.db.models.Incidents;
 import Monitoring.Monitoring.db.models.SmDefMeasurementApi;
-import Monitoring.Monitoring.db.vertica.repositories.interfaces.SmDefMeasurementRepository;
+import Monitoring.Monitoring.db.repositories.interfaces.SmDefMeasurementApiRepository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.util.List;
 
-public class SmDefMeasurementRepositoryImpl implements SmDefMeasurementRepository {
+public class SmDefMeasurementApiRepositoryImpl implements SmDefMeasurementApiRepository {
     @PersistenceContext
     private EntityManager entityManager;
 

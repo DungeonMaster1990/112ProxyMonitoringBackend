@@ -27,9 +27,9 @@ public class SmDefMeasurementVertica {
 
     private Integer active;
 
-    private Character ciId;
+    private String ciId;
 
-    private Character etiId;
+    private String etiId;
 
     private String integrationName;
 
@@ -41,7 +41,7 @@ public class SmDefMeasurementVertica {
 
     private boolean isDeleted;
 
-    public SmDefMeasurementVertica(Integer sessionId, Integer measurementId, Integer schedId, Integer categoryId, Integer monitorId, Integer targetId, String msname, String msid, String userRemark, String connectionData, Integer dmConnectionId, Integer active, Character ciId, Character etiId, String integrationName, String profileId, ZonedDateTime modifiedDate, ZonedDateTime creationDate, boolean isDeleted) {
+    public SmDefMeasurementVertica(Integer sessionId, Integer measurementId, Integer schedId, Integer categoryId, Integer monitorId, Integer targetId, String msname, String msid, String userRemark, String connectionData, Integer dmConnectionId, Integer active, String ciId, String etiId, String integrationName, String profileId, ZonedDateTime modifiedDate, ZonedDateTime creationDate, boolean isDeleted) {
         this.sessionId = sessionId;
         this.measurementId = measurementId;
         this.schedId = schedId;
@@ -84,6 +84,7 @@ public class SmDefMeasurementVertica {
     public Integer getSchedId() {
         return schedId;
     }
+    public void setShedId(Integer shedId) { this.schedId = shedId; }
 
     public Integer getCategoryId() {
         return categoryId;
@@ -157,19 +158,19 @@ public class SmDefMeasurementVertica {
         this.active = active;
     }
 
-    public Character getCiId() {
+    public String getCiId() {
         return ciId;
     }
 
-    public void setCiId(Character ciId) {
+    public void setCiId(String ciId) {
         this.ciId = ciId;
     }
 
-    public Character getEtiId() {
+    public String getEtiId() {
         return etiId;
     }
 
-    public void setEtiId(Character etiId) {
+    public void setEtiId(String etiId) {
         this.etiId = etiId;
     }
 

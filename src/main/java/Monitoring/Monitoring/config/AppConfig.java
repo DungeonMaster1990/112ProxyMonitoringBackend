@@ -53,8 +53,10 @@ public class AppConfig {
 
     public Properties getVerticaUserPass(){
         Properties verticaProps = new Properties();
-        verticaProps.put(this.verticaPassword, this.verticaUser);
-        return  verticaProps;
+        verticaProps.put("user", this.verticaUser);
+        verticaProps.put("password", this.verticaPassword);
+        verticaProps.put("LoginTimeout", "35");
+        return verticaProps;
     }
 
     public String getVerticaUrl() {
