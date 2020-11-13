@@ -6,12 +6,16 @@ import org.springframework.lang.Nullable;
 public class VmMetricsRequest extends VmPageRequestBase {
     @Nullable
     private Boolean onlyMine;
-    private String keyword;
+    private String  keyword;
 
     public VmMetricsRequest(@Nullable Boolean onlyMine, String keyword, int limit, int page) {
         super(limit, page);
         this.onlyMine = onlyMine;
         this.keyword = keyword;
+    }
+
+    public VmMetricsRequest() {
+        super(20, 0);
     }
 
     @Nullable
