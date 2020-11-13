@@ -1,131 +1,83 @@
-package Monitoring.Monitoring.db.models;
+package Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels;
+
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.time.ZonedDateTime;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="incidents", schema = "monitoring")
-public class Incidents implements BaseSmModel<Incidents> {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-
-    @Column(name = "incident_id", unique = false, nullable = false)
-    private String incidentId;
-
-    @Column(name = "created_at", unique = false, nullable = true)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class VmIncidentSm implements VmBaseSmModel<VmIncidentSm> {
+    @JsonAlias("Id")
+    private String id;
+    @JsonAlias("CreatedAt")
     private ZonedDateTime createdAt;
-
-    @Column(name = "expired_at", unique = false, nullable = true)
+    @JsonAlias("ExpiredAt")
     private ZonedDateTime expiredAt;
-
-    @Column(name = "author_id", unique = false, nullable = true)
+    @JsonAlias("AuthorId")
     private Integer authorId;
-
-    @Column(name = "contact_id", unique = false, nullable = true)
+    @JsonAlias("ContactId")
     private Integer contactId;
-
-    @Column(name = "service_id", unique = false, nullable = true)
+    @JsonAlias("ServiceId")
     private Integer serviceId;
-
-    @Column(name = "category", unique = false, nullable = true)
+    @JsonAlias("Category")
     private String category;
-
-    @Column(name = "failure_point", unique = false, nullable = true)
+    @JsonAlias("FailurePoint")
     private String failurePoint;
-
-    @Column(name = "configuration_item_id", unique = false, nullable = true)
+    @JsonAlias("ConfigurationItemId")
     private Integer configurationItemId;
-
-    @Column(name = "title", unique = false, nullable = true)
+    @JsonAlias("Title")
     private String title;
-
-    @Column(name = "description", unique = false, nullable = true)
+    @JsonAlias("Description")
     private String description;
-
-    @Column(name = "impact", unique = false, nullable = true)
+    @JsonAlias("Impact")
     private String impact;
-
-    @Column(name = "severity", unique = false, nullable = true)
+    @JsonAlias("Severity")
     private String severity;
-
-    @Column(name = "group_id", unique = false, nullable = true)
+    @JsonAlias("GroupId")
     private Integer groupId;
-
-    @Column(name = "assignee_id", unique = false, nullable = true)
+    @JsonAlias("AssigneeId")
     private String assigneeId;
-
-    @Column(name = "status", unique = false, nullable = true)
+    @JsonAlias("Status")
     private String status;
-
-    @Column(name = "close_code", unique = false, nullable = true)
+    @JsonAlias("CloseCode")
     private String closeCode;
-
-    @Column(name = "resolution", unique = false, nullable = true)
+    @JsonAlias("Resolution")
     private String resolution;
-
-    @Column(name = "comment", unique = false, nullable = true)
+    @JsonAlias("Comment")
     private String comment;
-
-    @Column(name = "updated_at", unique = false, nullable = true)
+    @JsonAlias("UpdatedAt")
     private ZonedDateTime updatedAt;
-
-    @Column(name = "type", unique = false, nullable = true)
+    @JsonAlias("Type")
     private String type;
-
-    @Column(name = "sla_start_time", unique = false, nullable = true)
+    @JsonAlias("SlaStartTime")
     private ZonedDateTime slaStartTime;
-
-    @Column(name = "jira_number", unique = false, nullable = true)
+    @JsonAlias("JiraNumber")
     private String jiraNumber;
-
-    @Column(name = "template_name", unique = false, nullable = true)
+    @JsonAlias("TemplateName")
     private String templateName;
-
-    @Column(name = "ext_organization", unique = false, nullable = true)
+    @JsonAlias("ExtOrganization")
     private String extOrganization;
-
-    @Column(name = "ext_id", unique = false, nullable = true)
+    @JsonAlias("ExtId")
     private String extId;
-
-    @Column(name = "ext_status", unique = false, nullable = true)
+    @JsonAlias("ExtStatus")
     private String extStatus;
-
-    @Column(name = "ext_assignee_time", unique = false, nullable = true)
+    @JsonAlias("ExtAssigneeTime")
     private String extAssigneeTime;
-
-    @Column(name = "source", unique = false, nullable = true)
+    @JsonAlias("Source")
     private String source;
-
-    @Column(name = "specialist_id", unique = false, nullable = true)
+    @JsonAlias("SpecialistId")
     private String specialistId;
-
-    @Column(name = "priority", unique = false, nullable = true)
+    @JsonAlias("Priority")
     private String priority;
-
-    @Column(name = "idented_at", unique = false, nullable = true)
+    @JsonAlias("IdentedAt")
     private ZonedDateTime identedAt;
-
-    @Column(name = "fact_end_at", unique = false, nullable = true)
+    @JsonAlias("FactEndAt")
     private ZonedDateTime factEndAt;
-
-    @Column(name = "fact_begin_at", unique = false, nullable = true)
+    @JsonAlias("FactBeginAt")
     private ZonedDateTime factBeginAt;
 
-    @Column(name = "notification_sent")
-    private Boolean notificationSent;
-
-    public Incidents(){}
-
-    public Incidents(int id, String incidentId, ZonedDateTime createdAt, ZonedDateTime expiredAt, int authorId, int contactId, int serviceId, String category, String failurePoint, int configurationItemId, String title, String description, String impact, String severity, int groupId, String assigneeId, String status, String closeCode, String resolution, String comment, ZonedDateTime updatedAt, String type, ZonedDateTime slaStartTime, String jiraNumber, String templateName, String extOrganization, String extId, String extStatus, String extAssigneeTime, String source, String specialistId, String priority, ZonedDateTime identedAt, ZonedDateTime factEndAt, ZonedDateTime factBeginAt, Boolean notificationSent) {
+    public VmIncidentSm(String id, ZonedDateTime createdAt, ZonedDateTime expiredAt, Integer authorId, Integer contactId, Integer serviceId, String category, String failurePoint, Integer configurationItemId, String title, String description, String impact, String severity, Integer groupId, String assigneeId, String status, String closeCode, String resolution, String comment, ZonedDateTime updatedAt, String type, ZonedDateTime slaStartTime, String jiraNumber, String templateName, String extOrganization, String extId, String extStatus, String extAssigneeTime, String source, String specialistId, String priority, ZonedDateTime identedAt, ZonedDateTime factEndAt, ZonedDateTime factBeginAt) {
         this.id = id;
-        this.incidentId = incidentId;
         this.createdAt = createdAt;
         this.expiredAt = expiredAt;
         this.authorId = authorId;
@@ -159,25 +111,16 @@ public class Incidents implements BaseSmModel<Incidents> {
         this.identedAt = identedAt;
         this.factEndAt = factEndAt;
         this.factBeginAt = factBeginAt;
-        this.notificationSent = notificationSent;
     }
 
-    public Class<Incidents> getTClass() { return Incidents.class; }
+    public Class<VmIncidentSm> getUClass(){ return VmIncidentSm.class; }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public String getIncidentId() {
-        return incidentId;
-    }
-
-    public void setIncidentId(String incidentId) {
-        this.incidentId = incidentId;
     }
 
     public ZonedDateTime getCreatedAt() {
@@ -196,27 +139,27 @@ public class Incidents implements BaseSmModel<Incidents> {
         this.expiredAt = expiredAt;
     }
 
-    public Integer getAuthorId() {
+    public int getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(Integer authorId) {
+    public void setAuthorId(int authorId) {
         this.authorId = authorId;
     }
 
-    public Integer getContactId() {
+    public int getContactId() {
         return contactId;
     }
 
-    public void setContactId(Integer contactId) {
+    public void setContactId(int contactId) {
         this.contactId = contactId;
     }
 
-    public Integer getServiceId() {
+    public int getServiceId() {
         return serviceId;
     }
 
-    public void setServiceId(Integer serviceId) {
+    public void setServiceId(int serviceId) {
         this.serviceId = serviceId;
     }
 
@@ -236,11 +179,11 @@ public class Incidents implements BaseSmModel<Incidents> {
         this.failurePoint = failurePoint;
     }
 
-    public Integer getConfigurationItemId() {
+    public int getConfigurationItemId() {
         return configurationItemId;
     }
 
-    public void setConfigurationItemId(Integer configurationItemId) {
+    public void setConfigurationItemId(int configurationItemId) {
         this.configurationItemId = configurationItemId;
     }
 
@@ -276,11 +219,11 @@ public class Incidents implements BaseSmModel<Incidents> {
         this.severity = severity;
     }
 
-    public Integer getGroupId() {
+    public int getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(Integer groupId) {
+    public void setGroupId(int groupId) {
         this.groupId = groupId;
     }
 
@@ -442,13 +385,5 @@ public class Incidents implements BaseSmModel<Incidents> {
 
     public void setFactBeginAt(ZonedDateTime factBeginAt) {
         this.factBeginAt = factBeginAt;
-    }
-
-    public Boolean getNotificationSent() {
-        return notificationSent;
-    }
-
-    public void setNotificationSent(Boolean notificationSent) {
-        this.notificationSent = notificationSent;
     }
 }

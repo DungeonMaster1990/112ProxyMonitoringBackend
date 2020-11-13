@@ -1,5 +1,5 @@
 package Monitoring.Monitoring.dto.services.viewmodels.response;
 
-public class VmReChangeResponse {
+public class VmVtbChangeResponse {
     private String[] Messages;
 }

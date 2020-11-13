@@ -1,8 +1,11 @@
-package Monitoring.Monitoring.dto.services.viewmodels.response.submodels;
+package Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.time.ZonedDateTime;
 
-public class VmVtbChange {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class VmVtbChangeSm implements VmBaseSmModel<VmVtbChangeSm> {
     private String affectedItem;
     private String[] backoutPlan;
     private Boolean isManagerNotification;
@@ -22,6 +25,8 @@ public class VmVtbChange {
     private String initialImpact;
     private String riskFinance;
     private String wasLoadingTesting;
+
+    public Class<VmVtbChangeSm> getUClass(){ return VmVtbChangeSm.class; }
 
 
 }

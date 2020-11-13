@@ -4,15 +4,14 @@ import Monitoring.Monitoring.config.AppConfig;
 import Monitoring.Monitoring.db.models.Incidents;
 import Monitoring.Monitoring.db.models.Unavailabilities;
 import Monitoring.Monitoring.db.repositories.interfaces.IncidentsRepository;
-import Monitoring.Monitoring.db.repositories.interfaces.UnavailabilityRepository;
+import Monitoring.Monitoring.db.repositories.interfaces.UnavailabilitiesRepository;
 import Monitoring.Monitoring.dto.services.viewmodels.response.VmIncidentResponse;
-import Monitoring.Monitoring.dto.services.viewmodels.response.VmUnavailabilityResponse;
+import Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels.VmUnavailabilitySm;
 import Monitoring.Monitoring.services.workers.interfaces.SmIncidentWorker;
 import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -27,13 +26,13 @@ public class SmIncidentWorkerImpl implements SmIncidentWorker {
     private AppConfig appConfig;
     private ModelMapper modelMapper;
     private IncidentsRepository incidentsRepository;
-    private UnavailabilityRepository unavailabilityRepository;
+    private UnavailabilitiesRepository unavailabilityRepository;
 
     @Autowired
     private SmIncidentWorkerImpl(
             AppConfig appConfig,
             IncidentsRepository incidentsRepository,
-            UnavailabilityRepository unavailabilityRepository)
+            UnavailabilitiesRepository unavailabilityRepository)
     {
         this.incidentsRepository = incidentsRepository;
         this.appConfig = appConfig;
@@ -91,7 +90,7 @@ public class SmIncidentWorkerImpl implements SmIncidentWorker {
     }
 
     private List<Unavailabilities> getUnavailabilitiesFromSm(List<Incidents> incidents) throws Exception {
-        ArrayList<VmUnavailabilityResponse> results = new ArrayList<>();
+        ArrayList<VmUnavailabilitySm> results = new ArrayList<>();
 
         for(var incident : incidents){
             var result = getUnavailabilityFromSm(incident);
@@ -101,9 +100,9 @@ public class SmIncidentWorkerImpl implements SmIncidentWorker {
         return mapList(results, Unavailabilities.class);
     }
 
-    private VmUnavailabilityResponse getUnavailabilityFromSm(Incidents incident) throws Exception {
+    private VmUnavailabilitySm getUnavailabilityFromSm(Incidents incident) throws Exception {
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<VmUnavailabilityResponse> response = restTemplate.getForEntity(getUnavailabilityRequestString(incident), VmUnavailabilityResponse.class);
+        ResponseEntity<VmUnavailabilitySm> response = restTemplate.getForEntity(getUnavailabilityRequestString(incident), VmUnavailabilitySm.class);
         if (!response.getStatusCode().is2xxSuccessful()){
             throw new Exception("The SM service didn't respond for Unavailability Request");
         }

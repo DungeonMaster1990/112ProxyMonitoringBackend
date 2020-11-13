@@ -1,59 +1,25 @@
-package Monitoring.Monitoring.db.models;
+package Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.time.ZonedDateTime;
 
-@Entity
-@Table(name="unavailabilities", schema = "monitoring")
-public class Unavailabilities implements BaseSmModel <Unavailabilities> {
-    public Unavailabilities(){}
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-
-    public String getFaultId() {
-        return FaultId;
-    }
-
-    public void setFaultId(String faultId) {
-        FaultId = faultId;
-    }
-
-    @Column(name = "fault_id", unique = false, nullable = false)
-    private String FaultId;
-
-    @Column(name = "begin_at", unique = false, nullable = false)
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class VmUnavailabilitySm implements VmBaseSmModel<VmUnavailabilitySm> {
+    private String faultId;
     private ZonedDateTime beginAt;
-
-    @Column(name = "end_at", unique = false, nullable = false)
     private ZonedDateTime endAt;
-
-    @Column(name = "duration", unique = false, nullable = false)
     private String duration;
-
-    @Column(name = "service_name", unique = false, nullable = false)
     private String serviceName;
-
-    @Column(name = "type", unique = false, nullable = false)
     private String type;
-
-    @Column(name = "service_id", unique = false, nullable = false)
     private String serviceId;
-
-    @Column(name = "created_at", unique = false, nullable = false)
     private ZonedDateTime createdAt;
-
-    @Column(name = "created_by_id", unique = false, nullable = false)
     private String createdById;
-
-    @Column(name = "updated_at", unique = false, nullable = false)
     private ZonedDateTime updatedAt;
+    private int updatedById;
 
-    @Column(name = "updated_by_id", unique = false, nullable = false)
-    private Integer updatedById;
-
-    public Unavailabilities(int id, ZonedDateTime beginAt, ZonedDateTime endAt, String duration, String serviceName, String type, String serviceId, ZonedDateTime createdAt, String createdById, ZonedDateTime updatedAt, Integer updatedById) {
-        this.id = id;
+    public VmUnavailabilitySm(String faultId, ZonedDateTime beginAt, ZonedDateTime endAt, String duration, String serviceName, String type, String serviceId, ZonedDateTime createdAt, String createdById, ZonedDateTime updatedAt, int updatedById) {
+        this.faultId = faultId;
         this.beginAt = beginAt;
         this.endAt = endAt;
         this.duration = duration;
@@ -66,14 +32,14 @@ public class Unavailabilities implements BaseSmModel <Unavailabilities> {
         this.updatedById = updatedById;
     }
 
-    public Class<Unavailabilities> getTClass() { return Unavailabilities.class; }
+    public Class<VmUnavailabilitySm> getUClass(){ return VmUnavailabilitySm.class; }
 
-    public int getId() {
-        return id;
+    public String getFaultId() {
+        return faultId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setFaultId(String faultId) {
+        this.faultId = faultId;
     }
 
     public ZonedDateTime getBeginAt() {
@@ -148,11 +114,11 @@ public class Unavailabilities implements BaseSmModel <Unavailabilities> {
         this.updatedAt = updatedAt;
     }
 
-    public Integer getUpdatedById() {
+    public int getUpdatedById() {
         return updatedById;
     }
 
-    public void setUpdatedById(Integer updatedById) {
+    public void setUpdatedById(int updatedById) {
         this.updatedById = updatedById;
     }
 }

@@ -1,7 +1,7 @@
 package Monitoring.Monitoring.db.repositories.implementations;
 
 import Monitoring.Monitoring.db.models.Unavailabilities;
-import Monitoring.Monitoring.db.repositories.interfaces.UnavailabilityRepository;
+import Monitoring.Monitoring.db.repositories.interfaces.UnavailabilitiesRepository;
 import com.google.common.collect.Streams;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class UnavailabilityRepositoryImpl implements UnavailabilityRepository {
+public class UnavailabilitiesRepositoryImpl implements UnavailabilitiesRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
