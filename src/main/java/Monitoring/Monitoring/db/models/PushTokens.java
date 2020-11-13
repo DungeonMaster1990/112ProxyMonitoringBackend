@@ -15,7 +15,7 @@ import lombok.Data;
 @Table(name="pushtokens", schema = "monitoring")
 public class PushTokens {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
     @Column(name = "token", unique = false, nullable = false)

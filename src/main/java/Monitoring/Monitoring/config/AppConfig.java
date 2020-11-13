@@ -3,21 +3,31 @@ package Monitoring.Monitoring.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Properties;
+
 @Configuration
 public class AppConfig {
 
     @Value("${sm.baseurl}")
-    private String BaseSmUrl;
+    private String baseSmUrl;
     @Value("${sm.methods.incident}")
-    private String SmIncidentMethod;
+    private String smIncidentMethod;
     @Value("${sm.methods.unavailability}")
     private String SmUnavailabilityMethod;
     @Value("${sm.methods.changes}")
     private String SmChangesMethod;
 
+    private String smUnavailabilityMethod;
     @Value("${api.timeout}")
-    private int Timeout;
+    private int timeout;
     @Value("${api.deep.days}")
+    private long deepDays;
+    @Value("${spring.verticaDatasource.url}")
+    private String verticaUrl;
+    @Value("${spring.verticaDatasource.password}")
+    private String verticaPassword;
+    @Value("${spring.verticaDatasource.username}")
+    private String verticaUser;
     private long DeepDays;
     @Value("${pusher.url}")
     private String pusherUrl;
@@ -33,16 +43,28 @@ public class AppConfig {
     }
 
     public long getDeepDays() {
-        return DeepDays;
+        return deepDays;
     }
 
     public String getSmIncidentUrl(){
-        return this.BaseSmUrl + this.SmIncidentMethod;
+        return this.baseSmUrl + this.smIncidentMethod;
     }
 
     public String getSmUnavailabilityUrl(){
-        return this.BaseSmUrl + this.SmUnavailabilityMethod;
+        return this.baseSmUrl + this.smUnavailabilityMethod;
     }
 
-    public String getSmChangesUrl() { return this.BaseSmUrl + this.SmChangesMethod; }
+
+    public Properties getVerticaUserPass(){
+        Properties verticaProps = new Properties();
+        verticaProps.put("user", this.verticaUser);
+        verticaProps.put("password", this.verticaPassword);
+        verticaProps.put("LoginTimeout", "35");
+        return verticaProps;
+    }
+
+    public String getVerticaUrl() {
+        return verticaUrl;
+    }
+    public String getSmChangesUrl() { return this.baseSmUrl + this.SmChangesMethod; }
 }

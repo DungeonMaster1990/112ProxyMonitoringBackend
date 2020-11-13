@@ -8,7 +8,7 @@ import java.time.ZonedDateTime;
 public class Unavailabilities implements BaseSmModel <Unavailabilities> {
     public Unavailabilities(){}
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
 
     public String getFaultId() {

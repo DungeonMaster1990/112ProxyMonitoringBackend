@@ -121,7 +121,7 @@ alter sequence monitoring.unavailability_id_seq
 owned by monitoring.unavailability.id;
 
 create sequence if not exists monitoring.pushTokens_id_seq;
-create table monitoring.pushTokens
+create table if not exists monitoring.pushTokens
 (
     id         integer not null default nextval('monitoring.pushTokens_id_seq'),
     token      varchar,
