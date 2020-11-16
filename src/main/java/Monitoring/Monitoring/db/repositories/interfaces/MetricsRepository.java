@@ -1,9 +1,11 @@
 package Monitoring.Monitoring.db.repositories.interfaces;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import Monitoring.Monitoring.db.models.Metrics;
 
-import java.util.List;
+@Repository
+public interface MetricsRepository extends JpaRepository<Metrics, Integer> {
 
-public interface MetricsRepository {
-    List<Metrics> getAllMetrics();
 }

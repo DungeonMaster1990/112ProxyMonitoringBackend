@@ -1,12 +1,35 @@
 package Monitoring.Monitoring.VmMock;
 
-import Monitoring.Monitoring.dto.api.viewmodels.enums.*;
-import Monitoring.Monitoring.dto.api.viewmodels.response.*;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
+import Monitoring.Monitoring.dto.api.viewmodels.enums.BlAccidentStatusType;
+import Monitoring.Monitoring.dto.api.viewmodels.enums.BlMetricsStatus;
+import Monitoring.Monitoring.dto.api.viewmodels.enums.BlPlanStatus;
+import Monitoring.Monitoring.dto.api.viewmodels.enums.BlPlanStatusType;
+import Monitoring.Monitoring.dto.api.viewmodels.enums.BlWorkType;
+import Monitoring.Monitoring.dto.api.viewmodels.enums.BlWorkerStatus;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmAccidentDescriptionResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmAccidentHistoryResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmAccidentInfoResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmAccidentResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmAccidentWorkersResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmEventResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmMetricInfoResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmMetricsResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmNewAccidentResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmPlanDescriptionResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmPlanHistoryResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmPlanInfoResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmPlanResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmPlanSectionsResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmPlanWorkersResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmSystemResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmUpdateResponse;
 import Monitoring.Monitoring.dto.api.viewmodels.submodels.VmHistoryRecord;
 import Monitoring.Monitoring.dto.api.viewmodels.submodels.VmManager;
 import Monitoring.Monitoring.dto.api.viewmodels.submodels.VmWorker;
 
-import java.time.*;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -139,12 +162,37 @@ public class VmMock {
                     "Service Manager"
             };
 
-    public static VmMetricsResponse[] vmMetricsResponse = new
-            VmMetricsResponse[]
-    {
-            new VmMetricsResponse("1", "Клиентов в ВТБ Онлайн", true, "65024", -56, -0.6, BlMetricsStatus.warning, 0.5),
-            new VmMetricsResponse("2", "Очередь на исполнение документов БО", true, "0", -5, -0.3, BlMetricsStatus.normal, 0.15),
-            new VmMetricsResponse("3", "Количество новых операций в ВТБ-онлайн", true, "0", 2, -0.1, BlMetricsStatus.normal, 0.7),
+    public static VmMetricsResponse[] vmMetricsResponse = new VmMetricsResponse[]{
+            VmMetricsResponse.builder()
+                             .id("1")
+                             .name("Клиентов в ВТБ Онлайн")
+                             .mine(true)
+                             .value("65024")
+                             .delta(-56)
+                             .deltaPercent(-0.6)
+                             .deltaStatus(BlMetricsStatus.warning)
+                             .totalPercent(0.5)
+                    .build(),
+            VmMetricsResponse.builder()
+                             .id("2")
+                             .name("Очередь на исполнение документов БО")
+                             .mine(true)
+                             .value("0")
+                             .delta(-5)
+                             .deltaPercent(-0.3)
+                             .deltaStatus(BlMetricsStatus.normal)
+                             .totalPercent(0.7)
+                    .build(),
+            VmMetricsResponse.builder()
+                             .id("3")
+                             .name("Количество новых операций в ВТБ-онлайн")
+                             .mine(true)
+                             .value("0")
+                             .delta(2)
+                             .deltaPercent(-0.1)
+                             .deltaStatus(BlMetricsStatus.normal)
+                             .totalPercent(0.7)
+                    .build()
     };
 
     public static VmUpdateResponse  updateMetricsOrSystem = new VmUpdateResponse("true");

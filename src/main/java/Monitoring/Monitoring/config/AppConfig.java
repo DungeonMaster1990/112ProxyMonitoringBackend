@@ -3,6 +3,8 @@ package Monitoring.Monitoring.config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Properties;
+
 @Configuration
 public class AppConfig {
 
@@ -48,19 +50,16 @@ public class AppConfig {
         return this.baseSmUrl + this.smUnavailabilityMethod;
     }
 
-    public String getVerticaPassword() {
-        return verticaPassword;
+
+    public Properties getVerticaUserPass(){
+        Properties verticaProps = new Properties();
+        verticaProps.put("user", this.verticaUser);
+        verticaProps.put("password", this.verticaPassword);
+        verticaProps.put("LoginTimeout", "35");
+        return verticaProps;
     }
 
-    public void setVerticaPassword(String verticaPassword) {
-        this.verticaPassword = verticaPassword;
-    }
-
-    public String getVerticaUser() {
-        return verticaUser;
-    }
-
-    public void setVerticaUser(String verticaUser) {
-        this.verticaUser = verticaUser;
+    public String getVerticaUrl() {
+        return verticaUrl;
     }
 }
