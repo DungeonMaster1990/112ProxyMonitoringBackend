@@ -7,5 +7,5 @@ import java.time.ZonedDateTime;
 import java.util.List;
 
 public interface SmDefMeasurementVerticaRepository {
-    List<SmDefMeasurementVertica> getSmDefMeasurements() throws SQLException;
+    List<SmDefMeasurementVertica> getSmDefMeasurements(List<Integer> metricsIds) throws SQLException;
 }

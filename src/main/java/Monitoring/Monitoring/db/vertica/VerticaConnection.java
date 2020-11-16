@@ -12,7 +12,8 @@ public class VerticaConnection {
 
     @Autowired
     public VerticaConnection(AppConfig appConfig) throws SQLException {
-        this.connection = DriverManager.getConnection(appConfig.getVerticaUrl(), appConfig.getVerticaUserPass());
+        this.connection = DriverManager
+                .getConnection(appConfig.getVerticaUrl(), appConfig.getVerticaUserPass());
     }
 
     public Connection getConnection() {
