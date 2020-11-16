@@ -1,9 +1,9 @@
 package Monitoring.Monitoring.services.workers.impl;
 
 import Monitoring.Monitoring.config.AppConfig;
-import Monitoring.Monitoring.db.models.Incidents;
+import Monitoring.Monitoring.db.models.Incident;
 import Monitoring.Monitoring.db.models.Unavailabilities;
-import Monitoring.Monitoring.db.repositories.interfaces.IncidentsRepository;
+import Monitoring.Monitoring.db.repositories.interfaces.IncidentRepository;
 import Monitoring.Monitoring.db.repositories.interfaces.UnavailabilityRepository;
 import Monitoring.Monitoring.dto.services.viewmodels.response.VmIncidentResponse;
 import Monitoring.Monitoring.dto.services.viewmodels.response.VmUnavailabilityResponse;
@@ -11,6 +11,7 @@ import Monitoring.Monitoring.services.workers.interfaces.SmWorkerService;
 import org.jetbrains.annotations.NotNull;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -26,13 +27,13 @@ public class SmWorkerServiceImpl implements SmWorkerService {
 
     private AppConfig appConfig;
     private ModelMapper modelMapper;
-    private IncidentsRepository incidentsRepository;
+    private IncidentRepository incidentsRepository;
     private UnavailabilityRepository unavailabilityRepository;
 
     @Autowired
     private SmWorkerServiceImpl(
             AppConfig appConfig,
-            IncidentsRepository incidentsRepository,
+            @Qualifier("customIncidentRepository") IncidentRepository incidentsRepository,
             UnavailabilityRepository unavailabilityRepository)
     {
         this.incidentsRepository = incidentsRepository;
@@ -48,7 +49,7 @@ public class SmWorkerServiceImpl implements SmWorkerService {
         saveUnavailabilities(unavailabilities);
     }
 
-    private List<Incidents> saveIncidentsFromSm() throws Exception {
+    private List<Incident> saveIncidentsFromSm() throws Exception {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<VmIncidentResponse[]> response = restTemplate.getForEntity(getVtbIncidentsRequestString(), VmIncidentResponse[].class);
         if (!response.getStatusCode().is2xxSuccessful()){
@@ -68,17 +69,17 @@ public class SmWorkerServiceImpl implements SmWorkerService {
         return appConfig.getSmIncidentUrl();
     }
 
-    private List<Incidents> saveVtbIncidentsFromResponse(@NotNull ResponseEntity<VmIncidentResponse[]> response){
+    private List<Incident> saveVtbIncidentsFromResponse(@NotNull ResponseEntity<VmIncidentResponse[]> response){
         var vtbIncidents = response.getBody();
-        ArrayList<Incidents> incidents = new ArrayList<Incidents>();
-        var incidentsDTO = mapArray(vtbIncidents, Incidents.class);
+        ArrayList<Incident> incidents = new ArrayList<>();
+        var incidentsDTO = mapArray(vtbIncidents, Incident.class);
         var incidentsForeignIds = incidentsDTO.stream()
                 .map(incedent -> incedent.getIncidentId())
                 .collect(Collectors.toList());
 
         var oldVtbIncidents = incidentsRepository.getVtbIncidents(incidentsForeignIds)
                 .stream()
-                .collect(Collectors.toMap(Incidents::getIncidentId, Incidents::getId));
+                .collect(Collectors.toMap(Incident::getIncidentId, Incident::getId));
 
         for (var incident : incidentsDTO){
             var foreignIncidentId = incident.getIncidentId();
@@ -90,7 +91,7 @@ public class SmWorkerServiceImpl implements SmWorkerService {
         return incidentsDTO;
     }
 
-    private List<Unavailabilities> getUnavailabilitiesFromSm(List<Incidents> incidents) throws Exception {
+    private List<Unavailabilities> getUnavailabilitiesFromSm(List<Incident> incidents) throws Exception {
         ArrayList<VmUnavailabilityResponse> results = new ArrayList<>();
 
         for(var incident : incidents){
@@ -101,7 +102,7 @@ public class SmWorkerServiceImpl implements SmWorkerService {
         return mapList(results, Unavailabilities.class);
     }
 
-    private VmUnavailabilityResponse getUnavailabilityFromSm(Incidents incident) throws Exception {
+    private VmUnavailabilityResponse getUnavailabilityFromSm(Incident incident) throws Exception {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<VmUnavailabilityResponse> response = restTemplate.getForEntity(getUnavailabilityRequestString(incident), VmUnavailabilityResponse.class);
         if (!response.getStatusCode().is2xxSuccessful()){
@@ -110,7 +111,7 @@ public class SmWorkerServiceImpl implements SmWorkerService {
         return response.getBody();
     }
 
-    private String getUnavailabilityRequestString(Incidents incident){
+    private String getUnavailabilityRequestString(Incident incident){
         return appConfig.getSmIncidentUrl();
     }
 
