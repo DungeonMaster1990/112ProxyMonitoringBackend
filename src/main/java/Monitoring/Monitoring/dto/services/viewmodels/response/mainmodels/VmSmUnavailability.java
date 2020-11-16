@@ -1,11 +1,11 @@
-package Monitoring.Monitoring.dto.services.viewmodels.response;
+package Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.time.ZonedDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VmUnavailabilityResponse {
+public class VmSmUnavailability {
     private String faultId;
     private ZonedDateTime beginAt;
     private ZonedDateTime endAt;
@@ -18,7 +18,7 @@ public class VmUnavailabilityResponse {
     private ZonedDateTime updatedAt;
     private int updatedById;
 
-    public VmUnavailabilityResponse(String faultId, ZonedDateTime beginAt, ZonedDateTime endAt, String duration, String serviceName, String type, String serviceId, ZonedDateTime createdAt, String createdById, ZonedDateTime updatedAt, int updatedById) {
+    public VmSmUnavailability(String faultId, ZonedDateTime beginAt, ZonedDateTime endAt, String duration, String serviceName, String type, String serviceId, ZonedDateTime createdAt, String createdById, ZonedDateTime updatedAt, int updatedById) {
         this.faultId = faultId;
         this.beginAt = beginAt;
         this.endAt = endAt;

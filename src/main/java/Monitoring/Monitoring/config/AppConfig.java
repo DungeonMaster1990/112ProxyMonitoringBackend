@@ -14,6 +14,9 @@ public class AppConfig {
     private String smIncidentMethod;
     @Value("${sm.methods.unavailability}")
     private String smUnavailabilityMethod;
+    @Value("${sm.methods.changes}")
+    private String smChangesMethod;
+
     @Value("${api.timeout}")
     private int timeout;
     @Value("${api.deep.days}")
@@ -28,7 +31,11 @@ public class AppConfig {
     @Value("${pusher.url}")
     private String pusherUrl;
     @Value("${notificationsender.incidents.lastDaysToProcess}")
-    private long   lastDaysToProcess;
+    private long lastDaysToProcess;
+    @Value("${sm.login}")
+    private String smLogin;
+    @Value("${sm.password}")
+    private String smPassword;
 
     public long getLastDaysToProcess() {
         return lastDaysToProcess;
@@ -59,7 +66,12 @@ public class AppConfig {
         return verticaProps;
     }
 
+    public String getSmUserLoginPass(){
+        return String.format("%s:%s", smLogin, smPassword);
+    }
+
     public String getVerticaUrl() {
         return verticaUrl;
     }
+    public String getSmChangesUrl() { return this.baseSmUrl + this.smChangesMethod; }
 }

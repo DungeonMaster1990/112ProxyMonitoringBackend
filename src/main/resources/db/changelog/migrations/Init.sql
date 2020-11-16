@@ -130,3 +130,13 @@ create table if not exists monitoring.pushTokens
 );
 alter sequence monitoring.pushTokens_id_seq
 owned by monitoring.pushTokens.id;
+
+create sequence if not exists monitoring.updates_id_seq;
+create table if not exists monitoring.updates
+(
+    id         integer not null default nextval('monitoring.updates_id_seq'),
+    name       varchar,
+    accidentId int
+);
+alter sequence monitoring.updates_id_seq
+owned by monitoring.updates.id;
