@@ -37,4 +37,8 @@ public class Metrics {
     @Column(name = "msname",
             nullable = false)
     private String msname;
+
+    @Column(name = "is_merged",
+            nullable = false)
+    private boolean isMerged;
 }

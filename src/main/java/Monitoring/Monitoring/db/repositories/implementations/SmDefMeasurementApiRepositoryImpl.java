@@ -15,7 +15,7 @@ public class SmDefMeasurementApiRepositoryImpl implements SmDefMeasurementApiRep
     public void putSmDefMeasurements(List<SmDefMeasurementApi> smDefMeasurementApis){
         entityManager.getTransaction().begin();
         for(SmDefMeasurementApi smDefMeasurementApi : smDefMeasurementApis){
-            entityManager.persist(smDefMeasurementApi);
+            entityManager.merge(smDefMeasurementApi);
         }
         entityManager.getTransaction().commit();
     }
