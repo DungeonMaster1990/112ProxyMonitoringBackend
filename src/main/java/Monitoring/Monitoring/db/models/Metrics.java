@@ -1,31 +1,40 @@
 package Monitoring.Monitoring.db.models;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "metrics", schema = "monitoring")
+@Table(name = "metrics",
+       schema = "monitoring")
 @Getter
 @Setter
 public class Metrics {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(updatable = false, nullable = false)
+    @GenericGenerator(
+            name = "metricsIdGenerator",
+            strategy = "sequence-identity",
+            parameters = {
+                    @Parameter(name = "sequence",
+                               value = "monitoring.metrics_id_seq")
+            }
+    )
+    @GeneratedValue(generator = "metricsIdGenerator")
     private Integer id;
 
-    @Column(name = "measurement_id", nullable = false)
+    @Column(name = "measurement_id",
+            nullable = false)
     private Integer measurementId;
 
-    @Column(name = "msname", nullable = false)
+    @Column(name = "msname",
+            nullable = false)
     private String msname;
 }

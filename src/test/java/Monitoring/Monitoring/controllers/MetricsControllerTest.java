@@ -2,6 +2,7 @@ package Monitoring.Monitoring.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -14,6 +15,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
+
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import javax.sql.DataSource;
 
@@ -58,11 +64,10 @@ class MetricsControllerTest {
 
     @Test
     void testSaveMetrics() throws Exception {
-        Metrics metrics = new Metrics();
-        metrics.setMeasurementId(0);
-        metrics.setMsname("some-ms-name");
-        metricsRepository.saveAndFlush(metrics);
-
+        List<Metrics> allMetrics = IntStream.rangeClosed(1, 10)
+                                            .mapToObj(this::makeMetrics)
+                                            .collect(Collectors.toList());
+        metricsRepository.saveAll(allMetrics);
         VmMetricsRequest request = new VmMetricsRequest(true, "hello", 10, 0);
         mockMvc.perform(MockMvcRequestBuilders
                                 .post("/api/v1.0/metrics")
@@ -71,5 +76,13 @@ class MetricsControllerTest {
                .andDo(print())
                .andExpect(status().isOk())
                .andExpect(content().string(containsString("\"id\":\"1\"")));
+    }
+
+    @NotNull
+    private Metrics makeMetrics(int i) {
+        Metrics metrics = new Metrics();
+        metrics.setMeasurementId(i);
+        metrics.setMsname(UUID.randomUUID().toString());
+        return metrics;
     }
 }
