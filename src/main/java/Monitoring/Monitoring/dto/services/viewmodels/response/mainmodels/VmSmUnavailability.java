@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.ZonedDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VmUnavailabilitySm implements VmBaseSmModel<VmUnavailabilitySm> {
+public class VmSmUnavailability {
     private String faultId;
     private ZonedDateTime beginAt;
     private ZonedDateTime endAt;
@@ -18,7 +18,7 @@ public class VmUnavailabilitySm implements VmBaseSmModel<VmUnavailabilitySm> {
     private ZonedDateTime updatedAt;
     private int updatedById;
 
-    public VmUnavailabilitySm(String faultId, ZonedDateTime beginAt, ZonedDateTime endAt, String duration, String serviceName, String type, String serviceId, ZonedDateTime createdAt, String createdById, ZonedDateTime updatedAt, int updatedById) {
+    public VmSmUnavailability(String faultId, ZonedDateTime beginAt, ZonedDateTime endAt, String duration, String serviceName, String type, String serviceId, ZonedDateTime createdAt, String createdById, ZonedDateTime updatedAt, int updatedById) {
         this.faultId = faultId;
         this.beginAt = beginAt;
         this.endAt = endAt;
@@ -31,8 +31,6 @@ public class VmUnavailabilitySm implements VmBaseSmModel<VmUnavailabilitySm> {
         this.updatedAt = updatedAt;
         this.updatedById = updatedById;
     }
-
-    public Class<VmUnavailabilitySm> getUClass(){ return VmUnavailabilitySm.class; }
 
     public String getFaultId() {
         return faultId;

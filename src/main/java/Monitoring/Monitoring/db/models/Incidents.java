@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="incidents", schema = "monitoring")
-public class Incidents implements BaseSmModel<Incidents> {
+public class Incidents implements BaseSmModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
@@ -161,8 +161,6 @@ public class Incidents implements BaseSmModel<Incidents> {
         this.factBeginAt = factBeginAt;
         this.notificationSent = notificationSent;
     }
-
-    public Class<Incidents> getTClass() { return Incidents.class; }
 
     public int getId() {
         return id;

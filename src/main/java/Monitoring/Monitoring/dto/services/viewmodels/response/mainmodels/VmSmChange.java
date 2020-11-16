@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.ZonedDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VmVtbChangeSm implements VmBaseSmModel<VmVtbChangeSm> {
+public class VmSmChange {
     private String affectedItem;
     private String[] backoutPlan;
     private Boolean isManagerNotification;
@@ -25,8 +25,6 @@ public class VmVtbChangeSm implements VmBaseSmModel<VmVtbChangeSm> {
     private String initialImpact;
     private String riskFinance;
     private String wasLoadingTesting;
-
-    public Class<VmVtbChangeSm> getUClass(){ return VmVtbChangeSm.class; }
 
 
 }

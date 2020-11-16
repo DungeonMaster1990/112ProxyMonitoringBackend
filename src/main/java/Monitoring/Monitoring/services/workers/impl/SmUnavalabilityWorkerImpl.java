@@ -1,5 +1,39 @@
 package Monitoring.Monitoring.services.workers.impl;
 
-public class SmUnavalabilityWorkerImpl {
+import Monitoring.Monitoring.config.AppConfig;
+import Monitoring.Monitoring.db.models.Incidents;
+import Monitoring.Monitoring.db.models.Unavailabilities;
+import Monitoring.Monitoring.db.repositories.interfaces.IncidentsRepository;
+import Monitoring.Monitoring.db.repositories.interfaces.UnavailabilitiesRepository;
+import Monitoring.Monitoring.db.repositories.interfaces.UpdatesRepository;
+import Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels.VmSmUnavailability;
+import Monitoring.Monitoring.dto.services.viewmodels.response.modelwrappers.VmIncidentWrapper;
+import Monitoring.Monitoring.dto.services.viewmodels.response.modelwrappers.VmUnavailabilityWrapper;
+import Monitoring.Monitoring.services.workers.BaseSmWorker;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 
+public class SmUnavalabilityWorkerImpl extends BaseSmWorker<VmSmUnavailability, VmUnavailabilityWrapper, Unavailabilities> {
+    @Autowired
+    private SmUnavalabilityWorkerImpl(
+            AppConfig appConfig,
+            UnavailabilitiesRepository unavailabilitiesRepository,
+            ModelMapper modelMapper,
+            UpdatesRepository updatesRepository)
+    {
+        super(appConfig,
+                unavailabilitiesRepository,
+                modelMapper,
+                updatesRepository,
+                VmUnavailabilityWrapper.class,
+                Unavailabilities.class,
+                "Unavalabilities",
+                appConfig.getSmUnavailabilityUrl());
+    }
+
+    @Scheduled(fixedRateString = "${sm.methods.incident.fixedrate}")
+    public void loadIncidensFromSm() {
+        process();
+    }
 }

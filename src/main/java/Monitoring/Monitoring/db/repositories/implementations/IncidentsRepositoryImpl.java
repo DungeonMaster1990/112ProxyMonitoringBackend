@@ -64,15 +64,6 @@ public class IncidentsRepositoryImpl implements IncidentsRepository {
     }
 
     @Override
-    public void putVtbIncidents(List<Incidents> incidents) {
-        entityManager.getTransaction().begin();
-        for(Incidents vtbIncident : incidents){
-            entityManager.persist(vtbIncident);
-        }
-        entityManager.getTransaction().commit();
-    }
-
-    @Override
     public Incidents getVtbIncident(int id) {
         String query =  String.format("select a from VtbIncidents a where a.id=%s;", id);
         Incidents vtbIncident = entityManager.createQuery(query, Incidents.class)
@@ -91,5 +82,14 @@ public class IncidentsRepositoryImpl implements IncidentsRepository {
                 .getResultList();
 
         return incidents;
+    }
+
+    @Override
+    public void putModels(List<Incidents> models) {
+        entityManager.getTransaction().begin();
+        for(Incidents vtbIncident : models){
+            entityManager.persist(vtbIncident);
+        }
+        entityManager.getTransaction().commit();
     }
 }

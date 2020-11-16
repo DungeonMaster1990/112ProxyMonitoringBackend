@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VmResponseWrapper <T> {
+public abstract class VmBaseResponseWrapper<T> {
     @JsonAlias("@count")
     private Integer count;
     @JsonAlias("@start")
@@ -17,9 +17,10 @@ public class VmResponseWrapper <T> {
     private String resourceName;
     @JsonAlias("ReturnCode")
     private Integer returnCode;
+    @JsonAlias("content")
     private VmModelWrapper<T>[] content;
 
-    public VmResponseWrapper(Integer count, Integer start, Integer totalCount, String[] messages, String resourceName, Integer returnCode, VmModelWrapper<T>[] content) {
+    public VmBaseResponseWrapper(Integer count, Integer start, Integer totalCount, String[] messages, String resourceName, Integer returnCode, VmModelWrapper<T>[] content) {
         this.count = count;
         this.start = start;
         this.totalCount = totalCount;

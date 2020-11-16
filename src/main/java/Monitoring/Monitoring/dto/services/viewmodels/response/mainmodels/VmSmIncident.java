@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.time.ZonedDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VmIncidentSm implements VmBaseSmModel<VmIncidentSm> {
+public class VmSmIncident {
     @JsonAlias("Id")
     private String id;
     @JsonAlias("CreatedAt")
@@ -76,7 +76,7 @@ public class VmIncidentSm implements VmBaseSmModel<VmIncidentSm> {
     @JsonAlias("FactBeginAt")
     private ZonedDateTime factBeginAt;
 
-    public VmIncidentSm(String id, ZonedDateTime createdAt, ZonedDateTime expiredAt, Integer authorId, Integer contactId, Integer serviceId, String category, String failurePoint, Integer configurationItemId, String title, String description, String impact, String severity, Integer groupId, String assigneeId, String status, String closeCode, String resolution, String comment, ZonedDateTime updatedAt, String type, ZonedDateTime slaStartTime, String jiraNumber, String templateName, String extOrganization, String extId, String extStatus, String extAssigneeTime, String source, String specialistId, String priority, ZonedDateTime identedAt, ZonedDateTime factEndAt, ZonedDateTime factBeginAt) {
+    public VmSmIncident(String id, ZonedDateTime createdAt, ZonedDateTime expiredAt, Integer authorId, Integer contactId, Integer serviceId, String category, String failurePoint, Integer configurationItemId, String title, String description, String impact, String severity, Integer groupId, String assigneeId, String status, String closeCode, String resolution, String comment, ZonedDateTime updatedAt, String type, ZonedDateTime slaStartTime, String jiraNumber, String templateName, String extOrganization, String extId, String extStatus, String extAssigneeTime, String source, String specialistId, String priority, ZonedDateTime identedAt, ZonedDateTime factEndAt, ZonedDateTime factBeginAt) {
         this.id = id;
         this.createdAt = createdAt;
         this.expiredAt = expiredAt;
@@ -112,8 +112,6 @@ public class VmIncidentSm implements VmBaseSmModel<VmIncidentSm> {
         this.factEndAt = factEndAt;
         this.factBeginAt = factBeginAt;
     }
-
-    public Class<VmIncidentSm> getUClass(){ return VmIncidentSm.class; }
 
     public String getId() {
         return id;

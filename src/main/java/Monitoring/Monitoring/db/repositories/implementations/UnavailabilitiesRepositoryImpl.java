@@ -25,15 +25,6 @@ public class UnavailabilitiesRepositoryImpl implements UnavailabilitiesRepositor
     }
 
     @Override
-    public void putVtbUnavailabilities(List<Unavailabilities> vtbUnavailabilities) {
-        entityManager.getTransaction().begin();
-        for(Unavailabilities vtbUnavailability : vtbUnavailabilities){
-            entityManager.persist(vtbUnavailability);
-        }
-        entityManager.getTransaction().commit();
-    }
-
-    @Override
     public Unavailabilities getVtbUnavailability(int id) {
         String query =  String.format("select a from VtbUnavailability a where id=%s;", id);
         Unavailabilities vtbUnavailability = entityManager.createQuery(query, Unavailabilities.class)
@@ -53,5 +44,14 @@ public class UnavailabilitiesRepositoryImpl implements UnavailabilitiesRepositor
         List<Unavailabilities> vtbUnavailability = entityManager.createQuery(query, Unavailabilities.class)
                 .getResultList();
         return vtbUnavailability;
+    }
+
+    @Override
+    public void putModels(List<Unavailabilities> models) {
+        entityManager.getTransaction().begin();
+        for(Unavailabilities vtbUnavailability : models){
+            entityManager.persist(vtbUnavailability);
+        }
+        entityManager.getTransaction().commit();
     }
 }
