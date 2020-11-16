@@ -9,7 +9,7 @@ public abstract class VmBaseResponseWrapper<T> {
     private Integer count;
     @JsonAlias("@start")
     private Integer start;
-    @JsonAlias("@start")
+    @JsonAlias("@totalcount")
     private Integer totalCount;
     @JsonAlias("Messages")
     private String[] messages;
