@@ -31,9 +31,10 @@ public class SmDefMeasurementVerticaRepositoryImpl implements SmDefMeasurementVe
         List<SmDefMeasurementVertica> smDefMeasurementsVertica = new ArrayList<SmDefMeasurementVertica>();
         Statement stmt = verticaConnection.createStatement();
         String query = String.format("""
-                    select from bsm_replica.SM_DEF_MEASUREMENT session_id, measurement_id, shed_id, category_id, monitor_id, target_id,
+                    select session_id, measurement_id, shed_id, category_id, monitor_id, target_id,
                     msname, msid, user_remark, connection_data, dm_connection_id, active, ci_id, eti_id, integration_name,
-                    profile_id, creation_date, modified_date, deleted
+                    profile_id, creation_date, modified_date, deleted 
+                    from bsm_replica.SM_DEF_MEASUREMENT
                     where measurement_id in (%s)
                 """, metrics
         );
