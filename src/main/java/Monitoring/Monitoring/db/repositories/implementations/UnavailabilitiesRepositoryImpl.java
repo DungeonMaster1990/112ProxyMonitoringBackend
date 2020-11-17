@@ -1,7 +1,7 @@
 package Monitoring.Monitoring.db.repositories.implementations;
 
 import Monitoring.Monitoring.db.models.Unavailabilities;
-import Monitoring.Monitoring.db.repositories.interfaces.UnavailabilityRepository;
+import Monitoring.Monitoring.db.repositories.interfaces.UnavailabilitiesRepository;
 import com.google.common.collect.Streams;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class UnavailabilityRepositoryImpl implements UnavailabilityRepository {
+public class UnavailabilitiesRepositoryImpl implements UnavailabilitiesRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -22,15 +22,6 @@ public class UnavailabilityRepositoryImpl implements UnavailabilityRepository {
         Query vtbUnavailabilityQuery = entityManager.createQuery("select a from VtbUnavailability a", Unavailabilities.class);
         List<Unavailabilities> vtbIncidents = vtbUnavailabilityQuery.getResultList();
         return vtbIncidents;
-    }
-
-    @Override
-    public void putVtbUnavailabilities(List<Unavailabilities> vtbUnavailabilities) {
-        entityManager.getTransaction().begin();
-        for(Unavailabilities vtbUnavailability : vtbUnavailabilities){
-            entityManager.persist(vtbUnavailability);
-        }
-        entityManager.getTransaction().commit();
     }
 
     @Override
@@ -53,5 +44,14 @@ public class UnavailabilityRepositoryImpl implements UnavailabilityRepository {
         List<Unavailabilities> vtbUnavailability = entityManager.createQuery(query, Unavailabilities.class)
                 .getResultList();
         return vtbUnavailability;
+    }
+
+    @Override
+    public void putModels(List<Unavailabilities> models) {
+        entityManager.getTransaction().begin();
+        for(Unavailabilities vtbUnavailability : models){
+            entityManager.persist(vtbUnavailability);
+        }
+        entityManager.getTransaction().commit();
     }
 }

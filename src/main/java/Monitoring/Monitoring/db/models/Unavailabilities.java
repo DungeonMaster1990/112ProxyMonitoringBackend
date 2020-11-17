@@ -5,8 +5,7 @@ import java.time.ZonedDateTime;
 
 @Entity
 @Table(name="unavailabilities", schema = "monitoring")
-public class Unavailabilities {
-    public Unavailabilities(){}
+public class Unavailabilities implements BaseSmModel {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
@@ -65,6 +64,8 @@ public class Unavailabilities {
         this.updatedAt = updatedAt;
         this.updatedById = updatedById;
     }
+
+    public Unavailabilities(){}
 
     public int getId() {
         return id;

@@ -1,47 +1,82 @@
-package Monitoring.Monitoring.dto.services.viewmodels.response;
+package Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.time.ZonedDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VmIncidentResponse {
+public class VmSmIncident {
+    @JsonAlias("Id")
     private String id;
+    @JsonAlias("CreatedAt")
     private ZonedDateTime createdAt;
+    @JsonAlias("ExpiredAt")
     private ZonedDateTime expiredAt;
-    private int authorId;
-    private int contactId;
-    private int serviceId;
+    @JsonAlias("AuthorId")
+    private Integer authorId;
+    @JsonAlias("ContactId")
+    private Integer contactId;
+    @JsonAlias("ServiceId")
+    private Integer serviceId;
+    @JsonAlias("Category")
     private String category;
+    @JsonAlias("FailurePoint")
     private String failurePoint;
-    private int configurationItemId;
+    @JsonAlias("ConfigurationItemId")
+    private Integer configurationItemId;
+    @JsonAlias("Title")
     private String title;
+    @JsonAlias("Description")
     private String description;
+    @JsonAlias("Impact")
     private String impact;
+    @JsonAlias("Severity")
     private String severity;
-    private int groupId;
+    @JsonAlias("GroupId")
+    private Integer groupId;
+    @JsonAlias("AssigneeId")
     private String assigneeId;
+    @JsonAlias("Status")
     private String status;
+    @JsonAlias("CloseCode")
     private String closeCode;
+    @JsonAlias("Resolution")
     private String resolution;
+    @JsonAlias("Comment")
     private String comment;
+    @JsonAlias("UpdatedAt")
     private ZonedDateTime updatedAt;
+    @JsonAlias("Type")
     private String type;
+    @JsonAlias("SlaStartTime")
     private ZonedDateTime slaStartTime;
+    @JsonAlias("JiraNumber")
     private String jiraNumber;
+    @JsonAlias("TemplateName")
     private String templateName;
+    @JsonAlias("ExtOrganization")
     private String extOrganization;
+    @JsonAlias("ExtId")
     private String extId;
+    @JsonAlias("ExtStatus")
     private String extStatus;
+    @JsonAlias("ExtAssigneeTime")
     private String extAssigneeTime;
+    @JsonAlias("Source")
     private String source;
+    @JsonAlias("SpecialistId")
     private String specialistId;
+    @JsonAlias("Priority")
     private String priority;
+    @JsonAlias("IdentedAt")
     private ZonedDateTime identedAt;
+    @JsonAlias("FactEndAt")
     private ZonedDateTime factEndAt;
+    @JsonAlias("FactBeginAt")
     private ZonedDateTime factBeginAt;
 
-    public VmIncidentResponse(String id, ZonedDateTime createdAt, ZonedDateTime expiredAt, int authorId, int contactId, int serviceId, String category, String failurePoint, int configurationItemId, String title, String description, String impact, String severity, int groupId, String assigneeId, String status, String closeCode, String resolution, String comment, ZonedDateTime updatedAt, String type, ZonedDateTime slaStartTime, String jiraNumber, String templateName, String extOrganization, String extId, String extStatus, String extAssigneeTime, String source, String specialistId, String priority, ZonedDateTime identedAt, ZonedDateTime factEndAt, ZonedDateTime factBeginAt) {
+    public VmSmIncident(String id, ZonedDateTime createdAt, ZonedDateTime expiredAt, Integer authorId, Integer contactId, Integer serviceId, String category, String failurePoint, Integer configurationItemId, String title, String description, String impact, String severity, Integer groupId, String assigneeId, String status, String closeCode, String resolution, String comment, ZonedDateTime updatedAt, String type, ZonedDateTime slaStartTime, String jiraNumber, String templateName, String extOrganization, String extId, String extStatus, String extAssigneeTime, String source, String specialistId, String priority, ZonedDateTime identedAt, ZonedDateTime factEndAt, ZonedDateTime factBeginAt) {
         this.id = id;
         this.createdAt = createdAt;
         this.expiredAt = expiredAt;
