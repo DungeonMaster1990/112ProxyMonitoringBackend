@@ -10,7 +10,9 @@ import Monitoring.Monitoring.services.workers.BaseSmWorker;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SmVtbChangesWorkerImpl extends BaseSmWorker<VmSmChange, VmChangeWrapper, Changes> {
     @Autowired
     private SmVtbChangesWorkerImpl(
