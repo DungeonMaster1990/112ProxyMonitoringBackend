@@ -63,6 +63,8 @@ class MetricsControllerTest extends PostgreSQL {
         Metrics metrics = new Metrics();
         metrics.setMeasurementId(i);
         metrics.setMsname(UUID.randomUUID().toString());
+        metrics.setMonitorId(i);
+        metrics.setMerged(true);
         return metrics;
     }
 }

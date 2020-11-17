@@ -25,7 +25,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="incidents", schema = "monitoring")
 @NoArgsConstructor
-public class Incident {
+public class Incident implements BaseSmModel {
 
     @Id
     @GeneratedValue(generator = "monitoring.incidents_id_seq")

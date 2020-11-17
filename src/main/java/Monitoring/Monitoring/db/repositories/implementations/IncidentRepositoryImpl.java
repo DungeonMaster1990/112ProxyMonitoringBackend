@@ -96,6 +96,15 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
         return incidents;
     }
 
+    @Override
+    public void putModels(List<Incident> models) {
+        entityManager.getTransaction().begin();
+        for(Incident vtbIncident : models){
+            entityManager.persist(vtbIncident);
+        }
+        entityManager.getTransaction().commit();
+    }
+
     public List<Incident> allByCriteria(List<String> affectedSystems,
                                         ZonedDateTime startDate,
                                         String keyword,
