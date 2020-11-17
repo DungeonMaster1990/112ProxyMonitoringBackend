@@ -54,12 +54,12 @@ public class VerticaWorkerServiceImpl implements VerticaWorkerService {
                 .filter(m -> !m.isMerged())
                 .collect(Collectors.toList());
 
-        List<Integer> metricsIds = metrics.stream()
-                .map(m -> m.getMeasurementId())
-                .collect(Collectors.toList());
+        //List<Integer> metricsIds = metrics.stream()
+        //        .map(m -> m.getMeasurementId())
+        //        .collect(Collectors.toList());
 
         List<SmDefMeasurementVertica> smDefMeasurementVerticaList =
-                smDefMeasurementVerticaRepository.getSmDefMeasurements(metricsIds);
+                smDefMeasurementVerticaRepository.getSmDefMeasurements(metrics);
 
         List<SmDefMeasurementApi> smDefMeasurementApiList =
                 smDefMeasurementVerticaList
