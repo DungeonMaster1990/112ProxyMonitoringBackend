@@ -7,6 +7,7 @@ import Monitoring.Monitoring.db.repositories.interfaces.SmRepository;
 import Monitoring.Monitoring.db.repositories.interfaces.UpdatesRepository;
 import Monitoring.Monitoring.dto.services.viewmodels.response.modelwrappers.VmModelWrapper;
 import Monitoring.Monitoring.dto.services.viewmodels.response.modelwrappers.VmBaseResponseWrapper;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Slf4j
 public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U extends BaseSmModel> {
 
     private AppConfig appConfig;
@@ -51,10 +53,10 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
 
     protected void process() {
 
-        String basicLoginEncoded = Base64.getEncoder().encodeToString(appConfig.getSmUserLoginPass().getBytes());
+        String loginBasicEncoded = Base64.getEncoder().encodeToString(appConfig.getSmUserLoginPass().getBytes());
 
         RestTemplate restTemplate = new RestTemplateBuilder(rt -> rt.getInterceptors().add((request, body, execution) -> {
-            request.getHeaders().add("Authorization", "Basic  " + basicLoginEncoded);
+            request.getHeaders().add("Authorization", "Basic  " + loginBasicEncoded);
             return execution.execute(request, body);
         })).build();
 

@@ -1,21 +1,37 @@
 package Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.ZonedDateTime;
 
+@Getter
+@Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VmSmUnavailability {
+    @JsonAlias("FaultId")
     private String faultId;
+    @JsonAlias("BeginAt")
     private ZonedDateTime beginAt;
+    @JsonAlias("EndAt")
     private ZonedDateTime endAt;
+    @JsonAlias("Duration")
     private String duration;
+    @JsonAlias("ServiceName")
     private String serviceName;
+    @JsonAlias("Type")
     private String type;
+    @JsonAlias("ServiceId")
     private String serviceId;
+    @JsonAlias("CreatedAt")
     private ZonedDateTime createdAt;
+    @JsonAlias("CreatedById")
     private String createdById;
+    @JsonAlias("UpdatedAt")
     private ZonedDateTime updatedAt;
+    @JsonAlias("UpdatedById")
     private int updatedById;
 
     public VmSmUnavailability(String faultId, ZonedDateTime beginAt, ZonedDateTime endAt, String duration, String serviceName, String type, String serviceId, ZonedDateTime createdAt, String createdById, ZonedDateTime updatedAt, int updatedById) {
@@ -29,94 +45,6 @@ public class VmSmUnavailability {
         this.createdAt = createdAt;
         this.createdById = createdById;
         this.updatedAt = updatedAt;
-        this.updatedById = updatedById;
-    }
-
-    public String getFaultId() {
-        return faultId;
-    }
-
-    public void setFaultId(String faultId) {
-        this.faultId = faultId;
-    }
-
-    public ZonedDateTime getBeginAt() {
-        return beginAt;
-    }
-
-    public void setBeginAt(ZonedDateTime beginAt) {
-        this.beginAt = beginAt;
-    }
-
-    public ZonedDateTime getEndAt() {
-        return endAt;
-    }
-
-    public void setEndAt(ZonedDateTime endAt) {
-        this.endAt = endAt;
-    }
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
-
-    public String getServiceName() {
-        return serviceName;
-    }
-
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getServiceId() {
-        return serviceId;
-    }
-
-    public void setServiceId(String serviceId) {
-        this.serviceId = serviceId;
-    }
-
-    public ZonedDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(ZonedDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getCreatedById() {
-        return createdById;
-    }
-
-    public void setCreatedById(String createdById) {
-        this.createdById = createdById;
-    }
-
-    public ZonedDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(ZonedDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public int getUpdatedById() {
-        return updatedById;
-    }
-
-    public void setUpdatedById(int updatedById) {
         this.updatedById = updatedById;
     }
 }

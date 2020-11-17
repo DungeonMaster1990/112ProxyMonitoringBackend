@@ -2,12 +2,13 @@ package Monitoring.Monitoring.db.repositories.implementations;
 
 import Monitoring.Monitoring.db.models.Updates;
 import Monitoring.Monitoring.db.repositories.interfaces.UpdatesRepository;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-
+@Repository
 public class UpdatesRepositoryImpl implements UpdatesRepository {
     @PersistenceContext
     private EntityManager entityManager;
@@ -17,7 +18,7 @@ public class UpdatesRepositoryImpl implements UpdatesRepository {
         String qryString = """
                 select upd
                   from Updates upd 
-                 upd.service_name = :serviceName
+                 where upd.serviceName = :serviceName
                 """;
         TypedQuery<Updates> vtbIncidentsQuery = entityManager.createQuery(qryString, Updates.class)
                 .setParameter("serviceName", serviceName);
