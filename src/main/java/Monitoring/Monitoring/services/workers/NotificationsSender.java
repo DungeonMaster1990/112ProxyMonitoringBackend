@@ -39,7 +39,7 @@ public class NotificationsSender {
     public void sendPushNotifications() {
         List<Incidents> incidents = vtbIncidentsRepository.getTimeFilteredNonSentVtbIncidents(appConfig.getLastDaysToProcess());
         if (isEmpty(incidents)) {
-            //log.debug("Не обнаружено новых инцидентов для отправки.");
+            log.debug("Не обнаружено новых инцидентов для отправки.");
             return;
         }
         //log.debug("Обнаружено {} новых инцидентов для отправки.", incidents.size());
@@ -51,7 +51,7 @@ public class NotificationsSender {
             vtbIncidentsRepository.markAsNotificationSent(ids);
         }
         catch (Exception e) {
-            //log.error("Ошибка при передаче инцидента на сервис отправки уведомлений.", e);
+            log.error("Ошибка при передаче инцидента на сервис отправки уведомлений.", e);
         }
     }
 
