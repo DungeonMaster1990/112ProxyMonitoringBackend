@@ -38,6 +38,10 @@ public class Metrics {
             nullable = false)
     private String msname;
 
+    @Column(name = "monitor_id",
+            nullable = false)
+    private Integer monitorId;
+
     @Column(name = "is_merged",
             nullable = false)
     private boolean isMerged;

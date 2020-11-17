@@ -14,6 +14,7 @@ import Monitoring.Monitoring.db.vertica.repositories.interfaces.SmDefMeasurement
 import Monitoring.Monitoring.db.vertica.repositories.interfaces.SmRawdataMeasVerticaRepository;
 import Monitoring.Monitoring.mappers.VerticaMapper;
 import Monitoring.Monitoring.services.workers.interfaces.VerticaWorkerService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -23,6 +24,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 public class VerticaWorkerServiceImpl implements VerticaWorkerService {
     private SmDefMeasurementApiRepository smDefMeasurementApiRepository;
     private SmDefMeasurementVerticaRepository smDefMeasurementVerticaRepository;
