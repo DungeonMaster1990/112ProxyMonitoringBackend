@@ -16,12 +16,11 @@ public class SmVtbChangesWorkerImpl extends BaseSmWorker<VmSmChange, VmChangeWra
     private SmVtbChangesWorkerImpl(
             AppConfig appConfig,
             ChangesRepository changesRepository,
-            ModelMapper modelMapper,
             UpdatesRepository updatesRepository)
     {
         super(appConfig,
                 changesRepository,
-                modelMapper,
+                new ModelMapper(),
                 updatesRepository,
                 VmChangeWrapper.class,
                 Changes.class,
