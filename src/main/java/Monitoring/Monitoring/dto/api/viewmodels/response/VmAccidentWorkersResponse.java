@@ -2,31 +2,20 @@ package Monitoring.Monitoring.dto.api.viewmodels.response;
 
 import Monitoring.Monitoring.dto.api.viewmodels.submodels.VmManager;
 import Monitoring.Monitoring.dto.api.viewmodels.submodels.VmWorker;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.List;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class VmAccidentWorkersResponse {
+
     private VmManager manager;
-    private VmWorker[] workers;
+    private List<VmWorker> workers;
 
-    public VmAccidentWorkersResponse(VmManager manager, VmWorker[] workers) {
-        this.manager = manager;
-        this.workers = workers;
-    }
-
-    public VmAccidentWorkersResponse(){}
-
-    public VmManager getManager() {
-        return manager;
-    }
-
-    public void setManager(VmManager manager) {
-        this.manager = manager;
-    }
-
-    public VmWorker[] getWorkers() {
-        return workers;
-    }
-
-    public void setWorkers(VmWorker[] workers) {
-        this.workers = workers;
-    }
 }
