@@ -1,5 +1,6 @@
 package Monitoring.Monitoring.db.vertica.repositories.implementations;
 
+import Monitoring.Monitoring.db.models.Metrics;
 import Monitoring.Monitoring.db.vertica.VerticaConnection;
 import Monitoring.Monitoring.db.vertica.models.SmDefMeasurementVertica;
 import Monitoring.Monitoring.db.vertica.repositories.interfaces.SmDefMeasurementVerticaRepository;
@@ -23,10 +24,10 @@ public class SmDefMeasurementVerticaRepositoryImpl implements SmDefMeasurementVe
     }
 
     @Override
-    public List<SmDefMeasurementVertica> getSmDefMeasurements(List<Integer> metricsIds) throws SQLException {
-        String metrics = String
+    public List<SmDefMeasurementVertica> getSmDefMeasurements(List<Metrics> metrics) throws SQLException {
+        String measurementIds = String
                 .join(",",
-                        metricsIds.stream().map(String::valueOf).toArray(String[]::new));
+                        metrics.stream().map(m -> m.getMeasurementId()).map(String::valueOf).toArray(String[]::new));
         List<SmDefMeasurementVertica> smDefMeasurementsVertica = new ArrayList<SmDefMeasurementVertica>();
         Statement stmt = verticaConnection.createStatement();
         String query = String.format("""
