@@ -19,12 +19,11 @@ public class SmUnavalabilityWorkerImpl extends BaseSmWorker<VmSmUnavailability, 
     private SmUnavalabilityWorkerImpl(
             AppConfig appConfig,
             UnavailabilitiesRepository unavailabilitiesRepository,
-            ModelMapper modelMapper,
             UpdatesRepository updatesRepository)
     {
         super(appConfig,
                 unavailabilitiesRepository,
-                modelMapper,
+                new ModelMapper(),
                 updatesRepository,
                 VmUnavailabilityWrapper.class,
                 Unavailabilities.class,

@@ -1,5 +1,6 @@
 package Monitoring.Monitoring.db.repositories.implementations;
 
+import Monitoring.Monitoring.db.models.SmRawdataMeasApi;
 import Monitoring.Monitoring.db.repositories.interfaces.SmRawdataMeasApiRepository;
 import Monitoring.Monitoring.db.vertica.models.SmRawdataMeasVertica;
 
@@ -12,10 +13,10 @@ public class SmRawdataMeasApiRepositoryImpl implements SmRawdataMeasApiRepositor
     private EntityManager entityManager;
 
     @Override
-    public void putSmRawdataMeasVertica(List<SmRawdataMeasVertica> smRawdataMeasVerticas) {
+    public void putSmRawdataMeasVertica(List<SmRawdataMeasApi> smRawdataMeasesApi) {
         entityManager.getTransaction().begin();
-        for(SmRawdataMeasVertica smRawdataMeasVertica : smRawdataMeasVerticas){
-            entityManager.persist(smRawdataMeasVertica);
+        for(SmRawdataMeasApi smRawdataMeasApi : smRawdataMeasesApi){
+            entityManager.persist(smRawdataMeasApi);
         }
         entityManager.getTransaction().commit();
     }
