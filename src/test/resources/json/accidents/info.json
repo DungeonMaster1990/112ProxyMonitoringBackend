@@ -1,0 +1,12 @@
+{
+  "id":"5",
+  "name":"Инцидент А_5",
+  "category":0,
+  "configurationUnit":"М-Банк",
+  "affectedSystems":[
+
+  ],
+  "startDate":"2020-11-16T19:00:00+03:00",
+  "conferenceLink":"https://bankvtb.webex.com/meet/xxx",
+  "telegramLink":"https://t.me/vtb"
+}

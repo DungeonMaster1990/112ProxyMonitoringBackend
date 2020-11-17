@@ -1,29 +1,13 @@
 package Monitoring.Monitoring.dto.api.viewmodels.response;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class VmNewAccidentResponse {
     private String id;
     private String name;
-
-    public VmNewAccidentResponse(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public VmNewAccidentResponse(){}
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

@@ -1,6 +1,5 @@
 package Monitoring.Monitoring.db.repositories.interfaces;
 
-import Monitoring.Monitoring.db.models.Incidents;
 import Monitoring.Monitoring.db.models.Unavailabilities;
 
 import java.util.List;

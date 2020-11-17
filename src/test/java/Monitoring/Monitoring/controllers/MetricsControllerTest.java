@@ -1,31 +1,25 @@
 package Monitoring.Monitoring.controllers;
 
+import Monitoring.Monitoring.db.models.Metrics;
+import Monitoring.Monitoring.db.repositories.interfaces.MetricsRepository;
+import Monitoring.Monitoring.dto.api.viewmodels.request.VmMetricsRequest;
+import Monitoring.Monitoring.infrastructure.PostgreSQL;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.testcontainers.containers.PostgreSQLContainer;
-import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import javax.sql.DataSource;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
-import javax.sql.DataSource;
-
-import Monitoring.Monitoring.db.models.Metrics;
-import Monitoring.Monitoring.db.repositories.interfaces.MetricsRepository;
-import Monitoring.Monitoring.dto.api.viewmodels.request.VmMetricsRequest;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -35,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Testcontainers(disabledWithoutDocker = true)
-class MetricsControllerTest {
+class MetricsControllerTest extends PostgreSQL {
 
     @Autowired
     private MockMvc mockMvc;
@@ -45,20 +39,6 @@ class MetricsControllerTest {
 
     @Autowired
     DataSource dataSource;
-
-    @Container
-    private static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:latest")
-            .withDatabaseName("iapp")
-            .withUsername("iapp")
-            .withPassword("iapp");
-
-
-    @DynamicPropertySource
-    static void postgresqlProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
-        registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
-        registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
-    }
 
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -83,6 +63,8 @@ class MetricsControllerTest {
         Metrics metrics = new Metrics();
         metrics.setMeasurementId(i);
         metrics.setMsname(UUID.randomUUID().toString());
+        metrics.setMonitorId(i);
+        metrics.setMerged(true);
         return metrics;
     }
 }

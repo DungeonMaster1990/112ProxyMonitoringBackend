@@ -1,8 +1,8 @@
 package Monitoring.Monitoring.services.workers.impl;
 
 import Monitoring.Monitoring.config.AppConfig;
-import Monitoring.Monitoring.db.models.Incidents;
-import Monitoring.Monitoring.db.repositories.interfaces.IncidentsRepository;
+import Monitoring.Monitoring.db.models.Incident;
+import Monitoring.Monitoring.db.repositories.interfaces.IncidentRepository;
 import Monitoring.Monitoring.db.repositories.interfaces.UpdatesRepository;
 import Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels.VmSmIncident;
 import Monitoring.Monitoring.dto.services.viewmodels.response.modelwrappers.VmIncidentWrapper;
@@ -13,20 +13,20 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SmIncidentWorkerImpl extends BaseSmWorker<VmSmIncident, VmIncidentWrapper, Incidents> {
+public class SmIncidentWorkerImpl extends BaseSmWorker<VmSmIncident, VmIncidentWrapper, Incident> {
 
     @Autowired
     private SmIncidentWorkerImpl(
             AppConfig appConfig,
-            IncidentsRepository incidentsRepository,
+            IncidentRepository incidentRepository,
             UpdatesRepository updatesRepository)
     {
         super(appConfig,
-                incidentsRepository,
+                incidentRepository,
                 new ModelMapper(),
                 updatesRepository,
                 VmIncidentWrapper.class,
-                Incidents.class,
+                Incident.class,
                 "Incidents",
                 appConfig.getSmIncidentUrl());
     }
