@@ -35,7 +35,8 @@ public class AccidentsController {
     @Autowired
     IncidentRepository incidentDAO;
 
-    @PostMapping("")
+    @PostMapping(consumes = "application/json;charset=UTF-8",
+                 produces = "application/json;charset=UTF-8")
     public ResponseEntity<List<VmAccidentResponse>> getAccidents(@RequestBody VmAccidentsRequest request) {
 
         var paging = PageRequest.of(request.getPage(), request.getLimit());
@@ -66,7 +67,7 @@ public class AccidentsController {
                 .collect(Collectors.toList()), HttpStatus.OK);
     }
 
-    @GetMapping("/new")
+    @GetMapping(value = "/new", produces = "application/json;charset=UTF-8")
     public ResponseEntity<VmNewAccidentResponse> getNewAccident() {
         return new ResponseEntity<>(incidentDAO.findMaxByCreatedDate()
                 .map(incident ->
@@ -79,7 +80,7 @@ public class AccidentsController {
 
     }
 
-    @GetMapping("/info")
+    @GetMapping(value = "/info", produces = "application/json;charset=UTF-8")
     public ResponseEntity<VmAccidentInfoResponse> getAccidentInfo(@RequestParam Integer id) {
         return new ResponseEntity<>(incidentDAO.findById(id)
                 .map(incident ->
@@ -111,7 +112,7 @@ public class AccidentsController {
                 .orElse(null), HttpStatus.OK);
     }
 
-    @GetMapping("/workers")
+    @GetMapping(value = "/workers", produces = "application/json;charset=UTF-8")
     public ResponseEntity<VmAccidentWorkersResponse> getWorkers(@RequestParam Integer id) {
         return new ResponseEntity<>(incidentDAO.findById(id)
                 .map(incident ->
@@ -123,7 +124,7 @@ public class AccidentsController {
                 .orElse(null), HttpStatus.OK);
     }
 
-    @GetMapping("/descriptions")
+    @GetMapping(value = "/descriptions", produces = "application/json;charset=UTF-8")
     public ResponseEntity<List<VmAccidentDescriptionResponse>> getAccidentDescriptions(@RequestParam Integer id) {
         return new ResponseEntity<>(incidentDAO.findById(id)
                 .map(incident -> Collections.singletonList(

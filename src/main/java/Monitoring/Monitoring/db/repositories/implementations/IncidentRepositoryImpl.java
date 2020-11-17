@@ -13,7 +13,6 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.*;
 import java.time.Clock;
-import java.time.LocalTime;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -104,14 +103,14 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
         var cb = entityManager.getCriteriaBuilder();
         var criteriaQuery = cb.createQuery(Incident.class);
         var from = criteriaQuery.from(Incident.class);
-        Join<Incident, AffectedSystem> join = from.join("affectedSystems");
 
         List<Predicate> predicates = new ArrayList<>();
         if (affectedSystems != null && !affectedSystems.isEmpty()) {
+            Join<Incident, AffectedSystem> join = from.join("affectedSystems");
             predicates.add(join.get("name").in(affectedSystems));
         }
         if (startDate != null) {
-            predicates.add(cb.between(from.get("createdAt"), startDate, startDate.with(LocalTime.MAX)));
+            predicates.add(cb.greaterThanOrEqualTo(from.get("createdAt"), startDate));
         }
         if (keyword != null && !keyword.isBlank()) {
             predicates.add(cb.like(from.get("incidentId"), "%" + keyword + "%"));

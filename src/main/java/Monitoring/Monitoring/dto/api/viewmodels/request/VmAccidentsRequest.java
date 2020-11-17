@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 import org.springframework.lang.Nullable;
 
 import java.time.ZonedDateTime;
@@ -13,13 +14,15 @@ import java.util.List;
 @EqualsAndHashCode(callSuper=true)
 @AllArgsConstructor
 @NoArgsConstructor
+@SuperBuilder
 public class VmAccidentsRequest extends VmPageRequestBase {
+
     private ZonedDateTime startDate;
     private List<String> affectedSystems;
-    private String[] failurePoints;
+    private List<String> failurePoints;
     @Nullable
     private Long systemId;
     @Nullable
-    private int planTypeId;
+    private Integer planTypeId;
     private String keyword;
 }

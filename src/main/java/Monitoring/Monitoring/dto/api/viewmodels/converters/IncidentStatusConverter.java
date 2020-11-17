@@ -13,7 +13,7 @@ public class IncidentStatusConverter {
         if (status == null) {
             return null;
         }
-        if (status.equals(Status.in_process) && isFactEndAt != null && predictedAt != null) {
+        if (status.equals(Status.in_process) && (isFactEndAt != null || predictedAt != null)) {
             return "устранение последствий";
         }
         return status.getStatus();
