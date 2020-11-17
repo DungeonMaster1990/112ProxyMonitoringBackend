@@ -11,6 +11,7 @@
 		<sqlFile path="/db/changelog/migrations/Init.sql"/>
         <sqlFile path="/db/changelog/migrations/ITOPS-76_add_notif_sent_column.sql"/>
         <sqlFile path="/db/changelog/migrations/Vertica.sql"/>
+        <sqlFile path="/db/changelog/migrations/Updates.sql"/>
     </changeSet>
 	
 </databaseChangeLog>

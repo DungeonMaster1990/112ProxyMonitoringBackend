@@ -1,14 +1,23 @@
 package Monitoring.Monitoring.db.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name="updates", schema = "monitoring")
 public class Updates {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "service_name", unique = true, nullable = false)
@@ -16,34 +25,4 @@ public class Updates {
 
     @Column(name = "update_time", unique = false, nullable = false)
     private ZonedDateTime updateTime;
-
-    public Updates(Integer id, String serviceName, ZonedDateTime updateTime) {
-        this.id = id;
-        this.serviceName = serviceName;
-        this.updateTime = updateTime;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getServiceName() {
-        return serviceName;
-    }
-
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
-    }
-
-    public ZonedDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(ZonedDateTime updateTime) {
-        this.updateTime = updateTime;
-    }
 }
