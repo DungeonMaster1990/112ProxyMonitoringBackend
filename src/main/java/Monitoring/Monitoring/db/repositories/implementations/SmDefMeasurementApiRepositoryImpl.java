@@ -11,10 +11,11 @@ public class SmDefMeasurementApiRepositoryImpl implements SmDefMeasurementApiRep
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Override
     public void putSmDefMeasurements(List<SmDefMeasurementApi> smDefMeasurementApis){
         entityManager.getTransaction().begin();
         for(SmDefMeasurementApi smDefMeasurementApi : smDefMeasurementApis){
-            entityManager.persist(smDefMeasurementApi);
+            entityManager.merge(smDefMeasurementApi);
         }
         entityManager.getTransaction().commit();
     }

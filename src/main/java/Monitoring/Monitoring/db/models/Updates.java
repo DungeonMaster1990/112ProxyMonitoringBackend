@@ -1,11 +1,10 @@
 package Monitoring.Monitoring.db.models;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.ZonedDateTime;
 
+@Entity
+@Table(name="updates", schema = "monitoring")
 public class Updates {
 
     @Id

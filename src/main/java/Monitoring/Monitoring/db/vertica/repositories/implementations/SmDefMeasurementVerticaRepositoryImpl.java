@@ -1,9 +1,11 @@
 package Monitoring.Monitoring.db.vertica.repositories.implementations;
 
+import Monitoring.Monitoring.db.models.Metrics;
 import Monitoring.Monitoring.db.vertica.VerticaConnection;
 import Monitoring.Monitoring.db.vertica.models.SmDefMeasurementVertica;
 import Monitoring.Monitoring.db.vertica.repositories.interfaces.SmDefMeasurementVerticaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,15 +24,18 @@ public class SmDefMeasurementVerticaRepositoryImpl implements SmDefMeasurementVe
     }
 
     @Override
-    public List<SmDefMeasurementVertica> getSmDefMeasurements() throws SQLException {
+    public List<SmDefMeasurementVertica> getSmDefMeasurements(List<Metrics> metrics) throws SQLException {
+        String measurementIds = String
+                .join(",",
+                        metrics.stream().map(m -> m.getMeasurementId()).map(String::valueOf).toArray(String[]::new));
         List<SmDefMeasurementVertica> smDefMeasurementsVertica = new ArrayList<SmDefMeasurementVertica>();
         Statement stmt = verticaConnection.createStatement();
         String query = String.format("""
                     select session_id, measurement_id, shed_id, category_id, monitor_id, target_id,
                     msname, msid, user_remark, connection_data, dm_connection_id, active, ci_id, eti_id, integration_name,
                     profile_id, creation_date, modified_date, deleted
-                    where
-                """
+                    where measurement_id in (%s)
+                """, metrics
         );
 
         ResultSet rs = stmt.executeQuery(query);

@@ -1,5 +1,6 @@
 package Monitoring.Monitoring.db.vertica.repositories.implementations;
 
+import Monitoring.Monitoring.db.models.Updates;
 import Monitoring.Monitoring.db.vertica.VerticaConnection;
 import Monitoring.Monitoring.db.vertica.models.SmDefMeasurementVertica;
 import Monitoring.Monitoring.db.vertica.models.SmRawdataMeasVertica;
@@ -22,15 +23,16 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
         this.verticaConnection = verticaConnection.getConnection();
     }
     @Override
-    public List<SmRawdataMeasVertica> getSmRawdataMeasVertica(ZonedDateTime lastDate) throws SQLException {
+    public List<SmRawdataMeasVertica> getSmRawdataMeasVertica(Updates lastUpdate) throws SQLException {
         List<SmRawdataMeasVertica> smRawdataMeasesVertica = new ArrayList<SmRawdataMeasVertica>();
+
         Statement stmt = verticaConnection.createStatement();
-        String query = """
+        String query = String.format("""
                     select session_id, time_stamp, measurement_id, status_id, err_msg, raw_monitor_id, raw_target_id, 
                     raw_connection_id, raw_category_id, raw_threshold_quality, dbdate
-                    where 
-                """;
-        ResultSet rs = stmt.executeQuery("select session_id");
+                    where time_stamp > (%s)
+                """, lastUpdate.getUpdateTime().toString());
+        ResultSet rs = stmt.executeQuery(query);
         while (rs.next()) {
             SmRawdataMeasVertica smRawdataMeasVertica = new SmRawdataMeasVertica();
 
