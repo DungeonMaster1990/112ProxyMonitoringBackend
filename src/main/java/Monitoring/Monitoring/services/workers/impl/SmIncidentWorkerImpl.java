@@ -19,12 +19,11 @@ public class SmIncidentWorkerImpl extends BaseSmWorker<VmSmIncident, VmIncidentW
     private SmIncidentWorkerImpl(
             AppConfig appConfig,
             IncidentsRepository incidentsRepository,
-            ModelMapper modelMapper,
             UpdatesRepository updatesRepository)
     {
         super(appConfig,
                 incidentsRepository,
-                modelMapper,
+                new ModelMapper(),
                 updatesRepository,
                 VmIncidentWrapper.class,
                 Incidents.class,
