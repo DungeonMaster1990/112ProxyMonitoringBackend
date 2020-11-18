@@ -6,17 +6,21 @@ import Monitoring.Monitoring.db.models.enums.StatusType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -28,7 +32,15 @@ import javax.persistence.Table;
 public class Incident implements BaseSmModel {
 
     @Id
-    @GeneratedValue(generator = "monitoring.incidents_id_seq")
+    @GenericGenerator(
+            name = "incidentIdGenerator",
+            strategy = "sequence-identity",
+            parameters = {
+                    @Parameter(name = "sequence",
+                               value = "monitoring.incidents_id_seq")
+            }
+    )
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "incidentIdGenerator")
     private Integer id;
 
     @Column(name = "incident_id", nullable = false)
@@ -137,8 +149,12 @@ public class Incident implements BaseSmModel {
     @Column(name = "notification_sent")
     private Boolean notificationSent;
 
-    @OneToMany(fetch=FetchType.LAZY)
-    @JoinColumn(name="accidentid")
-    private List<AffectedSystem> affectedSystems;
+    @OneToMany(mappedBy = "incident", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<AffectedSystem> affectedSystems = new ArrayList<>();
+
+    public void addToAffectedSystem(AffectedSystem affectedSystem) {
+        affectedSystem.setIncident(this);
+        this.affectedSystems.add(affectedSystem);
+    }
 
 }
