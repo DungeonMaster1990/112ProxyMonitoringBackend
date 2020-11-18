@@ -1,4 +1,4 @@
-package Monitoring.Monitoring.services.workers.impl;
+package Monitoring.Monitoring.services.workers;
 
 import Monitoring.Monitoring.config.AppConfig;
 import Monitoring.Monitoring.db.models.Changes;
@@ -13,9 +13,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SmVtbChangesWorkerImpl extends BaseSmWorker<VmSmChange, VmChangeWrapper, Changes> {
+public class SmVtbChangesWorker extends BaseSmWorker<VmSmChange, VmChangeWrapper, Changes> {
     @Autowired
-    private SmVtbChangesWorkerImpl(
+    private SmVtbChangesWorker(
             AppConfig appConfig,
             ChangesRepository changesRepository,
             UpdatesRepository updatesRepository)

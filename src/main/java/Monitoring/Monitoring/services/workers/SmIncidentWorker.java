@@ -1,4 +1,4 @@
-package Monitoring.Monitoring.services.workers.impl;
+package Monitoring.Monitoring.services.workers;
 
 import Monitoring.Monitoring.config.AppConfig;
 import Monitoring.Monitoring.db.models.Incident;
@@ -13,10 +13,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SmIncidentWorkerImpl extends BaseSmWorker<VmSmIncident, VmIncidentWrapper, Incident> {
+public class SmIncidentWorker extends BaseSmWorker<VmSmIncident, VmIncidentWrapper, Incident> {
 
     @Autowired
-    private SmIncidentWorkerImpl(
+    private SmIncidentWorker(
             AppConfig appConfig,
             IncidentRepository incidentRepository,
             UpdatesRepository updatesRepository)
@@ -32,7 +32,7 @@ public class SmIncidentWorkerImpl extends BaseSmWorker<VmSmIncident, VmIncidentW
     }
 
     @Scheduled(fixedRateString = "${sm.methods.incident.fixedrate}")
-    public void loadIncidensFromSm() {
+    public void loadIncidentsFromSm() {
         process();
     }
 }

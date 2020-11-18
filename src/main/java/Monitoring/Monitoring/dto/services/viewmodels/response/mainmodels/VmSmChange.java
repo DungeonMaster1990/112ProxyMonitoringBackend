@@ -16,12 +16,6 @@ import java.time.ZonedDateTime;
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VmSmChange {
-    @JsonAlias("AffectedItem")
-    private String affectedItem;
-    @JsonAlias("BackoutPlans")
-    private String[] backoutPlan;
-    @JsonAlias("IsManagerNotification")
-    private Boolean isManagerNotification;
     @JsonAlias("CreatedBy")
     private String createdBy;
     @JsonAlias("CreatedAt")
@@ -34,6 +28,12 @@ public class VmSmChange {
     private String closedBy;
     @JsonAlias("ClosedAt")
     private ZonedDateTime closedAt;
+    @JsonAlias("AffectedItem")
+    private String affectedItem;
+    @JsonAlias("BackoutPlans")
+    private String[] backoutPlan;
+    @JsonAlias("IsManagerNotification")
+    private Boolean isManagerNotification;
     @JsonAlias("RiskLevel")
     private String riskLevel;
     @JsonAlias("Criticality")
@@ -77,7 +77,7 @@ public class VmSmChange {
     @JsonAlias("ImplementationEndAt")
     private ZonedDateTime implementationEndAt;
     @JsonAlias("ResolutionCode")
-    private ZonedDateTime resolutionCode;
+    private String resolutionCode;
     @JsonAlias("IsNoDowntime")
     private Boolean isNoDowntime;
     @JsonAlias("IsStChgCandidat")

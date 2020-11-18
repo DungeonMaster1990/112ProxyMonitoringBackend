@@ -75,6 +75,14 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
         entityManager.getTransaction().commit();
     }
 
+    public void mergeModels(List<Incident> incidents) {
+        entityManager.getTransaction().begin();
+        for(Incident vtbIncident : incidents){
+            entityManager.persist(vtbIncident);
+        }
+        entityManager.getTransaction().commit();
+    }
+
     @Override
     public Incident getVtbIncident(int id) {
         String query =  String.format("select a from VtbIncidents a where a.id=%s;", id);
@@ -98,11 +106,16 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
 
     @Override
     public void putModels(List<Incident> models) {
-        entityManager.getTransaction().begin();
-        for(Incident vtbIncident : models){
-            entityManager.persist(vtbIncident);
-        }
-        entityManager.getTransaction().commit();
+        String qryString = """
+                merge
+                select i 
+                  from Incident i 
+                 where i.factBeginAt >= :twoDaysBackFromNow
+                   and i.notificationSent <> true
+                """;
+
+
+
     }
 
     public List<Incident> allByCriteria(List<String> affectedSystems,
