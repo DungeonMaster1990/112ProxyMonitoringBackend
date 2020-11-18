@@ -62,7 +62,8 @@ public class VerticaWorkerServiceImpl implements VerticaWorkerService {
                 .stream()
                 .map(verticaMapper::mapToSmDefMeasurementApi)
                 .collect(Collectors.toList());
-        smDefMeasurementApiRepository.putSmDefMeasurements(smDefMeasurementApiList);
+
+        smDefMeasurementApiRepository.saveAll(smDefMeasurementApiList);
 
         for(Metrics metric : metrics){
             metric.setMerged(true);

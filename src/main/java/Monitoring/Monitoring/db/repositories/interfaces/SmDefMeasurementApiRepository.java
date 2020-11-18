@@ -1,10 +1,7 @@
 package Monitoring.Monitoring.db.repositories.interfaces;
 
 import Monitoring.Monitoring.db.models.SmDefMeasurementApi;
-import Monitoring.Monitoring.db.vertica.models.SmRawdataMeasVertica;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
-public interface SmDefMeasurementApiRepository {
-    void putSmDefMeasurements(List<SmDefMeasurementApi> smDefMeasurementApis);
+public interface SmDefMeasurementApiRepository extends JpaRepository<SmDefMeasurementApi, Integer> {
 }
