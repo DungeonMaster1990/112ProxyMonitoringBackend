@@ -52,26 +52,26 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
     }
 
     protected void process() {
+        Updates update;
+        ResponseEntity<TT> response;
 
-        String loginBasicEncoded = Base64.getEncoder().encodeToString(appConfig.getSmUserLoginPass().getBytes());
+        try {
+            RestTemplate restTemplate = BuildRestTemplate();
+            update = updatesRepository.getUpdateEntityByServiceName(workerName);
+            Map<String, Object> request = Map.of(
+                    "view", "expand" ,
+                    "query", getQueryString(update));
+            response = restTemplate.getForEntity(requestString, vmModelWrapperType, request);
+        }
+        catch(Exception exception){
+            log.error("Ошибка при передаче инцидента на сервис отправки уведомлений.", exception);
+            return;
+        }
 
-        RestTemplate restTemplate = new RestTemplateBuilder(rt -> rt.getInterceptors().add((request, body, execution) -> {
-            request.getHeaders().add("Authorization", "Basic  " + loginBasicEncoded);
-            return execution.execute(request, body);
-        })).build();
-
-        Updates update = updatesRepository.getUpdateEntityByServiceName(workerName);
-
-        Map<String, Object> request = Map.of(
-                "view", "expand" ,
-                "query", getQueryString(update));
-
-
-        ResponseEntity<TT> response = restTemplate.getForEntity(requestString, vmModelWrapperType, request);
-
-//        if (!response.getStatusCode().is2xxSuccessful()){
-//            throw new Exception("The SM service didn't respond for Incident Request");
-//        }
+        if (!response.getStatusCode().is2xxSuccessful() || response.getBody().getReturnCode() > 0){
+            log.error(String.format("The SM service: %s returns response: %s", response.toString(), workerName));;
+            return;
+        }
 
         List<T> resultBody = Arrays.stream(response.getBody().getContent())
                 .map(VmModelWrapper::getModel)
@@ -87,6 +87,17 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
         update.setUpdateTime(updatedAt);
         repository.putModels(models);
         updatesRepository.putUpdate(update);
+    }
+
+    private RestTemplate BuildRestTemplate(){
+        String loginBasicEncoded = Base64.getEncoder().encodeToString(appConfig.getSmUserLoginPass().getBytes());
+
+        RestTemplate restTemplate = new RestTemplateBuilder(rt -> rt.getInterceptors().add((request, body, execution) -> {
+            request.getHeaders().add("Authorization", "Basic  " + loginBasicEncoded);
+            return execution.execute(request, body);
+        })).build();
+
+        return restTemplate;
     }
 
     private String getQueryString(Updates update){

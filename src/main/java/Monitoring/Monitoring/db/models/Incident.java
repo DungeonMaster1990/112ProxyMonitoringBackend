@@ -140,5 +140,4 @@ public class Incident implements BaseSmModel {
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name="accidentid")
     private List<AffectedSystem> affectedSystems;
-
 }
