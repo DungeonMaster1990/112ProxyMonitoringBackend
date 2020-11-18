@@ -50,7 +50,9 @@ create table if not exists monitoring.metrics
 (
     id                         integer not null default nextval('monitoring.metrics_id_seq'),
     measurement_id             int not null,
-    msname                     varchar not null
+    msname                     varchar not null,
+    monitor_id                 int not null,
+    is_merged                  boolean default false
 );
 alter sequence monitoring.metrics_id_seq
 owned by monitoring.metrics.id;

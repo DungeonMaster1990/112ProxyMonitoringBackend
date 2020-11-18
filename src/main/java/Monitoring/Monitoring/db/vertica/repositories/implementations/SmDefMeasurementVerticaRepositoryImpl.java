@@ -25,17 +25,23 @@ public class SmDefMeasurementVerticaRepositoryImpl implements SmDefMeasurementVe
 
     @Override
     public List<SmDefMeasurementVertica> getSmDefMeasurements(List<Metrics> metrics) throws SQLException {
-        String measurementIds = String
-                .join(",",
-                        metrics.stream().map(m -> m.getMeasurementId()).map(String::valueOf).toArray(String[]::new));
+        ArrayList metricsArr = new ArrayList(metrics);
+        StringBuilder whereQuery = new StringBuilder();
+        for(int i=0; i < metricsArr.size(); i++){
+            if(i != metricsArr.size()-1)
+                whereQuery.append(String.format("(measurement_id = %o and monitor_id = %o) or", metrics.get(i).getMeasurementId(), metrics.get(i).getMonitorId()));
+            else
+                whereQuery.append(String.format("(measurement_id = %o and monitor_id = %o)", metrics.get(i).getMeasurementId(), metrics.get(i).getMonitorId()));
+        }
         List<SmDefMeasurementVertica> smDefMeasurementsVertica = new ArrayList<SmDefMeasurementVertica>();
         Statement stmt = verticaConnection.createStatement();
         String query = String.format("""
                     select session_id, measurement_id, shed_id, category_id, monitor_id, target_id,
                     msname, msid, user_remark, connection_data, dm_connection_id, active, ci_id, eti_id, integration_name,
-                    profile_id, creation_date, modified_date, deleted
-                    where measurement_id in (%s)
-                """, metrics
+                    profile_id, creation_date, modified_date, deleted 
+                    from bsm_replica.SM_DEF_MEASUREMENT
+                    where (%s)
+                """, whereQuery
         );
 
         ResultSet rs = stmt.executeQuery(query);

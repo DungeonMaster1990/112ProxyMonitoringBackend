@@ -30,6 +30,7 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
         String query = String.format("""
                     select session_id, time_stamp, measurement_id, status_id, err_msg, raw_monitor_id, raw_target_id, 
                     raw_connection_id, raw_category_id, raw_threshold_quality, dbdate
+                    from bsm_replica.SM_RAWDATA_MEAS
                     where time_stamp > (%s)
                 """, lastUpdate.getUpdateTime().toString());
         ResultSet rs = stmt.executeQuery(query);
