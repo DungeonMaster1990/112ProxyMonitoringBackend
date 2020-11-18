@@ -28,35 +28,6 @@ create table if not exists monitoring.plantypes
     name varchar
 );
 
-create sequence if not exists monitoring.plans_id_seq;
-create table if not exists monitoring.plans
-(
-    id                         integer not null default nextval('monitoring.plans_id_seq'),
-    foreignId                  varchar not null,
-    plantypeId                 int     not null,
-    phase                      int,
-    status                     varchar,
-    shortDescription           varchar,
-    impactDescription          varchar,
-    degradationRate            varchar,
-    startDate                  timestamp,
-    finishDate                 timestamp,
-    startDownDate              timestamp,
-    finishDownDate             timestamp,
-    initiator                  varchar,
-    customer                   varchar,
-    owner                      varchar,
-    implementationPlan         varchar,
-    rollbackPlan               varchar,
-    itSystems                  varchar,
-    configurationUnits         varchar,
-    affectedConfigurationUnits varchar,
-    affectedItSystems          varchar,
-    affectedItServices         varchar
-);
-alter sequence monitoring.plans_id_seq
-owned by monitoring.plans.id;
-
 create sequence if not exists monitoring.incidents_id_seq;
 create table if not exists monitoring.incidents
 (
