@@ -2,11 +2,13 @@ package Monitoring.Monitoring.db.repositories.implementations;
 
 import Monitoring.Monitoring.db.models.Changes;
 import Monitoring.Monitoring.db.repositories.interfaces.ChangesRepository;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+@Repository
 public class ChangesRepositoryImpl implements ChangesRepository {
     @PersistenceContext
     private EntityManager entityManager;
