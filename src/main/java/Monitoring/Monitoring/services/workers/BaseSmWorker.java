@@ -69,7 +69,7 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
         }
 
         if (!response.getStatusCode().is2xxSuccessful() || response.getBody().getReturnCode() > 0){
-            log.error(String.format("The SM service: %s returns response: %s", response.toString(), workerName));;
+            log.error(String.format("The SM service: %s returns response: %s", workerName, response.toString()));;
             return;
         }
 
