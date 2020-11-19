@@ -12,6 +12,7 @@
         <sqlFile path="/db/changelog/migrations/ITOPS-76_add_notif_sent_column.sql"/>
         <sqlFile path="/db/changelog/migrations/Vertica.sql"/>
         <sqlFile path="/db/changelog/migrations/Updates.sql"/>
+        <sqlFile path="/db/changelog/migrations/Changes.sql"></sqlFile>
     </changeSet>
     <changeSet  author="NMarkov"  id="test_date" context="test">
         <sqlFile path="/db/changelog/migrations/test/test_data.sql"/>

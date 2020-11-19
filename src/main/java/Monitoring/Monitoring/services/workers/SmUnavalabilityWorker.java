@@ -1,4 +1,4 @@
-package Monitoring.Monitoring.services.workers.impl;
+package Monitoring.Monitoring.services.workers;
 
 import Monitoring.Monitoring.config.AppConfig;
 import Monitoring.Monitoring.db.models.Unavailabilities;
@@ -13,9 +13,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SmUnavalabilityWorkerImpl extends BaseSmWorker<VmSmUnavailability, VmUnavailabilityWrapper, Unavailabilities> {
+public class SmUnavalabilityWorker extends BaseSmWorker<VmSmUnavailability, VmUnavailabilityWrapper, Unavailabilities> {
     @Autowired
-    private SmUnavalabilityWorkerImpl(
+    private SmUnavalabilityWorker(
             AppConfig appConfig,
             UnavailabilitiesRepository unavailabilitiesRepository,
             UpdatesRepository updatesRepository)
@@ -31,7 +31,7 @@ public class SmUnavalabilityWorkerImpl extends BaseSmWorker<VmSmUnavailability, 
     }
 
     @Scheduled(fixedRateString = "${sm.methods.incident.fixedrate}")
-    public void loadIncidensFromSm() {
+    public void loadUnavailabilitiesFromSm() {
         process();
     }
 }

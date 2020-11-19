@@ -37,4 +37,5 @@ public class VmSmUnavailability {
     private ZonedDateTime updatedAt;
     @JsonAlias("UpdatedById")
     private int updatedById;
+
 }
