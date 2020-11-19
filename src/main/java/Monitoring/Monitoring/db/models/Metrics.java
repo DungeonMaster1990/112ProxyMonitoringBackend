@@ -1,22 +1,19 @@
 package Monitoring.Monitoring.db.models;
 
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-import lombok.Getter;
-import lombok.Setter;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "metrics",
        schema = "monitoring")
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Metrics {
     @Id
     @GenericGenerator(
@@ -30,19 +27,15 @@ public class Metrics {
     @GeneratedValue(generator = "metricsIdGenerator")
     private Integer id;
 
-    @Column(name = "measurement_id",
-            nullable = false)
+    @Column(name = "measurement_id", nullable = false)
     private Integer measurementId;
 
-    @Column(name = "msname",
-            nullable = false)
+    @Column(name = "msname", nullable = false)
     private String msname;
 
-    @Column(name = "monitor_id",
-            nullable = false)
+    @Column(name = "monitor_id", nullable = false)
     private Integer monitorId;
 
-    @Column(name = "is_merged",
-            nullable = false)
+    @Column(name = "is_merged", nullable = false)
     private boolean isMerged;
 }

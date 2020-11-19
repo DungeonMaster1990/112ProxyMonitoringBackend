@@ -30,17 +30,26 @@ create table if not exists monitoring.sm_def_measurements
 (
     id                         integer not null default nextval('monitoring.sm_def_measurements_id_seq'),
     session_id                 int not null,
-    time_stamp                 timestamp not null,
     measurement_id             int not null,
-    meas_value                 numeric,
-    status_id                  int,
-    errMsg                     varchar,
-    raw_monitor_id             int not null,
-    raw_target_id              int not null,
-    raw_connection_id          int not null,
-    raw_category_id            int not null,
+    sched_id                   int not null,
+    category_id                int not null,
+    monitor_id                 int not null,
+    target_id                  int not null,
+    msname                     varchar not null,
+    Msid                       varchar,
+    user_remark                varchar,
+    connection_data            varchar,
+    dm_connection_id           int ,
+    is_active                  int not null,
+    ci_id                      varchar,
+    eti_id                     varchar,
+    integration_name           varchar,
+    profile_id                 varchar,
+    modified_date              timestamp not null,
+    creation_date              timestamp not null,
     raw_threshold_quality      int,
-    dbdate                     timestamp
+    is_deleted                 boolean,
+    meas_value                 varchar
 );
 alter sequence monitoring.sm_def_measurements_id_seq
 owned by monitoring.sm_def_measurements.id;
