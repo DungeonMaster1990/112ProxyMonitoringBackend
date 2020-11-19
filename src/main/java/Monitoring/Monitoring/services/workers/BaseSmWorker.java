@@ -7,13 +7,14 @@ import Monitoring.Monitoring.db.repositories.interfaces.SmRepository;
 import Monitoring.Monitoring.db.repositories.interfaces.UpdatesRepository;
 import Monitoring.Monitoring.dto.services.viewmodels.response.modelwrappers.VmModelWrapper;
 import Monitoring.Monitoring.dto.services.viewmodels.response.modelwrappers.VmBaseResponseWrapper;
+import Monitoring.Monitoring.mappers.wrappers.SmMapper;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.yaml.snakeyaml.util.UriEncoder;
 
+import javax.transaction.NotSupportedException;
 import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -24,8 +25,9 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
     private AppConfig appConfig;
     private SmRepository<U> repository;
     private UpdatesRepository updatesRepository;
-    private ModelMapper modelMapper;
+    private SmMapper<U, T> smMapper;
 
+    private Class<T> vmModelClassType;
     private Class<TT> vmModelWrapperType;
     private Class<U> dbModelClassType;
     private String workerName;
@@ -34,23 +36,25 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
     public BaseSmWorker(
             AppConfig appConfig,
             SmRepository<U> repository,
-            ModelMapper modelMapper,
+            SmMapper<U, T> smMapper,
             UpdatesRepository updatesRepository,
+            Class<T> vmModelClassType,
             Class<TT> vmModelWrapperType,
             Class<U> dbModelClassType,
             String workerName,
             String requestString){
         this.appConfig = appConfig;
-        this.modelMapper = modelMapper;
+        this.smMapper = smMapper;
         this.repository = repository;
         this.updatesRepository = updatesRepository;
+        this.vmModelClassType = vmModelClassType;
         this.vmModelWrapperType = vmModelWrapperType;
         this.dbModelClassType = dbModelClassType;
         this.workerName = workerName;
         this.url = requestString;
     }
 
-    protected void process() {
+    protected void process() throws NotSupportedException {
         Updates update;
         ResponseEntity<TT> response;
 
@@ -76,7 +80,16 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
                 .map(VmModelWrapper::getModel)
                 .collect(Collectors.toList());
 
-        List<U> models = mapList(resultBody, dbModelClassType);
+            List<U> models = resultBody.stream()
+                    .map(element -> {
+                        try {
+                            return smMapper.map(element, dbModelClassType, vmModelClassType);
+                        } catch (NotSupportedException e) {
+                            log.error(String.format("The Convert from %s to %s Is Not Supported", vmModelClassType.toString(), dbModelClassType.toString()));
+                            return null;
+                        }
+                    })
+                    .collect(Collectors.toList());
 
         ZonedDateTime updatedAt = models.stream()
                 .max(Comparator.comparing(U::getUpdatedAt))
@@ -104,11 +117,5 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
         String queryString = String.format("UpdatedAt>'%s'", dateTimeString);
         String result = UriEncoder.encode(queryString);
         return result;
-    }
-
-    <SS, TT> List<TT> mapList(List<SS> source, Class<TT> targetClass) {
-        return source.stream()
-                .map(element -> modelMapper.map(element, targetClass))
-                .collect(Collectors.toList());
     }
 }

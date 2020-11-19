@@ -9,5 +9,5 @@ import org.mapstruct.Mapping;
 public interface UnavailabilityMapper {
 
     @Mapping(target = "id", ignore = true)
-    Unavailabilities mapToIncidentResponse(VmSmUnavailability source);
+    Unavailabilities mapToUnavailabilityResponse(VmSmUnavailability source);
 }
