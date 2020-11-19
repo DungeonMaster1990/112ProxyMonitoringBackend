@@ -45,48 +45,56 @@ public class VerticaWorkerWorker {
         this.verticaMapper = verticaMapper;
     }
 
-    @Scheduled(fixedRate = 900000)
-    public void takeSmDefMeasurementVertica() throws SQLException {
-        List<Metrics> metrics = metricsRepository.findAll()
-                .stream()
-                .filter(m -> !m.isMerged())
-                .collect(Collectors.toList());
+    @Scheduled(fixedRate = 60000)
+    public void takeSmDefMeasurementVertica() {
+        try {
+            List<Metrics> metrics = metricsRepository.findAll()
+                    .stream()
+                    .filter(m -> !m.isMerged())
+                    .collect(Collectors.toList());
 
-        List<SmDefMeasurementVertica> smDefMeasurementVerticaList =
-                smDefMeasurementVerticaRepository.getSmDefMeasurements(metrics);
+            List<SmDefMeasurementVertica> smDefMeasurementVerticaList =
+                    smDefMeasurementVerticaRepository.getSmDefMeasurements(metrics);
 
-        List<SmDefMeasurementApi> smDefMeasurementApiList =
-                smDefMeasurementVerticaList
-                .stream()
-                .map(verticaMapper::mapToSmDefMeasurementApi)
-                .collect(Collectors.toList());
+            List<SmDefMeasurementApi> smDefMeasurementApiList =
+                    smDefMeasurementVerticaList
+                            .stream()
+                            .map(verticaMapper::mapToSmDefMeasurementApi)
+                            .collect(Collectors.toList());
 
-        smDefMeasurementApiRepository.saveAll(smDefMeasurementApiList);
+            smDefMeasurementApiRepository.saveAll(smDefMeasurementApiList);
 
-        for(Metrics metric : metrics){
-            metric.setMerged(true);
+            for (Metrics metric : metrics) {
+                metric.setMerged(true);
+            }
+            metricsRepository.saveAll(metrics);
+        } catch (SQLException sqlException){
+            log.error("Произошла ошибка при попытке выгрузки данных из Vertic-и из таблицы SmDefMeasurements",sqlException);
         }
-        metricsRepository.saveAll(metrics);
     }
 
-    @Scheduled(fixedRate = 900000)
-    public void takeSmRawdataMeasVertica() throws SQLException {
-        Updates update = updatesRepository.getUpdateEntityByServiceName("verticaServiceName");
-        List<SmRawdataMeasVertica> smRawdataMeasVerticaList =
-                smRawdataMeasVerticaRepository.getSmRawdataMeasVertica(update);
-        List<SmRawdataMeasApi> smRawdataMeasApiList =
-                smRawdataMeasVerticaList
-                        .stream()
-                        .map(verticaMapper::mapToSmRawdataMeasApi)
-                        .collect(Collectors.toList());
-        smRawdataMeasApiRepository.putSmRawdataMeasVertica(smRawdataMeasApiList);
+    @Scheduled(fixedRate = 60000)
+    public void takeSmRawdataMeasVertica() {
+        try {
+            Updates update = updatesRepository.getUpdateEntityByServiceName("verticaServiceName");
+            List<SmRawdataMeasVertica> smRawdataMeasVerticaList =
+                    smRawdataMeasVerticaRepository.getSmRawdataMeasVertica(update);
+            List<SmRawdataMeasApi> smRawdataMeasApiList =
+                    smRawdataMeasVerticaList
+                            .stream()
+                            .map(verticaMapper::mapToSmRawdataMeasApi)
+                            .collect(Collectors.toList());
+            smRawdataMeasApiRepository.putSmRawdataMeasVertica(smRawdataMeasApiList);
 
-        ZonedDateTime updatedAt = smRawdataMeasVerticaList.stream()
-                .max(Comparator.comparing(SmRawdataMeasVertica::getTimeStamp))
-                .get()
-                .getTimeStamp();
+            ZonedDateTime updatedAt = smRawdataMeasVerticaList.stream()
+                    .max(Comparator.comparing(SmRawdataMeasVertica::getTimeStamp))
+                    .get()
+                    .getTimeStamp();
 
-        update.setUpdateTime(updatedAt);
-        updatesRepository.putUpdate(update);
+            update.setUpdateTime(updatedAt);
+            updatesRepository.putUpdate(update);
+        } catch (SQLException sqlException){
+            log.error("Произошла ошибка при попытке выгрузки данных из Vertic-и из таблицы SmRawdataMeas", sqlException);
+        }
     }
 }
