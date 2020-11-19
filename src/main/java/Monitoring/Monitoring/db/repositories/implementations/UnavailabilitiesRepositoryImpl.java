@@ -2,8 +2,10 @@ package Monitoring.Monitoring.db.repositories.implementations;
 
 import Monitoring.Monitoring.db.models.Unavailabilities;
 import Monitoring.Monitoring.db.repositories.interfaces.UnavailabilitiesRepository;
+import Monitoring.Monitoring.db.repositories.interfaces.UnavailabilitiesRepositoryCustom;
 import com.google.common.collect.Streams;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -12,8 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
-public class UnavailabilitiesRepositoryImpl implements UnavailabilitiesRepository {
+@Repository
+public class UnavailabilitiesRepositoryImpl implements UnavailabilitiesRepositoryCustom {
     @PersistenceContext
     private EntityManager entityManager;
 

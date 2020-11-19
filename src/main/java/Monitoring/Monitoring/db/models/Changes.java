@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -15,7 +16,15 @@ import java.time.ZonedDateTime;
 @Table(name="changes", schema = "monitoring")
 public class Changes implements BaseSmModel {
     @Id
-    @GeneratedValue(generator = "monitoring.incidents_id_seq")
+    @GenericGenerator(
+            name = "changesIdGenerator",
+            strategy = "sequence-identity",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "sequence",
+                            value = "monitoring.changes_id_seq")
+            }
+    )
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "changesIdGenerator")
     private Integer id;
     //main object
     @Column(name = "created_by")

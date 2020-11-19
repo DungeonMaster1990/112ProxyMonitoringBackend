@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 public class AccidentsController {
 
     @Autowired
-    IncidentRepository incidentDAO;
+    IncidentRepository incidentDAO; //todo move to @Service layer
 
     @PostMapping(consumes = "application/json;charset=UTF-8",
                  produces = "application/json;charset=UTF-8")

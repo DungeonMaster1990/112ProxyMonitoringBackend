@@ -1,13 +1,10 @@
 package Monitoring.Monitoring.db.repositories.interfaces;
 
 import Monitoring.Monitoring.db.models.Unavailabilities;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
-public interface UnavailabilitiesRepository extends SmRepository<Unavailabilities>{
-    List<Unavailabilities> getAllVtbUnavailabilities();
-
-    Unavailabilities getVtbUnavailability(int id);
-
-    List<Unavailabilities> getVtbUnavailabilities(String[] faultIds, String[] serviceIds);
-}
+@Repository
+public interface UnavailabilitiesRepository extends
+        JpaRepository<Unavailabilities, Integer>,
+        UnavailabilitiesRepositoryCustom { }
