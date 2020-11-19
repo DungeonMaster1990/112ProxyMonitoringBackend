@@ -29,8 +29,7 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
     private Class<TT> vmModelWrapperType;
     private Class<U> dbModelClassType;
     private String workerName;
-    private String requestString;
-
+    private String url;
 
     public BaseSmWorker(
             AppConfig appConfig,
@@ -48,7 +47,7 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
         this.vmModelWrapperType = vmModelWrapperType;
         this.dbModelClassType = dbModelClassType;
         this.workerName = workerName;
-        this.requestString = requestString;
+        this.url = requestString;
     }
 
     protected void process() {
@@ -61,14 +60,14 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
             Map<String, Object> request = Map.of(
                     "view", "expand" ,
                     "query", getQueryString(update));
-            response = restTemplate.getForEntity(requestString, vmModelWrapperType, request);
+            response = restTemplate.getForEntity(url, vmModelWrapperType, request);
         }
         catch(Exception exception){
             log.error("Ошибка при передаче инцидента на сервис отправки уведомлений.", exception);
             return;
         }
 
-        if (!response.getStatusCode().is2xxSuccessful() || response.getBody().getReturnCode() > 0){
+        if (!response.getStatusCode().is2xxSuccessful() || response.getBody() == null || response.getBody().getReturnCode() > 0){
             log.error(String.format("The SM service: %s returns response: %s", workerName, response.toString()));;
             return;
         }
