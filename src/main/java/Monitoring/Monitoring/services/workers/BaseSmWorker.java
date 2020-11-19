@@ -56,7 +56,7 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
         ResponseEntity<TT> response;
 
         try {
-            RestTemplate restTemplate = BuildRestTemplate();
+            RestTemplate restTemplate = buildRestTemplate();
             update = updatesRepository.getUpdateEntityByServiceName(workerName);
             Map<String, Object> request = Map.of(
                     "view", "expand" ,
@@ -89,7 +89,7 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
         updatesRepository.putUpdate(update);
     }
 
-    private RestTemplate BuildRestTemplate(){
+    private RestTemplate buildRestTemplate(){
         String loginBasicEncoded = Base64.getEncoder().encodeToString(appConfig.getSmUserLoginPass().getBytes());
 
         RestTemplate restTemplate = new RestTemplateBuilder(rt -> rt.getInterceptors().add((request, body, execution) -> {
