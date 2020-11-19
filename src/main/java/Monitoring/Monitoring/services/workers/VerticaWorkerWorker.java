@@ -1,4 +1,4 @@
-package Monitoring.Monitoring.services.workers.impl;
+package Monitoring.Monitoring.services.workers;
 
 import Monitoring.Monitoring.db.models.Metrics;
 import Monitoring.Monitoring.db.models.SmDefMeasurementApi;
@@ -13,7 +13,6 @@ import Monitoring.Monitoring.db.vertica.models.SmRawdataMeasVertica;
 import Monitoring.Monitoring.db.vertica.repositories.interfaces.SmDefMeasurementVerticaRepository;
 import Monitoring.Monitoring.db.vertica.repositories.interfaces.SmRawdataMeasVerticaRepository;
 import Monitoring.Monitoring.mappers.VerticaMapper;
-import Monitoring.Monitoring.services.workers.interfaces.VerticaWorkerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -25,7 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class VerticaWorkerServiceImpl implements VerticaWorkerService {
+public class VerticaWorkerWorker {
     private SmDefMeasurementApiRepository smDefMeasurementApiRepository;
     private SmDefMeasurementVerticaRepository smDefMeasurementVerticaRepository;
     private SmRawdataMeasApiRepository smRawdataMeasApiRepository;
@@ -36,7 +35,7 @@ public class VerticaWorkerServiceImpl implements VerticaWorkerService {
     private VerticaMapper verticaMapper;
 
     @Autowired
-    public VerticaWorkerServiceImpl(SmDefMeasurementApiRepository smDefMeasurementApiRepository, SmDefMeasurementVerticaRepository smDefMeasurementVerticaRepository, SmRawdataMeasApiRepository smRawdataMeasApiRepository, SmRawdataMeasVerticaRepository smRawdataMeasVerticaRepository, MetricsRepository metricsRepository, UpdatesRepository updatesRepository, VerticaMapper verticaMapper) {
+    public VerticaWorkerWorker(SmDefMeasurementApiRepository smDefMeasurementApiRepository, SmDefMeasurementVerticaRepository smDefMeasurementVerticaRepository, SmRawdataMeasApiRepository smRawdataMeasApiRepository, SmRawdataMeasVerticaRepository smRawdataMeasVerticaRepository, MetricsRepository metricsRepository, UpdatesRepository updatesRepository, VerticaMapper verticaMapper) {
         this.smDefMeasurementApiRepository = smDefMeasurementApiRepository;
         this.smDefMeasurementVerticaRepository = smDefMeasurementVerticaRepository;
         this.smRawdataMeasApiRepository = smRawdataMeasApiRepository;
@@ -46,7 +45,6 @@ public class VerticaWorkerServiceImpl implements VerticaWorkerService {
         this.verticaMapper = verticaMapper;
     }
 
-    @Override
     @Scheduled(fixedRate = 900000)
     public void takeSmDefMeasurementVertica() throws SQLException {
         List<Metrics> metrics = metricsRepository.findAll()
@@ -62,7 +60,8 @@ public class VerticaWorkerServiceImpl implements VerticaWorkerService {
                 .stream()
                 .map(verticaMapper::mapToSmDefMeasurementApi)
                 .collect(Collectors.toList());
-        smDefMeasurementApiRepository.putSmDefMeasurements(smDefMeasurementApiList);
+
+        smDefMeasurementApiRepository.saveAll(smDefMeasurementApiList);
 
         for(Metrics metric : metrics){
             metric.setMerged(true);
@@ -70,7 +69,6 @@ public class VerticaWorkerServiceImpl implements VerticaWorkerService {
         metricsRepository.saveAll(metrics);
     }
 
-    @Override
     @Scheduled(fixedRate = 900000)
     public void takeSmRawdataMeasVertica() throws SQLException {
         Updates update = updatesRepository.getUpdateEntityByServiceName("verticaServiceName");

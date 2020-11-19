@@ -1,7 +1,5 @@
 package Monitoring.Monitoring.controllers;
 
-import Monitoring.Monitoring.db.models.Incident;
-import Monitoring.Monitoring.db.repositories.interfaces.IncidentRepository;
 import Monitoring.Monitoring.dto.api.viewmodels.request.VmAccidentsRequest;
 import Monitoring.Monitoring.dto.api.viewmodels.response.VmAccidentResponse;
 import Monitoring.Monitoring.infrastructure.PostgreSQL;
@@ -26,9 +24,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.ZonedDateTime;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -46,22 +43,10 @@ class AccidentsControllerTest extends PostgreSQL {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private IncidentRepository incidentRepository;
-
     ObjectMapper objectMapper = new ObjectMapper();
     ZonedDateTime dayNow = ZonedDateTime.parse("2020-11-16T19:00:00.00000+03:00");
-
     @BeforeAll
     public void setUp() {
-        int maxId = 23;
-        incidentRepository.saveAll(IntStream.rangeClosed(1, maxId)
-                .mapToObj(i -> this.makeIncident(i, "Инцидент"))
-                .collect(Collectors.toList()));
-        Incident freshIncident = makeIncident(maxId+1, "Проблема");
-        freshIncident.setCreatedAt(dayNow.plusDays(1));
-        incidentRepository.save(freshIncident);
-
         objectMapper.registerModule(new JavaTimeModule());
     }
 
@@ -70,8 +55,9 @@ class AccidentsControllerTest extends PostgreSQL {
 
         VmAccidentsRequest request = VmAccidentsRequest.builder()
                 .limit(5)
-                .page(5)
+                .page(3)
                 .startDate(dayNow)
+                .affectedSystems(Collections.singletonList("Платежи"))
                 .keyword("Инцид")
                 .build();
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
@@ -86,7 +72,6 @@ class AccidentsControllerTest extends PostgreSQL {
                 objectMapper.getTypeFactory().constructCollectionType(List.class, VmAccidentResponse.class));
 
         Assert.assertEquals(3, response.size());
-        System.out.println(response.size());
     }
 
     @Test
@@ -145,16 +130,6 @@ class AccidentsControllerTest extends PostgreSQL {
                 .characterEncoding("UTF-8"))
                 .andDo(print())
                 .andExpect(status().is5xxServerError());
-    }
-
-    @NotNull
-    private Incident makeIncident(int i, String incidentId) {
-        Incident incident = new Incident();
-        incident.setIncidentId(incidentId +" А_" + i);
-        incident.setSpecialistId("Иванов Василий " + i);
-        incident.setDescription("Проблема");
-        incident.setCreatedAt(dayNow);
-        return incident;
     }
 
     @NotNull
