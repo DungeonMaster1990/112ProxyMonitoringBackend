@@ -7,7 +7,6 @@ import Monitoring.Monitoring.dto.api.viewmodels.response.VmMetricsResponse;
 import Monitoring.Monitoring.mappers.MetricsMapper;
 import Monitoring.Monitoring.services.api.interfaces.MetricsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -21,16 +20,10 @@ import java.util.List;
 public class MetricsServiceImpl implements MetricsService {
 
     @Autowired
-    private MetricsRepository metricsRepository;
-
-    @Autowired
-    private MetricsMapper metricsMapper;
-
-    @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Override
-    public VmMetricsResponse[] getMetrics(VmMetricsRequest vmMetricsRequet, VmMetricsRequest request) {
+    public VmMetricsResponse[] getMetrics(VmMetricsRequest vmMetricsRequet) {
         String allMetricsQry = """
                    select m.id as id,
                           m.msname as name,
@@ -50,8 +43,8 @@ public class MetricsServiceImpl implements MetricsService {
                 """;
 
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
-                .addValue("limit", request.getLimit())
-                .addValue("offset", request.getPage() * request.getLimit());
+                .addValue("limit", vmMetricsRequet.getLimit())
+                .addValue("offset", vmMetricsRequet.getPage() * vmMetricsRequet.getLimit());
 
         List<VmMetricsResponse> result = namedParameterJdbcTemplate.query(
                 allMetricsQry, sqlParameterSource, (rs, rowNum) -> resultSetToResponse(rs));

@@ -25,7 +25,7 @@ public class MetricsController {
 
     @PostMapping("/api/v1.0/metrics")
     public VmMetricsResponse[] get(@RequestBody VmMetricsRequest vmMetricsRequest) {
-        return metricsService.getMetrics(vmMetricsRequest, vmMetricsRequest);
+        return metricsService.getMetrics(vmMetricsRequest);
     }
 
     @PostMapping("/api/v1.0/metrics/update")

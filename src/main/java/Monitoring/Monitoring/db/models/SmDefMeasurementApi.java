@@ -1,6 +1,8 @@
 package Monitoring.Monitoring.db.models;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -11,10 +13,19 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "SM_DEF_MEASUREMENTS", schema = "monitoring")
+@Table(name = "sm_def_measurements", schema = "monitoring")
 public class SmDefMeasurementApi {
     @Id
-    @GeneratedValue(generator = "monitoring.sm_def_measurements_id_seq")
+    @GenericGenerator(
+            name = "measurementsSeq",
+            strategy = "sequence-identity",
+            parameters = {
+                    @Parameter(
+                            name = "sequence",
+                            value = "monitoring.sm_def_measurements_id_seq")
+            }
+    )
+    @GeneratedValue(generator = "measurementsSeq")
     private Integer id;
 
     @Column(name = "session_id", nullable = false)
