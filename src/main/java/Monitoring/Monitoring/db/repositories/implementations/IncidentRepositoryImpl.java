@@ -2,7 +2,12 @@ package Monitoring.Monitoring.db.repositories.implementations;
 
 import Monitoring.Monitoring.db.models.AffectedSystem;
 import Monitoring.Monitoring.db.models.Incident;
+import Monitoring.Monitoring.db.repositories.interfaces.IncidentRepository;
 import Monitoring.Monitoring.db.repositories.interfaces.IncidentRepositoryCustom;
+import Monitoring.Monitoring.mappers.IncidentMapper;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,13 +21,23 @@ import java.time.Clock;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
+@Log4j2
 @Repository
 public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
 
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Autowired
+    @Lazy
+    IncidentRepository incidentRepository;
+
+    @Autowired
+    IncidentMapper incidentMapper;
 
     @Override
     public List<Incident> getAllVtbIncidents() {
@@ -97,12 +112,28 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
     }
 
     @Override
+    @Transactional
     public void putModels(List<Incident> models) {
-        entityManager.getTransaction().begin();
-        for(Incident vtbIncident : models){
-            entityManager.persist(vtbIncident);
-        }
-        entityManager.getTransaction().commit();
+        List<Incident> incidents = incidentRepository.findByIncidentIdIn(models
+                .stream()
+                .map(Incident::getIncidentId)
+                .collect(Collectors.toList()));
+        log.info("incidents founded: {}", incidents.size());
+
+        Map<Boolean, List<Incident>> groups = models
+                .stream()
+                .collect(Collectors.partitioningBy(incidents::contains));
+        log.info("incidents for update: {}", groups.get(Boolean.FALSE).size());
+        log.info("incidents for insert: {}", groups.get(Boolean.TRUE).size());
+        incidentRepository.saveAll(groups.get(Boolean.FALSE));
+
+        incidents.forEach(forUpdate ->
+            models.stream()
+                    .filter(newData -> forUpdate.getIncidentId().equals(newData.getIncidentId()))
+                    .findFirst()
+                    .ifPresent(newData -> incidentMapper.updateIncident(newData, forUpdate))
+        );
+        incidentRepository.saveAll(incidents);
     }
 
     public List<Incident> allByCriteria(List<String> affectedSystems,

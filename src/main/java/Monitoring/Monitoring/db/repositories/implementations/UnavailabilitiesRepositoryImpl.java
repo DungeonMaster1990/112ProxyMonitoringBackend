@@ -3,21 +3,35 @@ package Monitoring.Monitoring.db.repositories.implementations;
 import Monitoring.Monitoring.db.models.Unavailabilities;
 import Monitoring.Monitoring.db.repositories.interfaces.UnavailabilitiesRepository;
 import Monitoring.Monitoring.db.repositories.interfaces.UnavailabilitiesRepositoryCustom;
+import Monitoring.Monitoring.mappers.UnavailabilityMapper;
 import com.google.common.collect.Streams;
-import org.springframework.stereotype.Component;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+@Log4j2
 @Repository
 public class UnavailabilitiesRepositoryImpl implements UnavailabilitiesRepositoryCustom {
+
     @PersistenceContext
     private EntityManager entityManager;
+
+    @Autowired
+    @Lazy
+    UnavailabilitiesRepository availabilitiesRepo;
+
+    @Autowired
+    UnavailabilityMapper unavailabilityMapper;
 
     @Override
     public List<Unavailabilities> getAllVtbUnavailabilities() {
@@ -49,11 +63,34 @@ public class UnavailabilitiesRepositoryImpl implements UnavailabilitiesRepositor
     }
 
     @Override
+    @Transactional
     public void putModels(List<Unavailabilities> models) {
-        entityManager.getTransaction().begin();
-        for(Unavailabilities vtbUnavailability : models){
-            entityManager.persist(vtbUnavailability);
-        }
-        entityManager.getTransaction().commit();
+        List<Unavailabilities> unavailabilities = availabilitiesRepo.findByFaultIdInAndServiceIdIn(
+                models
+                        .stream()
+                        .map(Unavailabilities::getFaultId)
+                        .collect(Collectors.toList()),
+                models
+                        .stream()
+                        .map(Unavailabilities::getServiceId)
+                        .collect(Collectors.toList()));
+        log.info("unavailabilities founded: {}", unavailabilities.size());
+
+        Map<Boolean, List<Unavailabilities>> groups = models
+                .stream()
+                .collect(Collectors.partitioningBy(unavailabilities::contains));
+        log.info("unavailabilities for update: {}", groups.get(Boolean.FALSE).size());
+        log.info("unavailabilities for insert: {}", groups.get(Boolean.TRUE).size());
+
+        availabilitiesRepo.saveAll(groups.get(Boolean.FALSE));
+
+        unavailabilities.forEach(forUpdate ->
+                models.stream()
+                        .filter(newData -> forUpdate.getServiceId().equals(newData.getServiceId())
+                                && forUpdate.getFaultId().equals(newData.getFaultId()))
+                        .findFirst()
+                        .ifPresent(newData -> unavailabilityMapper.updateUnavailability(newData, forUpdate))
+        );
+        availabilitiesRepo.saveAll(unavailabilities);
     }
 }
