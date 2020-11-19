@@ -2,6 +2,8 @@ package Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +11,8 @@ import java.time.ZonedDateTime;
 
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VmSmIncident {
     @JsonAlias("Id")
@@ -79,41 +83,4 @@ public class VmSmIncident {
     private ZonedDateTime factEndAt;
     @JsonAlias("FactBeginAt")
     private ZonedDateTime factBeginAt;
-
-    public VmSmIncident(String id, ZonedDateTime createdAt, ZonedDateTime expiredAt, Integer authorId, Integer contactId, Integer serviceId, String category, String failurePoint, Integer configurationItemId, String title, String[] description, String impact, String severity, Integer groupId, String assigneeId, String status, String closeCode, String resolution, String comment, ZonedDateTime updatedAt, String type, ZonedDateTime slaStartTime, String jiraNumber, String templateName, String extOrganization, String extId, String extStatus, String extAssigneeTime, String source, String specialistId, String priority, ZonedDateTime identedAt, ZonedDateTime factEndAt, ZonedDateTime factBeginAt) {
-        this.id = id;
-        this.createdAt = createdAt;
-        this.expiredAt = expiredAt;
-        this.authorId = authorId;
-        this.contactId = contactId;
-        this.serviceId = serviceId;
-        this.category = category;
-        this.failurePoint = failurePoint;
-        this.configurationItemId = configurationItemId;
-        this.title = title;
-        this.description = description;
-        this.impact = impact;
-        this.severity = severity;
-        this.groupId = groupId;
-        this.assigneeId = assigneeId;
-        this.status = status;
-        this.closeCode = closeCode;
-        this.resolution = resolution;
-        this.comment = comment;
-        this.updatedAt = updatedAt;
-        this.type = type;
-        this.slaStartTime = slaStartTime;
-        this.jiraNumber = jiraNumber;
-        this.templateName = templateName;
-        this.extOrganization = extOrganization;
-        this.extId = extId;
-        this.extStatus = extStatus;
-        this.extAssigneeTime = extAssigneeTime;
-        this.source = source;
-        this.specialistId = specialistId;
-        this.priority = priority;
-        this.identedAt = identedAt;
-        this.factEndAt = factEndAt;
-        this.factBeginAt = factBeginAt;
-    }
 }

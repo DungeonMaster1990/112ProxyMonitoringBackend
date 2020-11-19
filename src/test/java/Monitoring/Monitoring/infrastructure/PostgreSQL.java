@@ -26,4 +26,8 @@ public class PostgreSQL {
         registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
     }
 
+    @DynamicPropertySource
+    static void testMigrationsProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.liquibase.contexts", "prod,test"::toString);
+    }
 }
