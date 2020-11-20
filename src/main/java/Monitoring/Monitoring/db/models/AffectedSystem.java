@@ -40,7 +40,6 @@ public class AffectedSystem {
     private Integer incidentId;
 
     @ManyToOne
-
     @JoinColumn(name="accidentid", referencedColumnName="id")
     private Incident incident;
 
