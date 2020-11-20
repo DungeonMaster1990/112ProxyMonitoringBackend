@@ -1,11 +1,15 @@
 package Monitoring.Monitoring.mappers;
 
+import Monitoring.Monitoring.db.models.Changes;
 import Monitoring.Monitoring.db.models.Incident;
 import Monitoring.Monitoring.db.models.Unavailabilities;
+import Monitoring.Monitoring.db.repositories.interfaces.ChangesRepository;
 import Monitoring.Monitoring.db.repositories.interfaces.IncidentRepository;
 import Monitoring.Monitoring.db.repositories.interfaces.UnavailabilitiesRepository;
+import Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels.VmSmChange;
 import Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels.VmSmIncident;
 import Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels.VmSmUnavailability;
+import Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels.submodels.VmSmChangeHeader;
 import Monitoring.Monitoring.infrastructure.PostgreSQL;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -19,15 +23,16 @@ public class MappersTest extends PostgreSQL {
 
     @Autowired
     IncidentRepository incidentRepository;
-
     @Autowired
     UnavailabilitiesRepository unavailabilitiesRepository;
-
+    @Autowired
+    ChangesRepository changesRepository;
     @Autowired
     IncidentMapper incidentMapper;
-
     @Autowired
     UnavailabilityMapper unavailabilityMapper;
+    @Autowired
+    ChangesMapper changesMapper;
 
     @Test
     public void testIncidentMapper() {
@@ -60,6 +65,18 @@ public class MappersTest extends PostgreSQL {
                 unavailabilityMapper.mapToIncidentResponse(unavailability));
         Assert.assertEquals("1", savedIncident.getFaultId());
         Assert.assertEquals(Integer.valueOf(15), savedIncident.getDuration());
+    }
+
+    @Test
+    public void testChangesMapper() {
+        VmSmChange change = new VmSmChange();
+        VmSmChangeHeader header = new VmSmChangeHeader();
+        header.setId("ID_1");
+        change.setHeader(header);
+
+        Changes savedIncident = changesRepository.save(
+                changesMapper.mapToChangesResponse(change));
+        Assert.assertEquals("ID_1", savedIncident.getChangeId());
     }
 
 }

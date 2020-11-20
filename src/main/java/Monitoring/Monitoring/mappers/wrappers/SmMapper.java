@@ -6,6 +6,7 @@ import Monitoring.Monitoring.db.models.Unavailabilities;
 import Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels.VmSmChange;
 import Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels.VmSmIncident;
 import Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels.VmSmUnavailability;
+import Monitoring.Monitoring.mappers.ChangesMapper;
 import Monitoring.Monitoring.mappers.IncidentMapper;
 import Monitoring.Monitoring.mappers.UnavailabilityMapper;
 import lombok.Getter;
@@ -20,14 +21,15 @@ import javax.transaction.NotSupportedException;
 public class SmMapper <T, M> {
     private IncidentMapper incidentMapper;
     private UnavailabilityMapper unavailabilityMapper;
+    private ChangesMapper changesMapper;
 
     public T map(M model, Class<T> dbType, Class<M> vmType) throws NotSupportedException {
         if (dbType == Incident.class && vmType == VmSmIncident.class)
             return (T)incidentMapper.mapToIncidentResponse((VmSmIncident)model);
         else if (dbType == Unavailabilities.class && vmType == VmSmUnavailability.class)
-            return (T)unavailabilityMapper.mapToUnavailabilityResponse((VmSmUnavailability)model);
+            return (T)unavailabilityMapper.mapToIncidentResponse((VmSmUnavailability)model);
         else if (dbType == Changes.class && vmType == VmSmChange.class)
-        {}
+            return  (T)changesMapper.mapToChangesResponse((VmSmChange)model);
 
         throw new NotSupportedException();
     }

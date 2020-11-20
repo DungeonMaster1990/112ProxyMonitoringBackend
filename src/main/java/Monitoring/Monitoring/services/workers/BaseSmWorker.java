@@ -91,12 +91,10 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
                     })
                     .collect(Collectors.toList());
 
-        ZonedDateTime updatedAt = models.stream()
+        models.stream()
                 .max(Comparator.comparing(U::getUpdatedAt))
-                .get()
-                .getUpdatedAt();
+                .ifPresent(bm -> update.setUpdateTime(bm.getUpdatedAt()));
 
-        update.setUpdateTime(updatedAt);
         repository.putModels(models);
         updatesRepository.putUpdate(update);
     }
