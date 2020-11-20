@@ -49,7 +49,7 @@ public class SmDefMeasurementVerticaRepositoryImpl implements SmDefMeasurementVe
             SmDefMeasurementVertica smDefMeasurementVertica = new SmDefMeasurementVertica();
             smDefMeasurementVertica.setSessionId(rs.getInt("session_id"));
             smDefMeasurementVertica.setMeasurementId(rs.getInt("measurement_id"));
-            smDefMeasurementVertica.setShedId(rs.getInt("shed_id"));
+            smDefMeasurementVertica.setSchedId(rs.getInt("shed_id"));
             smDefMeasurementVertica.setCategoryId(rs.getInt("category_id"));
             smDefMeasurementVertica.setMonitorId(rs.getInt("monitor_id"));
             smDefMeasurementVertica.setTargetId(rs.getInt("target_id"));
