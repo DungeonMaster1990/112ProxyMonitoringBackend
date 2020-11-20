@@ -12,6 +12,7 @@ import org.hibernate.annotations.Parameter;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -157,4 +158,16 @@ public class Incident implements BaseSmModel {
         this.affectedSystems.add(affectedSystem);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Incident incident = (Incident) o;
+        return incidentId.equals(incident.incidentId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(incidentId);
+    }
 }

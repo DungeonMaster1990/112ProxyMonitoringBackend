@@ -72,7 +72,7 @@ alter sequence monitoring.incidents_id_seq
 owned by monitoring.incidents.id;
 
 create sequence if not exists monitoring.unavailability_id_seq;
-create table monitoring.unavailability
+create table if not exists monitoring.unavailability
 (
     id              integer not null default nextval('monitoring.unavailability_id_seq'),
     fault_id        varchar,

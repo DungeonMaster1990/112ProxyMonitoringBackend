@@ -16,6 +16,7 @@ import Monitoring.Monitoring.mappers.VerticaMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
@@ -24,7 +25,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-public class VerticaWorkerWorker {
+@Component
+public class VerticaWorker {
     private SmDefMeasurementApiRepository smDefMeasurementApiRepository;
     private SmDefMeasurementVerticaRepository smDefMeasurementVerticaRepository;
     private SmRawdataMeasApiRepository smRawdataMeasApiRepository;
@@ -35,7 +37,7 @@ public class VerticaWorkerWorker {
     private VerticaMapper verticaMapper;
 
     @Autowired
-    public VerticaWorkerWorker(SmDefMeasurementApiRepository smDefMeasurementApiRepository, SmDefMeasurementVerticaRepository smDefMeasurementVerticaRepository, SmRawdataMeasApiRepository smRawdataMeasApiRepository, SmRawdataMeasVerticaRepository smRawdataMeasVerticaRepository, MetricsRepository metricsRepository, UpdatesRepository updatesRepository, VerticaMapper verticaMapper) {
+    public VerticaWorker(SmDefMeasurementApiRepository smDefMeasurementApiRepository, SmDefMeasurementVerticaRepository smDefMeasurementVerticaRepository, SmRawdataMeasApiRepository smRawdataMeasApiRepository, SmRawdataMeasVerticaRepository smRawdataMeasVerticaRepository, MetricsRepository metricsRepository, UpdatesRepository updatesRepository, VerticaMapper verticaMapper) {
         this.smDefMeasurementApiRepository = smDefMeasurementApiRepository;
         this.smDefMeasurementVerticaRepository = smDefMeasurementVerticaRepository;
         this.smRawdataMeasApiRepository = smRawdataMeasApiRepository;
@@ -45,7 +47,7 @@ public class VerticaWorkerWorker {
         this.verticaMapper = verticaMapper;
     }
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 6000)
     public void takeSmDefMeasurementVertica() {
         try {
             List<Metrics> metrics = metricsRepository.findAll()
@@ -73,10 +75,10 @@ public class VerticaWorkerWorker {
         }
     }
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate = 6000)
     public void takeSmRawdataMeasVertica() {
         try {
-            Updates update = updatesRepository.getUpdateEntityByServiceName("verticaServiceName");
+            Updates update = updatesRepository.getUpdateEntityByServiceName(verticaServiceName);
             List<SmRawdataMeasVertica> smRawdataMeasVerticaList =
                     smRawdataMeasVerticaRepository.getSmRawdataMeasVertica(update);
             List<SmRawdataMeasApi> smRawdataMeasApiList =

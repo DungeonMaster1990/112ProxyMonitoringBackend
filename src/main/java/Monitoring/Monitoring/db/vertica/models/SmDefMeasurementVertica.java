@@ -1,16 +1,14 @@
 package Monitoring.Monitoring.db.vertica.models;
 
 import com.sun.istack.Nullable;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.ZonedDateTime;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class SmDefMeasurementVertica {
     private Integer sessionId;

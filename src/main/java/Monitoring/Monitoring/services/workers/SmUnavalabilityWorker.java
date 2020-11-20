@@ -30,7 +30,7 @@ public class SmUnavalabilityWorker extends BaseSmWorker<VmSmUnavailability, VmUn
                 appConfig.getSmUnavailabilityUrl());
     }
 
-    @Scheduled(fixedRateString = "${sm.methods.incident.fixedrate}")
+    //@Scheduled(fixedRateString = "${sm.methods.incident.fixedrate}")
     public void loadUnavailabilitiesFromSm() {
         process();
     }

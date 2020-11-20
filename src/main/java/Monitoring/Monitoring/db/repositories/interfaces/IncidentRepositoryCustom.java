@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Set;
 
 @Repository
-public interface IncidentRepositoryCustom extends SmRepository<Incident> {
+public interface IncidentRepositoryCustom extends  SmRepository<Incident> {
 
     List<Incident> getAllVtbIncidents();
 

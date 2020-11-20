@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.ZonedDateTime;
+import java.util.Objects;
 
 @Entity
 @Table(name="unavailability", schema = "monitoring")
@@ -35,16 +36,8 @@ public class Unavailabilities implements BaseSmModel {
     @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "unavailabilityIdGenerator")
     private int id;
 
-    public String getFaultId() {
-        return FaultId;
-    }
-
-    public void setFaultId(String faultId) {
-        FaultId = faultId;
-    }
-
     @Column(name = "fault_id", nullable = false)
-    private String FaultId;
+    private String faultId;
 
     @Column(name = "begin_at", nullable = false)
     private ZonedDateTime beginAt;
@@ -76,4 +69,18 @@ public class Unavailabilities implements BaseSmModel {
 
     @Column(name = "updated_by_id", nullable = false)
     private Integer updatedById;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Unavailabilities that = (Unavailabilities) o;
+        return Objects.equals(faultId, that.faultId) &&
+                Objects.equals(serviceId, that.serviceId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(faultId, serviceId);
+    }
 }

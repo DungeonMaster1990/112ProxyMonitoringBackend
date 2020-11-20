@@ -34,7 +34,7 @@ public class NotificationsSender {
     @Autowired
     private PushTokenRepository pushTokenRepository;
 
-    @Scheduled(fixedRateString = "${notificationsender.scheduler.fixedrate}")
+   // @Scheduled(fixedRateString = "${notificationsender.scheduler.fixedrate}")
     public void sendPushNotifications() {
         List<Incident> incidents = vtbIncidentsRepository.getTimeFilteredNonSentVtbIncidents(appConfig.getLastDaysToProcess());
         if (isEmpty(incidents)) {
