@@ -1,12 +1,10 @@
 package Monitoring.Monitoring.services.api.impl;
 
-import Monitoring.Monitoring.db.repositories.interfaces.MetricsRepository;
 import Monitoring.Monitoring.dto.api.viewmodels.enums.BlMetricsStatus;
 import Monitoring.Monitoring.dto.api.viewmodels.request.VmMetricInfoRequest;
 import Monitoring.Monitoring.dto.api.viewmodels.request.VmMetricsRequest;
 import Monitoring.Monitoring.dto.api.viewmodels.response.VmMetricInfoResponse;
 import Monitoring.Monitoring.dto.api.viewmodels.response.VmMetricsResponse;
-import Monitoring.Monitoring.mappers.MetricsMapper;
 import Monitoring.Monitoring.services.api.interfaces.MetricsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -14,9 +12,11 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.ZoneId;
+import java.sql.Types;
+import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class MetricsServiceImpl implements MetricsService {
     @Override
     public VmMetricsResponse[] getMetrics(VmMetricsRequest vmMetricsRequet) {
         // TODO Пока в постановке задачи нет четкого описания как группировать значения measurements
-        //  просто берем последнее по времени значение
+        // так что просто берем последнее по времени значение
         String allMetricsQry = """
                 select m.id as id,
                        m.msname as name,
@@ -55,12 +55,50 @@ public class MetricsServiceImpl implements MetricsService {
                 .addValue("offset", vmMetricsRequet.getPage() * vmMetricsRequet.getLimit());
 
         List<VmMetricsResponse> result = namedParameterJdbcTemplate.query(
-                allMetricsQry, sqlParameterSource, (rs, rowNum) -> resultSetToResponse(rs));
+                allMetricsQry, sqlParameterSource, (rs, rowNum) -> toMerticsResponse(rs));
 
         return result.toArray(new VmMetricsResponse[0]);
     }
 
-    private VmMetricsResponse resultSetToResponse(ResultSet rs) throws SQLException {
+    @Override
+    public VmMetricInfoResponse[] getMetricsInfos(VmMetricInfoRequest vmMetricInfoRequest) {
+        String metricInfosQry = """
+                select id, time_stamp , measurement_id , meas_value , raw_threshold_quality
+                  from monitoring.sm_rawdata_meas srm
+                 where measurement_id = (
+                	select measurement_id
+                	  from monitoring.metrics m
+                	 where m.id = :id)
+                   and srm.time_stamp between :startDate and :finishDate
+                order by srm.time_stamp
+                """;
+
+        var params = new MapSqlParameterSource()
+                .addValue("id", Integer.valueOf(vmMetricInfoRequest.getId()))
+                .addValue("startDate", vmMetricInfoRequest.getStartDate().toOffsetDateTime())
+                .addValue("finishDate", vmMetricInfoRequest.getFinishDate().toOffsetDateTime());
+
+        List<VmMetricInfoResponse> result = namedParameterJdbcTemplate.query(
+                metricInfosQry, params, (rs, rowNum) -> toMetricInfoResponse(rs));
+
+        return result.toArray(new VmMetricInfoResponse[0]);
+    }
+
+    private Date toDate(ZonedDateTime startDate) {
+        return new Date(java.util.Date.from(startDate.toInstant()).getTime());
+    }
+
+    private VmMetricInfoResponse toMetricInfoResponse(ResultSet rs) throws SQLException {
+        return VmMetricInfoResponse.builder()
+                .date(rs.getObject("time_stamp", OffsetDateTime.class).toZonedDateTime())
+                .deltaStatus(BlMetricsStatus.resolve(rs.getInt("raw_threshold_quality")))
+                .deltaPercent(0)
+                .delta(0)
+                .value(rs.getLong("meas_value"))
+                .build();
+    }
+
+    private VmMetricsResponse toMerticsResponse(ResultSet rs) throws SQLException {
         return VmMetricsResponse
                 .builder()
                 .id(rs.getString("id"))
