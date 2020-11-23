@@ -31,7 +31,7 @@ public class SmIncidentWorker extends BaseSmWorker<VmSmIncident, VmIncidentWrapp
                 appConfig.getSmIncidentUrl());
     }
 
-    //@Scheduled(fixedRateString = "${sm.methods.incident.fixedrate}")
+    @Scheduled(fixedRateString = "${sm.methods.incident.fixedrate}")
     public void loadIncidentsFromSm() {
         process();
     }

@@ -30,7 +30,7 @@ public class SmVtbChangesWorker extends BaseSmWorker<VmSmChange, VmChangeWrapper
                 appConfig.getSmChangesUrl());
     }
 
-   // @Scheduled(fixedRateString = "${sm.methods.incident.fixedrate}")
+    @Scheduled(fixedRateString = "${sm.methods.incident.fixedrate}")
     public void loadIncidensFromSm() {
         process();
     }
