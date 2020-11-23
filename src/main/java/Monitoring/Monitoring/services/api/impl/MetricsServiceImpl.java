@@ -2,7 +2,9 @@ package Monitoring.Monitoring.services.api.impl;
 
 import Monitoring.Monitoring.db.repositories.interfaces.MetricsRepository;
 import Monitoring.Monitoring.dto.api.viewmodels.enums.BlMetricsStatus;
+import Monitoring.Monitoring.dto.api.viewmodels.request.VmMetricInfoRequest;
 import Monitoring.Monitoring.dto.api.viewmodels.request.VmMetricsRequest;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmMetricInfoResponse;
 import Monitoring.Monitoring.dto.api.viewmodels.response.VmMetricsResponse;
 import Monitoring.Monitoring.mappers.MetricsMapper;
 import Monitoring.Monitoring.services.api.interfaces.MetricsService;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Service;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Service
@@ -24,22 +28,26 @@ public class MetricsServiceImpl implements MetricsService {
 
     @Override
     public VmMetricsResponse[] getMetrics(VmMetricsRequest vmMetricsRequet) {
+        // TODO Пока в постановке задачи нет четкого описания как группировать значения measurements
+        //  просто берем последнее по времени значение
         String allMetricsQry = """
-                   select m.id as id,
-                          m.msname as name,
-                          false as mine,
-                          sdm.meas_value as value,
-                          0 as delta,
-                          0 as deltaPercent,
-                          sdm.raw_threshold_quality as deltaStatus,
-                          0 as totalPercent
-                    from monitoring.metrics m
-                inner join monitoring.sm_def_measurements sdm
-                   on m.measurement_id  = sdm.measurement_id
-                  and m.monitor_id = sdm.monitor_id
-                  order by m.id
-                  LIMIT :limit
-                  OFFSET :offset
+                select m.id as id,
+                       m.msname as name,
+                       false as mine,
+                       vals.meas_value as value,
+                       0 as delta,
+                       0 as deltaPercent,
+                       0 as deltaStatus,
+                       0 as totalPercent
+                  from monitoring.metrics m
+                  join (select distinct on (measurement_id) meas_value, 
+                               measurement_id, 
+                               raw_threshold_quality
+                          from monitoring.sm_rawdata_meas srm
+                         order by measurement_id, time_stamp desc, id desc) vals
+                    on m.measurement_id  = vals.measurement_id
+                 LIMIT :limit
+                OFFSET :offset
                 """;
 
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource()

@@ -1,12 +1,19 @@
 package Monitoring.Monitoring.config;
 
+import Monitoring.Monitoring.logging.CustomRequestInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Properties;
 
 @Configuration
-public class AppConfig {
+public class AppConfig implements WebMvcConfigurer {
+
+    @Autowired
+    private CustomRequestInterceptor customRequestInterceptor;
 
     @Value("${sm.baseurl}")
     private String baseSmUrl;
@@ -74,4 +81,10 @@ public class AppConfig {
         return verticaUrl;
     }
     public String getSmChangesUrl() { return this.baseSmUrl + this.smChangesMethod; }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(customRequestInterceptor)
+                .addPathPatterns("/**/api/v1.0/**/");
+    }
 }

@@ -1,34 +1,40 @@
 package Monitoring.Monitoring;
 
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
-import java.util.Arrays;
-
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @SpringBootApplication
 //@EnableSwagger2
-public class Application {
+public class Application extends WebSecurityConfigurerAdapter {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
 
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http.csrf()
+				.disable()
+				.authorizeRequests()
+				.anyRequest()
+				.permitAll()
+				.and()
+				.x509()
+				.subjectPrincipalRegex("CN=(.*?)(?:,|$)");
+	}
+
 	@Bean
-	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
-		return args -> {
-
-			System.out.println("Let's inspect the beans provided by Spring Boot:");
-
-			String[] beanNames = ctx.getBeanDefinitionNames();
-			Arrays.sort(beanNames);
-			for (String beanName : beanNames) {
-				System.out.println(beanName);
-			}
-
-		};
+	public UserDetailsService userDetailsService() {
+		return username -> new User(username, "", AuthorityUtils.NO_AUTHORITIES);
 	}
 }
