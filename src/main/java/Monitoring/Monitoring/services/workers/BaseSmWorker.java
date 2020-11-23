@@ -15,7 +15,9 @@ import org.springframework.web.client.RestTemplate;
 import org.yaml.snakeyaml.util.UriEncoder;
 
 import javax.transaction.NotSupportedException;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -111,7 +113,7 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
     }
 
     private String getQueryString(Updates update){
-        String dateTimeString = update.getUpdateTime().toString();
+        String dateTimeString = update.getUpdateTime().toInstant().toString();
         String queryString = String.format("UpdatedAt>'%s'", dateTimeString);
         String result = UriEncoder.encode(queryString);
         return result;
