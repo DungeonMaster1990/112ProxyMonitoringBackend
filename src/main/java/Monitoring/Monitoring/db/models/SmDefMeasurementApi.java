@@ -84,10 +84,4 @@ public class SmDefMeasurementApi {
 
     @Column(name = "is_deleted", nullable = false)
     private boolean isDeleted;
-
-    @Column(name = "raw_threshold_quality", nullable = false)
-    private Integer rawTresholdQuality;
-
-    @Column(name = "meas_value", nullable = false)
-    private String measValue;
 }
