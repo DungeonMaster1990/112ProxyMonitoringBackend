@@ -45,7 +45,7 @@ public class SmDefMeasurementVerticaRepositoryImpl implements SmDefMeasurementVe
                     msname, msid, user_remark, connection_data, dm_connection_id, active, ci_id, eti_id, integration_name,
                     profile_id, creation_date, modified_date, is_deleted 
                     from bsm_replica.SM_DEF_MEASUREMENT
-                    where %s
+                    where (%s)
                 """, whereQuery
         );
 

@@ -54,24 +54,25 @@ public class VerticaWorker {
                     .stream()
                     .filter(m -> !m.isMerged())
                     .collect(Collectors.toList());
+            if (metrics.size() != 0) {
+                    List<SmDefMeasurementVertica> smDefMeasurementVerticaList =
+                            smDefMeasurementVerticaRepository.getSmDefMeasurements(metrics);
 
-            List<SmDefMeasurementVertica> smDefMeasurementVerticaList =
-                    smDefMeasurementVerticaRepository.getSmDefMeasurements(metrics);
+                    List<SmDefMeasurementApi> smDefMeasurementApiList =
+                            smDefMeasurementVerticaList
+                                    .stream()
+                                    .map(verticaMapper::mapToSmDefMeasurementApi)
+                                    .collect(Collectors.toList());
 
-            List<SmDefMeasurementApi> smDefMeasurementApiList =
-                    smDefMeasurementVerticaList
-                            .stream()
-                            .map(verticaMapper::mapToSmDefMeasurementApi)
-                            .collect(Collectors.toList());
+                    smDefMeasurementApiRepository.saveAll(smDefMeasurementApiList);
 
-            smDefMeasurementApiRepository.saveAll(smDefMeasurementApiList);
-
-            for (Metrics metric : metrics) {
-                metric.setMerged(true);
-            }
-            metricsRepository.saveAll(metrics);
-        } catch (SQLException sqlException){
-            log.error("Произошла ошибка при попытке выгрузки данных из Vertic-и из таблицы SmDefMeasurements",sqlException);
+                    for (Metrics metric : metrics) {
+                        metric.setMerged(true);
+                    }
+                    metricsRepository.saveAll(metrics);
+                }
+            } catch(SQLException sqlException){
+                log.error("Произошла ошибка при попытке выгрузки данных из Vertic-и из таблицы SmDefMeasurements", sqlException);
         }
     }
 

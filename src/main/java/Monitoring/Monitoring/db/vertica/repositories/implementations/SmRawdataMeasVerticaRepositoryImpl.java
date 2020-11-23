@@ -4,6 +4,7 @@ import Monitoring.Monitoring.db.models.Updates;
 import Monitoring.Monitoring.db.vertica.VerticaConnection;
 import Monitoring.Monitoring.db.vertica.models.SmRawdataMeasVertica;
 import Monitoring.Monitoring.db.vertica.repositories.interfaces.SmRawdataMeasVerticaRepository;
+import Monitoring.Monitoring.services.helpers.interfaces.DateFormatterHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -22,10 +23,12 @@ import java.util.List;
 @Repository
 public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaRepository {
     private VerticaConnection verticaConnection;
+    private DateFormatterHelper dateFormatterHelper;
 
     @Autowired
-    public SmRawdataMeasVerticaRepositoryImpl(VerticaConnection verticaConnection) {
+    public SmRawdataMeasVerticaRepositoryImpl(VerticaConnection verticaConnection, DateFormatterHelper dateFormatterHelper) {
         this.verticaConnection = verticaConnection;
+        this.dateFormatterHelper = dateFormatterHelper;
     }
     @Override
     public List<SmRawdataMeasVertica> getSmRawdataMeasVertica(Updates lastUpdate) throws SQLException {
@@ -44,7 +47,7 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
             SmRawdataMeasVertica smRawdataMeasVertica = new SmRawdataMeasVertica();
 
             smRawdataMeasVertica.setSessionId(rs.getInt("session_id"));
-            smRawdataMeasVertica.setTimeStamp(ZonedDateTime.parse(rs.getString("time_stamp")));
+            smRawdataMeasVertica.setTimeStamp(dateFormatterHelper.dbDateToZonedDate(rs.getTimestamp("time_stamp")));
             smRawdataMeasVertica.setMeasurementId(rs.getInt("measurement_id"));
             smRawdataMeasVertica.setMeasValue(rs.getFloat("meas_value"));
             smRawdataMeasVertica.setStatusId(rs.getInt("status_id"));
