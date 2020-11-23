@@ -40,3 +40,30 @@ insert into monitoring.systems (name, accidentid) values ('Платежи', 10);
 insert into monitoring.systems (name, accidentid) values ('Платежи', 11);
 insert into monitoring.systems (name, accidentid) values ('Платежи', 12);
 insert into monitoring.systems (name, accidentid) values ('Платежи', 13);
+
+insert into monitoring.metrics (id, measurement_id, monitor_id, msname) values
+    (nextval ('monitoring.metrics_id_seq'), 1, currval('monitoring.metrics_id_seq'), 'Клиентов в ВТБ Онлайн'),
+    (nextval ('monitoring.metrics_id_seq'), 2, currval('monitoring.metrics_id_seq'), 'Очередь на исполнение документов БО'),
+    (nextval ('monitoring.metrics_id_seq'), 3, currval('monitoring.metrics_id_seq'), 'Количество новых операций в ВТБ-онлайн'),
+    (nextval ('monitoring.metrics_id_seq'), 4, currval('monitoring.metrics_id_seq'), 'Новых переводов между своими счетами'),
+    (nextval ('monitoring.metrics_id_seq'), 5, currval('monitoring.metrics_id_seq'), 'Время формирования выписки'),
+    (nextval ('monitoring.metrics_id_seq'), 6, currval('monitoring.metrics_id_seq'), 'Процент доставленных PUSH'),
+    (nextval ('monitoring.metrics_id_seq'), 7, currval('monitoring.metrics_id_seq'), 'Процент доставленных SMS');
+
+insert into monitoring.sm_rawdata_meas (id, session_id, time_stamp, measurement_id, meas_value, raw_monitor_id, raw_target_id, raw_connection_id, raw_category_id ,raw_threshold_quality ) values
+    -- 'Клиентов в ВТБ Онлайн'
+    (nextval('monitoring.sm_rawdata_meas_id_seq'), 0, current_timestamp  - INTERVAL '3 DAY', 1, 30, 0, 0, 0, 0, 0),
+    (nextval('monitoring.sm_rawdata_meas_id_seq'), 0, current_timestamp  - INTERVAL '2 DAY', 1, 20, 0, 0, 0, 0, 0),
+    (nextval('monitoring.sm_rawdata_meas_id_seq'), 0, current_timestamp  - INTERVAL '1 DAY', 1, 10, 0, 0, 0, 0, 0),
+    (nextval('monitoring.sm_rawdata_meas_id_seq'), 0, current_timestamp, 1, 77, 0, 0, 0, 0, 0),
+    -- 'Процент доставленных PUSH'
+    (nextval('monitoring.sm_rawdata_meas_id_seq'), 0, current_timestamp  - INTERVAL '1 DAY', 6, 11, 0, 0, 0, 0, 0),
+    (nextval('monitoring.sm_rawdata_meas_id_seq'), 0, current_timestamp  - INTERVAL '1 HOUR', 6, 100, 0, 0, 0, 0, 0),
+    (nextval('monitoring.sm_rawdata_meas_id_seq'), 0, current_timestamp, 6, 77, 0, 0, 0, 0, 0),
+    --'Новых переводов между своими счетами'
+    (nextval('monitoring.sm_rawdata_meas_id_seq'), 0, current_timestamp  - INTERVAL '3 DAY', 4, 33, 0, 0, 0, 0, 0),
+    (nextval('monitoring.sm_rawdata_meas_id_seq'), 0, current_timestamp  - INTERVAL '2 DAY', 4, 22, 0, 0, 0, 0, 0),
+    (nextval('monitoring.sm_rawdata_meas_id_seq'), 0, current_timestamp  - INTERVAL '1 DAY', 4, 11, 0, 0, 0, 0, 0),
+    (nextval('monitoring.sm_rawdata_meas_id_seq'), 0, current_timestamp, 4, 77, 0, 0, 0, 0, 0)
+
+

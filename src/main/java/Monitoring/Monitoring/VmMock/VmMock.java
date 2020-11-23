@@ -1,35 +1,13 @@
 package Monitoring.Monitoring.VmMock;
 
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-
-import Monitoring.Monitoring.dto.api.viewmodels.enums.BlAccidentStatusType;
-import Monitoring.Monitoring.dto.api.viewmodels.enums.BlMetricsStatus;
-import Monitoring.Monitoring.dto.api.viewmodels.enums.BlPlanStatus;
-import Monitoring.Monitoring.dto.api.viewmodels.enums.BlPlanStatusType;
-import Monitoring.Monitoring.dto.api.viewmodels.enums.BlWorkType;
-import Monitoring.Monitoring.dto.api.viewmodels.enums.BlWorkerStatus;
-import Monitoring.Monitoring.dto.api.viewmodels.response.VmAccidentDescriptionResponse;
-import Monitoring.Monitoring.dto.api.viewmodels.response.VmAccidentHistoryResponse;
-import Monitoring.Monitoring.dto.api.viewmodels.response.VmAccidentInfoResponse;
-import Monitoring.Monitoring.dto.api.viewmodels.response.VmAccidentResponse;
-import Monitoring.Monitoring.dto.api.viewmodels.response.VmAccidentWorkersResponse;
-import Monitoring.Monitoring.dto.api.viewmodels.response.VmEventResponse;
-import Monitoring.Monitoring.dto.api.viewmodels.response.VmMetricInfoResponse;
-import Monitoring.Monitoring.dto.api.viewmodels.response.VmMetricsResponse;
-import Monitoring.Monitoring.dto.api.viewmodels.response.VmNewAccidentResponse;
-import Monitoring.Monitoring.dto.api.viewmodels.response.VmPlanDescriptionResponse;
-import Monitoring.Monitoring.dto.api.viewmodels.response.VmPlanHistoryResponse;
-import Monitoring.Monitoring.dto.api.viewmodels.response.VmPlanInfoResponse;
-import Monitoring.Monitoring.dto.api.viewmodels.response.VmPlanResponse;
-import Monitoring.Monitoring.dto.api.viewmodels.response.VmPlanSectionsResponse;
-import Monitoring.Monitoring.dto.api.viewmodels.response.VmPlanWorkersResponse;
-import Monitoring.Monitoring.dto.api.viewmodels.response.VmSystemResponse;
-import Monitoring.Monitoring.dto.api.viewmodels.response.VmUpdateResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.enums.*;
+import Monitoring.Monitoring.dto.api.viewmodels.response.*;
 import Monitoring.Monitoring.dto.api.viewmodels.submodels.VmHistoryRecord;
 import Monitoring.Monitoring.dto.api.viewmodels.submodels.VmManager;
 import Monitoring.Monitoring.dto.api.viewmodels.submodels.VmWorker;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -197,12 +175,22 @@ public class VmMock {
 
     public static VmUpdateResponse  updateMetricsOrSystem = new VmUpdateResponse("true");
 
-    public static VmMetricInfoResponse[] vmMetricInfoResponse =
-            new VmMetricInfoResponse[]
-        {
-            new VmMetricInfoResponse(65056, 0, 0, BlMetricsStatus.normal, ZonedDateTime.of(2020, 5, 20, 0, 0, 0, 0, ZoneId.of("UTC"))),
-            new VmMetricInfoResponse(65000, -56, -0.6, BlMetricsStatus.warning, ZonedDateTime.of(2020, 5, 20, 0, 0, 0, 0, ZoneId.of("UTC")))
-        };
+    public static VmMetricInfoResponse[] vmMetricInfoResponse = new VmMetricInfoResponse[]{
+            VmMetricInfoResponse.builder()
+                    .value(65056)
+                    .delta(0)
+                    .deltaPercent(0)
+                    .deltaStatus(BlMetricsStatus.normal)
+                    .date(ZonedDateTime.of(2020, 5, 20, 0, 0, 0, 0, ZoneId.of("UTC")))
+                    .build(),
+            VmMetricInfoResponse.builder()
+                    .value(65000)
+                    .delta(-56)
+                    .deltaPercent(-0.6)
+                    .deltaStatus(BlMetricsStatus.warning)
+                    .date(ZonedDateTime.of(2020, 5, 20, 0, 0, 0, 0, ZoneId.of("UTC")))
+                    .build()
+    };
 
     public static VmSystemResponse[] vmSystemResponse =
             new VmSystemResponse[]

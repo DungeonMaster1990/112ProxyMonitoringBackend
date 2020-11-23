@@ -8,8 +8,6 @@ import Monitoring.Monitoring.dto.api.viewmodels.response.VmMetricsResponse;
 import Monitoring.Monitoring.dto.api.viewmodels.response.VmUpdateResponse;
 import Monitoring.Monitoring.services.api.interfaces.MetricsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,8 +33,7 @@ public class MetricsController {
     }
 
     @PostMapping("/api/v1.0/metrics/info")
-    public VmMetricInfoResponse[] getMetricInfo(@RequestBody VmMetricInfoRequest vmMetricInfoRequest)
-    {
+    public VmMetricInfoResponse[] getMetricInfo(@RequestBody VmMetricInfoRequest vmMetricInfoRequest) {
         return VmMock.vmMetricInfoResponse;
     }
 }
