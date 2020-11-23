@@ -11,14 +11,14 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.TypedQuery;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.sql.Timestamp;
 
 @Repository
 public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaRepository {
@@ -35,13 +35,13 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
         List<SmRawdataMeasVertica> smRawdataMeasesVertica = new ArrayList<SmRawdataMeasVertica>();
 
         Statement stmt = verticaConnection.getConnection().createStatement();
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("YYYY-MM-DD hh:mm:ss");
+        Timestamp timestamp = Timestamp.from(lastUpdate.getUpdateTime().toInstant());
         String query = String.format("""
                     select session_id, time_stamp, measurement_id, status_id, err_msg, raw_monitor_id, raw_target_id, 
-                    raw_connection_id, raw_category_id, raw_threshold_quality, dbdate
+                    raw_connection_id, raw_category_id, raw_threshold_quality, dbdate, meas_value
                     from bsm_replica.SM_RAWDATA_MEAS
-                    where status_id = 0 and time_stamp > '(%s)'
-                """, dateTimeFormatter.format(lastUpdate.getUpdateTime()));
+                    where status_id = 0 and time_stamp > '%s'
+                """, new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(timestamp).toString());
         ResultSet rs = stmt.executeQuery(query);
         while (rs.next()) {
             SmRawdataMeasVertica smRawdataMeasVertica = new SmRawdataMeasVertica();
@@ -57,7 +57,7 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
             smRawdataMeasVertica.setRawConnectionId(rs.getInt("raw_connection_id"));
             smRawdataMeasVertica.setRawCategoryId(rs.getInt("raw_category_id"));
             smRawdataMeasVertica.setRawThresholdQuality(rs.getInt("raw_threshold_quality"));
-            smRawdataMeasVertica.setDbdate(ZonedDateTime.parse(rs.getString("dbdate")));
+            smRawdataMeasVertica.setDbdate(dateFormatterHelper.dbDateToZonedDate(rs.getTimestamp("dbdate")));
 
             smRawdataMeasesVertica.add(smRawdataMeasVertica);
         }

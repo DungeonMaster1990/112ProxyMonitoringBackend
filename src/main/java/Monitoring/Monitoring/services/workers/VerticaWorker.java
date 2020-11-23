@@ -47,7 +47,7 @@ public class VerticaWorker {
         this.verticaMapper = verticaMapper;
     }
 
-    @Scheduled(fixedRate = 6000)
+    @Scheduled(fixedRate = 900000)
     public void takeSmDefMeasurementVertica() {
         try {
             List<Metrics> metrics = metricsRepository.findAll()
@@ -76,7 +76,7 @@ public class VerticaWorker {
         }
     }
 
-    @Scheduled(fixedRate = 6000)
+    @Scheduled(fixedRate = 900000)
     public void takeSmRawdataMeasVertica() {
         try {
             Updates update = updatesRepository.getUpdateEntityByServiceName(verticaServiceName);
@@ -87,7 +87,7 @@ public class VerticaWorker {
                             .stream()
                             .map(verticaMapper::mapToSmRawdataMeasApi)
                             .collect(Collectors.toList());
-            smRawdataMeasApiRepository.putSmRawdataMeasVertica(smRawdataMeasApiList);
+            smRawdataMeasApiRepository.saveAll(smRawdataMeasApiList);
 
             ZonedDateTime updatedAt = smRawdataMeasVerticaList.stream()
                     .max(Comparator.comparing(SmRawdataMeasVertica::getTimeStamp))
