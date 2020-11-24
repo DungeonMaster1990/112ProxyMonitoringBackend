@@ -34,6 +34,6 @@ public class MetricsController {
 
     @PostMapping("/api/v1.0/metrics/info")
     public VmMetricInfoResponse[] getMetricInfo(@RequestBody VmMetricInfoRequest vmMetricInfoRequest) {
-        return VmMock.vmMetricInfoResponse;
+        return metricsService.getMetricsInfos(vmMetricInfoRequest);
     }
 }

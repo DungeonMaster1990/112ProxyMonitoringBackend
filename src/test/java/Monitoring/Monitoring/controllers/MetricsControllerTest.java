@@ -5,15 +5,12 @@ import Monitoring.Monitoring.dto.api.viewmodels.request.VmMetricsRequest;
 import Monitoring.Monitoring.infrastructure.PostgreSQL;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
@@ -68,5 +65,39 @@ class MetricsControllerTest extends PostgreSQL {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(new VmMetricsRequest(true, "hello", 2, 1))))
                 .andExpect(jsonPath("$[*])", hasSize(remainderAfter3Pages)));
+    }
+
+    @Test
+    void testMetricsInfos() throws Exception {
+        VmMetricInfoRequest req = VmMetricInfoRequest.builder()
+                .id("4")
+                .startDate(ZonedDateTime.now().minus(4, ChronoUnit.DAYS))
+                .finishDate(ZonedDateTime.now())
+                .build();
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/api/v1.0/metrics/info")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(req)))
+                .andExpect(jsonPath("$[*])", hasSize(4)))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void testMetricsInfosOneDay() throws Exception {
+        VmMetricInfoRequest req = VmMetricInfoRequest.builder()
+                .id("4")
+                .startDate(ZonedDateTime.now().minus(1, ChronoUnit.DAYS).minus(5, ChronoUnit.MINUTES))
+                .finishDate(ZonedDateTime.now())
+                .build();
+
+        mockMvc.perform(MockMvcRequestBuilders
+                .post("/api/v1.0/metrics/info")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(req)))
+                .andExpect(jsonPath("$[*])", hasSize(2)))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
 }

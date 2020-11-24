@@ -1,12 +1,21 @@
 package Monitoring.Monitoring.mappers;
 
+import Monitoring.Monitoring.db.models.dto.GroupedChanges;
 import Monitoring.Monitoring.db.models.Changes;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmPlanDescriptionResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmPlanInfoResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmPlanResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmPlanSectionsResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.response.VmPlanWorkersResponse;
+import Monitoring.Monitoring.dto.api.viewmodels.submodels.VmWorker;
 import Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels.VmSmChange;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ChangesMapper {
@@ -38,11 +47,51 @@ public interface ChangesMapper {
     @Mapping(target = "closingComments",     source = "source.close.closingComments")
     Changes mapToChangesResponse(VmSmChange source);
 
+    @Mapping(target = "name",              source = "changeId")
+    @Mapping(target = "impactDescription", source = "vtbRiskDescription")
+    @Mapping(target = "degradationRate",   source = "initialImpact")
+    @Mapping(target = "affectedSystems",   source = "affectedServices")
+    @Mapping(target = "startDate",         source = "plannedStartAt")
+    @Mapping(target = "finishDate",        source = "plannedEndAt")
+    @Mapping(target = "startDownDate",     source = "downStartAt")
+    @Mapping(target = "finishDownDate",    source = "downEndAt")
+    VmPlanInfoResponse mapToInfoResponse(Changes source);
+
+    @Mapping(target = "name",              source = "description")
+    VmPlanDescriptionResponse mapToDescriptionResponse(Changes source);
+
+    @Mapping(target = "manager.name",      source = "requestedBy")
+    @Mapping(target = "workers",           source = "requestedFor")
+    VmPlanWorkersResponse mapToVmPlanWorkersResponse(Changes source);
+
+    @Mapping(target = "name",              source = "source.category.category")
+    @Mapping(target = "id",                source = "source.category.id")
+    VmPlanSectionsResponse mapToVmPlanSections(GroupedChanges source);
+
+    @Mapping(target = "name",              source = "changeId")
+    @Mapping(target = "startDate",         source = "plannedStartAt")
+    VmPlanResponse mapToVmPlan(Changes source);
+
     void updateChange(Changes changes, @MappingTarget Changes updated);
+
+    default List<VmWorker> mapToWorkers(String requestedFor) {
+        if (requestedFor == null) {
+            return null;
+        }
+        VmWorker worker = new VmWorker();
+        worker.setName(requestedFor);
+        return Collections.singletonList(worker);
+    }
 
     default String arrayToPlainString(String[] value) {
         return value != null
-                ? String.join(System.lineSeparator(), Arrays.asList(value))
+                ? String.join(",", Arrays.asList(value))
+                : null;
+    }
+
+    default List<String> stringToArray(String value) {
+        return value != null
+                ? Arrays.asList(value.split(","))
                 : null;
     }
 
