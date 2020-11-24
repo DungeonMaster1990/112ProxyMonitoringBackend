@@ -50,7 +50,7 @@ insert into monitoring.metrics (id, measurement_id, monitor_id, msname) values
     (nextval ('monitoring.metrics_id_seq'), 6, currval('monitoring.metrics_id_seq'), 'Процент доставленных PUSH'),
     (nextval ('monitoring.metrics_id_seq'), 7, currval('monitoring.metrics_id_seq'), 'Процент доставленных SMS');
 
-insert into monitoring.sm_rawdata_meas (id, session_id, time_stamp, measurement_id, meas_value, raw_monitor_id, raw_target_id, raw_connection_id, raw_category_id ,raw_threshold_quality ) values
+insert into monitoring.sm_rawdata_meas (id, session_id, time_stamp, measurement_id, meas_value, raw_monitor_id, raw_target_id, raw_connection_id, raw_category_id, raw_threshold_quality) values
     -- 'Клиентов в ВТБ Онлайн'
     (nextval('monitoring.sm_rawdata_meas_id_seq'), 0, current_timestamp  - INTERVAL '3 DAY', 1, 30, 0, 0, 0, 0, 0),
     (nextval('monitoring.sm_rawdata_meas_id_seq'), 0, current_timestamp  - INTERVAL '2 DAY', 1, 20, 0, 0, 0, 0, 0),
