@@ -33,7 +33,7 @@ public class VerticaWorker {
     private SmRawdataMeasVerticaRepository smRawdataMeasVerticaRepository;
     private MetricsRepository metricsRepository;
     private UpdatesRepository updatesRepository;
-    private final String verticaServiceName = "verticaSmRawDataService";
+    private final String verticaServiceName = "VerticaSmRawData";
     private VerticaMapper verticaMapper;
 
     @Autowired
