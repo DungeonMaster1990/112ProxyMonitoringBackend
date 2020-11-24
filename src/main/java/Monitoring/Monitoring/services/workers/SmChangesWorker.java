@@ -36,7 +36,7 @@ public class SmChangesWorker extends BaseSmWorker<VmSmChange, VmChangeWrapper, C
     }
 
     @Scheduled(fixedRateString = "${sm.methods.incident.fixedrate}")
-    public void loadIncidensFromSm() throws NotSupportedException {
+    public void loadChangesFromSm() throws NotSupportedException {
         process();
     }
 }
