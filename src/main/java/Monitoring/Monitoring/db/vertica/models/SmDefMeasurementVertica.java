@@ -56,5 +56,5 @@ public class SmDefMeasurementVertica {
 
     private ZonedDateTime creationDate;
 
-    private boolean isDeleted;
+    private Boolean isDeleted;
 }

@@ -70,7 +70,7 @@ public class SmDefMeasurementVerticaRepositoryImpl implements SmDefMeasurementVe
             smDefMeasurementVertica.setProfileId(rs.getString("profile_id"));
             smDefMeasurementVertica.setCreationDate(dateFormatterHelper.dbDateToZonedDate(rs.getTimestamp("creation_date")));
             smDefMeasurementVertica.setModifiedDate(dateFormatterHelper.dbDateToZonedDate(rs.getTimestamp("modified_date")));
-            smDefMeasurementVertica.setDeleted(rs.getBoolean("is_deleted"));
+            smDefMeasurementVertica.setIsDeleted(rs.getBoolean("is_deleted"));
             smDefMeasurementsVertica.add(smDefMeasurementVertica);
         }
         return smDefMeasurementsVertica;
