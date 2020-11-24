@@ -4,10 +4,12 @@ import Monitoring.Monitoring.db.models.Metrics;
 import Monitoring.Monitoring.db.vertica.VerticaConnection;
 import Monitoring.Monitoring.db.vertica.models.SmDefMeasurementVertica;
 import Monitoring.Monitoring.db.vertica.repositories.interfaces.SmDefMeasurementVerticaRepository;
+import Monitoring.Monitoring.services.helpers.interfaces.DateFormatterHelper;
+import antlr.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -15,12 +17,15 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class SmDefMeasurementVerticaRepositoryImpl implements SmDefMeasurementVerticaRepository {
-    private Connection verticaConnection;
+    private VerticaConnection verticaConnection;
+    private DateFormatterHelper dateFormatterHelper;
 
     @Autowired
-    public SmDefMeasurementVerticaRepositoryImpl(VerticaConnection verticaConnection) {
-        this.verticaConnection = verticaConnection.getConnection();
+    public SmDefMeasurementVerticaRepositoryImpl(VerticaConnection verticaConnection, DateFormatterHelper dateFormatterHelper) {
+        this.verticaConnection = verticaConnection;
+        this.dateFormatterHelper = dateFormatterHelper;
     }
 
     @Override
@@ -34,11 +39,11 @@ public class SmDefMeasurementVerticaRepositoryImpl implements SmDefMeasurementVe
                 whereQuery.append(String.format("(measurement_id = %o and monitor_id = %o)", metrics.get(i).getMeasurementId(), metrics.get(i).getMonitorId()));
         }
         List<SmDefMeasurementVertica> smDefMeasurementsVertica = new ArrayList<SmDefMeasurementVertica>();
-        Statement stmt = verticaConnection.createStatement();
+        Statement stmt = verticaConnection.getConnection().createStatement();
         String query = String.format("""
                     select session_id, measurement_id, shed_id, category_id, monitor_id, target_id,
                     msname, msid, user_remark, connection_data, dm_connection_id, active, ci_id, eti_id, integration_name,
-                    profile_id, creation_date, modified_date, deleted 
+                    profile_id, creation_date, modified_date, is_deleted 
                     from bsm_replica.SM_DEF_MEASUREMENT
                     where (%s)
                 """, whereQuery
@@ -63,9 +68,9 @@ public class SmDefMeasurementVerticaRepositoryImpl implements SmDefMeasurementVe
             smDefMeasurementVertica.setEtiId(rs.getString("eti_id"));
             smDefMeasurementVertica.setIntegrationName(rs.getString("integration_name"));
             smDefMeasurementVertica.setProfileId(rs.getString("profile_id"));
-            smDefMeasurementVertica.setCreationDate(ZonedDateTime.parse(rs.getString("creation_date")));
-            smDefMeasurementVertica.setModifiedDate(ZonedDateTime.parse(rs.getString("modified_date")));
-            smDefMeasurementVertica.setDeleted(rs.getBoolean("deleted"));
+            smDefMeasurementVertica.setCreationDate(dateFormatterHelper.dbDateToZonedDate(rs.getTimestamp("creation_date")));
+            smDefMeasurementVertica.setModifiedDate(dateFormatterHelper.dbDateToZonedDate(rs.getTimestamp("modified_date")));
+            smDefMeasurementVertica.setDeleted(rs.getBoolean("is_deleted"));
             smDefMeasurementsVertica.add(smDefMeasurementVertica);
         }
         return smDefMeasurementsVertica;

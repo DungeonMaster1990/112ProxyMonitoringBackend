@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 
 @Repository
 public class UpdatesRepositoryImpl implements UpdatesRepository {
@@ -28,6 +29,7 @@ public class UpdatesRepositoryImpl implements UpdatesRepository {
     }
 
     @Override
+    @Transactional
     public void putUpdate(Updates update){
         entityManager.merge(update);
     }
