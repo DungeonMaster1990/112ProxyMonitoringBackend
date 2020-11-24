@@ -83,5 +83,5 @@ public class SmDefMeasurementApi {
     private ZonedDateTime creationDate;
 
     @Column(name = "is_deleted", nullable = false)
-    private boolean isDeleted;
+    private Boolean isDeleted;
 }

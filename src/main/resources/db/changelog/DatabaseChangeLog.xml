@@ -13,6 +13,7 @@
         <sqlFile path="/db/changelog/migrations/Vertica.sql"/>
         <sqlFile path="/db/changelog/migrations/Updates.sql"/>
         <sqlFile path="/db/changelog/migrations/Changes.sql"/>
+        <sqlFile path="/db/changelog/migrations/InitialData.sql"/>
     </changeSet>
     <changeSet  author="NMarkov"  id="test_data" context="test">
         <sqlFile path="/db/changelog/migrations/test/test_data.sql"/>
