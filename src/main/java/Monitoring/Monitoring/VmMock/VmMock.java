@@ -22,23 +22,23 @@ public class VmMock {
     public static VmPlanResponse[] vmPlanResponse =
             new VmPlanResponse[]
                     {
-                            new VmPlanResponse("1", "Изменение IM-283501", "Согласование", BlPlanStatusType.warning, "Описание", new String[]{"Платежи", "Переводы"}, ZonedDateTime.of(2020, 7, 2, 0, 0, 0, 0, ZoneId.of("UTC"))),
-                            new VmPlanResponse("2", "Изменение IM-283501", "Выполнено", BlPlanStatusType.normal, "Описание", new String[]{"Платежи"}, ZonedDateTime.of(2016, 6, 5, 0, 0, 0, 0, ZoneId.of("UTC")))
+                            new VmPlanResponse("1", "Изменение IM-283501", "Согласование", BlPlanStatusType.warning, "Описание", Arrays.asList("Платежи", "Переводы"), ZonedDateTime.of(2020, 7, 2, 0, 0, 0, 0, ZoneId.of("UTC"))),
+                            new VmPlanResponse("2", "Изменение IM-283501", "Выполнено", BlPlanStatusType.normal, "Описание", Arrays.asList("Платежи"), ZonedDateTime.of(2016, 6, 5, 0, 0, 0, 0, ZoneId.of("UTC")))
                     };
 
     public static VmPlanWorkersResponse vmPlanWorkersResponse =
             new VmPlanWorkersResponse(
                     new VmManager("Иванов К.А.", "https://www.nj.com/resizer/h8MrN0-Nw5dB5FOmMVGMmfVKFJo=/450x0/smart/cloudfront-us-east-1.images.arcpublishing.com/advancelocal/SJGKVE5UNVESVCW7BBOHKQCZVE.jpg", "Начальник управления УАБД ДРИ"),
-                    new VmWorker[]{
+                    Arrays.asList(
                             new VmWorker("Соколов А. А.", BlWorkerStatus.joined, "Департамент развития инфрастуктуры"),
                             new VmWorker("Иванов А. А.", BlWorkerStatus.pending, "Департамент развития инфрастуктуры"),
                             new VmWorker("Сидоров А. А.", BlWorkerStatus.ready, "Департамент развития инфрастуктуры")
-                    }
+                    )
             );
 
     public static VmPlanInfoResponse vmPlanInfoResponse =
             new VmPlanInfoResponse("10", "Изменение IM-283501", "Согласование", BlPlanStatus.warning, "" +
-                    "Описание", "Описание последствий", "Не влияет", "М-Банк", new String[]{"Платежи", "Переводы"},
+                    "Описание", "Описание последствий", "Не влияет", "М-Банк", Arrays.asList("Платежи", "Переводы"),
                     ZonedDateTime.of(2016, 5, 5, 0, 0, 0, 0, ZoneId.of("UTC")),
                     ZonedDateTime.of(2017, 9, 14, 0, 0, 0, 0, ZoneId.of("UTC")),
                     ZonedDateTime.of(2017, 11, 10, 0, 0, 0, 0, ZoneId.of("UTC")),
