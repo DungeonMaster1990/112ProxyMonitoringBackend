@@ -17,12 +17,12 @@ public interface ChangesRepository extends JpaRepository<Changes, Integer>, Chan
     List<Changes> findByChangeIdIn(List<String> changesIds);
 
     @Query("""
-                select new Monitoring.Monitoring.db.models.dto.GroupedChanges(c.category, count(c.category))
-                from Changes c
-                where c.plannedStartAt >= :startDate
-                  and c.plannedEndAt  <= :endDate
-                group by c.category
-          """)
+                  select new ru.vtb.monitoring.vtb112.db.models.dto.GroupedChanges(c.category, count(c.category))
+                  from Changes c
+                  where c.plannedStartAt >= :startDate
+                    and c.plannedEndAt  <= :endDate
+                  group by c.category
+            """)
     List<GroupedChanges> getGroupedChanges(@Param("startDate") ZonedDateTime startDate,
                                            @Param("endDate") ZonedDateTime endDate);
 
