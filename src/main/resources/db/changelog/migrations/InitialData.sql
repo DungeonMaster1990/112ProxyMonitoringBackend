@@ -7,12 +7,6 @@ values ('Incidents', p_update_time),
        ('Unavalabilities', p_update_time),
        ('Changes', p_update_time),
        ('VerticaSmRawData', p_update_time);
-end $$
-
-
-do $$
-begin
-
 insert into monitoring.metrics (measurement_id, msname, monitor_id, is_merged)
 values (12640807, 'Количество переводов ТБ через МБ', 5343999, false),
        (15100752, 'Количество сессий ДБО', 15100261, false),
@@ -25,4 +19,4 @@ values (12640807, 'Количество переводов ТБ через МБ'
        (12161243, 'Количество операций по картам Профайл', 12127204, false),
        (12161243, 'Количество операций по картам Way4 экс ВТБ24', 12127204, false),
        (6917296, 'Исполненные платежи в бизнес-онлайн', 6909311, false);
-end $$
+end $$ LANGUAGE plpgsql;;
