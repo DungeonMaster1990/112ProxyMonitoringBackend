@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -46,6 +45,7 @@ public class MetricsServiceImpl implements MetricsService {
                           from monitoring.sm_rawdata_meas srm
                          order by measurement_id, time_stamp desc, id desc) vals
                     on m.measurement_id  = vals.measurement_id
+                 order by m.id
                  LIMIT :limit
                 OFFSET :offset
                 """;
@@ -104,7 +104,7 @@ public class MetricsServiceImpl implements MetricsService {
                 .id(rs.getString("id"))
                 .name(rs.getString("name"))
                 .mine(rs.getBoolean("mine"))
-                .value(rs.getString("value"))
+                .value(String.format("%,d", rs.getLong("value")))
                 .delta(rs.getLong("delta"))
                 .deltaPercent(rs.getDouble("deltaPercent"))
                 .deltaStatus(BlMetricsStatus.resolve(rs.getInt("deltaStatus")))
