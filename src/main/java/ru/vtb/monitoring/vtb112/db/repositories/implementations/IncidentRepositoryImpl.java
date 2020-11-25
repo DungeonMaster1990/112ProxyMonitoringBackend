@@ -83,6 +83,7 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
     }
 
     @Override
+    @Transactional
     public void putVtbIncidents(List<Incident> incidents) {
         entityManager.getTransaction().begin();
         for(Incident vtbIncident : incidents){
