@@ -138,7 +138,8 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
         incidentRepository.saveAll(incidents);
     }
 
-    public List<Incident> allByCriteria(List<String> affectedSystems,
+    public List<Incident> allByCriteria(List<Integer> categories,
+                                        List<String> affectedSystems,
                                         ZonedDateTime startDate,
                                         String keyword,
                                         Pageable paging) {
@@ -157,6 +158,14 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
         if (keyword != null && !keyword.isBlank()) {
             predicates.add(cb.like(from.get("incidentId"), "%" + keyword + "%"));
         }
+
+        var categoryPredicate = cb.in(from.get("category"));
+        for (var category : categories){
+            categoryPredicate.value(category);
+        }
+
+        predicates.add(categoryPredicate);
+
         criteriaQuery.where(predicates.toArray(new Predicate[0]));
         TypedQuery<Incident> query = entityManager.createQuery(criteriaQuery);
         query.setFirstResult((paging.getPageNumber()-1) * paging.getPageSize());
