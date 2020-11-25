@@ -10,7 +10,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
 @ConditionalOnProperty(value = "app.scheduling.enable", havingValue = "true", matchIfMissing = true)
-//@EnableScheduling
+@EnableScheduling
 @Configuration
 class SchedulingConfiguration implements SchedulingConfigurer {
     private final Logger logger = LoggerFactory.getLogger(getClass());
