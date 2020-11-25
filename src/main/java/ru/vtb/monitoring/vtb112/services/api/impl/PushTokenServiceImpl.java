@@ -14,8 +14,9 @@ public class PushTokenServiceImpl implements PushTokenService {
     private PushTokenMapper pushTokenMapper;
 
     @Autowired
-    public PushTokenServiceImpl(PushTokenRepository pushTokenRepository){
+    public PushTokenServiceImpl(PushTokenRepository pushTokenRepository, PushTokenMapper pushTokenMapper){
         this.pushTokenRepository = pushTokenRepository;
+        this.pushTokenMapper = pushTokenMapper;
     }
 
     @Override
