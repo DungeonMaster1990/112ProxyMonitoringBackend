@@ -1,0 +1,16 @@
+{
+  "id":"1",
+  "name":"Изменение IM-1",
+  "status":"Согласование",
+  "description":"Описание",
+  "impactDescription":"Описание последствия",
+  "degradationRate":"Не влияет",
+  "affectedSystems":[
+    "Платежи",
+    "Переводы"
+  ],
+  "startDate":"2020-11-16T19:00:00+03:00",
+  "finishDate":"2020-11-16T22:00:00+03:00",
+  "startDownDate":"2020-11-16T19:00:00+03:00",
+  "finishDownDate":"2020-11-16T22:00:00+03:00"
+}
