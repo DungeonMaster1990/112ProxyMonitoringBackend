@@ -97,7 +97,8 @@ create table if not exists monitoring.pushTokens
     id         integer not null default nextval('monitoring.pushTokens_id_seq'),
     token      varchar,
     install_id varchar,
-    platform   varchar
+    platform   varchar,
+    update_token_date timestamp
 );
 alter sequence monitoring.pushTokens_id_seq
 owned by monitoring.pushTokens.id;
