@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -25,10 +27,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Testcontainers(disabledWithoutDocker = true)
+@TestPropertySource(properties = "app.scheduling.enable=false")
 class MetricsControllerTest extends PostgreSQL {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    JdbcTemplate jdbcTemplate;
 
     ObjectMapper objectMapper = new ObjectMapper();
 
@@ -45,9 +50,9 @@ class MetricsControllerTest extends PostgreSQL {
                 .content(objectMapper.writeValueAsString(request)))
                 .andDo(print())
                 .andExpect(jsonPath("$[*])", hasSize(3)))
-                .andExpect(jsonPath("$[0]['value'])").value("77"))
-                .andExpect(jsonPath("$[1]['value'])").value("77"))
-                .andExpect(jsonPath("$[2]['value'])").value("77"))
+                .andExpect(jsonPath("$[0]['value'])").value(String.format("%,d", 1000000l)))
+                .andExpect(jsonPath("$[1]['value'])").value(String.format("%,d", 1000000l)))
+                .andExpect(jsonPath("$[2]['value'])").value(String.format("%,d", 1000000l)))
                 .andExpect(status().isOk());
     }
 
@@ -69,8 +74,9 @@ class MetricsControllerTest extends PostgreSQL {
 
     @Test
     void testMetricsInfos() throws Exception {
+        Integer metricsId = jdbcTemplate.queryForObject("select id from monitoring.metrics where msname = 'Выданные КК'", Integer.class);
         VmMetricInfoRequest req = VmMetricInfoRequest.builder()
-                .id("4")
+                .id(metricsId.toString())
                 .startDate(ZonedDateTime.now().minus(4, ChronoUnit.DAYS))
                 .finishDate(ZonedDateTime.now())
                 .build();
@@ -86,8 +92,9 @@ class MetricsControllerTest extends PostgreSQL {
 
     @Test
     void testMetricsInfosOneDay() throws Exception {
+        Integer metricsId = jdbcTemplate.queryForObject("select id from monitoring.metrics where msname = 'Выданные КК'", Integer.class);
         VmMetricInfoRequest req = VmMetricInfoRequest.builder()
-                .id("4")
+                .id(metricsId.toString())
                 .startDate(ZonedDateTime.now().minus(1, ChronoUnit.DAYS).minus(5, ChronoUnit.MINUTES))
                 .finishDate(ZonedDateTime.now())
                 .build();
