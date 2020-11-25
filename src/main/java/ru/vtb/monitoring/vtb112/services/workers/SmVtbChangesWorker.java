@@ -30,7 +30,7 @@ public class SmVtbChangesWorker extends BaseSmWorker<VmSmChange, VmChangeWrapper
     }
 
     @Scheduled(fixedRateString = "${sm.methods.incident.fixedrate}")
-    public void loadIncidensFromSm() {
+    public void loadChangesFromSm() {
         process();
     }
 }

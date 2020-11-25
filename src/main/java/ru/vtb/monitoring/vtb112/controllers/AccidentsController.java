@@ -13,6 +13,8 @@ import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmAccidentsRequest;
 import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.*;
 import ru.vtb.monitoring.vtb112.dto.api.viewmodels.submodels.VmManager;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,7 +32,9 @@ public class AccidentsController {
     public ResponseEntity<List<VmAccidentResponse>> getAccidents(@RequestBody VmAccidentsRequest request) {
 
         var paging = PageRequest.of(request.getPage(), request.getLimit());
-        return new ResponseEntity<>(incidentDAO.allByCriteria(request.getAffectedSystems(),
+        var supportedCategories = Arrays.asList(1,2);
+        return new ResponseEntity<>(incidentDAO.allByCriteria(supportedCategories,
+                                                              request.getAffectedSystems(),
                                                               request.getStartDate(),
                                                               request.getKeyword(),
                                                               paging)
