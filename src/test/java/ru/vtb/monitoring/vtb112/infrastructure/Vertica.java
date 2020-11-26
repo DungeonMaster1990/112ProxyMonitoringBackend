@@ -1,6 +1,5 @@
 package ru.vtb.monitoring.vtb112.infrastructure;
 
-import org.springframework.test.context.DynamicPropertyRegistry;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.LogMessageWaitStrategy;
 
@@ -11,32 +10,34 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 public class Vertica extends GenericContainer<Vertica> {
 
     private static final int VERTICA_HOST_PORT = 5433;
+    private static final String VERTICA_DB_USER = "dbadmin";
 
     private static final String DEFAULT_DOCKER_IMAGE = "dataplatform/docker-vertica";
 
-    public static final Vertica vertica;
+    private static Vertica vertica;
 
-    static {
-        vertica = new Vertica(DEFAULT_DOCKER_IMAGE)
-                .waitingFor(new LogMessageWaitStrategy()
-                        .withRegEx(".*Vertica is now running.*\\s")
-                        .withStartupTimeout(Duration.of(60, SECONDS)))
-                .withReuse(true);
-        vertica.start();
+    public static Vertica getInstance() {
+        if (vertica == null) {
+            vertica = new Vertica(DEFAULT_DOCKER_IMAGE)
+                    .waitingFor(new LogMessageWaitStrategy()
+                            .withRegEx(".*Vertica is now running.*\\s")
+                            .withStartupTimeout(Duration.of(60, SECONDS)))
+                    .withReuse(true);
+            vertica.start();
+        }
+        return vertica;
     }
 
     public Vertica(String dockerImageName) {
         super(dockerImageName);
     }
 
-    public static Integer getVerticaPort() {
-        return vertica.getMappedPort(VERTICA_HOST_PORT);
-    }
-
-    public static void setVerticaProperties(DynamicPropertyRegistry registry) {
-        Integer exposePort = Vertica.getVerticaPort();
+    @Override
+    public void start() {
+        super.start();
+        Integer exposePort = vertica.getMappedPort(VERTICA_HOST_PORT);
         String url = "jdbc:vertica://"+Vertica.vertica.getContainerIpAddress()+":"+exposePort+"/docker";
-        registry.add("spring.verticaDatasource.url", url::toString);
-        registry.add("spring.verticaDatasource.username", "dbadmin"::toString);
+        System.setProperty("VERTICA_URL", url);
+        System.setProperty("VERTICA_USER", VERTICA_DB_USER);
     }
 }

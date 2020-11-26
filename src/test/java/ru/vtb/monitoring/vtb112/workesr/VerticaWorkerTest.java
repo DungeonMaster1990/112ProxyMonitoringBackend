@@ -39,8 +39,8 @@ public class VerticaWorkerTest extends PostgreSQL {
     MetricsRepository metricsRepository;
 
     @DynamicPropertySource
-    static void setUpVerticaProperties(DynamicPropertyRegistry registry) {
-        Vertica.setVerticaProperties(registry);
+    static void setUpVertica(DynamicPropertyRegistry registry) {
+        Vertica.getInstance();
     }
 
     @BeforeAll
