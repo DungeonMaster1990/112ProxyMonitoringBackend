@@ -7,21 +7,19 @@ import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "metrics",
-       schema = "monitoring")
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "metrics", schema = "monitoring")
 public class Metrics {
     @Id
     @GenericGenerator(
             name = "metricsIdGenerator",
-            strategy = "sequence-identity",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
-                    @Parameter(name = "sequence",
-                               value = "monitoring.metrics_id_seq")
+                    @Parameter(name = "sequence_name", value = "monitoring.metrics_id_seq")
             }
     )
     @GeneratedValue(generator = "metricsIdGenerator")

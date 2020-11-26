@@ -1,6 +1,7 @@
 package ru.vtb.monitoring.vtb112.logging;
 
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
@@ -18,14 +19,14 @@ public class CustomRequestInterceptor extends HandlerInterceptorAdapter {
     private final Pattern apiPattern = Pattern.compile("[^|(\\d+.+\\d).]*$");
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+    public boolean preHandle(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) {
         request.setAttribute("startTime", Instant.now());
         return true;
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request,
-                                HttpServletResponse response, Object handler, Exception ex) {
+                                @NotNull HttpServletResponse response, @NotNull Object handler, Exception ex) {
 
         var matcher = apiPattern.matcher(request.getServletPath());
         if (!matcher.find()) {
@@ -44,15 +45,15 @@ public class CustomRequestInterceptor extends HandlerInterceptorAdapter {
         var result = response.getStatus();
 
         log.info("""
-                 User name: {} 
-                 Start time: {} 
-                 Duration: {} 
-                 Client ip address: {} 
-                 User agent: {} 
-                 Event code: {} 
-                 Description: {}
-                 Result: {}
-                 """, principal, startTime, duration, ipAdd, userAgent, eventLogCode, description, result);
+                User name: {} 
+                Start time: {} 
+                Duration: {} 
+                Client ip address: {} 
+                User agent: {} 
+                Event code: {} 
+                Description: {}
+                Result: {}
+                """, principal, startTime, duration, ipAdd, userAgent, eventLogCode, description, result);
     }
 
 }

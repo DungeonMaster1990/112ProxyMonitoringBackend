@@ -1,7 +1,6 @@
 package ru.vtb.monitoring.vtb112.db.repositories.implementations;
 
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,12 +17,15 @@ import java.util.stream.Collectors;
 @Repository
 public class ChangesRepositoryImpl implements ChangesRepositoryCustom {
 
-    @Autowired
     @Lazy
-    ChangesRepository changesRepository;
+    private final ChangesRepository changesRepository;
 
-    @Autowired
-    ChangesMapper changesMapper;
+    private final ChangesMapper changesMapper;
+
+    public ChangesRepositoryImpl(ChangesRepository changesRepository, ChangesMapper changesMapper) {
+        this.changesRepository = changesRepository;
+        this.changesMapper = changesMapper;
+    }
 
     @Override
     @Transactional

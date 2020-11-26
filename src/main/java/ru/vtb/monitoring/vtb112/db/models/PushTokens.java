@@ -1,10 +1,19 @@
 package ru.vtb.monitoring.vtb112.db.models;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 
 @Entity
-@Table(name="pushtokens", schema = "monitoring")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "pushtokens", schema = "monitoring")
 public class PushTokens {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -13,7 +22,7 @@ public class PushTokens {
     @Column(name = "token", unique = false, nullable = false)
     private String token;
 
-    @Column(name = "installId", unique = false, nullable = false)
+    @Column(name = "install_id", unique = false, nullable = false)
     private String installId;
 
     @Column(name = "platform", unique = false, nullable = false)
@@ -21,52 +30,4 @@ public class PushTokens {
 
     @Column(name = "update_token_date", unique = false, nullable = false)
     private ZonedDateTime updateTokenDate;
-
-    public PushTokens(int id, String token, String installId, String platform, ZonedDateTime updateTokenDate) {
-        this.id = id;
-        this.token = token;
-        this.installId = installId;
-        this.platform = platform;
-        this.updateTokenDate = updateTokenDate;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public String getInstallId() {
-        return installId;
-    }
-
-    public void setInstallId(String installId) {
-        this.installId = installId;
-    }
-
-    public String getPlatform() {
-        return platform;
-    }
-
-    public void setPlatform(String platform) {
-        this.platform = platform;
-    }
-
-    public ZonedDateTime getUpdateTokenDate() {
-        return updateTokenDate;
-    }
-
-    public void setUpdateTokenDate(ZonedDateTime updateTokenDate) {
-        this.updateTokenDate = updateTokenDate;
-    }
 }

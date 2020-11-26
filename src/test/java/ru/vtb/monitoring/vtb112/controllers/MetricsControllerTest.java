@@ -20,6 +20,7 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -32,12 +33,11 @@ class MetricsControllerTest extends PostgreSQL {
     @Autowired
     private MockMvc mockMvc;
 
+    private final ObjectMapper objectMapper = new ObjectMapper();
     @Autowired
-    JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
-    ObjectMapper objectMapper = new ObjectMapper();
-
-    MetricsControllerTest() throws Exception {
+    MetricsControllerTest() {
         objectMapper.registerModule(new JavaTimeModule());
     }
 
@@ -45,28 +45,28 @@ class MetricsControllerTest extends PostgreSQL {
     void testAllMetrics() throws Exception {
         VmMetricsRequest request = new VmMetricsRequest(true, "hello", 10, 0);
         mockMvc.perform(MockMvcRequestBuilders
-                .post("/api/v1.0/metrics")
+                .post(PathConstants.METRICS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request)))
                 .andDo(print())
                 .andExpect(jsonPath("$[*])", hasSize(3)))
-                .andExpect(jsonPath("$[0]['value'])").value(String.format("%,d", 1000000l)))
-                .andExpect(jsonPath("$[1]['value'])").value(String.format("%,d", 1000000l)))
-                .andExpect(jsonPath("$[2]['value'])").value(String.format("%,d", 1000000l)))
+                .andExpect(jsonPath("$[0]['value'])").value(String.format("%,d", 1000000L)))
+                .andExpect(jsonPath("$[1]['value'])").value(String.format("%,d", 1000000L)))
+                .andExpect(jsonPath("$[2]['value'])").value(String.format("%,d", 1000000L)))
                 .andExpect(status().isOk());
     }
 
     @Test
     void testPagedMetrics() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                .post("/api/v1.0/metrics")
+                .post(PathConstants.METRICS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(new VmMetricsRequest(true, "hello", 2, 0))))
                 .andExpect(jsonPath("$[*])", hasSize(2)));
 
         int remainderAfter3Pages = 1;
         mockMvc.perform(MockMvcRequestBuilders
-                .post("/api/v1.0/metrics")
+                .post(PathConstants.METRICS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(new VmMetricsRequest(true, "hello", 2, 1))))
                 .andExpect(jsonPath("$[*])", hasSize(remainderAfter3Pages)));
@@ -75,6 +75,7 @@ class MetricsControllerTest extends PostgreSQL {
     @Test
     void testMetricsInfos() throws Exception {
         Integer metricsId = jdbcTemplate.queryForObject("select id from monitoring.metrics where msname = 'Выданные КК'", Integer.class);
+        assertNotNull(metricsId);
         VmMetricInfoRequest req = VmMetricInfoRequest.builder()
                 .id(metricsId.toString())
                 .startDate(ZonedDateTime.now().minus(4, ChronoUnit.DAYS))
@@ -82,7 +83,7 @@ class MetricsControllerTest extends PostgreSQL {
                 .build();
 
         mockMvc.perform(MockMvcRequestBuilders
-                .post("/api/v1.0/metrics/info")
+                .post(PathConstants.METRICS + "/info")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(req)))
                 .andExpect(jsonPath("$[*])", hasSize(4)))
@@ -93,6 +94,7 @@ class MetricsControllerTest extends PostgreSQL {
     @Test
     void testMetricsInfosOneDay() throws Exception {
         Integer metricsId = jdbcTemplate.queryForObject("select id from monitoring.metrics where msname = 'Выданные КК'", Integer.class);
+        assertNotNull(metricsId);
         VmMetricInfoRequest req = VmMetricInfoRequest.builder()
                 .id(metricsId.toString())
                 .startDate(ZonedDateTime.now().minus(1, ChronoUnit.DAYS).minus(5, ChronoUnit.MINUTES))
@@ -100,7 +102,7 @@ class MetricsControllerTest extends PostgreSQL {
                 .build();
 
         mockMvc.perform(MockMvcRequestBuilders
-                .post("/api/v1.0/metrics/info")
+                .post(PathConstants.METRICS + "/info")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(req)))
                 .andExpect(jsonPath("$[*])", hasSize(2)))

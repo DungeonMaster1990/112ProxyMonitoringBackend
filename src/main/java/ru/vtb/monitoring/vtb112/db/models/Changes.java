@@ -1,9 +1,11 @@
 package ru.vtb.monitoring.vtb112.db.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -12,18 +14,18 @@ import java.time.ZonedDateTime;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name="changes", schema = "monitoring")
+@AllArgsConstructor
+@Table(name = "changes", schema = "monitoring")
 public class Changes implements BaseSmModel {
     @Id
     @GenericGenerator(
             name = "changesIdGenerator",
-            strategy = "sequence-identity",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
-                    @org.hibernate.annotations.Parameter(name = "sequence",
-                            value = "monitoring.changes_id_seq")
+                    @Parameter(name = "sequence_name", value = "monitoring.changes_id_seq")
             }
     )
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "changesIdGenerator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "changesIdGenerator")
     private Integer id;
     //main object
     @Column(name = "created_by")
@@ -41,7 +43,7 @@ public class Changes implements BaseSmModel {
     @Column(name = "affected_item")
     private String affectedItem;
     @Column(name = "backout_plan")
-    private String[] backoutPlan;
+    private String backoutPlan;
     @Column(name = "is_manager_notification")
     private Boolean isManagerNotification;
     @Column(name = "risk_level")
@@ -65,7 +67,7 @@ public class Changes implements BaseSmModel {
     @Column(name = "was_loading_testing")
     private String wasLoadingTesting;
     @Column(name = "func_testing")
-    private  String funcTesting;
+    private String funcTesting;
     @Column(name = "sys_impact")
     private String sysImpact;
     @Column(name = "custom_reach")
@@ -91,7 +93,7 @@ public class Changes implements BaseSmModel {
     @Column(name = "is_no_downtime")
     private Boolean isNoDowntime;
     @Column(name = "is_st_chg_candidat")
-    private  Boolean isStChgCandidat;
+    private Boolean isStChgCandidat;
     @Column(name = "is_have_report")
     private Boolean isHaveReport;
     @Column(name = "template_id")

@@ -11,7 +11,7 @@ import java.sql.SQLException;
 @Component
 public class VerticaConnection {
     private Connection connection;
-    private AppConfig appConfig;
+    private final AppConfig appConfig;
 
     @Autowired
     public VerticaConnection(AppConfig appConfig) {

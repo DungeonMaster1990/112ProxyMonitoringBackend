@@ -11,7 +11,7 @@ public class IncidentStatusConverter implements AttributeConverter<Status, Strin
         if (attribute == null) {
             return null;
         }
-        return attribute.getStatus();
+        return attribute.getText();
     }
 
     @Override

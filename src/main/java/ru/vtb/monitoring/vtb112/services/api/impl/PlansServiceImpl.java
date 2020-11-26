@@ -1,6 +1,5 @@
 package ru.vtb.monitoring.vtb112.services.api.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.vtb.monitoring.vtb112.db.repositories.interfaces.ChangesRepository;
@@ -16,11 +15,14 @@ import java.util.stream.Collectors;
 @Service
 public class PlansServiceImpl implements PlansService {
 
-    @Autowired
-    ChangesRepository changesRepository;
+    private final ChangesRepository changesRepository;
 
-    @Autowired
-    ChangesMapper changesMapper;
+    private final ChangesMapper changesMapper;
+
+    public PlansServiceImpl(ChangesRepository changesRepository, ChangesMapper changesMapper) {
+        this.changesRepository = changesRepository;
+        this.changesMapper = changesMapper;
+    }
 
     @Override
     public VmPlanInfoResponse getInfo(Integer id) {
@@ -28,11 +30,9 @@ public class PlansServiceImpl implements PlansService {
     }
 
     @Override
-    public List<VmPlanDescriptionResponse> getDescriptions(Integer id){
+    public List<VmPlanDescriptionResponse> getDescriptions(Integer id) {
         return Collections.singletonList(changesMapper.mapToDescriptionResponse(
-                changesRepository.findById(id).orElse(null)
-                )
-        );
+                changesRepository.findById(id).orElse(null)));
     }
 
     @Override

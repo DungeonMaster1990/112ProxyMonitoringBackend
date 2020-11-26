@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
 import ru.vtb.monitoring.vtb112.db.models.types.Interval;
@@ -13,22 +14,21 @@ import java.time.ZonedDateTime;
 import java.util.Objects;
 
 @Entity
-@Table(name="unavailability", schema = "monitoring")
+@Table(name = "unavailability", schema = "monitoring")
 @Setter
 @Getter
 @NoArgsConstructor
-@TypeDef(name="interval", typeClass = Interval.class)
+@TypeDef(name = "interval", typeClass = Interval.class)
 public class Unavailabilities implements BaseSmModel {
     @Id
     @GenericGenerator(
             name = "unavailabilityIdGenerator",
-            strategy = "sequence-identity",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
-                    @org.hibernate.annotations.Parameter(name = "sequence",
-                            value = "monitoring.unavailability_id_seq")
+                    @Parameter(name = "sequence_name", value = "monitoring.unavailability_id_seq")
             }
     )
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "unavailabilityIdGenerator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "unavailabilityIdGenerator")
     private int id;
 
     @Column(name = "fault_id", nullable = false)
