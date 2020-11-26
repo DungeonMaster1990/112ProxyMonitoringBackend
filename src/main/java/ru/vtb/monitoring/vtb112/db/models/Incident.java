@@ -44,22 +44,22 @@ public class Incident implements BaseSmModel {
     private ZonedDateTime expiredAt;
 
     @Column(name = "author_id")
-    private Integer authorId;
+    private String authorId;
 
     @Column(name = "contact_id")
-    private Integer contactId;
+    private String contactId;
 
     @Column(name = "service_id")
-    private Integer serviceId;
+    private String serviceId;
 
     @Column(name = "category")
-    private Integer category;
+    private String category;
 
     @Column(name = "failure_point")
     private String failurePoint;
 
     @Column(name = "configuration_item_id")
-    private Integer configurationItemId;
+    private String configurationItemId;
 
     @Column(name = "title")
     private String title;
@@ -74,7 +74,7 @@ public class Incident implements BaseSmModel {
     private String severity;
 
     @Column(name = "group_id")
-    private Integer groupId;
+    private String groupId;
 
     @Column(name = "assignee_id")
     private String assigneeId;

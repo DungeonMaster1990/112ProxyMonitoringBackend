@@ -42,6 +42,8 @@ public class AppConfig implements WebMvcConfigurer {
     private String smLogin;
     @Value("${sm.password}")
     private String smPassword;
+    @Value("${sm.port:}")
+    private String smPort;
 
     public long getLastDaysToProcess() {
         return lastDaysToProcess;
@@ -58,6 +60,8 @@ public class AppConfig implements WebMvcConfigurer {
     public String getSmIncidentUrl(){
         return this.baseSmUrl + this.smIncidentMethod;
     }
+
+    public String getSmPort(){ return smPort; }
 
     public String getSmUnavailabilityUrl(){
         return this.baseSmUrl + this.smUnavailabilityMethod;

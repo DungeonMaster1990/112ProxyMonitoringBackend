@@ -35,10 +35,10 @@ public class NotificationsSender {
     @Autowired
     private PushTokenRepository pushTokenRepository;
 
-    private List<Integer> supportedPriorities;
+    private List<String> supportedPriorities;
 
     public NotificationsSender(){
-        supportedPriorities = Arrays.asList(1,2);
+        supportedPriorities = Arrays.asList("1","2");
     }
 
     @Scheduled(fixedRateString = "${notificationsender.scheduler.fixedrate}")

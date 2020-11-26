@@ -1,5 +1,7 @@
 package ru.vtb.monitoring.vtb112.services.workers;
 
+import antlr.StringUtils;
+import com.google.common.base.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -56,9 +58,15 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
         try {
             RestTemplate restTemplate = buildRestTemplate();
             update = updatesRepository.getUpdateEntityByServiceName(workerName);
-            Map<String, Object> request = Map.of(
-                    "view", "expand" ,
-                    "query", getQueryString(update));
+
+            Map<String, Object> request = new HashMap<>();
+            if (!Strings.isNullOrEmpty(appConfig.getSmPort())){
+                request.put("serverPort", appConfig.getSmPort());
+            }
+
+            request.put("view", "expand");
+            request.put("query",getQueryString(update));
+
             response = restTemplate.getForEntity(url, vmModelWrapperType, request);
         }
         catch(Exception exception){
