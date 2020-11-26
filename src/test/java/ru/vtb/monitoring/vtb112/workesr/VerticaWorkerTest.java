@@ -8,6 +8,8 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import ru.vtb.monitoring.vtb112.db.models.Metrics;
 import ru.vtb.monitoring.vtb112.db.repositories.interfaces.MetricsRepository;
@@ -36,11 +38,13 @@ public class VerticaWorkerTest extends PostgreSQL {
     @Autowired
     MetricsRepository metricsRepository;
 
-    Vertica vertica;
+    @DynamicPropertySource
+    static void setUpVerticaProperties(DynamicPropertyRegistry registry) {
+        Vertica.setVerticaProperties(registry);
+    }
 
     @BeforeAll
     public void setUp() throws Throwable {
-        vertica = Vertica.vertica;
         Statement stmt = verticaConnection.getConnection().createStatement();
         String query = getTestDataSql();
         stmt.execute(query);

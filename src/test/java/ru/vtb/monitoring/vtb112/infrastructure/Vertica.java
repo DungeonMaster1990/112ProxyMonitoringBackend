@@ -1,7 +1,6 @@
 package ru.vtb.monitoring.vtb112.infrastructure;
 
 import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.LogMessageWaitStrategy;
 
@@ -12,7 +11,6 @@ import static java.time.temporal.ChronoUnit.SECONDS;
 public class Vertica extends GenericContainer<Vertica> {
 
     private static final int VERTICA_HOST_PORT = 5433;
-    private static final int VERTICA_CONTAINER_PORT = 5433;
 
     private static final String DEFAULT_DOCKER_IMAGE = "dataplatform/docker-vertica";
 
@@ -27,19 +25,17 @@ public class Vertica extends GenericContainer<Vertica> {
         vertica.start();
     }
 
-    public Vertica() {
-        this(DEFAULT_DOCKER_IMAGE);
-    }
-
     public Vertica(String dockerImageName) {
         super(dockerImageName);
-        this.addExposedPort(VERTICA_CONTAINER_PORT);
-        this.addFixedExposedPort(VERTICA_HOST_PORT, VERTICA_CONTAINER_PORT);
     }
 
-    @DynamicPropertySource
-    static void verticaProperties(DynamicPropertyRegistry registry) {
-        String url = "jdbc:vertica://"+vertica.getContainerIpAddress()+":"+VERTICA_HOST_PORT+"/docker";
+    public static Integer getVerticaPort() {
+        return vertica.getMappedPort(VERTICA_HOST_PORT);
+    }
+
+    public static void setVerticaProperties(DynamicPropertyRegistry registry) {
+        Integer exposePort = Vertica.getVerticaPort();
+        String url = "jdbc:vertica://"+Vertica.vertica.getContainerIpAddress()+":"+exposePort+"/docker";
         registry.add("spring.verticaDatasource.url", url::toString);
         registry.add("spring.verticaDatasource.username", "dbadmin"::toString);
     }
