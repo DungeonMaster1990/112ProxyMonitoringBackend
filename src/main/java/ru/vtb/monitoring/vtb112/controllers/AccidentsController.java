@@ -81,7 +81,7 @@ public class AccidentsController {
                     new VmAccidentInfoResponse(
                             incident.getId().toString(),
                             incident.getIncidentId(),
-                            incident.getCategory() == null ? 0 : incident.getCategory(),
+                            incident.getPriority() == null ? 0 : Integer.parseInt(incident.getPriority()),
                             IncidentStatusConverter.convertToStatus(
                                     incident.getStatus(),
                                     incident.getFactEndAt(),

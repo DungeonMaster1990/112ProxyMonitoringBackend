@@ -35,10 +35,10 @@ public class NotificationsSender {
     @Autowired
     private PushTokenRepository pushTokenRepository;
 
-    private List<Integer> supportedCategories;
+    private List<Integer> supportedPriorities;
 
     public NotificationsSender(){
-        supportedCategories = Arrays.asList(1,2);
+        supportedPriorities = Arrays.asList(1,2);
     }
 
     @Scheduled(fixedRateString = "${notificationsender.scheduler.fixedrate}")
@@ -53,7 +53,7 @@ public class NotificationsSender {
         try {
             // TODO отправлять все аварии в одном вызове?
             incidents.stream()
-                    .filter(incident -> supportedCategories.contains(incident.getCategory()))
+                    .filter(incident -> supportedPriorities.contains(incident.getPriority()))
                     .forEach(i -> sendNotificationsForIncident(restTemplate, i));
 
             var ids = incidents.stream().map(Incident::getId).collect(toSet());
