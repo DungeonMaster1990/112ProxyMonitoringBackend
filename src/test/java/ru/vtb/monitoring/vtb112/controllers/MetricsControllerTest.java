@@ -27,7 +27,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Testcontainers(disabledWithoutDocker = true)
-@TestPropertySource(properties = "app.scheduling.enable=false")
 class MetricsControllerTest extends PostgreSQL {
     @Autowired
     private MockMvc mockMvc;

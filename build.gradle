@@ -38,6 +38,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    systemProperty 'spring.profiles.active', 'test'
 }
 jar {
     manifest{
