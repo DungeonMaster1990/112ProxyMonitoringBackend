@@ -62,7 +62,8 @@ public class PlansControllerTest extends PostgreSQL {
                 .content(objectMapper.writeValueAsString(request)))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[*])", hasSize(2)));
+                .andExpect(jsonPath("$[*])", hasSize(2)))
+                .andExpect(jsonPath("$[0]['affectedSystems'][*])", hasSize(2)));
     }
 
     @Test

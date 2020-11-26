@@ -43,6 +43,8 @@ public interface ChangesMapper {
     @Mapping(target = "closingComments",     source = "source.close.closingComments")
     Changes mapToChangesResponse(VmSmChange source);
 
+    @Mapping(target = "statusType", ignore = true)
+    @Mapping(target = "configurationUnit", ignore = true)
     @Mapping(target = "name",              source = "changeId")
     @Mapping(target = "impactDescription", source = "vtbRiskDescription")
     @Mapping(target = "degradationRate",   source = "initialImpact")
@@ -53,6 +55,7 @@ public interface ChangesMapper {
     @Mapping(target = "finishDownDate",    source = "downEndAt")
     VmPlanInfoResponse mapToInfoResponse(Changes source);
 
+    @Mapping(target = "value",             ignore = true)
     @Mapping(target = "name",              source = "description")
     VmPlanDescriptionResponse mapToDescriptionResponse(Changes source);
 
@@ -64,6 +67,8 @@ public interface ChangesMapper {
     @Mapping(target = "id",                source = "source.category.id")
     VmPlanSectionsResponse mapToVmPlanSections(GroupedChanges source);
 
+    @Mapping(target = "statusType",        ignore = true)
+    @Mapping(target = "affectedSystems",   source = "affectedServices")
     @Mapping(target = "name",              source = "changeId")
     @Mapping(target = "startDate",         source = "plannedStartAt")
     VmPlanResponse mapToVmPlan(Changes source);

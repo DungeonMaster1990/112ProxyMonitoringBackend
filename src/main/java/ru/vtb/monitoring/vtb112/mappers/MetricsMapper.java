@@ -7,6 +7,9 @@ import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.VmMetricsResponse;
 
 @Mapper(componentModel = "spring")
 public interface MetricsMapper {
+
+    @Mapping(target = "deltaStatus", ignore = true)
+    @Mapping(target = "value", ignore = true)
     @Mapping(source = "msname", target = "name")
     @Mapping(target = "mine", constant = "false")
     @Mapping(target = "delta", constant = "0L")
