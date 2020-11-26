@@ -27,13 +27,12 @@ public class SmDefMeasurementVerticaRepositoryImpl implements SmDefMeasurementVe
 
     @Override
     public List<SmDefMeasurementVertica> getSmDefMeasurements(List<Metrics> metrics) throws SQLException {
-        ArrayList metricsArr = new ArrayList(metrics);
         StringBuilder whereQuery = new StringBuilder();
-        for(int i=0; i < metricsArr.size(); i++){
-            if(i != metricsArr.size()-1)
-                whereQuery.append(String.format("(measurement_id = %o and monitor_id = %o) or", metrics.get(i).getMeasurementId(), metrics.get(i).getMonitorId()));
+        for(int i=0; i < metrics.size(); i++){
+            if(i != metrics.size()-1)
+                whereQuery.append(String.format("(measurement_id = %s and monitor_id = %s) or", metrics.get(i).getMeasurementId(), metrics.get(i).getMonitorId()));
             else
-                whereQuery.append(String.format("(measurement_id = %o and monitor_id = %o)", metrics.get(i).getMeasurementId(), metrics.get(i).getMonitorId()));
+                whereQuery.append(String.format("(measurement_id = %s and monitor_id = %s)", metrics.get(i).getMeasurementId(), metrics.get(i).getMonitorId()));
         }
         List<SmDefMeasurementVertica> smDefMeasurementsVertica = new ArrayList<SmDefMeasurementVertica>();
         Statement stmt = verticaConnection.getConnection().createStatement();

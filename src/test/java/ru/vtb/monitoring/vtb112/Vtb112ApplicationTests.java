@@ -5,7 +5,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import ru.vtb.monitoring.vtb112.infrastructure.PostgreSQL;
 
 @SpringBootTest
-//@EnableSwagger2
 class Vtb112ApplicationTests extends PostgreSQL {
 
 	@Test

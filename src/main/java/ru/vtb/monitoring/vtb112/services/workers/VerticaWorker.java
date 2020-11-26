@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import ru.vtb.monitoring.vtb112.db.models.Metrics;
 import ru.vtb.monitoring.vtb112.db.models.SmDefMeasurementApi;
 import ru.vtb.monitoring.vtb112.db.models.SmRawdataMeasApi;
@@ -19,7 +20,6 @@ import ru.vtb.monitoring.vtb112.db.vertica.repositories.interfaces.SmRawdataMeas
 import ru.vtb.monitoring.vtb112.mappers.VerticaMapper;
 
 import java.sql.SQLException;
-import java.time.ZonedDateTime;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,6 +48,7 @@ public class VerticaWorker {
     }
 
     @Scheduled(fixedRate = 900000)
+    @Transactional
     public void takeSmDefMeasurementVertica() {
         try {
             List<Metrics> metrics = metricsRepository.findAll()
@@ -77,6 +78,7 @@ public class VerticaWorker {
     }
 
     @Scheduled(fixedRate = 900000)
+    @Transactional
     public void takeSmRawdataMeasVertica() {
         try {
             Updates update = updatesRepository.getUpdateEntityByServiceName(verticaServiceName);
@@ -89,12 +91,11 @@ public class VerticaWorker {
                             .collect(Collectors.toList());
             smRawdataMeasApiRepository.saveAll(smRawdataMeasApiList);
 
-            ZonedDateTime updatedAt = smRawdataMeasVerticaList.stream()
+            smRawdataMeasVerticaList.stream()
                     .max(Comparator.comparing(SmRawdataMeasVertica::getTimeStamp))
-                    .get()
-                    .getTimeStamp();
+                    .map(SmRawdataMeasVertica::getTimeStamp)
+                    .ifPresent(update::setUpdateTime);
 
-            update.setUpdateTime(updatedAt);
             updatesRepository.putUpdate(update);
         } catch (SQLException sqlException){
             log.error("Произошла ошибка при попытке выгрузки данных из Vertic-и из таблицы SmRawdataMeas", sqlException);
