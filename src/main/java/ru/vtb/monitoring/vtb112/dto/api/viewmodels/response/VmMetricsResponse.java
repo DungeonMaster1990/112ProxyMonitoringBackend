@@ -11,12 +11,12 @@ import ru.vtb.monitoring.vtb112.dto.api.viewmodels.enums.BlMetricsStatus;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VmMetricsResponse {
-    private String          id;
-    private String          name;
-    private Boolean         mine;
-    private String          value;
-    private long            delta;
-    private double          deltaPercent;
+    private String id;
+    private String name;
+    private Boolean mine;
+    private String value;
+    private long delta;
+    private double deltaPercent;
     private BlMetricsStatus deltaStatus;
-    private double          totalPercent;
+    private double totalPercent;
 }

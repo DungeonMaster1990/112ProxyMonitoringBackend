@@ -1,8 +1,7 @@
 package ru.vtb.monitoring.vtb112.db.repositories.implementations;
 
 import com.google.common.collect.Streams;
-import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,53 +12,50 @@ import ru.vtb.monitoring.vtb112.mappers.UnavailabilityMapper;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Log4j2
+@Slf4j
 @Repository
 public class UnavailabilitiesRepositoryImpl implements UnavailabilitiesRepositoryCustom {
 
     @PersistenceContext
     private EntityManager entityManager;
 
-    @Autowired
     @Lazy
-    UnavailabilitiesRepository availabilitiesRepo;
+    private final UnavailabilitiesRepository availabilitiesRepo;
 
-    @Autowired
-    UnavailabilityMapper unavailabilityMapper;
+    private final UnavailabilityMapper unavailabilityMapper;
+
+    public UnavailabilitiesRepositoryImpl(UnavailabilitiesRepository availabilitiesRepo, UnavailabilityMapper unavailabilityMapper) {
+        this.availabilitiesRepo = availabilitiesRepo;
+        this.unavailabilityMapper = unavailabilityMapper;
+    }
 
     @Override
     public List<Unavailabilities> getAllVtbUnavailabilities() {
-        Query vtbUnavailabilityQuery = entityManager.createQuery("select a from VtbUnavailability a", Unavailabilities.class);
-        List<Unavailabilities> vtbIncidents = vtbUnavailabilityQuery.getResultList();
-        return vtbIncidents;
+        return entityManager.createQuery("select a from VtbUnavailability a", Unavailabilities.class).getResultList();
     }
 
     @Override
     public Unavailabilities getVtbUnavailability(int id) {
-        String query =  String.format("select a from VtbUnavailability a where id=%s;", id);
-        Unavailabilities vtbUnavailability = entityManager.createQuery(query, Unavailabilities.class)
+        String query = String.format("select a from VtbUnavailability a where id=%s;", id);
+        return entityManager.createQuery(query, Unavailabilities.class)
                 .getSingleResult();
-        return vtbUnavailability;
     }
 
     @Override
     public List<Unavailabilities> getVtbUnavailabilities(String[] faultIds, String[] serviceIds) {
-
         var requestParam = Streams.zip(Arrays.stream(faultIds), Arrays.stream(serviceIds),
                 (faultId, serviceId) -> String.format("(%s, %s)", faultId, serviceId))
                 .collect(Collectors.joining(", "));
 
 
-        String query =  String.format("select unavailabilities from VtbUnavailabilities unavailabilities where (fault_id, service_id) in(%s);", requestParam);
-        List<Unavailabilities> vtbUnavailability = entityManager.createQuery(query, Unavailabilities.class)
+        String query = String.format("select unavailabilities from VtbUnavailabilities unavailabilities where (fault_id, service_id) in(%s);", requestParam);
+        return entityManager.createQuery(query, Unavailabilities.class)
                 .getResultList();
-        return vtbUnavailability;
     }
 
     @Override

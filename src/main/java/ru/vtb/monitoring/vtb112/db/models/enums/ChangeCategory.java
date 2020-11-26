@@ -3,12 +3,18 @@ package ru.vtb.monitoring.vtb112.db.models.enums;
 import lombok.Getter;
 
 import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Getter
 public enum ChangeCategory {
 
-    emergency("Экстренное", 1),
-    planned("Плановое", 2);
+    EMERGENCY("Экстренное", 1),
+    PLANNED("Плановое", 2);
+
+    private static final Map<String, ChangeCategory> LOOKUP = Arrays.stream(ChangeCategory.values()).collect(Collectors.toMap(
+            ChangeCategory::getCategory, changeCategory -> changeCategory
+    ));
 
     private final String category;
     private final int id;
@@ -19,10 +25,7 @@ public enum ChangeCategory {
     }
 
     public static ChangeCategory getCategoryByString(String category) {
-        return Arrays.stream(ChangeCategory.values())
-                .filter(s -> s.category.equals(category))
-                .findFirst()
-                .orElse(null);
+        return LOOKUP.get(category);
     }
 
 }

@@ -16,14 +16,13 @@ import java.util.Collections;
 
 @SpringBootTest
 @Testcontainers(disabledWithoutDocker = true)
-public class UnavailabilitiesRepositoryImplTest extends PostgreSQL {
+class UnavailabilitiesRepositoryImplTest extends PostgreSQL {
 
     @Autowired
     private UnavailabilitiesRepository unavailabilitiesRepo;
 
     @Test
     void testPutModels() {
-
         unavailabilitiesRepo.save(makeUnavailability(1, "Сервер", "Банк"));
 
         Unavailabilities oldUnavailability = makeUnavailability(1, "Сервер", "Банк");
@@ -48,16 +47,13 @@ public class UnavailabilitiesRepositoryImplTest extends PostgreSQL {
 
         Assert.assertEquals("Новый тип", type);
         Assert.assertNotNull(newUnavailability);
-
     }
 
     @NotNull
-    private Unavailabilities makeUnavailability(int i, String fault_id, String service_id) {
-
+    private Unavailabilities makeUnavailability(int i, String faultId, String serviceId) {
         Unavailabilities unavailability = new Unavailabilities();
-        unavailability.setServiceId(service_id +" S_" + i);
-        unavailability.setFaultId(fault_id +" F_" + i);
-
+        unavailability.setServiceId(serviceId + " S_" + i);
+        unavailability.setFaultId(faultId + " F_" + i);
         unavailability.setCreatedAt(ZonedDateTime.now());
         unavailability.setType("Тип");
         unavailability.setBeginAt(ZonedDateTime.now());
@@ -67,8 +63,6 @@ public class UnavailabilitiesRepositoryImplTest extends PostgreSQL {
         unavailability.setEndAt(ZonedDateTime.now());
         unavailability.setUpdatedAt(ZonedDateTime.now());
         unavailability.setUpdatedById(100);
-
         return unavailability;
     }
-
 }

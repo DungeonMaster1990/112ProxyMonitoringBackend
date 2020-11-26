@@ -1,6 +1,5 @@
 package ru.vtb.monitoring.vtb112.mappers;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,35 +17,37 @@ import ru.vtb.monitoring.vtb112.infrastructure.PostgreSQL;
 
 import java.time.ZonedDateTime;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @SpringBootTest
-public class MappersTest extends PostgreSQL {
+class MappersTest extends PostgreSQL {
 
     @Autowired
-    IncidentRepository incidentRepository;
+    private IncidentRepository incidentRepository;
     @Autowired
-    UnavailabilitiesRepository unavailabilitiesRepository;
+    private UnavailabilitiesRepository unavailabilitiesRepository;
     @Autowired
-    ChangesRepository changesRepository;
+    private ChangesRepository changesRepository;
     @Autowired
-    IncidentMapper incidentMapper;
+    private IncidentMapper incidentMapper;
     @Autowired
-    UnavailabilityMapper unavailabilityMapper;
+    private UnavailabilityMapper unavailabilityMapper;
     @Autowired
-    ChangesMapper changesMapper;
+    private ChangesMapper changesMapper;
 
     @Test
-    public void testIncidentMapper() {
+    void testIncidentMapper() {
         VmSmIncident incident = VmSmIncident.builder()
                 .id("Авария")
-                .description(new String[]{"1", "2" ,"3"})
+                .description(new String[]{"1", "2", "3"})
                 .build();
         Incident savedIncident = incidentRepository.save(incidentMapper.mapToIncidentResponse(incident));
-        Assert.assertEquals("Авария", savedIncident.getIncidentId());
-        Assert.assertEquals(3, savedIncident.getDescription().split(System.lineSeparator()).length);
+        assertEquals("Авария", savedIncident.getIncidentId());
+        assertEquals(3, savedIncident.getDescription().split(System.lineSeparator()).length);
     }
 
     @Test
-    public void testUnavailabilityMapper() {
+    void testUnavailabilityMapper() {
         VmSmUnavailability unavailability = VmSmUnavailability.builder()
                 .faultId("1")
                 .beginAt(ZonedDateTime.now())
@@ -63,12 +64,12 @@ public class MappersTest extends PostgreSQL {
                 .build();
         Unavailabilities savedIncident = unavailabilitiesRepository.save(
                 unavailabilityMapper.mapToIncidentResponse(unavailability));
-        Assert.assertEquals("1", savedIncident.getFaultId());
-        Assert.assertEquals(Integer.valueOf(15), savedIncident.getDuration());
+        assertEquals("1", savedIncident.getFaultId());
+        assertEquals(Integer.valueOf(15), savedIncident.getDuration());
     }
 
     @Test
-    public void testChangesMapper() {
+    void testChangesMapper() {
         VmSmChange change = new VmSmChange();
         VmSmChangeHeader header = new VmSmChangeHeader();
         header.setId("ID_1");
@@ -76,7 +77,7 @@ public class MappersTest extends PostgreSQL {
 
         Changes savedIncident = changesRepository.save(
                 changesMapper.mapToChangesResponse(change));
-        Assert.assertEquals("ID_1", savedIncident.getChangeId());
+        assertEquals("ID_1", savedIncident.getChangeId());
     }
 
 }

@@ -17,9 +17,9 @@ import java.time.ZonedDateTime;
 public class SmRawdataMeasApi {
     @GenericGenerator(
             name = "measRawDataIdGenerator",
-            strategy = "sequence-identity",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
-                    @Parameter(name = "sequence", value = "monitoring.sm_rawdata_meas_id_seq")
+                    @Parameter(name = "sequence_name", value = "monitoring.sm_rawdata_meas_id_seq")
             }
     )
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "measRawDataIdGenerator")

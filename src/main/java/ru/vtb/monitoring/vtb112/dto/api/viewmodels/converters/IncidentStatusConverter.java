@@ -5,7 +5,10 @@ import ru.vtb.monitoring.vtb112.dto.api.viewmodels.enums.BlAccidentStatusType;
 
 import java.time.ZonedDateTime;
 
-public class IncidentStatusConverter {
+public final class IncidentStatusConverter {
+
+    private IncidentStatusConverter() {
+    }
 
     public static String convertToStatus(Status status,
                                          ZonedDateTime isFactEndAt,
@@ -13,10 +16,10 @@ public class IncidentStatusConverter {
         if (status == null) {
             return null;
         }
-        if (status.equals(Status.in_process) && (isFactEndAt != null || predictedAt != null)) {
+        if (status.equals(Status.IN_PROCESS) && (isFactEndAt != null || predictedAt != null)) {
             return "устранение последствий";
         }
-        return status.getStatus();
+        return status.getText();
 
     }
 
@@ -25,8 +28,8 @@ public class IncidentStatusConverter {
             return null;
         }
         return switch (status) {
-            case assigned -> BlAccidentStatusType.critical;
-            case in_process -> BlAccidentStatusType.warning;
+            case ASSIGNED -> BlAccidentStatusType.critical;
+            case IN_PROCESS -> BlAccidentStatusType.warning;
             default -> BlAccidentStatusType.normal;
         };
     }

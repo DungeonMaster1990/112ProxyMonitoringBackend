@@ -15,7 +15,7 @@ public class GroupedChanges {
 
     public GroupedChanges(String category, long count) {
         this.category = ChangeCategory.getCategoryByString(category);
-        this.count = Long.valueOf(count).intValue();
+        this.count = (int) count;
     }
 
 }
