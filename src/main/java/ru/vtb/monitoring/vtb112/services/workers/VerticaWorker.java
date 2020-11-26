@@ -27,14 +27,13 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 public class VerticaWorker {
-    private SmDefMeasurementApiRepository smDefMeasurementApiRepository;
-    private SmDefMeasurementVerticaRepository smDefMeasurementVerticaRepository;
-    private SmRawdataMeasApiRepository smRawdataMeasApiRepository;
-    private SmRawdataMeasVerticaRepository smRawdataMeasVerticaRepository;
-    private MetricsRepository metricsRepository;
-    private UpdatesRepository updatesRepository;
-    private final String verticaServiceName = "VerticaSmRawData";
-    private VerticaMapper verticaMapper;
+    private final SmDefMeasurementApiRepository smDefMeasurementApiRepository;
+    private final SmDefMeasurementVerticaRepository smDefMeasurementVerticaRepository;
+    private final SmRawdataMeasApiRepository smRawdataMeasApiRepository;
+    private final SmRawdataMeasVerticaRepository smRawdataMeasVerticaRepository;
+    private final MetricsRepository metricsRepository;
+    private final UpdatesRepository updatesRepository;
+    private final VerticaMapper verticaMapper;
 
     @Autowired
     public VerticaWorker(SmDefMeasurementApiRepository smDefMeasurementApiRepository, SmDefMeasurementVerticaRepository smDefMeasurementVerticaRepository, SmRawdataMeasApiRepository smRawdataMeasApiRepository, SmRawdataMeasVerticaRepository smRawdataMeasVerticaRepository, MetricsRepository metricsRepository, UpdatesRepository updatesRepository, VerticaMapper verticaMapper) {
@@ -55,17 +54,17 @@ public class VerticaWorker {
                     .stream()
                     .filter(m -> !m.isMerged())
                     .collect(Collectors.toList());
-            if (metrics.size() != 0) {
-                    List<SmDefMeasurementVertica> smDefMeasurementVerticaList =
-                            smDefMeasurementVerticaRepository.getSmDefMeasurements(metrics);
+            if (metrics.isEmpty()) {
+                List<SmDefMeasurementVertica> smDefMeasurementVerticaList =
+                        smDefMeasurementVerticaRepository.getSmDefMeasurements(metrics);
 
-                    List<SmDefMeasurementApi> smDefMeasurementApiList =
-                            smDefMeasurementVerticaList
-                                    .stream()
-                                    .map(verticaMapper::mapToSmDefMeasurementApi)
-                                    .collect(Collectors.toList());
+                List<SmDefMeasurementApi> smDefMeasurementApiList =
+                        smDefMeasurementVerticaList
+                                .stream()
+                                .map(verticaMapper::mapToSmDefMeasurementApi)
+                                .collect(Collectors.toList());
 
-                    smDefMeasurementApiRepository.saveAll(smDefMeasurementApiList);
+                smDefMeasurementApiRepository.saveAll(smDefMeasurementApiList);
 
                     for (Metrics metric : metrics) {
                         metric.setMerged(true);
@@ -81,6 +80,7 @@ public class VerticaWorker {
     @Transactional
     public void takeSmRawdataMeasVertica() {
         try {
+            String verticaServiceName = "VerticaSmRawData";
             Updates update = updatesRepository.getUpdateEntityByServiceName(verticaServiceName);
             List<SmRawdataMeasVertica> smRawdataMeasVerticaList =
                     smRawdataMeasVerticaRepository.getSmRawdataMeasVertica(update);

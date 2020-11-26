@@ -1,8 +1,8 @@
 package ru.vtb.monitoring.vtb112.db.vertica.models;
 
-import com.sun.istack.Nullable;
 import lombok.*;
 
+import javax.annotation.Nullable;
 import java.time.ZonedDateTime;
 
 @Getter

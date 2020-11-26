@@ -1,29 +1,31 @@
 package ru.vtb.monitoring.vtb112.db.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
 @Entity
-@Table(name="systems", schema = "monitoring")
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "systems", schema = "monitoring")
 public class AffectedSystem {
 
     @Id
     @GenericGenerator(
             name = "affectedSystemIdGenerator",
-            strategy = "sequence-identity",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
-                    @org.hibernate.annotations.Parameter(name = "sequence",
-                            value = "monitoring.systems_id_seq")
+                    @Parameter(name = "sequence_name", value = "monitoring.systems_id_seq")
             }
     )
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "affectedSystemIdGenerator")
+    @GeneratedValue(generator = "affectedSystemIdGenerator")
     private Integer id;
 
     @Column(name = "name", nullable = false)
@@ -33,7 +35,7 @@ public class AffectedSystem {
     private Integer incidentId;
 
     @ManyToOne
-    @JoinColumn(name="accidentid", referencedColumnName="id")
+    @JoinColumn(name = "accidentid", referencedColumnName = "id")
     private Incident incident;
 
 }

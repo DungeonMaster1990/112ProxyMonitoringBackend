@@ -21,7 +21,7 @@ public class PushTokens {
     @Column(name = "token", unique = false, nullable = false)
     private String token;
 
-    @Column(name = "installId", unique = false, nullable = false)
+    @Column(name = "install_id", unique = false, nullable = false)
     private String installId;
 
     @Column(name = "platform", unique = false, nullable = false)

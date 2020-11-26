@@ -16,8 +16,8 @@ import java.util.List;
 
 @Repository
 public class SmDefMeasurementVerticaRepositoryImpl implements SmDefMeasurementVerticaRepository {
-    private VerticaConnection verticaConnection;
-    private DateFormatterHelper dateFormatterHelper;
+    private final VerticaConnection verticaConnection;
+    private final DateFormatterHelper dateFormatterHelper;
 
     @Autowired
     public SmDefMeasurementVerticaRepositoryImpl(VerticaConnection verticaConnection, DateFormatterHelper dateFormatterHelper) {
@@ -29,12 +29,13 @@ public class SmDefMeasurementVerticaRepositoryImpl implements SmDefMeasurementVe
     public List<SmDefMeasurementVertica> getSmDefMeasurements(List<Metrics> metrics) throws SQLException {
         StringBuilder whereQuery = new StringBuilder();
         for(int i=0; i < metrics.size(); i++){
-            if(i != metrics.size()-1)
+            if(i != metrics.size()-1) {
                 whereQuery.append(String.format("(measurement_id = %s and monitor_id = %s) or", metrics.get(i).getMeasurementId(), metrics.get(i).getMonitorId()));
-            else
+            } else {
                 whereQuery.append(String.format("(measurement_id = %s and monitor_id = %s)", metrics.get(i).getMeasurementId(), metrics.get(i).getMonitorId()));
+            }
         }
-        List<SmDefMeasurementVertica> smDefMeasurementsVertica = new ArrayList<SmDefMeasurementVertica>();
+        List<SmDefMeasurementVertica> smDefMeasurementsVertica = new ArrayList<>();
         Statement stmt = verticaConnection.getConnection().createStatement();
         String query = String.format("""
                     select session_id, measurement_id, shed_id, category_id, monitor_id, target_id,

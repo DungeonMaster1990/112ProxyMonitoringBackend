@@ -15,18 +15,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class VersionControllerTest extends PostgreSQL {
+class VersionControllerTest extends PostgreSQL {
 
-    private static final String API_URL = "/api/v1.0/";
     @Autowired
     private MockMvc mockMvc;
 
     @Test
     void testCheckVersion() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                .get(API_URL + "checkVersion")
+                .get(PathConstants.API_VERSION + "/checkVersion")
                 .param("version", "1.0")
-                .contentType(MediaType.ALL))
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$['status'])").value("normal"));

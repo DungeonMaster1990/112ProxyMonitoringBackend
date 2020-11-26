@@ -15,20 +15,17 @@ import java.util.Collections;
 
 @SpringBootTest
 @Testcontainers(disabledWithoutDocker = true)
-public class ChangesRepositoryImplTest extends PostgreSQL {
+class ChangesRepositoryImplTest extends PostgreSQL {
 
     @Autowired
-    ChangesRepository changesRepository;
+    private ChangesRepository changesRepository;
 
     @Test
     void testPutModels() {
-
         changesRepository.save(makeChange(1, "Изменение"));
-
         Changes oldChange = makeChange(1, "Инцидент");
         oldChange.setDescription("Изменение в описании");
         Changes newChange = makeChange(2, "Инцидент");
-
         changesRepository.putModels(Arrays.asList(oldChange, newChange));
 
         String description = changesRepository.findByChangeIdIn(Collections.singletonList(oldChange.getChangeId()))
@@ -47,11 +44,9 @@ public class ChangesRepositoryImplTest extends PostgreSQL {
 
     @NotNull
     private Changes makeChange(int i, String changeId) {
-
         Changes changes = new Changes();
         changes.setChangeId(changeId +" S_" + i);
         changes.setDescription("Описание");
-
         return changes;
     }
 }

@@ -13,6 +13,8 @@ repositories {
 }
 
 dependencies {
+    compileOnly 'org.projectlombok:lombok'
+
     implementation 'org.jetbrains:annotations:19.0.0'
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
     implementation 'com.google.guava:guava:30.0-jre'
@@ -24,13 +26,14 @@ dependencies {
     implementation 'org.modelmapper:modelmapper:2.3.8'
     implementation 'com.vertica.jdbc:vertica-jdbc:10.0.1-0'
     implementation 'org.liquibase:liquibase-core'
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compileOnly 'org.projectlombok:lombok'
     implementation 'org.mapstruct:mapstruct:1.4.1.Final'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
     annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.1.Final'
     annotationProcessor 'org.projectlombok:lombok'
-    testImplementation group: 'org.testcontainers', name: 'postgresql', version: '1.15.0'
-    testImplementation "org.testcontainers:junit-jupiter:1.15.0"
+    
+    testImplementation 'org.testcontainers:postgresql:1.15.0'
+    testImplementation 'org.testcontainers:junit-jupiter:1.15.0'
     testImplementation('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
@@ -41,7 +44,7 @@ test {
     systemProperty 'spring.profiles.active', 'test'
 }
 jar {
-    manifest{
+    manifest {
         attributes 'Main-Class': 'ru.vtb.monitoring.vtb112.Vtb112Application'
     }
 }
