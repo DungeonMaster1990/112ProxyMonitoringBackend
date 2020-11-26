@@ -32,7 +32,7 @@ public class AccidentsController {
     public ResponseEntity<List<VmAccidentResponse>> getAccidents(@RequestBody VmAccidentsRequest request) {
 
         var paging = PageRequest.of(request.getPage(), request.getLimit());
-        var supportedCategories = Arrays.asList(1,2);
+        var supportedCategories = Arrays.asList("1","2");
         return new ResponseEntity<>(incidentDAO.allByCriteria(supportedCategories,
                                                               request.getAffectedSystems(),
                                                               request.getStartDate(),
@@ -43,7 +43,7 @@ public class AccidentsController {
                         new VmAccidentResponse(
                                 incident.getId().toString(),
                                 incident.getIncidentId(),
-                                incident.getCategory() == null ? 0 : incident.getCategory(),
+                                incident.getPriority() == null ? 0 : Integer.parseInt(incident.getPriority()),
                                 IncidentStatusConverter.convertToStatus(
                                         incident.getStatus(),
                                         incident.getFactEndAt(),

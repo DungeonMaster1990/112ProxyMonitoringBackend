@@ -22,17 +22,17 @@ public class VmSmIncident {
     @JsonAlias("ExpiredAt")
     private ZonedDateTime expiredAt;
     @JsonAlias("AuthorId")
-    private Integer authorId;
+    private String authorId;
     @JsonAlias("ContactId")
-    private Integer contactId;
+    private String contactId;
     @JsonAlias("ServiceId")
-    private Integer serviceId;
+    private String serviceId;
     @JsonAlias("Category")
     private String category;
     @JsonAlias("FailurePoint")
     private String failurePoint;
     @JsonAlias("ConfigurationItemId")
-    private Integer configurationItemId;
+    private String configurationItemId;
     @JsonAlias("Title")
     private String title;
     @JsonAlias("Description")
@@ -42,7 +42,7 @@ public class VmSmIncident {
     @JsonAlias("Severity")
     private String severity;
     @JsonAlias("GroupId")
-    private Integer groupId;
+    private String groupId;
     @JsonAlias("AssigneeId")
     private String assigneeId;
     @JsonAlias("Status")
