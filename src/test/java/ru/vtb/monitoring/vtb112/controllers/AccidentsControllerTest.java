@@ -37,14 +37,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class AccidentsControllerTest extends PostgreSQL {
 
-    private static final String API_URL = "/api/v1.0/accidents/";
     private static final String JSON_RESOURCES = "src/test/resources/json/accidents";
+
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ZonedDateTime dayNow = ZonedDateTime.parse("2020-11-16T19:00:00.00000+03:00");
 
     @Autowired
     private MockMvc mockMvc;
 
-    ObjectMapper objectMapper = new ObjectMapper();
-    ZonedDateTime dayNow = ZonedDateTime.parse("2020-11-16T19:00:00.00000+03:00");
     @BeforeAll
     public void setUp() {
         objectMapper.registerModule(new JavaTimeModule());
@@ -52,7 +52,6 @@ class AccidentsControllerTest extends PostgreSQL {
 
     @Test
     void testAccidents() throws Exception {
-
         VmAccidentsRequest request = VmAccidentsRequest.builder()
                 .limit(5)
                 .page(3)
@@ -76,10 +75,9 @@ class AccidentsControllerTest extends PostgreSQL {
 
     @Test
     void testAccidentsNew() throws Exception {
-
         mockMvc.perform(MockMvcRequestBuilders
-                .get(API_URL+"new")
-                .contentType(MediaType.ALL))
+                .get(PathConstants.ACCIDENTS + "/new")
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(getJson("new.json")));
@@ -88,9 +86,9 @@ class AccidentsControllerTest extends PostgreSQL {
     @Test
     void testAccidentsInfo() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                .get(API_URL+"info")
+                .get(PathConstants.ACCIDENTS + "/info")
                 .param("id", "5")
-                .contentType(MediaType.ALL)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding("UTF-8"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -100,9 +98,9 @@ class AccidentsControllerTest extends PostgreSQL {
     @Test
     void testAccidentsWorkers() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                .get(API_URL+"workers")
+                .get(PathConstants.ACCIDENTS + "/workers")
                 .param("id", "4")
-                .contentType(MediaType.ALL)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding("UTF-8"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -112,9 +110,9 @@ class AccidentsControllerTest extends PostgreSQL {
     @Test
     void testAccidentsDescriptions() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                .get(API_URL+"descriptions")
+                .get(PathConstants.ACCIDENTS + "/descriptions")
                 .param("id", "3")
-                .contentType(MediaType.ALL)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding("UTF-8"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -124,9 +122,9 @@ class AccidentsControllerTest extends PostgreSQL {
     @Test
     void testAccidentsHistory() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                .get(API_URL+"history")
+                .get(PathConstants.ACCIDENTS + "/history")
                 .param("id", "1")
-                .contentType(MediaType.ALL)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding("UTF-8"))
                 .andDo(print())
                 .andExpect(status().is5xxServerError());

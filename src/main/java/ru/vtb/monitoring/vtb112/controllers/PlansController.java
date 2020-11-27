@@ -1,9 +1,8 @@
 package ru.vtb.monitoring.vtb112.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmPlanRequest;
 import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmPlanSectionRequest;
@@ -13,48 +12,48 @@ import ru.vtb.monitoring.vtb112.services.api.interfaces.PlansService;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/v1.0/plans", produces = "application/json;charset=UTF-8")
+@RequestMapping(value = PathConstants.PLANS, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 public class PlansController {
 
-    @Autowired
-    private PlansService plansService;
+    private final PlansService plansService;
 
-    @PostMapping(value = "", consumes = "application/json;charset=UTF-8")
-    public ResponseEntity<List<VmPlanResponse>> get(@RequestBody VmPlanRequest request) {
-        return new ResponseEntity<>(plansService.getSection(
-                request.getPlanSectionID().getSection(),
-                request.getKeyword(),
-                PageRequest.of(request.getPage()-1, request.getLimit())),
-                HttpStatus.OK
-        );
+    public PlansController(PlansService plansService) {
+        this.plansService = plansService;
     }
 
-    @PostMapping(value = "/sections", consumes = "application/json;charset=UTF-8")
-    public ResponseEntity<List<VmPlanSectionsResponse>> getPlanSections(@RequestBody VmPlanSectionRequest request) {
-        return new ResponseEntity<>(plansService.getSections(
+    @PostMapping
+    public List<VmPlanResponse> get(@RequestBody VmPlanRequest request) {
+        return plansService.getSection(
+                request.getPlanSectionID().getSection(),
+                request.getKeyword(),
+                PageRequest.of(request.getPage() - 1, request.getLimit()));
+    }
+
+    @PostMapping("/sections")
+    public List<VmPlanSectionsResponse> getPlanSections(@RequestBody VmPlanSectionRequest request) {
+        return plansService.getSections(
                 request.getStartDate(),
-                request.getFinishDate()),
-                HttpStatus.OK
-        );
+                request.getFinishDate());
     }
 
     @GetMapping("/info")
-    public ResponseEntity<VmPlanInfoResponse> getPlanInfo(@RequestParam Integer id) {
-        return new ResponseEntity<>(plansService.getInfo(id), HttpStatus.OK);
+    public VmPlanInfoResponse getPlanInfo(@RequestParam Integer id) {
+        return plansService.getInfo(id);
     }
 
     @GetMapping("/workers")
-    public ResponseEntity<VmPlanWorkersResponse> getPlanWorkers(@RequestParam Integer id) {
-        return new ResponseEntity<>(plansService.getWorkers(id), HttpStatus.OK);
+    public VmPlanWorkersResponse getPlanWorkers(@RequestParam Integer id) {
+        return plansService.getWorkers(id);
     }
 
     @GetMapping("/history")
-    public ResponseEntity<VmPlanHistoryResponse> getPlanHistory(@RequestParam Integer id) {
-        return new ResponseEntity<>(null, HttpStatus.NOT_IMPLEMENTED);
+    @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
+    public VmPlanHistoryResponse getPlanHistory(@RequestParam Integer id) {
+        return null;
     }
 
     @GetMapping("/descriptions")
-    public ResponseEntity<List<VmPlanDescriptionResponse>> getPlanDescriptions(@RequestParam Integer id) {
-        return new ResponseEntity<>(plansService.getDescriptions(id), HttpStatus.OK);
+    public List<VmPlanDescriptionResponse> getPlanDescriptions(@RequestParam Integer id) {
+        return plansService.getDescriptions(id);
     }
 }

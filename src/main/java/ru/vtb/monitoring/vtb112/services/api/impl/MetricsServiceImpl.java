@@ -1,6 +1,5 @@
 package ru.vtb.monitoring.vtb112.services.api.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -22,8 +21,11 @@ import java.util.List;
 @Service
 public class MetricsServiceImpl implements MetricsService {
 
-    @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    public MetricsServiceImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    }
 
     @Override
     public VmMetricsResponse[] getMetrics(VmMetricsRequest vmMetricsRequet) {
@@ -55,7 +57,7 @@ public class MetricsServiceImpl implements MetricsService {
                 .addValue("offset", vmMetricsRequet.getPage() * vmMetricsRequet.getLimit());
 
         List<VmMetricsResponse> result = namedParameterJdbcTemplate.query(
-                allMetricsQry, sqlParameterSource, (rs, rowNum) -> toMerticsResponse(rs));
+                allMetricsQry, sqlParameterSource, (rs, rowNum) -> toMetricsResponse(rs));
 
         return result.toArray(new VmMetricsResponse[0]);
     }
@@ -98,7 +100,7 @@ public class MetricsServiceImpl implements MetricsService {
                 .build();
     }
 
-    private VmMetricsResponse toMerticsResponse(ResultSet rs) throws SQLException {
+    private VmMetricsResponse toMetricsResponse(ResultSet rs) throws SQLException {
         return VmMetricsResponse
                 .builder()
                 .id(rs.getString("id"))

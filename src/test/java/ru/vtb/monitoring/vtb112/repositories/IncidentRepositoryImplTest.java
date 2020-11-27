@@ -16,7 +16,7 @@ import java.util.Collections;
 
 @SpringBootTest
 @Testcontainers(disabledWithoutDocker = true)
-public class IncidentRepositoryImplTest extends PostgreSQL {
+class IncidentRepositoryImplTest extends PostgreSQL {
 
     @Autowired
     private IncidentRepository incidentRepository;
@@ -44,7 +44,6 @@ public class IncidentRepositoryImplTest extends PostgreSQL {
 
         Assert.assertEquals("Изменение в описании", description);
         Assert.assertNotNull(newIncident);
-
     }
 
     @NotNull
@@ -56,5 +55,4 @@ public class IncidentRepositoryImplTest extends PostgreSQL {
         incident.setCreatedAt(ZonedDateTime.now());
         return incident;
     }
-
 }

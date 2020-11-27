@@ -32,9 +32,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @Testcontainers(disabledWithoutDocker = true)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class PlansControllerTest extends PostgreSQL {
+class PlansControllerTest extends PostgreSQL {
 
-    private static final String API_URL = "/api/v1.0/plans/";
     private static final String JSON_RESOURCES = "src/test/resources/json/plans";
 
     @Autowired
@@ -56,7 +55,7 @@ public class PlansControllerTest extends PostgreSQL {
                 .keyword("Измен")
                 .build();
         mockMvc.perform(MockMvcRequestBuilders
-                .post(API_URL)
+                .post(PathConstants.PLANS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(objectMapper.writeValueAsString(request)))
@@ -73,7 +72,7 @@ public class PlansControllerTest extends PostgreSQL {
                 .finishDate(ZonedDateTime.parse("2020-11-21T19:00:00.00000+03:00"))
                 .build();
         mockMvc.perform(MockMvcRequestBuilders
-                .post(API_URL+"sections")
+                .post(PathConstants.PLANS + "/sections")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(objectMapper.writeValueAsString(request)))
@@ -85,9 +84,9 @@ public class PlansControllerTest extends PostgreSQL {
     @Test
     void testPlansInfo() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                .get(API_URL+"info")
+                .get(PathConstants.PLANS + "/info")
                 .param("id", "1")
-                .contentType(MediaType.ALL))
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(getJson("info.json")));
@@ -96,9 +95,9 @@ public class PlansControllerTest extends PostgreSQL {
     @Test
     void testPlansWorkers() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                .get(API_URL+"workers")
+                .get(PathConstants.PLANS + "/workers")
                 .param("id", "3")
-                .contentType(MediaType.ALL)
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding("UTF-8"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -109,9 +108,9 @@ public class PlansControllerTest extends PostgreSQL {
     @Test
     void testPlansHistory() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                .get(API_URL+"history")
+                .get(PathConstants.PLANS + "/history")
                 .param("id", "100")
-                .contentType(MediaType.ALL))
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
                 .andExpect(status().is5xxServerError());
     }
@@ -119,9 +118,9 @@ public class PlansControllerTest extends PostgreSQL {
     @Test
     void testPlansDescriptions() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                .get(API_URL+"descriptions")
+                .get(PathConstants.PLANS + "/descriptions")
                 .param("id", "2")
-                .contentType(MediaType.ALL))
+                .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0]['name'])").value("Подробное описание"));

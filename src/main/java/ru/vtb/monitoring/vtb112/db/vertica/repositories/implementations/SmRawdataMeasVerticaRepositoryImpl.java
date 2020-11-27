@@ -18,17 +18,18 @@ import java.util.List;
 
 @Repository
 public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaRepository {
-    private VerticaConnection verticaConnection;
-    private DateFormatterHelper dateFormatterHelper;
+    private final VerticaConnection verticaConnection;
+    private final DateFormatterHelper dateFormatterHelper;
 
     @Autowired
     public SmRawdataMeasVerticaRepositoryImpl(VerticaConnection verticaConnection, DateFormatterHelper dateFormatterHelper) {
         this.verticaConnection = verticaConnection;
         this.dateFormatterHelper = dateFormatterHelper;
     }
+
     @Override
     public List<SmRawdataMeasVertica> getSmRawdataMeasVertica(Updates lastUpdate) throws SQLException {
-        List<SmRawdataMeasVertica> smRawdataMeasesVertica = new ArrayList<SmRawdataMeasVertica>();
+        List<SmRawdataMeasVertica> smRawdataMeasesVertica = new ArrayList<>();
 
         Statement stmt = verticaConnection.getConnection().createStatement();
         Timestamp timestamp = Timestamp.from(lastUpdate.getUpdateTime().toInstant());
@@ -37,7 +38,7 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
                     raw_connection_id, raw_category_id, raw_threshold_quality, dbdate, meas_value
                     from bsm_replica.SM_RAWDATA_MEAS
                     where status_id = 0 and time_stamp > '%s'
-                """, new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(timestamp).toString());
+                """, new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(timestamp));
         ResultSet rs = stmt.executeQuery(query);
         while (rs.next()) {
             SmRawdataMeasVertica smRawdataMeasVertica = new SmRawdataMeasVertica();

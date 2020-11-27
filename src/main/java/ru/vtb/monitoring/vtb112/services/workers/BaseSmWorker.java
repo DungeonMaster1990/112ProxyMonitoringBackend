@@ -20,28 +20,29 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
-public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U extends BaseSmModel> {
+public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U extends BaseSmModel> {
 
-    private AppConfig appConfig;
-    private SmRepository<U> repository;
-    private UpdatesRepository updatesRepository;
-    private ModelMapper modelMapper;
+    private final SmRepository<U> repository;
+    private final UpdatesRepository updatesRepository;
+    private final ModelMapper modelMapper;
 
-    private Class<TT> vmModelWrapperType;
-    private Class<U> dbModelClassType;
-    private String workerName;
-    private String url;
+    private final RestTemplate restTemplate;
 
-    public BaseSmWorker(
-            AppConfig appConfig,
-            SmRepository<U> repository,
-            ModelMapper modelMapper,
-            UpdatesRepository updatesRepository,
-            Class<TT> vmModelWrapperType,
-            Class<U> dbModelClassType,
-            String workerName,
-            String requestString){
-        this.appConfig = appConfig;
+    private final Class<K> vmModelWrapperType;
+    private final Class<U> dbModelClassType;
+    private final String workerName;
+    private final String url;
+    private final String smPort;
+
+
+    public BaseSmWorker(AppConfig appConfig,
+                        SmRepository<U> repository,
+                        ModelMapper modelMapper,
+                        UpdatesRepository updatesRepository,
+                        Class<K> vmModelWrapperType,
+                        Class<U> dbModelClassType,
+                        String workerName,
+                        String requestString) {
         this.modelMapper = modelMapper;
         this.repository = repository;
         this.updatesRepository = updatesRepository;
@@ -49,37 +50,45 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
         this.dbModelClassType = dbModelClassType;
         this.workerName = workerName;
         this.url = requestString;
+        this.restTemplate = buildRestTemplate(appConfig.getSmUserLoginPass());
+        this.smPort = appConfig.getSmPort();
+    }
+
+    private static RestTemplate buildRestTemplate(String smUserLoginPass) {
+        String loginBasicEncoded = Base64.getEncoder().encodeToString(smUserLoginPass.getBytes());
+
+        return new RestTemplateBuilder(rt -> rt.getInterceptors().add((request, body, execution) -> {
+            request.getHeaders().add("Authorization", "Basic  " + loginBasicEncoded);
+            return execution.execute(request, body);
+        })).build();
     }
 
     protected void process() {
         Updates update;
-        ResponseEntity<TT> response;
+        ResponseEntity<K> response;
 
         try {
-            RestTemplate restTemplate = buildRestTemplate();
             update = updatesRepository.getUpdateEntityByServiceName(workerName);
-
             Map<String, Object> request = new HashMap<>();
-            if (!Strings.isNullOrEmpty(appConfig.getSmPort())){
-                request.put("serverPort", appConfig.getSmPort());
+            if (!Strings.isNullOrEmpty(smPort)){
+                request.put("serverPort", smPort);
             }
-
             request.put("view", "expand");
             request.put("query",getQueryString(update));
-
             response = restTemplate.getForEntity(url, vmModelWrapperType, request);
-        }
-        catch(Exception exception){
+        } catch (Exception exception) {
             log.error("Ошибка при передаче инцидента на сервис отправки уведомлений.", exception);
             return;
         }
 
-        if (!response.getStatusCode().is2xxSuccessful() || response.getBody() == null || response.getBody().getReturnCode() > 0){
-            log.error(String.format("The SM service: %s returns response: %s", workerName, response.toString()));;
+        K body = response.getBody();
+
+        if (body == null || !response.getStatusCode().is2xxSuccessful() || body.getReturnCode() > 0) {
+            log.error(String.format("The SM service: %s returns response: %s", workerName, response.toString()));
             return;
         }
 
-        List<T> resultBody = Arrays.stream(response.getBody().getContent())
+        List<T> resultBody = Arrays.stream(body.getContent())
                 .map(VmModelWrapper::getModel)
                 .collect(Collectors.toList());
 
@@ -93,25 +102,13 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
         updatesRepository.putUpdate(update);
     }
 
-    private RestTemplate buildRestTemplate(){
-        String loginBasicEncoded = Base64.getEncoder().encodeToString(appConfig.getSmUserLoginPass().getBytes());
-
-        RestTemplate restTemplate = new RestTemplateBuilder(rt -> rt.getInterceptors().add((request, body, execution) -> {
-            request.getHeaders().add("Authorization", "Basic  " + loginBasicEncoded);
-            return execution.execute(request, body);
-        })).build();
-
-        return restTemplate;
-    }
-
-    private String getQueryString(Updates update){
+    private String getQueryString(Updates update) {
         String dateTimeString = update.getUpdateTime().toString();
         String queryString = String.format("UpdatedAt>'%s'", dateTimeString);
-        String result = UriEncoder.encode(queryString);
-        return result;
+        return UriEncoder.encode(queryString);
     }
 
-    <SS, TT> List<TT> mapList(List<SS> source, Class<TT> targetClass) {
+    private List<U> mapList(List<T> source, Class<U> targetClass) {
         return source.stream()
                 .map(element -> modelMapper.map(element, targetClass))
                 .collect(Collectors.toList());

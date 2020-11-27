@@ -2,8 +2,7 @@ package ru.vtb.monitoring.vtb112.services.workers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -26,19 +25,22 @@ import static org.springframework.util.CollectionUtils.isEmpty;
 @Component
 @Slf4j
 public class NotificationsSender {
-    @Autowired
-    AppConfig appConfig;
 
-    @Autowired
-    private IncidentRepository vtbIncidentsRepository;
+    private final AppConfig appConfig;
+    private final IncidentRepository vtbIncidentsRepository;
+    private final PushTokenRepository pushTokenRepository;
+    private final RestTemplate restTemplate;
 
-    @Autowired
-    private PushTokenRepository pushTokenRepository;
+    private final List<String> supportedPriorities = Arrays.asList("1","2");;
 
-    private List<String> supportedPriorities;
-
-    public NotificationsSender(){
-        supportedPriorities = Arrays.asList("1","2");
+    public NotificationsSender(AppConfig appConfig,
+                               IncidentRepository vtbIncidentsRepository,
+                               PushTokenRepository pushTokenRepository,
+                               RestTemplateBuilder restTemplateBuilder) {
+        this.appConfig = appConfig;
+        this.vtbIncidentsRepository = vtbIncidentsRepository;
+        this.pushTokenRepository = pushTokenRepository;
+        this.restTemplate = restTemplateBuilder.build();
     }
 
     @Scheduled(fixedRateString = "${notificationsender.scheduler.fixedrate}")
@@ -49,27 +51,23 @@ public class NotificationsSender {
             return;
         }
         //log.debug("Обнаружено {} новых инцидентов для отправки.", incidents.size());
-        RestTemplate restTemplate = new RestTemplate();
         try {
             // TODO отправлять все аварии в одном вызове?
             incidents.stream()
                     .filter(incident -> supportedPriorities.contains(incident.getPriority()))
-                    .forEach(i -> sendNotificationsForIncident(restTemplate, i));
-
+                    .forEach(this::sendNotificationsForIncident);
             var ids = incidents.stream().map(Incident::getId).collect(toSet());
             vtbIncidentsRepository.markAsNotificationSent(ids);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.error("Ошибка при передаче инцидента на сервис отправки уведомлений.", e);
         }
     }
 
-    private void sendNotificationsForIncident(RestTemplate restTemplate, Incident i) {
+    private void sendNotificationsForIncident(Incident i) {
         Map<String, Object> request = Map.of(
                 "accident", buildAccidentInfo(i),
                 "targets", buildTargets(pushTokenRepository.findAll()));
-
-        ResponseEntity<Void> result = restTemplate.postForEntity(appConfig.getPusherUrl(), request, Void.class);
+        restTemplate.postForEntity(appConfig.getPusherUrl(), request, Void.class);
     }
 
     @NotNull

@@ -8,7 +8,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Testcontainers(disabledWithoutDocker = true)
 public class PostgreSQL {
 
-    static final PostgreSQLContainer postgreSQLContainer;
+    private static final PostgreSQLContainer<?> postgreSQLContainer;
 
     static {
         postgreSQLContainer = new PostgreSQLContainer<>("postgres:12-alpine")

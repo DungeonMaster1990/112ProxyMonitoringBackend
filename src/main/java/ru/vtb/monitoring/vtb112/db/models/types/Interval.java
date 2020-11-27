@@ -15,7 +15,7 @@ import java.util.Date;
 
 public class Interval implements UserType {
 
-    private static final int[] SQL_TYPES = { Types.OTHER };
+    private static final int[] SQL_TYPES = {Types.OTHER};
 
     @Override
     public int[] sqlTypes() {
@@ -50,7 +50,7 @@ public class Interval implements UserType {
         return (int) epoch.getTime() / 1000;
     }
 
-    public static String getInterval(int value){
+    public static String getInterval(int value) {
         return new PGInterval(0, 0, 0, 0, 0, value).getValue();
     }
 
@@ -80,14 +80,12 @@ public class Interval implements UserType {
     }
 
     @Override
-    public Object assemble(Serializable cached, Object owner)
-            throws HibernateException {
+    public Object assemble(Serializable cached, Object owner) throws HibernateException {
         return cached;
     }
 
     @Override
-    public Object replace(Object original, Object target, Object owner)
-            throws HibernateException {
+    public Object replace(Object original, Object target, Object owner) throws HibernateException {
         return original;
     }
 

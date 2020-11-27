@@ -1,5 +1,6 @@
 package ru.vtb.monitoring.vtb112.db.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,20 +19,20 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
-@Table(name="incidents", schema = "monitoring")
 @NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "incidents", schema = "monitoring")
 public class Incident implements BaseSmModel {
 
     @Id
     @GenericGenerator(
             name = "incidentIdGenerator",
-            strategy = "sequence-identity",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
-                    @Parameter(name = "sequence",
-                               value = "monitoring.incidents_id_seq")
+                    @Parameter(name = "sequence_name", value = "monitoring.incidents_id_seq")
             }
     )
-    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "incidentIdGenerator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "incidentIdGenerator")
     private Integer id;
 
     @Column(name = "incident_id", nullable = false)
@@ -140,7 +141,7 @@ public class Incident implements BaseSmModel {
     @Column(name = "notification_sent")
     private Boolean notificationSent;
 
-    @OneToMany(mappedBy = "incident", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "incident", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<AffectedSystem> affectedSystems = new ArrayList<>();
 
     public void addToAffectedSystem(AffectedSystem affectedSystem) {

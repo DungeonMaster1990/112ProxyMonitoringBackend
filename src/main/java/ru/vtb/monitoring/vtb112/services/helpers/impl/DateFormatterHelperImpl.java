@@ -11,6 +11,6 @@ import java.time.ZonedDateTime;
 public class DateFormatterHelperImpl implements DateFormatterHelper {
     @Override
     public ZonedDateTime dbDateToZonedDate(Timestamp dbDate) {
-        return  ZonedDateTime.ofInstant(dbDate.toInstant(), ZoneId.of("UTC"));
+        return ZonedDateTime.ofInstant(dbDate.toInstant(), ZoneId.of("UTC"));
     }
 }

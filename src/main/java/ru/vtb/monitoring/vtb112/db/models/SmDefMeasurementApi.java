@@ -18,11 +18,9 @@ public class SmDefMeasurementApi {
     @Id
     @GenericGenerator(
             name = "measurementsSeq",
-            strategy = "sequence-identity",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
             parameters = {
-                    @Parameter(
-                            name = "sequence",
-                            value = "monitoring.sm_def_measurements_id_seq")
+                    @Parameter(name = "sequence_name", value = "monitoring.sm_def_measurements_id_seq")
             }
     )
     @GeneratedValue(generator = "measurementsSeq")

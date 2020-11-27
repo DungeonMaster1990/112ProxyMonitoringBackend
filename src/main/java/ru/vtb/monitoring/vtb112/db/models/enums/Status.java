@@ -1,28 +1,31 @@
 package ru.vtb.monitoring.vtb112.db.models.enums;
 
 import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public enum Status {
 
-    assigned("Назначено"),
-    in_process("В работе"),
-    documenting("Документирование"),
-    completed("Завершено");
+    ASSIGNED("Назначено"),
+    IN_PROCESS("В работе"),
+    DOCUMENTING("Документирование"),
+    COMPLETED("Завершено");
 
-    private final String status;
+    private static final Map<String, Status> LOOKUP = Arrays.stream(Status.values()).collect(Collectors.toMap(
+            Status::getText, status -> status
+    ));
 
-    Status(String status) {
-        this.status = status;
-    }
+    private final String text;
 
-    public String getStatus() {
-        return status;
+    Status(String text) {
+        this.text = text;
     }
 
     public static Status getStatusByString(String status) {
-        return Arrays.stream(Status.values())
-                .filter(s -> s.status.equals(status))
-                .findFirst()
-                .orElse(null);
+        return LOOKUP.get(status);
+    }
+
+    public String getText() {
+        return text;
     }
 }
