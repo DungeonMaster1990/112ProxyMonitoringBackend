@@ -1,6 +1,6 @@
 #DB: p0iapp-db4001lv.vtb24.ru
 1. Создание пользователя DB:
-CREATE USER iapp WITH encrypted password 'iapp';
+CREATE USER iapp WITH encrypted password '(TBD)';
 2. Создание базы:
 CREATE DATABASE iapp OWNER iapp ENCODING 'UTF8' LC_COLLATE='ru_RU.utf8' LC_CTYPE='ru_RU.utf8';
 3. Настройка pg_hba.conf:
@@ -30,9 +30,9 @@ host    all             all             10.64.123.214/32            scram-sha-25
 1. Установить JDK 15 с https://jdk.java.net/15/ в C:\Program Files\Java\jdk-15.0.1\
 2. Создать переменные окружения:
 	set JAVA_HOME=C:\Program Files\Java\jdk-15.0.1\ (если еще нет)
-	set POSTGRES_PASSWORD=iapp
-	set VERTICA_PASSWORD=User!12
-	set SM_PASSWORD=Password!1
+	set POSTGRES_PASSWORD=(TBD)
+	set VERTICA_PASSWORD=(TBD)
+	set SM_PASSWORD=(TBD)
 4. Добавать в PATH %JAVA_HOME%\bin (если еще нет)
 5. Скачать архив по ссылке (TBD)
 6. Разархивировать архив в корень диска С (при необходимости можно разместить в другое место. В этом случае соответствующе изменить пути в следующах пунктах)
