@@ -25,5 +25,5 @@ public interface IncidentRepositoryCustom extends SmRepository<Incident> {
 
     void markAsNotificationSent(Set<Integer> incidentsIds);
 
-    List<Incident> allByCriteria(List<Integer> categories, List<String> affectedSystems, ZonedDateTime startDate, String keyword, Pageable paging);
+    List<Incident> allByCriteria(List<String> categories, List<String> affectedSystems, ZonedDateTime startDate, String keyword, Pageable paging);
 }

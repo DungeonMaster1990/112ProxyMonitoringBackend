@@ -133,7 +133,7 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
         incidentRepository.saveAll(incidents);
     }
 
-    public List<Incident> allByCriteria(List<Integer> categories,
+    public List<Incident> allByCriteria(List<String> categories,
                                         List<String> affectedSystems,
                                         ZonedDateTime startDate,
                                         String keyword,
@@ -154,7 +154,7 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
             predicates.add(cb.like(from.get("incidentId"), "%" + keyword + "%"));
         }
 
-        var categoryPredicate = cb.in(from.get("category"));
+        var categoryPredicate = cb.in(from.get("priority"));
         for (var category : categories){
             categoryPredicate.value(category);
         }

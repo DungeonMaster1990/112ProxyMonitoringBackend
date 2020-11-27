@@ -70,7 +70,7 @@ class AccidentsControllerTest extends PostgreSQL {
         List<VmAccidentResponse> response = objectMapper.readValue(result.getResponse().getContentAsString(),
                 objectMapper.getTypeFactory().constructCollectionType(List.class, VmAccidentResponse.class));
 
-        Assert.assertEquals(3, response.size());
+        Assert.assertEquals(1, response.size());
     }
 
     @Test

@@ -1,5 +1,7 @@
 package ru.vtb.monitoring.vtb112.services.workers;
 
+import antlr.StringUtils;
+import com.google.common.base.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -30,6 +32,8 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
     private final Class<U> dbModelClassType;
     private final String workerName;
     private final String url;
+    private final String smPort;
+
 
     public BaseSmWorker(AppConfig appConfig,
                         SmRepository<U> repository,
@@ -47,6 +51,7 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
         this.workerName = workerName;
         this.url = requestString;
         this.restTemplate = buildRestTemplate(appConfig.getSmUserLoginPass());
+        this.smPort = appConfig.getSmPort();
     }
 
     private static RestTemplate buildRestTemplate(String smUserLoginPass) {
@@ -64,9 +69,12 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
 
         try {
             update = updatesRepository.getUpdateEntityByServiceName(workerName);
-            Map<String, Object> request = Map.of(
-                    "view", "expand",
-                    "query", getQueryString(update));
+            Map<String, Object> request = new HashMap<>();
+            if (!Strings.isNullOrEmpty(smPort)){
+                request.put("serverPort", smPort);
+            }
+            request.put("view", "expand");
+            request.put("query",getQueryString(update));
             response = restTemplate.getForEntity(url, vmModelWrapperType, request);
         } catch (Exception exception) {
             log.error("Ошибка при передаче инцидента на сервис отправки уведомлений.", exception);

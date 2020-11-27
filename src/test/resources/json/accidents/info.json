@@ -1,7 +1,7 @@
 {
   "id":"5",
   "name":"Инцидент А_5",
-  "category":0,
+  "category":3,
   "configurationUnit":"М-Банк",
   "affectedSystems":[
     "Платежи","Переводы"

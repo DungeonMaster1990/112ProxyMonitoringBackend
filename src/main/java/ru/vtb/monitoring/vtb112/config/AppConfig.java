@@ -41,6 +41,9 @@ public class AppConfig implements WebMvcConfigurer {
     private String smLogin;
     @Value("${sm.password}")
     private String smPassword;
+    @Getter
+    @Value("${sm.port:}")
+    private String smPort;
 
     public String getSmIncidentUrl() {
         return this.baseSmUrl + this.smIncidentMethod;
