@@ -29,7 +29,7 @@ public class IncidentServiceImpl implements IncidentService {
     @Transactional
     public List<VmAccidentResponse> getAccidents(VmAccidentsRequest request) {
         var paging = PageRequest.of(request.getPage(), request.getLimit());
-        var supportedCategories = Arrays.asList(1, 2);
+        var supportedCategories = Arrays.asList("1", "2");
         return incidentDAO.allByCriteria(supportedCategories,
                 request.getAffectedSystems(),
                 request.getStartDate(),
@@ -39,7 +39,7 @@ public class IncidentServiceImpl implements IncidentService {
                 .map(incident -> new VmAccidentResponse(
                         incident.getId().toString(),
                         incident.getIncidentId(),
-                        incident.getCategory() == null ? 0 : incident.getCategory(),
+                        incident.getPriority() == null ? 0 : Integer.parseInt(incident.getPriority()),
                         IncidentStatusConverter.convertToStatus(
                                 incident.getStatus(),
                                 incident.getFactEndAt(),
@@ -71,7 +71,7 @@ public class IncidentServiceImpl implements IncidentService {
                 .map(incident -> new VmAccidentInfoResponse(
                         incident.getId().toString(),
                         incident.getIncidentId(),
-                        incident.getCategory() == null ? 0 : incident.getCategory(),
+                        incident.getPriority() == null ? 0 : Integer.parseInt(incident.getPriority()),
                         IncidentStatusConverter.convertToStatus(
                                 incident.getStatus(),
                                 incident.getFactEndAt(),

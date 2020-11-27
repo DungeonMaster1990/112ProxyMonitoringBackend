@@ -27,16 +27,16 @@ import java.sql.Statement;
 @AutoConfigureMockMvc
 @Testcontainers(disabledWithoutDocker = true)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class VerticaWorkerTest extends PostgreSQL {
+class VerticaWorkerTest extends PostgreSQL {
 
     @Autowired
-    VerticaWorker verticaWorker;
+    private VerticaWorker verticaWorker;
 
     @Autowired
-    VerticaConnection verticaConnection;
+    private VerticaConnection verticaConnection;
 
     @Autowired
-    MetricsRepository metricsRepository;
+    private MetricsRepository metricsRepository;
 
     @DynamicPropertySource
     static void setUpVertica(DynamicPropertyRegistry registry) {
@@ -51,15 +51,16 @@ public class VerticaWorkerTest extends PostgreSQL {
     }
 
     @Test
-    public void testTakeSmDefMeasurementVertica() {
+    void testTakeSmDefMeasurementVertica() {
         Assert.assertFalse(metricsRepository.findById(2).map(Metrics::isMerged).orElse(true));
         verticaWorker.takeSmDefMeasurementVertica();
         Assert.assertTrue(metricsRepository.findById(2).map(Metrics::isMerged).orElse(false));
     }
 
     @Test
-    public void testTakeSmRawDataMeasVertica() {
+    void testTakeSmRawDataMeasVertica() {
         verticaWorker.takeSmRawdataMeasVertica();
+        // TODO add assertions
     }
 
     @NotNull

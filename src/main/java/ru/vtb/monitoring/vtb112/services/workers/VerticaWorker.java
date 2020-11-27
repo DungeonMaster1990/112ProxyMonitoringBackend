@@ -54,7 +54,7 @@ public class VerticaWorker {
                     .stream()
                     .filter(m -> !m.isMerged())
                     .collect(Collectors.toList());
-            if (metrics.isEmpty()) {
+            if (!metrics.isEmpty()) {
                 List<SmDefMeasurementVertica> smDefMeasurementVerticaList =
                         smDefMeasurementVerticaRepository.getSmDefMeasurements(metrics);
 
@@ -66,13 +66,13 @@ public class VerticaWorker {
 
                 smDefMeasurementApiRepository.saveAll(smDefMeasurementApiList);
 
-                    for (Metrics metric : metrics) {
-                        metric.setMerged(true);
-                    }
-                    metricsRepository.saveAll(metrics);
+                for (Metrics metric : metrics) {
+                    metric.setMerged(true);
                 }
-            } catch(SQLException sqlException){
-                log.error("Произошла ошибка при попытке выгрузки данных из Vertic-и из таблицы SmDefMeasurements", sqlException);
+                metricsRepository.saveAll(metrics);
+            }
+        } catch (SQLException sqlException) {
+            log.error("Произошла ошибка при попытке выгрузки данных из Vertic-и из таблицы SmDefMeasurements", sqlException);
         }
     }
 
@@ -97,7 +97,7 @@ public class VerticaWorker {
                     .ifPresent(update::setUpdateTime);
 
             updatesRepository.putUpdate(update);
-        } catch (SQLException sqlException){
+        } catch (SQLException sqlException) {
             log.error("Произошла ошибка при попытке выгрузки данных из Vertic-и из таблицы SmRawdataMeas", sqlException);
         }
     }
