@@ -56,10 +56,8 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
 
     private RestTemplate buildRestTemplate(AppConfig appConfig,
                                            HttpComponentsClientHttpRequestFactory httpRequestFactory) {
-        String loginBasicEncoded = Base64.getEncoder().encodeToString(appConfig.getSmLogin().getBytes());
-        String smPasswordEncoded = Base64.getEncoder().encodeToString(appConfig.getSmPassword().getBytes());
         RestTemplate rt = new RestTemplate(httpRequestFactory);
-        rt.getInterceptors().add(new BasicAuthenticationInterceptor(loginBasicEncoded, smPasswordEncoded));
+        rt.getInterceptors().add(new BasicAuthenticationInterceptor(appConfig.getSmLogin(), appConfig.getSmPassword()));
         return rt;
     }
 
