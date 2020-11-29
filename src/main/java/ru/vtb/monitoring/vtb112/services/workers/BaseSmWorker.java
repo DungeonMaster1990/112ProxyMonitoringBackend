@@ -84,7 +84,7 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
 
             response = restTemplate.getForEntity(url, vmModelWrapperType, request);
 
-            log.trace("Load data for service: {}, updateTime: {}, response: {}",
+            log.debug("Load data for service: {}, updateTime: {}, response: {}",
                     workerName,
                     update.getUpdateTime().toInstant(),
                     response
