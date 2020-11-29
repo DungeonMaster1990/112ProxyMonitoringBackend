@@ -38,7 +38,7 @@ public class SmDefMeasurementVerticaRepositoryImpl implements SmDefMeasurementVe
         List<SmDefMeasurementVertica> smDefMeasurementsVertica = new ArrayList<>();
         Statement stmt = verticaConnection.getConnection().createStatement();
         String query = String.format("""
-                    select session_id, measurement_id, shed_id, category_id, monitor_id, target_id,
+                    select session_id, measurement_id, sched_id, category_id, monitor_id, target_id,
                     msname, msid, user_remark, connection_data, dm_connection_id, active, ci_id, eti_id, integration_name,
                     profile_id, creation_date, modified_date, is_deleted 
                     from bsm_replica.SM_DEF_MEASUREMENT
@@ -51,7 +51,7 @@ public class SmDefMeasurementVerticaRepositoryImpl implements SmDefMeasurementVe
             SmDefMeasurementVertica smDefMeasurementVertica = new SmDefMeasurementVertica();
             smDefMeasurementVertica.setSessionId(rs.getInt("session_id"));
             smDefMeasurementVertica.setMeasurementId(rs.getInt("measurement_id"));
-            smDefMeasurementVertica.setSchedId(rs.getInt("shed_id"));
+            smDefMeasurementVertica.setSchedId(rs.getInt("sched_id"));
             smDefMeasurementVertica.setCategoryId(rs.getInt("category_id"));
             smDefMeasurementVertica.setMonitorId(rs.getInt("monitor_id"));
             smDefMeasurementVertica.setTargetId(rs.getInt("target_id"));
