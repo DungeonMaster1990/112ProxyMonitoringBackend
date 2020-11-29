@@ -2,7 +2,7 @@ package ru.vtb.monitoring.vtb112.services.workers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
@@ -13,7 +13,6 @@ import ru.vtb.monitoring.vtb112.db.repositories.interfaces.IncidentRepository;
 import ru.vtb.monitoring.vtb112.db.repositories.interfaces.PushTokenRepository;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -36,11 +35,11 @@ public class NotificationsSender {
     public NotificationsSender(AppConfig appConfig,
                                IncidentRepository vtbIncidentsRepository,
                                PushTokenRepository pushTokenRepository,
-                               RestTemplateBuilder restTemplateBuilder) {
+                               HttpComponentsClientHttpRequestFactory requestFactory) {
         this.appConfig = appConfig;
         this.vtbIncidentsRepository = vtbIncidentsRepository;
         this.pushTokenRepository = pushTokenRepository;
-        this.restTemplate = restTemplateBuilder.build();
+        this.restTemplate = new RestTemplate(requestFactory);
     }
 
     @Scheduled(fixedRateString = "${notificationsender.scheduler.fixedrate}")

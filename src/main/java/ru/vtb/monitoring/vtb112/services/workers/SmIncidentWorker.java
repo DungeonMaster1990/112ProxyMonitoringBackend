@@ -2,6 +2,7 @@ package ru.vtb.monitoring.vtb112.services.workers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import ru.vtb.monitoring.vtb112.config.AppConfig;
@@ -18,7 +19,8 @@ public class SmIncidentWorker extends BaseSmWorker<VmSmIncident, VmIncidentWrapp
     private SmIncidentWorker(
             AppConfig appConfig,
             IncidentRepository incidentRepository,
-            UpdatesRepository updatesRepository)
+            UpdatesRepository updatesRepository,
+            HttpComponentsClientHttpRequestFactory httpRequestFactory)
     {
         super(appConfig,
                 incidentRepository,
@@ -27,7 +29,8 @@ public class SmIncidentWorker extends BaseSmWorker<VmSmIncident, VmIncidentWrapp
                 VmIncidentWrapper.class,
                 Incident.class,
                 "Incidents",
-                appConfig.getSmIncidentUrl());
+                appConfig.getSmIncidentUrl(),
+                httpRequestFactory);
     }
 
     @Scheduled(fixedRateString = "${sm.methods.incident.fixedrate}")

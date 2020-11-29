@@ -37,8 +37,10 @@ public class AppConfig implements WebMvcConfigurer {
     @Getter
     @Value("${notificationsender.incidents.lastDaysToProcess}")
     private long lastDaysToProcess;
+    @Getter
     @Value("${sm.login}")
     private String smLogin;
+    @Getter
     @Value("${sm.password}")
     private String smPassword;
     @Getter

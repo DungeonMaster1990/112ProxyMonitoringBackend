@@ -1,11 +1,11 @@
 package ru.vtb.monitoring.vtb112.services.workers;
 
-import antlr.StringUtils;
 import com.google.common.base.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.http.client.support.BasicAuthenticationInterceptor;
 import org.springframework.web.client.RestTemplate;
 import org.yaml.snakeyaml.util.UriEncoder;
 import ru.vtb.monitoring.vtb112.config.AppConfig;
@@ -34,7 +34,6 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
     private final String url;
     private final String smPort;
 
-
     public BaseSmWorker(AppConfig appConfig,
                         SmRepository<U> repository,
                         ModelMapper modelMapper,
@@ -42,7 +41,8 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
                         Class<K> vmModelWrapperType,
                         Class<U> dbModelClassType,
                         String workerName,
-                        String requestString) {
+                        String requestString,
+                        HttpComponentsClientHttpRequestFactory httpRequestFactory) {
         this.modelMapper = modelMapper;
         this.repository = repository;
         this.updatesRepository = updatesRepository;
@@ -50,17 +50,17 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
         this.dbModelClassType = dbModelClassType;
         this.workerName = workerName;
         this.url = requestString;
-        this.restTemplate = buildRestTemplate(appConfig.getSmUserLoginPass());
+        this.restTemplate = buildRestTemplate(appConfig, httpRequestFactory);
         this.smPort = appConfig.getSmPort();
     }
 
-    private static RestTemplate buildRestTemplate(String smUserLoginPass) {
-        String loginBasicEncoded = Base64.getEncoder().encodeToString(smUserLoginPass.getBytes());
-
-        return new RestTemplateBuilder(rt -> rt.getInterceptors().add((request, body, execution) -> {
-            request.getHeaders().add("Authorization", "Basic  " + loginBasicEncoded);
-            return execution.execute(request, body);
-        })).build();
+    private RestTemplate buildRestTemplate(AppConfig appConfig,
+                                           HttpComponentsClientHttpRequestFactory httpRequestFactory) {
+        String loginBasicEncoded = Base64.getEncoder().encodeToString(appConfig.getSmLogin().getBytes());
+        String smPasswordEncoded = Base64.getEncoder().encodeToString(appConfig.getSmPassword().getBytes());
+        RestTemplate rt = new RestTemplate(httpRequestFactory);
+        rt.getInterceptors().add(new BasicAuthenticationInterceptor(loginBasicEncoded, smPasswordEncoded));
+        return rt;
     }
 
     protected void process() {

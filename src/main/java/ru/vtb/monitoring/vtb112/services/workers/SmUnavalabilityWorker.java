@@ -2,6 +2,7 @@ package ru.vtb.monitoring.vtb112.services.workers;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import ru.vtb.monitoring.vtb112.config.AppConfig;
@@ -17,7 +18,8 @@ public class SmUnavalabilityWorker extends BaseSmWorker<VmSmUnavailability, VmUn
     private SmUnavalabilityWorker(
             AppConfig appConfig,
             UnavailabilitiesRepository unavailabilitiesRepository,
-            UpdatesRepository updatesRepository)
+            UpdatesRepository updatesRepository,
+            HttpComponentsClientHttpRequestFactory httpRequestFactory)
     {
         super(appConfig,
                 unavailabilitiesRepository,
@@ -26,7 +28,8 @@ public class SmUnavalabilityWorker extends BaseSmWorker<VmSmUnavailability, VmUn
                 VmUnavailabilityWrapper.class,
                 Unavailabilities.class,
                 "Unavalabilities",
-                appConfig.getSmUnavailabilityUrl());
+                appConfig.getSmUnavailabilityUrl(),
+                httpRequestFactory);
     }
 
     @Scheduled(fixedRateString = "${sm.methods.incident.fixedrate}")
