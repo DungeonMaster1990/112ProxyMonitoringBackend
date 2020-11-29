@@ -103,7 +103,7 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
     }
 
     private String getQueryString(Updates update) {
-        String dateTimeString = update.getUpdateTime().toString();
+        String dateTimeString = update.getUpdateTime().toInstant().toString();
         String queryString = String.format("UpdatedAt>'%s'", dateTimeString);
         return UriEncoder.encode(queryString);
     }
