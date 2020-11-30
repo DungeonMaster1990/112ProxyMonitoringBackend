@@ -2,6 +2,7 @@ package ru.vtb.monitoring.vtb112.services.workers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@ConditionalOnProperty(value = "vertica.scheduling.enabled", havingValue = "true", matchIfMissing = true)
 @Slf4j
 @Component
 public class VerticaWorker {
@@ -46,7 +48,7 @@ public class VerticaWorker {
         this.verticaMapper = verticaMapper;
     }
 
-    @Scheduled(fixedRate = 900000)
+    @Scheduled(fixedRateString = "${vertica.scheduler.fixedRate}")
     @Transactional
     public void takeSmDefMeasurementVertica() {
         try {
@@ -76,7 +78,7 @@ public class VerticaWorker {
         }
     }
 
-    @Scheduled(fixedRate = 900000)
+    @Scheduled(fixedRateString = "${vertica.scheduler.fixedRate}")
     @Transactional
     public void takeSmRawdataMeasVertica() {
         try {

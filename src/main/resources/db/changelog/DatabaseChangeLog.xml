@@ -3,19 +3,20 @@
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:pro="http://www.liquibase.org/xml/ns/pro"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog ./xsd/dbchangelog-4.1.xsd">
 
-    <changeSet  author="Shvykin Simon"  id="Init.sql" context="prod">
-		<sqlFile path="/db/changelog/migrations/Init.sql"/>
+    <changeSet author="Shvykin Simon" id="Init.sql" context="prod">
+        <sqlFile path="/db/changelog/migrations/Init.sql"/>
         <sqlFile path="/db/changelog/migrations/ITOPS-76_add_notif_sent_column.sql"/>
         <sqlFile path="/db/changelog/migrations/Vertica.sql"/>
         <sqlFile path="/db/changelog/migrations/Updates.sql"/>
         <sqlFile path="/db/changelog/migrations/Changes.sql"/>
         <sqlFile path="/db/changelog/migrations/InitialData.sql" endDelimiter=";;"/>
     </changeSet>
-    <changeSet  author="NMarkov"  id="test_data" context="test">
+    <changeSet author="NMarkov" id="test_data" context="test">
         <sqlFile path="/db/changelog/migrations/test/test_data.sql"/>
     </changeSet>
-	
+    <changeSet author="AStepchkov" id="UnavalabilitiesTypo" context="prod">
+        <sqlFile path="/db/changelog/migrations/UnavalabilitiesTypo.sql"/>
+    </changeSet>
 </databaseChangeLog>

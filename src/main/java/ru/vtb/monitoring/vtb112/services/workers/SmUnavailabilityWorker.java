@@ -1,6 +1,7 @@
 package ru.vtb.monitoring.vtb112.services.workers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import ru.vtb.monitoring.vtb112.config.AppConfig;
@@ -13,10 +14,11 @@ import ru.vtb.monitoring.vtb112.mappers.wrappers.UnavailabilityMapperWrapper;
 
 import javax.transaction.NotSupportedException;
 
+@ConditionalOnProperty(value = "sm.scheduling.enabled", havingValue = "true", matchIfMissing = true)
 @Component
-public class SmUnavalabilityWorker extends BaseSmWorker<VmSmUnavailability, VmUnavailabilityWrapper, Unavailabilities> {
+public class SmUnavailabilityWorker extends BaseSmWorker<VmSmUnavailability, VmUnavailabilityWrapper, Unavailabilities> {
     @Autowired
-    private SmUnavalabilityWorker(
+    private SmUnavailabilityWorker(
             AppConfig appConfig,
             UnavailabilitiesRepository unavailabilitiesRepository,
             UnavailabilityMapperWrapper unavailabilityMapperWrapper,
@@ -29,12 +31,12 @@ public class SmUnavalabilityWorker extends BaseSmWorker<VmSmUnavailability, VmUn
                 VmSmUnavailability.class,
                 VmUnavailabilityWrapper.class,
                 Unavailabilities.class,
-                "Unavalabilities",
+                "Unavailabilities",
                 appConfig.getSmUnavailabilityUrl());
     }
 
-    @Scheduled(fixedRateString = "${sm.methods.incident.fixedrate}")
-    public void loadUnavailabilitiesFromSm() throws NotSupportedException {
+    @Scheduled(fixedRateString = "${sm.scheduler.fixedRate}")
+    public void loadUnavailabilitiesFromSm()  throws NotSupportedException {
         process();
     }
 }

@@ -1,9 +1,7 @@
 package ru.vtb.monitoring.vtb112.services.workers;
 
-import antlr.StringUtils;
 import com.google.common.base.Strings;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -35,8 +33,8 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
     private String workerName;
     private String url;
     private final String smPort;
-
     private final RestTemplate restTemplate;
+
 
     public BaseSmWorker(AppConfig appConfig,
                         SmRepository<U> repository,
@@ -64,7 +62,7 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
         String loginBasicEncoded = Base64.getEncoder().encodeToString(smUserLoginPass.getBytes());
 
         return new RestTemplateBuilder(rt -> rt.getInterceptors().add((request, body, execution) -> {
-            request.getHeaders().add("Authorization", "Basic  " + loginBasicEncoded);
+            request.getHeaders().add("Authorization", "Basic " + loginBasicEncoded);
             return execution.execute(request, body);
         })).build();
     }
@@ -81,9 +79,23 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
             }
             request.put("view", "expand");
             request.put("query",getQueryString(update));
+
+            log.info("Try to load for service: {}, updateTime: {}, request: {}",
+                    workerName,
+                    update.getUpdateTime().toInstant(),
+                    request
+            );
+
             response = restTemplate.getForEntity(url, vmModelWrapperType, request);
+
+            log.debug("Load data for service: {}, updateTime: {}, response: {}",
+                    workerName,
+                    update.getUpdateTime().toInstant(),
+                    response
+            );
+
         } catch (Exception exception) {
-            log.error("Ошибка при передаче инцидента на сервис отправки уведомлений.", exception);
+            log.error("Exception during process in worker {}", workerName, exception);
             return;
         }
 
@@ -113,10 +125,15 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
 
         repository.putModels(models);
         updatesRepository.putUpdate(update);
+
+        log.info("Put data to db for service: {}, new updateTime: {}",
+                workerName,
+                update.getUpdateTime().toInstant()
+        );
     }
 
     private String getQueryString(Updates update) {
-        String dateTimeString = update.getUpdateTime().toString();
+        String dateTimeString = update.getUpdateTime().toInstant().toString();
         String queryString = String.format("UpdatedAt>'%s'", dateTimeString);
         return UriEncoder.encode(queryString);
     }

@@ -1,6 +1,7 @@
 package ru.vtb.monitoring.vtb112.services.workers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import ru.vtb.monitoring.vtb112.config.AppConfig;
@@ -13,6 +14,7 @@ import ru.vtb.monitoring.vtb112.mappers.wrappers.IncidentMapperWrapper;
 
 import javax.transaction.NotSupportedException;
 
+@ConditionalOnProperty(value = "sm.scheduling.enabled", havingValue = "true", matchIfMissing = true)
 @Component
 public class SmIncidentWorker extends BaseSmWorker<VmSmIncident, VmIncidentWrapper, Incident> {
 
@@ -34,7 +36,7 @@ public class SmIncidentWorker extends BaseSmWorker<VmSmIncident, VmIncidentWrapp
                 appConfig.getSmIncidentUrl());
     }
 
-    @Scheduled(fixedRateString = "${sm.methods.incident.fixedrate}")
+    @Scheduled(fixedRateString = "${sm.scheduler.fixedRate}")
     public void loadIncidentsFromSm() throws NotSupportedException {
         process();
     }
