@@ -5,22 +5,21 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.vtb.monitoring.vtb112.db.repositories.interfaces.PushTokenRepositoryCustom;
 import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmPushTokenRequest;
 import ru.vtb.monitoring.vtb112.services.api.interfaces.PushTokenService;
 
 @RestController
-@RequestMapping(value = PathConstants.PUSH_TOKEN, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = PathConstants.PUSH_TOKEN, produces = MediaType.APPLICATION_JSON_VALUE)
 public class PushToken {
 
-    private PushTokenService pushTokenService;
+    private final PushTokenService pushTokenService;
 
     @Autowired
     public PushToken(PushTokenService pushTokenService) {
         this.pushTokenService = pushTokenService;
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     public boolean pushTokenUpdate(VmPushTokenRequest vmPushTokenRequest){
         return pushTokenService.pushToken(vmPushTokenRequest);
     }

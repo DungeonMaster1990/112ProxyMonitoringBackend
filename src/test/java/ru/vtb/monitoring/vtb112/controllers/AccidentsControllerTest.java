@@ -60,7 +60,7 @@ class AccidentsControllerTest extends PostgreSQL {
                 .keyword("Инцид")
                 .build();
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                .post("/api/v1.0/accidents")
+                .post(PathConstants.ACCIDENTS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
                 .content(objectMapper.writeValueAsString(request)))

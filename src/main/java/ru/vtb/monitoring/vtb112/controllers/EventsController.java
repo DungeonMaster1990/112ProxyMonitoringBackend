@@ -11,7 +11,7 @@ import ru.vtb.monitoring.vtb112.mocks.VmMock;
 import ru.vtb.monitoring.vtb112.services.api.interfaces.EventsService;
 
 @RestController
-@RequestMapping(value = PathConstants.EVENTS, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = PathConstants.EVENTS, produces = MediaType.APPLICATION_JSON_VALUE)
 public class EventsController {
 
     private EventsService eventsService;
@@ -20,7 +20,7 @@ public class EventsController {
         this.eventsService = eventsService;
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public VmEventResponse[] get(@RequestBody VmEventRequest vmEventRequest) {
         return VmMock.vmEventResponse;
     }

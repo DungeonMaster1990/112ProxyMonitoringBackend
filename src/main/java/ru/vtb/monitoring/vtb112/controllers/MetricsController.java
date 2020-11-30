@@ -15,7 +15,7 @@ import ru.vtb.monitoring.vtb112.mocks.VmMock;
 import ru.vtb.monitoring.vtb112.services.api.interfaces.MetricsService;
 
 @RestController
-@RequestMapping(value = PathConstants.METRICS, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = PathConstants.METRICS, produces = MediaType.APPLICATION_JSON_VALUE)
 public class MetricsController {
 
     private final MetricsService metricsService;
@@ -25,18 +25,18 @@ public class MetricsController {
         this.metricsService = metricsService;
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public VmMetricsResponse[] get(@RequestBody VmMetricsRequest vmMetricsRequest) {
         return metricsService.getMetrics(vmMetricsRequest);
     }
 
-    @PostMapping("/update")
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
     public VmUpdateResponse updateMetrics(@RequestBody String[] vmUpdateRequest)
     {
         return VmMock.updateMetricsOrSystem;
     }
 
-    @PostMapping("/info")
+    @PostMapping(value = "/info", consumes = MediaType.APPLICATION_JSON_VALUE)
     public VmMetricInfoResponse[] getMetricInfo(@RequestBody VmMetricInfoRequest vmMetricInfoRequest) {
         return metricsService.getMetricsInfos(vmMetricInfoRequest);
     }
