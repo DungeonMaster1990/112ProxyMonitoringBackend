@@ -12,7 +12,7 @@ import ru.vtb.monitoring.vtb112.services.api.interfaces.PlansService;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = PathConstants.PLANS, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = PathConstants.PLANS, produces = MediaType.APPLICATION_JSON_VALUE)
 public class PlansController {
 
     private final PlansService plansService;
@@ -21,7 +21,7 @@ public class PlansController {
         this.plansService = plansService;
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<VmPlanResponse> get(@RequestBody VmPlanRequest request) {
         return plansService.getSection(
                 request.getPlanSectionID().getSection(),
@@ -29,7 +29,7 @@ public class PlansController {
                 PageRequest.of(request.getPage() - 1, request.getLimit()));
     }
 
-    @PostMapping("/sections")
+    @PostMapping(value = "/sections", consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<VmPlanSectionsResponse> getPlanSections(@RequestBody VmPlanSectionRequest request) {
         return plansService.getSections(
                 request.getStartDate(),

@@ -12,7 +12,7 @@ import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping(value = PathConstants.ACCIDENTS, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = PathConstants.ACCIDENTS, produces = MediaType.APPLICATION_JSON_VALUE)
 public class AccidentsController {
 
     private final IncidentService incidentService;
@@ -21,7 +21,7 @@ public class AccidentsController {
         this.incidentService = incidentService;
     }
 
-    @PostMapping
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<VmAccidentResponse> getAccidents(@RequestBody VmAccidentsRequest request) {
         return incidentService.getAccidents(request);
     }

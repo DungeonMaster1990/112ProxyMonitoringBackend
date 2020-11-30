@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.VmVersion;
 
 @RestController
-@RequestMapping(value = PathConstants.API_VERSION, produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = PathConstants.API_VERSION, produces = MediaType.APPLICATION_JSON_VALUE)
 public class VersionController {
 
     @GetMapping(value = "/checkVersion")
