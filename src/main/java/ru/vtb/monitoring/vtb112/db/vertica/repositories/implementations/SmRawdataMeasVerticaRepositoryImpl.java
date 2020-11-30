@@ -68,7 +68,6 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
                     smRawdataMeasesVertica.add(smRawdataMeasVertica);
                 } while (rs.next());
             }
-
         }
         return smRawdataMeasesVertica;
     }
