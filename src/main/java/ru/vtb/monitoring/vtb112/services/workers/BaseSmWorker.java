@@ -98,17 +98,18 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
             log.error("Exception during process in worker {}", workerName, exception);
             return;
         }
+        TT body = response.getBody();
 
-        if (!response.getStatusCode().is2xxSuccessful() || response.getBody() == null || response.getBody().getReturnCode() > 0) {
+        if (body == null || !response.getStatusCode().is2xxSuccessful() || body.getReturnCode() > 0) {
             log.error(String.format("The SM service: %s returns response: %s", workerName, response.toString()));
             return;
         }
 
-        List<T> resultBody = Arrays.stream(response.getBody().getContent())
+        List<T> result = Arrays.stream(response.getBody().getContent())
                 .map(VmModelWrapper::getModel)
                 .collect(Collectors.toList());
 
-        List<U> models = resultBody.stream()
+        List<U> models = result.stream()
                 .map(element -> {
                     try {
                         return smMapper.map(element, dbModelClassType, vmModelClassType);
