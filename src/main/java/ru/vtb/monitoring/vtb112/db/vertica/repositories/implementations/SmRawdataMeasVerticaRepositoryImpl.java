@@ -36,7 +36,7 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
 
         Statement stmt = verticaConnection.getConnection().createStatement();
         Timestamp timestamp = Timestamp.from(lastUpdate.getUpdateTime().toInstant());
-        Integer offset = 0;
+        int offset = 0;
         String query = """
                     select session_id, time_stamp, measurement_id, status_id, err_msg, raw_monitor_id, raw_target_id, 
                     raw_connection_id, raw_category_id, raw_threshold_quality, dbdate, meas_value
