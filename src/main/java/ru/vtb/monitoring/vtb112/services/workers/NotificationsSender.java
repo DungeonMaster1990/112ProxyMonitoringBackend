@@ -2,6 +2,7 @@ package ru.vtb.monitoring.vtb112.services.workers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -13,7 +14,6 @@ import ru.vtb.monitoring.vtb112.db.repositories.interfaces.IncidentRepository;
 import ru.vtb.monitoring.vtb112.db.repositories.interfaces.PushTokenRepository;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +22,7 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 import static org.springframework.util.CollectionUtils.isEmpty;
 
+@ConditionalOnProperty(value = "notificationSender.scheduling.enabled", havingValue = "true", matchIfMissing = true)
 @Component
 @Slf4j
 public class NotificationsSender {
@@ -31,7 +32,7 @@ public class NotificationsSender {
     private final PushTokenRepository pushTokenRepository;
     private final RestTemplate restTemplate;
 
-    private final List<String> supportedPriorities = Arrays.asList("1","2");;
+    private final List<String> supportedPriorities = Arrays.asList("1", "2");
 
     public NotificationsSender(AppConfig appConfig,
                                IncidentRepository vtbIncidentsRepository,
@@ -43,14 +44,14 @@ public class NotificationsSender {
         this.restTemplate = restTemplateBuilder.build();
     }
 
-    @Scheduled(fixedRateString = "${notificationsender.scheduler.fixedrate}")
+    @Scheduled(fixedRateString = "${notificationSender.scheduler.fixedRate}")
     public void sendPushNotifications() {
         List<Incident> incidents = vtbIncidentsRepository.getTimeFilteredNonSentVtbIncidents(appConfig.getLastDaysToProcess());
         if (isEmpty(incidents)) {
             log.debug("Не обнаружено новых инцидентов для отправки.");
             return;
         }
-        //log.debug("Обнаружено {} новых инцидентов для отправки.", incidents.size());
+        log.debug("Обнаружено {} новых инцидентов для отправки.", incidents.size());
         try {
             // TODO отправлять все аварии в одном вызове?
             incidents.stream()
