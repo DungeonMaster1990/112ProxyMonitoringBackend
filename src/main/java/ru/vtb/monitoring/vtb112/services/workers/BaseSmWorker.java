@@ -63,20 +63,16 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
 
         try {
             update = updatesRepository.getUpdateEntityByServiceName(workerName);
-            Map<String, Object> request = new HashMap<>();
-            if (!Strings.isNullOrEmpty(smPort)) {
-                request.put("serverPort", smPort);
-            }
-            request.put("view", "expand");
-            request.put("query", getQueryString(update));
 
+            String urlWithParams = getUrlWithParams(update);
+            
             log.info("Try to load for service: {}, updateTime: {}, request: {}",
                     workerName,
                     update.getUpdateTime().toInstant(),
-                    request
+                    urlWithParams
             );
 
-            response = restTemplate.getForEntity(url, vmModelWrapperType, request);
+            response = restTemplate.getForEntity(urlWithParams, vmModelWrapperType);
 
             log.debug("Load data for service: {}, updateTime: {}, response: {}",
                     workerName,
@@ -116,9 +112,14 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
         );
     }
 
-    private String getQueryString(Updates update) {
+    private String getUrlWithParams(Updates update){
+
         String dateTimeString = update.getUpdateTime().toInstant().toString();
         String queryString = String.format("UpdatedAt>'%s'", dateTimeString);
-        return UriEncoder.encode(queryString);
+        String encodeQueryString = UriEncoder.encode(queryString);
+
+        String serverPortString = Strings.isNullOrEmpty(smPort) ? "" : String.format("serverPort=%s&", smPort);
+
+        return String.format("%s?%sview=expand&query=%s", url, serverPortString, encodeQueryString);
     }
 }
