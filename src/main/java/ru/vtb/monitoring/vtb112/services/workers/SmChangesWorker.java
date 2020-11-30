@@ -1,17 +1,15 @@
-package Monitoring.Monitoring.services.workers;
+package ru.vtb.monitoring.vtb112.services.workers;
 
-import Monitoring.Monitoring.config.AppConfig;
-import Monitoring.Monitoring.db.models.Changes;
-import Monitoring.Monitoring.db.repositories.interfaces.ChangesRepository;
-import Monitoring.Monitoring.db.repositories.interfaces.UpdatesRepository;
-import Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels.VmSmChange;
-import Monitoring.Monitoring.dto.services.viewmodels.response.modelwrappers.VmChangeWrapper;
-import Monitoring.Monitoring.mappers.wrappers.ChangeMapperWrapper;
-import Monitoring.Monitoring.services.workers.BaseSmWorker;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import ru.vtb.monitoring.vtb112.config.AppConfig;
+import ru.vtb.monitoring.vtb112.db.models.Changes;
+import ru.vtb.monitoring.vtb112.db.repositories.interfaces.ChangesRepository;
+import ru.vtb.monitoring.vtb112.db.repositories.interfaces.UpdatesRepository;
+import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmSmChange;
+import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.modelwrappers.VmChangeWrapper;
+import ru.vtb.monitoring.vtb112.mappers.wrappers.ChangeMapperWrapper;
 
 import javax.transaction.NotSupportedException;
 

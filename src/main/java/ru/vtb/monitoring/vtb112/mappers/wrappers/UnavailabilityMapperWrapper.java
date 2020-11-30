@@ -1,9 +1,9 @@
-package Monitoring.Monitoring.mappers.wrappers;
+package ru.vtb.monitoring.vtb112.mappers.wrappers;
 
-import Monitoring.Monitoring.db.models.Unavailabilities;
-import Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels.VmSmUnavailability;
 import org.springframework.stereotype.Component;
+import ru.vtb.monitoring.vtb112.db.models.Unavailabilities;
+import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmSmUnavailability;
 
 @Component
-public class UnavailabilityMapperWrapper extends SmMapper <Unavailabilities, VmSmUnavailability> {
+public class UnavailabilityMapperWrapper extends SmMapper<Unavailabilities, VmSmUnavailability> {
 }

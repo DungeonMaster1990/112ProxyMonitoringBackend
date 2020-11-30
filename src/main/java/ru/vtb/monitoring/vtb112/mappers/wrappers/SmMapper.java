@@ -1,17 +1,17 @@
-package Monitoring.Monitoring.mappers.wrappers;
+package ru.vtb.monitoring.vtb112.mappers.wrappers;
 
-import Monitoring.Monitoring.db.models.Changes;
-import Monitoring.Monitoring.db.models.Incident;
-import Monitoring.Monitoring.db.models.Unavailabilities;
-import Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels.VmSmChange;
-import Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels.VmSmIncident;
-import Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels.VmSmUnavailability;
-import Monitoring.Monitoring.mappers.ChangesMapper;
-import Monitoring.Monitoring.mappers.IncidentMapper;
-import Monitoring.Monitoring.mappers.UnavailabilityMapper;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
+import ru.vtb.monitoring.vtb112.db.models.Changes;
+import ru.vtb.monitoring.vtb112.db.models.Incident;
+import ru.vtb.monitoring.vtb112.db.models.Unavailabilities;
+import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmSmChange;
+import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmSmIncident;
+import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmSmUnavailability;
+import ru.vtb.monitoring.vtb112.mappers.ChangesMapper;
+import ru.vtb.monitoring.vtb112.mappers.IncidentMapper;
+import ru.vtb.monitoring.vtb112.mappers.UnavailabilityMapper;
 
 import javax.transaction.NotSupportedException;
 

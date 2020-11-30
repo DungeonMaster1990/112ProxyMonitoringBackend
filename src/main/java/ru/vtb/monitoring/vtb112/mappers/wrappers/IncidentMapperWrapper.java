@@ -1,8 +1,8 @@
-package Monitoring.Monitoring.mappers.wrappers;
+package ru.vtb.monitoring.vtb112.mappers.wrappers;
 
-import Monitoring.Monitoring.db.models.Incident;
-import Monitoring.Monitoring.dto.services.viewmodels.response.mainmodels.VmSmIncident;
 import org.springframework.stereotype.Component;
+import ru.vtb.monitoring.vtb112.db.models.Incident;
+import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmSmIncident;
 
 @Component
 public class IncidentMapperWrapper extends SmMapper <Incident, VmSmIncident>{
