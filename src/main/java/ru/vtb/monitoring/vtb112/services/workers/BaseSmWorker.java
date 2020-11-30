@@ -75,7 +75,21 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
             }
             request.put("view", "expand");
             request.put("query",getQueryString(update));
+
+            log.info("Try to load for service: {}, updateTime: {}, request: {}",
+                    workerName,
+                    update.getUpdateTime().toInstant(),
+                    request
+            );
+
             response = restTemplate.getForEntity(url, vmModelWrapperType, request);
+
+            log.debug("Load data for service: {}, updateTime: {}, response: {}",
+                    workerName,
+                    update.getUpdateTime().toInstant(),
+                    response
+            );
+
         } catch (Exception exception) {
             log.error("Ошибка при передаче инцидента на сервис отправки уведомлений.", exception);
             return;
@@ -100,10 +114,15 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
 
         repository.putModels(models);
         updatesRepository.putUpdate(update);
+
+        log.info("Put data to db for service: {}, new updateTime: {}",
+                workerName,
+                update.getUpdateTime().toInstant()
+        );
     }
 
     private String getQueryString(Updates update) {
-        String dateTimeString = update.getUpdateTime().toString();
+        String dateTimeString = update.getUpdateTime().toInstant().toString();
         String queryString = String.format("UpdatedAt>'%s'", dateTimeString);
         return UriEncoder.encode(queryString);
     }
