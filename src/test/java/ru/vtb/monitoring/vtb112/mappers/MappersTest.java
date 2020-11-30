@@ -41,7 +41,7 @@ class MappersTest extends PostgreSQL {
                 .id("Авария")
                 .description(new String[]{"1", "2", "3"})
                 .build();
-        Incident savedIncident = incidentRepository.save(incidentMapper.mapToIncidentResponse(incident));
+        Incident savedIncident = incidentRepository.save(incidentMapper.mapToResponse(incident));
         assertEquals("Авария", savedIncident.getIncidentId());
         assertEquals(3, savedIncident.getDescription().split(System.lineSeparator()).length);
     }
@@ -62,10 +62,10 @@ class MappersTest extends PostgreSQL {
                 .updatedById(100)
                 .type("Type")
                 .build();
-        Unavailabilities savedIncident = unavailabilitiesRepository.save(
-                unavailabilityMapper.mapToIncidentResponse(unavailability));
-        assertEquals("1", savedIncident.getFaultId());
-        assertEquals(Integer.valueOf(15), savedIncident.getDuration());
+        Unavailabilities savedUnavailabilities = unavailabilitiesRepository.save(
+                unavailabilityMapper.mapToResponse(unavailability));
+        assertEquals("1", savedUnavailabilities.getFaultId());
+        assertEquals(Integer.valueOf(15), savedUnavailabilities.getDuration());
     }
 
     @Test
@@ -75,9 +75,9 @@ class MappersTest extends PostgreSQL {
         header.setId("ID_1");
         change.setHeader(header);
 
-        Changes savedIncident = changesRepository.save(
-                changesMapper.mapToChangesResponse(change));
-        assertEquals("ID_1", savedIncident.getChangeId());
+        Changes savedChanges = changesRepository.save(
+                changesMapper.mapToResponse(change));
+        assertEquals("ID_1", savedChanges.getChangeId());
     }
 
 }

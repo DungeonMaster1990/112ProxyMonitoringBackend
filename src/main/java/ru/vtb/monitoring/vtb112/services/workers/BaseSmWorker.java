@@ -2,7 +2,6 @@ package ru.vtb.monitoring.vtb112.services.workers;
 
 import com.google.common.base.Strings;
 import lombok.extern.slf4j.Slf4j;
-import org.modelmapper.ModelMapper;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
@@ -14,6 +13,7 @@ import ru.vtb.monitoring.vtb112.db.repositories.interfaces.SmRepository;
 import ru.vtb.monitoring.vtb112.db.repositories.interfaces.UpdatesRepository;
 import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.modelwrappers.VmBaseResponseWrapper;
 import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.modelwrappers.VmModelWrapper;
+import ru.vtb.monitoring.vtb112.mappers.ResponseMapper;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -23,28 +23,25 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
 
     private final SmRepository<U> repository;
     private final UpdatesRepository updatesRepository;
-    private final ModelMapper modelMapper;
-
-    private final RestTemplate restTemplate;
+    private final ResponseMapper<U, T> responseMapper;
 
     private final Class<K> vmModelWrapperType;
-    private final Class<U> dbModelClassType;
     private final String workerName;
     private final String url;
     private final String smPort;
+    private final RestTemplate restTemplate;
 
     public BaseSmWorker(AppConfig appConfig,
                         SmRepository<U> repository,
+                        ResponseMapper<U, T> responseMapper,
                         UpdatesRepository updatesRepository,
                         Class<K> vmModelWrapperType,
-                        Class<U> dbModelClassType,
                         String workerName,
                         String requestString) {
-        this.modelMapper = new ModelMapper();
+        this.responseMapper = responseMapper;
         this.repository = repository;
         this.updatesRepository = updatesRepository;
         this.vmModelWrapperType = vmModelWrapperType;
-        this.dbModelClassType = dbModelClassType;
         this.workerName = workerName;
         this.url = requestString;
         this.restTemplate = buildRestTemplate(appConfig.getSmUserLoginPass());
@@ -67,11 +64,11 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
         try {
             update = updatesRepository.getUpdateEntityByServiceName(workerName);
             Map<String, Object> request = new HashMap<>();
-            if (!Strings.isNullOrEmpty(smPort)){
+            if (!Strings.isNullOrEmpty(smPort)) {
                 request.put("serverPort", smPort);
             }
             request.put("view", "expand");
-            request.put("query",getQueryString(update));
+            request.put("query", getQueryString(update));
 
             log.info("Try to load for service: {}, updateTime: {}, request: {}",
                     workerName,
@@ -91,7 +88,6 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
             log.error("Exception during process in worker {}", workerName, exception);
             return;
         }
-
         K body = response.getBody();
 
         if (body == null || !response.getStatusCode().is2xxSuccessful() || body.getReturnCode() > 0) {
@@ -99,11 +95,13 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
             return;
         }
 
-        List<T> resultBody = Arrays.stream(body.getContent())
+        List<T> result = Arrays.stream(body.getContent())
                 .map(VmModelWrapper::getModel)
                 .collect(Collectors.toList());
 
-        List<U> models = mapList(resultBody, dbModelClassType);
+        List<U> models = result.stream()
+                .map(responseMapper::mapToResponse)
+                .collect(Collectors.toList());
 
         models.stream()
                 .max(Comparator.comparing(U::getUpdatedAt))
@@ -122,11 +120,5 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
         String dateTimeString = update.getUpdateTime().toInstant().toString();
         String queryString = String.format("UpdatedAt>'%s'", dateTimeString);
         return UriEncoder.encode(queryString);
-    }
-
-    private List<U> mapList(List<T> source, Class<U> targetClass) {
-        return source.stream()
-                .map(element -> modelMapper.map(element, targetClass))
-                .collect(Collectors.toList());
     }
 }
