@@ -54,7 +54,7 @@ public class MetricsServiceImpl implements MetricsService {
 
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
                 .addValue("limit", vmMetricsRequet.getLimit())
-                .addValue("offset", vmMetricsRequet.getPage() * vmMetricsRequet.getLimit());
+                .addValue("offset", (vmMetricsRequet.getPage() - 1) * vmMetricsRequet.getLimit());
 
         List<VmMetricsResponse> result = namedParameterJdbcTemplate.query(
                 allMetricsQry, sqlParameterSource, (rs, rowNum) -> toMetricsResponse(rs));
