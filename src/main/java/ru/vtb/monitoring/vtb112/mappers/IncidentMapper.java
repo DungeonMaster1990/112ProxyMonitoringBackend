@@ -9,14 +9,15 @@ import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmSm
 import java.util.Arrays;
 
 @Mapper(componentModel = "spring")
-public interface IncidentMapper {
+public interface IncidentMapper extends ResponseMapper<Incident, VmSmIncident> {
 
     @Mapping(target = "incidentId", source = "source.id")
     @Mapping(target = "affectedSystems", ignore = true)
     @Mapping(target = "notificationSent", ignore = true)
     @Mapping(target = "statusType", ignore = true)
     @Mapping(target = "id", ignore = true)
-    Incident mapToIncidentResponse(VmSmIncident source);
+    @Override
+    Incident mapToResponse(VmSmIncident source);
 
     @Mapping(target = "id", ignore = true)
     void updateIncident(Incident incident, @MappingTarget Incident updated);

@@ -1,6 +1,5 @@
 package ru.vtb.monitoring.vtb112.services.workers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -10,33 +9,27 @@ import ru.vtb.monitoring.vtb112.db.repositories.interfaces.UnavailabilitiesRepos
 import ru.vtb.monitoring.vtb112.db.repositories.interfaces.UpdatesRepository;
 import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmSmUnavailability;
 import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.modelwrappers.VmUnavailabilityWrapper;
-import ru.vtb.monitoring.vtb112.mappers.wrappers.UnavailabilityMapperWrapper;
-
-import javax.transaction.NotSupportedException;
+import ru.vtb.monitoring.vtb112.mappers.UnavailabilityMapper;
 
 @ConditionalOnProperty(value = "sm.scheduling.enabled", havingValue = "true", matchIfMissing = true)
 @Component
 public class SmUnavailabilityWorker extends BaseSmWorker<VmSmUnavailability, VmUnavailabilityWrapper, Unavailabilities> {
-    @Autowired
-    private SmUnavailabilityWorker(
-            AppConfig appConfig,
-            UnavailabilitiesRepository unavailabilitiesRepository,
-            UnavailabilityMapperWrapper unavailabilityMapperWrapper,
-            UpdatesRepository updatesRepository)
-    {
+
+    SmUnavailabilityWorker(AppConfig appConfig,
+                           UnavailabilitiesRepository unavailabilitiesRepository,
+                           UnavailabilityMapper unavailabilityMapper,
+                           UpdatesRepository updatesRepository) {
         super(appConfig,
                 unavailabilitiesRepository,
-                unavailabilityMapperWrapper,
+                unavailabilityMapper,
                 updatesRepository,
-                VmSmUnavailability.class,
                 VmUnavailabilityWrapper.class,
-                Unavailabilities.class,
                 "Unavailabilities",
                 appConfig.getSmUnavailabilityUrl());
     }
 
     @Scheduled(fixedRateString = "${sm.scheduler.fixedRate}")
-    public void loadUnavailabilitiesFromSm()  throws NotSupportedException {
+    public void loadUnavailabilitiesFromSm() {
         process();
     }
 }

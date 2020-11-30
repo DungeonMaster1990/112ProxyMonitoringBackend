@@ -7,10 +7,11 @@ import ru.vtb.monitoring.vtb112.db.models.Unavailabilities;
 import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmSmUnavailability;
 
 @Mapper(componentModel = "spring")
-public interface UnavailabilityMapper {
+public interface UnavailabilityMapper extends ResponseMapper<Unavailabilities, VmSmUnavailability> {
 
     @Mapping(target = "id", ignore = true)
-    Unavailabilities mapToIncidentResponse(VmSmUnavailability source);
+    @Override
+    Unavailabilities mapToResponse(VmSmUnavailability source);
 
     @Mapping(target = "id", ignore = true)
     void updateUnavailability(Unavailabilities incident, @MappingTarget Unavailabilities updated);

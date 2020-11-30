@@ -13,44 +13,34 @@ import ru.vtb.monitoring.vtb112.db.repositories.interfaces.SmRepository;
 import ru.vtb.monitoring.vtb112.db.repositories.interfaces.UpdatesRepository;
 import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.modelwrappers.VmBaseResponseWrapper;
 import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.modelwrappers.VmModelWrapper;
-import ru.vtb.monitoring.vtb112.mappers.wrappers.SmMapper;
+import ru.vtb.monitoring.vtb112.mappers.ResponseMapper;
 
-import javax.transaction.NotSupportedException;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
-public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U extends BaseSmModel> {
+public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U extends BaseSmModel> {
 
-    private AppConfig appConfig;
-    private SmRepository<U> repository;
-    private UpdatesRepository updatesRepository;
-    private SmMapper<U, T> smMapper;
+    private final SmRepository<U> repository;
+    private final UpdatesRepository updatesRepository;
+    private final ResponseMapper<U, T> responseMapper;
 
-    private Class<T> vmModelClassType;
-    private Class<TT> vmModelWrapperType;
-    private Class<U> dbModelClassType;
-    private String workerName;
-    private String url;
+    private final Class<K> vmModelWrapperType;
+    private final String workerName;
+    private final String url;
     private final String smPort;
     private final RestTemplate restTemplate;
 
-
     public BaseSmWorker(AppConfig appConfig,
                         SmRepository<U> repository,
-                        SmMapper<U, T> smMapper,
+                        ResponseMapper<U, T> responseMapper,
                         UpdatesRepository updatesRepository,
-                        Class<T> vmModelClassType,
-                        Class<TT> vmModelWrapperType,
-                        Class<U> dbModelClassType,
+                        Class<K> vmModelWrapperType,
                         String workerName,
                         String requestString) {
-        this.appConfig = appConfig;
-        this.smMapper = smMapper;
+        this.responseMapper = responseMapper;
         this.repository = repository;
         this.updatesRepository = updatesRepository;
-        this.dbModelClassType = dbModelClassType;
-        this.vmModelClassType = vmModelClassType;
         this.vmModelWrapperType = vmModelWrapperType;
         this.workerName = workerName;
         this.url = requestString;
@@ -69,16 +59,16 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
 
     protected void process() {
         Updates update;
-        ResponseEntity<TT> response;
+        ResponseEntity<K> response;
 
         try {
             update = updatesRepository.getUpdateEntityByServiceName(workerName);
             Map<String, Object> request = new HashMap<>();
-            if (!Strings.isNullOrEmpty(smPort)){
+            if (!Strings.isNullOrEmpty(smPort)) {
                 request.put("serverPort", smPort);
             }
             request.put("view", "expand");
-            request.put("query",getQueryString(update));
+            request.put("query", getQueryString(update));
 
             log.info("Try to load for service: {}, updateTime: {}, request: {}",
                     workerName,
@@ -98,26 +88,19 @@ public abstract class BaseSmWorker <T, TT extends VmBaseResponseWrapper<T>, U ex
             log.error("Exception during process in worker {}", workerName, exception);
             return;
         }
-        TT body = response.getBody();
+        K body = response.getBody();
 
         if (body == null || !response.getStatusCode().is2xxSuccessful() || body.getReturnCode() > 0) {
             log.error(String.format("The SM service: %s returns response: %s", workerName, response.toString()));
             return;
         }
 
-        List<T> result = Arrays.stream(response.getBody().getContent())
+        List<T> result = Arrays.stream(body.getContent())
                 .map(VmModelWrapper::getModel)
                 .collect(Collectors.toList());
 
         List<U> models = result.stream()
-                .map(element -> {
-                    try {
-                        return smMapper.map(element, dbModelClassType, vmModelClassType);
-                    } catch (NotSupportedException e) {
-                        log.error(String.format("The Convert from %s to %s Is Not Supported", vmModelClassType.toString(), dbModelClassType.toString()));
-                        return null;
-                    }
-                })
+                .map(responseMapper::mapToResponse)
                 .collect(Collectors.toList());
 
         models.stream()
