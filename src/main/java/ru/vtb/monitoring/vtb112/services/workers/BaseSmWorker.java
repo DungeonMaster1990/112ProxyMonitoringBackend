@@ -1,6 +1,5 @@
 package ru.vtb.monitoring.vtb112.services.workers;
 
-import antlr.StringUtils;
 import com.google.common.base.Strings;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -34,16 +33,14 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
     private final String url;
     private final String smPort;
 
-
     public BaseSmWorker(AppConfig appConfig,
                         SmRepository<U> repository,
-                        ModelMapper modelMapper,
                         UpdatesRepository updatesRepository,
                         Class<K> vmModelWrapperType,
                         Class<U> dbModelClassType,
                         String workerName,
                         String requestString) {
-        this.modelMapper = modelMapper;
+        this.modelMapper = new ModelMapper();
         this.repository = repository;
         this.updatesRepository = updatesRepository;
         this.vmModelWrapperType = vmModelWrapperType;
@@ -58,7 +55,7 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
         String loginBasicEncoded = Base64.getEncoder().encodeToString(smUserLoginPass.getBytes());
 
         return new RestTemplateBuilder(rt -> rt.getInterceptors().add((request, body, execution) -> {
-            request.getHeaders().add("Authorization", "Basic  " + loginBasicEncoded);
+            request.getHeaders().add("Authorization", "Basic " + loginBasicEncoded);
             return execution.execute(request, body);
         })).build();
     }
@@ -91,7 +88,7 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
             );
 
         } catch (Exception exception) {
-            log.error("Ошибка при передаче инцидента на сервис отправки уведомлений.", exception);
+            log.error("Exception during process in worker {}", workerName, exception);
             return;
         }
 

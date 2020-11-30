@@ -32,10 +32,10 @@ public class AppConfig implements WebMvcConfigurer {
     @Value("${spring.verticaDatasource.username}")
     private String verticaUser;
     @Getter
-    @Value("${pusher.url}")
+    @Value("${notificationSender.url}")
     private String pusherUrl;
     @Getter
-    @Value("${notificationsender.incidents.lastDaysToProcess}")
+    @Value("${notificationSender.incidents.lastDaysToProcess}")
     private long lastDaysToProcess;
     @Value("${sm.login}")
     private String smLogin;

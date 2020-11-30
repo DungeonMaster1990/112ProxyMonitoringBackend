@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 
-@ConditionalOnProperty(value = "app.scheduling.enable", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(value = "app.scheduling.enabled", havingValue = "true", matchIfMissing = true)
 @EnableScheduling
 @Configuration
 class SchedulingConfiguration implements SchedulingConfigurer {

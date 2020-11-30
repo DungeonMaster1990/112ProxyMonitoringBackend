@@ -1,7 +1,7 @@
 package ru.vtb.monitoring.vtb112.services.workers;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import ru.vtb.monitoring.vtb112.config.AppConfig;
@@ -11,25 +11,24 @@ import ru.vtb.monitoring.vtb112.db.repositories.interfaces.UpdatesRepository;
 import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmSmUnavailability;
 import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.modelwrappers.VmUnavailabilityWrapper;
 
+@ConditionalOnProperty(value = "sm.scheduling.enabled", havingValue = "true", matchIfMissing = true)
 @Component
-public class SmUnavalabilityWorker extends BaseSmWorker<VmSmUnavailability, VmUnavailabilityWrapper, Unavailabilities> {
+public class SmUnavailabilityWorker extends BaseSmWorker<VmSmUnavailability, VmUnavailabilityWrapper, Unavailabilities> {
     @Autowired
-    private SmUnavalabilityWorker(
+    private SmUnavailabilityWorker(
             AppConfig appConfig,
             UnavailabilitiesRepository unavailabilitiesRepository,
-            UpdatesRepository updatesRepository)
-    {
+            UpdatesRepository updatesRepository) {
         super(appConfig,
                 unavailabilitiesRepository,
-                new ModelMapper(),
                 updatesRepository,
                 VmUnavailabilityWrapper.class,
                 Unavailabilities.class,
-                "Unavalabilities",
+                "Unavailabilities",
                 appConfig.getSmUnavailabilityUrl());
     }
 
-    @Scheduled(fixedRateString = "${sm.methods.incident.fixedrate}")
+    @Scheduled(fixedRateString = "${sm.scheduler.fixedRate}")
     public void loadUnavailabilitiesFromSm() {
         process();
     }
