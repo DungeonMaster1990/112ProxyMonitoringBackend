@@ -2,6 +2,7 @@ package ru.vtb.monitoring.vtb112.db.vertica.repositories.implementations;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import ru.vtb.monitoring.vtb112.config.AppConfig;
 import ru.vtb.monitoring.vtb112.db.models.Updates;
 import ru.vtb.monitoring.vtb112.db.vertica.VerticaConnection;
 import ru.vtb.monitoring.vtb112.db.vertica.models.SmRawdataMeasVertica;
@@ -20,11 +21,13 @@ import java.util.List;
 public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaRepository {
     private final VerticaConnection verticaConnection;
     private final DateFormatterHelper dateFormatterHelper;
+    private final AppConfig appConfig;
 
     @Autowired
-    public SmRawdataMeasVerticaRepositoryImpl(VerticaConnection verticaConnection, DateFormatterHelper dateFormatterHelper) {
+    public SmRawdataMeasVerticaRepositoryImpl(VerticaConnection verticaConnection, DateFormatterHelper dateFormatterHelper, AppConfig appConfig) {
         this.verticaConnection = verticaConnection;
         this.dateFormatterHelper = dateFormatterHelper;
+        this.appConfig = appConfig;
     }
 
     @Override
@@ -39,13 +42,13 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
                     raw_connection_id, raw_category_id, raw_threshold_quality, dbdate, meas_value
                     from bsm_replica.SM_RAWDATA_MEAS
                     where status_id = 0 and time_stamp > '%s'
-                    limit 100
+                    limit %s
                     offset %s
                 """;
         while (true) {
-            String newQuery = String.format(query, new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(timestamp), Integer.toString(offset));
+            String newQuery = String.format(query, new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(timestamp), Integer.toString(appConfig.getVerticaLimit()), Integer.toString(offset));
             ResultSet rs = stmt.executeQuery(newQuery);
-            offset = offset + 100;
+            offset = offset + appConfig.getVerticaLimit();
             if (!rs.next()) {
                 break;
             } else {
