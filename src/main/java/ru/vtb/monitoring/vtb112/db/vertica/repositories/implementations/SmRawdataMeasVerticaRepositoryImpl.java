@@ -3,7 +3,6 @@ package ru.vtb.monitoring.vtb112.db.vertica.repositories.implementations;
 import org.springframework.stereotype.Repository;
 import ru.vtb.monitoring.vtb112.config.AppConfig;
 import ru.vtb.monitoring.vtb112.db.models.Updates;
-import ru.vtb.monitoring.vtb112.db.vertica.VerticaConnection;
 import ru.vtb.monitoring.vtb112.db.vertica.models.SmRawdataMeasVertica;
 import ru.vtb.monitoring.vtb112.db.vertica.repositories.interfaces.SmRawdataMeasVerticaRepository;
 import ru.vtb.monitoring.vtb112.services.helpers.interfaces.DateFormatterHelper;
@@ -15,12 +14,11 @@ import java.util.List;
 
 @Repository
 public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaRepository {
-    private final VerticaConnection verticaConnection;
+
     private final DateFormatterHelper dateFormatterHelper;
     private final AppConfig appConfig;
 
-    public SmRawdataMeasVerticaRepositoryImpl(VerticaConnection verticaConnection, DateFormatterHelper dateFormatterHelper, AppConfig appConfig) {
-        this.verticaConnection = verticaConnection;
+    public SmRawdataMeasVerticaRepositoryImpl(DateFormatterHelper dateFormatterHelper, AppConfig appConfig) {
         this.dateFormatterHelper = dateFormatterHelper;
         this.appConfig = appConfig;
     }
@@ -37,37 +35,40 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
                     offset ?
                 """;
         var formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        try (Connection connection = verticaConnection.getConnection();
+        try (Connection connection = DriverManager.getConnection(appConfig.getVerticaUrl(), appConfig.getVerticaUserPass());
              PreparedStatement stmt = connection.prepareStatement(query)) {
-            var timestamp = formatter.format(Timestamp.from(lastUpdate.getUpdateTime().toInstant()));
+            var timestamp = Timestamp.from(lastUpdate.getUpdateTime().toInstant());
             int offset = 0;
-            while (true) {
-                stmt.setString(1, timestamp);
+            int max = 100;
+            int cur = 0;
+            while (cur++ < max) {
+                stmt.setTimestamp(1, timestamp);
                 stmt.setInt(2, appConfig.getVerticaLimit());
                 stmt.setInt(3, offset);
-                ResultSet rs = stmt.executeQuery();
-                offset = offset + appConfig.getVerticaLimit();
-                if (!rs.next()) {
-                    break;
-                } else {
-                    do {
-                        SmRawdataMeasVertica smRawdataMeasVertica = new SmRawdataMeasVertica();
+                try (ResultSet rs = stmt.executeQuery()) {
+                    offset = offset + appConfig.getVerticaLimit();
+                    if (!rs.next()) {
+                        break;
+                    } else {
+                        do {
+                            SmRawdataMeasVertica smRawdataMeasVertica = new SmRawdataMeasVertica();
 
-                        smRawdataMeasVertica.setSessionId(rs.getInt("session_id"));
-                        smRawdataMeasVertica.setTimeStamp(dateFormatterHelper.dbDateToZonedDate(rs.getTimestamp("time_stamp")));
-                        smRawdataMeasVertica.setMeasurementId(rs.getInt("measurement_id"));
-                        smRawdataMeasVertica.setMeasValue(rs.getFloat("meas_value"));
-                        smRawdataMeasVertica.setStatusId(rs.getInt("status_id"));
-                        smRawdataMeasVertica.setErrMsg(rs.getString("err_msg"));
-                        smRawdataMeasVertica.setRawMonitorId(rs.getInt("raw_monitor_id"));
-                        smRawdataMeasVertica.setRawTargetId(rs.getInt("raw_target_id"));
-                        smRawdataMeasVertica.setRawConnectionId(rs.getInt("raw_connection_id"));
-                        smRawdataMeasVertica.setRawCategoryId(rs.getInt("raw_category_id"));
-                        smRawdataMeasVertica.setRawThresholdQuality(rs.getInt("raw_threshold_quality"));
-                        smRawdataMeasVertica.setDbdate(dateFormatterHelper.dbDateToZonedDate(rs.getTimestamp("dbdate")));
+                            smRawdataMeasVertica.setSessionId(rs.getInt("session_id"));
+                            smRawdataMeasVertica.setTimeStamp(dateFormatterHelper.dbDateToZonedDate(rs.getTimestamp("time_stamp")));
+                            smRawdataMeasVertica.setMeasurementId(rs.getInt("measurement_id"));
+                            smRawdataMeasVertica.setMeasValue(rs.getFloat("meas_value"));
+                            smRawdataMeasVertica.setStatusId(rs.getInt("status_id"));
+                            smRawdataMeasVertica.setErrMsg(rs.getString("err_msg"));
+                            smRawdataMeasVertica.setRawMonitorId(rs.getInt("raw_monitor_id"));
+                            smRawdataMeasVertica.setRawTargetId(rs.getInt("raw_target_id"));
+                            smRawdataMeasVertica.setRawConnectionId(rs.getInt("raw_connection_id"));
+                            smRawdataMeasVertica.setRawCategoryId(rs.getInt("raw_category_id"));
+                            smRawdataMeasVertica.setRawThresholdQuality(rs.getInt("raw_threshold_quality"));
+                            smRawdataMeasVertica.setDbdate(dateFormatterHelper.dbDateToZonedDate(rs.getTimestamp("dbdate")));
 
-                        smRawdataMeasesVertica.add(smRawdataMeasVertica);
-                    } while (rs.next());
+                            smRawdataMeasesVertica.add(smRawdataMeasVertica);
+                        } while (rs.next());
+                    }
                 }
             }
             return smRawdataMeasesVertica;

@@ -1,26 +1,24 @@
 package ru.vtb.monitoring.vtb112.db.vertica.repositories.implementations;
 
 import org.springframework.stereotype.Repository;
+import ru.vtb.monitoring.vtb112.config.AppConfig;
 import ru.vtb.monitoring.vtb112.db.models.Metrics;
-import ru.vtb.monitoring.vtb112.db.vertica.VerticaConnection;
 import ru.vtb.monitoring.vtb112.db.vertica.models.SmDefMeasurementVertica;
 import ru.vtb.monitoring.vtb112.db.vertica.repositories.interfaces.SmDefMeasurementVerticaRepository;
 import ru.vtb.monitoring.vtb112.services.helpers.interfaces.DateFormatterHelper;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class SmDefMeasurementVerticaRepositoryImpl implements SmDefMeasurementVerticaRepository {
-    private final VerticaConnection verticaConnection;
+
+    private final AppConfig appConfig;
     private final DateFormatterHelper dateFormatterHelper;
 
-    public SmDefMeasurementVerticaRepositoryImpl(VerticaConnection verticaConnection, DateFormatterHelper dateFormatterHelper) {
-        this.verticaConnection = verticaConnection;
+    public SmDefMeasurementVerticaRepositoryImpl(AppConfig appConfig, DateFormatterHelper dateFormatterHelper) {
+        this.appConfig = appConfig;
         this.dateFormatterHelper = dateFormatterHelper;
     }
 
@@ -35,19 +33,18 @@ public class SmDefMeasurementVerticaRepositoryImpl implements SmDefMeasurementVe
             }
         }
         List<SmDefMeasurementVertica> smDefMeasurementsVertica = new ArrayList<>();
+        String query = String.format("""
+                    select session_id, measurement_id, sched_id, category_id, monitor_id, target_id,
+                    msname, msid, user_remark, connection_data, dm_connection_id, active, ci_id, eti_id, integration_name,
+                    profile_id, creation_date, modified_date, is_deleted 
+                    from bsm_replica.SM_DEF_MEASUREMENT
+                    where (%s)
+                """, whereQuery
+        );
 
-        try (Connection connection = verticaConnection.getConnection();
-             Statement stmt = connection.createStatement()) {
-            String query = String.format("""
-                        select session_id, measurement_id, sched_id, category_id, monitor_id, target_id,
-                        msname, msid, user_remark, connection_data, dm_connection_id, active, ci_id, eti_id, integration_name,
-                        profile_id, creation_date, modified_date, is_deleted 
-                        from bsm_replica.SM_DEF_MEASUREMENT
-                        where (%s)
-                    """, whereQuery
-            );
-
-            ResultSet rs = stmt.executeQuery(query);
+        try (Connection connection = DriverManager.getConnection(appConfig.getVerticaUrl(), appConfig.getVerticaUserPass());
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
             while (rs.next()) {
                 SmDefMeasurementVertica smDefMeasurementVertica = new SmDefMeasurementVertica();
                 smDefMeasurementVertica.setSessionId(rs.getInt("session_id"));
