@@ -37,14 +37,14 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
                 metricsIn.append(String.format("%s", metrics.get(i).getMeasurementId()));
             }
         }
-        String query = """
+        String query = String.format("""
                     select session_id, time_stamp, measurement_id, status_id, err_msg, raw_monitor_id, raw_target_id, 
                     raw_connection_id, raw_category_id, raw_threshold_quality, dbdate, meas_value
                     from bsm_replica.SM_RAWDATA_MEAS
-                    where status_id = 0 and time_stamp > ? and measurement_id in (?)
+                    where status_id = 0 and time_stamp > ? and measurement_id in (%s)
                     limit ?
                     offset ?
-                """;
+                """, metricsIn.toString());
         var formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         try (Connection connection = DriverManager.getConnection(appConfig.getVerticaUrl(), appConfig.getVerticaUserPass());
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -54,9 +54,9 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
             int cur = 0;
             while (cur++ < max) {
                 stmt.setTimestamp(1, timestamp);
-                stmt.setString(2, metricsIn.toString());
-                stmt.setInt(3, appConfig.getVerticaLimit());
-                stmt.setInt(4, offset);
+                stmt.setInt(2, appConfig.getVerticaLimit());
+                stmt.setInt(3, offset);
+                System.out.println(stmt);
                 try (ResultSet rs = stmt.executeQuery()) {
                     offset = offset + appConfig.getVerticaLimit();
                     if (!rs.next()) {
