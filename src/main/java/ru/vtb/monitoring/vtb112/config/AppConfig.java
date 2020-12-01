@@ -44,6 +44,9 @@ public class AppConfig implements WebMvcConfigurer {
     @Getter
     @Value("${sm.port:}")
     private String smPort;
+    @Getter
+    @Value("${vertica.limit}")
+    private Integer verticaLimit;
 
     public String getSmIncidentUrl() {
         return this.baseSmUrl + this.smIncidentMethod;

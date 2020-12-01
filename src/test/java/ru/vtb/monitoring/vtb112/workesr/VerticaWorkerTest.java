@@ -11,9 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.junit.jupiter.Testcontainers;
+import ru.vtb.monitoring.vtb112.config.AppConfig;
 import ru.vtb.monitoring.vtb112.db.models.Metrics;
 import ru.vtb.monitoring.vtb112.db.repositories.interfaces.MetricsRepository;
-import ru.vtb.monitoring.vtb112.db.vertica.VerticaConnection;
 import ru.vtb.monitoring.vtb112.infrastructure.PostgreSQL;
 import ru.vtb.monitoring.vtb112.infrastructure.Vertica;
 import ru.vtb.monitoring.vtb112.services.workers.VerticaWorker;
@@ -21,6 +21,8 @@ import ru.vtb.monitoring.vtb112.services.workers.VerticaWorker;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.Statement;
 
 @SpringBootTest
@@ -33,7 +35,7 @@ class VerticaWorkerTest extends PostgreSQL {
     private VerticaWorker verticaWorker;
 
     @Autowired
-    private VerticaConnection verticaConnection;
+    private AppConfig appConfig;
 
     @Autowired
     private MetricsRepository metricsRepository;
@@ -45,9 +47,11 @@ class VerticaWorkerTest extends PostgreSQL {
 
     @BeforeAll
     public void setUp() throws Throwable {
-        Statement stmt = verticaConnection.getConnection().createStatement();
         String query = getTestDataSql();
-        stmt.execute(query);
+        try (Connection connection = DriverManager.getConnection(appConfig.getVerticaUrl(), appConfig.getVerticaUserPass());
+             Statement stmt = connection.createStatement()) {
+            stmt.execute(query);
+        }
     }
 
     @Test
