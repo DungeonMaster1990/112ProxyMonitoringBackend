@@ -28,7 +28,7 @@ public class MetricsServiceImpl implements MetricsService {
     }
 
     @Override
-    public VmMetricsResponse[] getMetrics(VmMetricsRequest vmMetricsRequet) {
+    public VmMetricsResponse[] getMetrics(VmMetricsRequest vmMetricsRequest) {
         // TODO Пока в постановке задачи нет четкого описания как группировать значения measurements
         // так что просто берем последнее по времени значение
         String allMetricsQry = """
@@ -53,8 +53,8 @@ public class MetricsServiceImpl implements MetricsService {
                 """;
 
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
-                .addValue("limit", vmMetricsRequet.getLimit())
-                .addValue("offset", (vmMetricsRequet.getPage() - 1) * vmMetricsRequet.getLimit());
+                .addValue("limit", vmMetricsRequest.getLimit())
+                .addValue("offset", (vmMetricsRequest.getPage() - 1) * vmMetricsRequest.getLimit());
 
         List<VmMetricsResponse> result = namedParameterJdbcTemplate.query(
                 allMetricsQry, sqlParameterSource, (rs, rowNum) -> toMetricsResponse(rs));

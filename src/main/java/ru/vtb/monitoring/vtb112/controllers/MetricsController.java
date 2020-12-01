@@ -2,9 +2,7 @@ package ru.vtb.monitoring.vtb112.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +14,8 @@ import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.VmMetricsResponse;
 import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.VmUpdateResponse;
 import ru.vtb.monitoring.vtb112.mocks.VmMock;
 import ru.vtb.monitoring.vtb112.services.api.interfaces.MetricsService;
+
+import static ru.vtb.monitoring.vtb112.services.helpers.ValidationUtils.validatePageAndLimit;
 
 @RestController
 @Slf4j
@@ -30,10 +30,9 @@ public class MetricsController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<VmMetricsResponse[]> get(@RequestBody VmMetricsRequest vmMetricsRequest) {
-        if (vmMetricsRequest.getPage() < 1)
-            return new ResponseEntity("Страница не может быть меньше 1", HttpStatus.BAD_REQUEST);
-        return ResponseEntity.ok(metricsService.getMetrics(vmMetricsRequest));
+    public VmMetricsResponse[] get(@RequestBody VmMetricsRequest vmMetricsRequest) {
+        validatePageAndLimit(vmMetricsRequest);
+        return metricsService.getMetrics(vmMetricsRequest);
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)

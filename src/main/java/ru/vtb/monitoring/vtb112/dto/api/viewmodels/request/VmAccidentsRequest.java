@@ -21,8 +21,8 @@ public class VmAccidentsRequest extends VmPageRequestBase {
     private List<String> affectedSystems;
     private List<String> failurePoints;
     @Nullable
-    private Long systemId;
+    private String systemId;
     @Nullable
-    private Integer planTypeId;
+    private String planTypeId;
     private String keyword;
 }

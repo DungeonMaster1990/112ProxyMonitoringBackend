@@ -11,7 +11,7 @@ import ru.vtb.monitoring.vtb112.dto.api.viewmodels.enums.VmPlanSection;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper=true)
+@EqualsAndHashCode(callSuper = true)
 public class VmPlanRequest extends VmPageRequestBase {
 
     private String keyword;

@@ -1,7 +1,6 @@
 package ru.vtb.monitoring.vtb112.db.repositories.implementations;
 
 import lombok.extern.log4j.Log4j2;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -21,15 +20,16 @@ import java.util.List;
 @Repository
 public class PushTokenRepositoryImpl implements PushTokenRepositoryCustom {
 
-    @Autowired
     @Lazy
-    PushTokenRepository pushTokenRepository;
+    private final PushTokenRepository pushTokenRepository;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final DateFormatterHelper dateFormatterHelper;
 
-    @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
-    @Autowired
-    private DateFormatterHelper dateFormatterHelper;
+    public PushTokenRepositoryImpl(PushTokenRepository pushTokenRepository, NamedParameterJdbcTemplate namedParameterJdbcTemplate, DateFormatterHelper dateFormatterHelper) {
+        this.pushTokenRepository = pushTokenRepository;
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+        this.dateFormatterHelper = dateFormatterHelper;
+    }
 
     @Override
     public Boolean pushToken(PushTokens pushToken) {
@@ -50,20 +50,19 @@ public class PushTokenRepositoryImpl implements PushTokenRepositoryCustom {
 
         List<PushTokens> existedPushTokens = namedParameterJdbcTemplate.query(
                 pushTokenQry, sqlParameterSource, (rs, rowNum) -> toPushTokens(rs));
-        if(!existedPushTokens.isEmpty()) {
-            for(PushTokens tokenInfo : existedPushTokens){
+        if (!existedPushTokens.isEmpty()) {
+            for (PushTokens tokenInfo : existedPushTokens) {
                 tokenInfo.setToken(pushToken.getToken());
                 tokenInfo.setUpdateTokenDate(ZonedDateTime.now());
                 tokenInfo.setInstallId(pushToken.getInstallId());
                 tokenInfo.setPlatform(pushToken.getPlatform());
             }
             pushTokenRepository.saveAll(existedPushTokens);
-        }
-        else {
+        } else {
             pushToken.setUpdateTokenDate(ZonedDateTime.now());
             pushTokenRepository.save(pushToken);
         }
-        log.info("token was added", pushToken);
+        log.info("token was added: {}", pushToken);
         return true;
     }
 
