@@ -1,5 +1,6 @@
 package ru.vtb.monitoring.vtb112.db.vertica.repositories.implementations;
 
+import liquibase.pro.packaged.S;
 import org.springframework.stereotype.Repository;
 import ru.vtb.monitoring.vtb112.config.AppConfig;
 import ru.vtb.monitoring.vtb112.db.models.Metrics;
@@ -28,20 +29,19 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
     public List<SmRawdataMeasVertica> getSmRawdataMeasVertica(Updates lastUpdate, List<Metrics> metrics ) throws SQLException {
         List<SmRawdataMeasVertica> smRawdataMeasesVertica = new ArrayList<>();
 
-        StringBuilder whereQuery = new StringBuilder();
+        StringBuilder metricsIn = new StringBuilder();
         for (int i = 0; i < metrics.size(); i++) {
             if (i != metrics.size() - 1) {
-                whereQuery.append(String.format("measurement_id = %s or", metrics.get(i).getMeasurementId()));
+                metricsIn.append(String.format("%s, ", metrics.get(i).getMeasurementId()));
             } else {
-                whereQuery.append(String.format("measurement_id = %s", metrics.get(i).getMeasurementId()));
+                metricsIn.append(String.format("%s", metrics.get(i).getMeasurementId()));
             }
         }
-
         String query = """
                     select session_id, time_stamp, measurement_id, status_id, err_msg, raw_monitor_id, raw_target_id, 
                     raw_connection_id, raw_category_id, raw_threshold_quality, dbdate, meas_value
                     from bsm_replica.SM_RAWDATA_MEAS
-                    where status_id = 0 and time_stamp > ? and ?
+                    where status_id = 0 and time_stamp > ? and measurement_id in (?)
                     limit ?
                     offset ?
                 """;
@@ -54,7 +54,7 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
             int cur = 0;
             while (cur++ < max) {
                 stmt.setTimestamp(1, timestamp);
-                stmt.setString(2, whereQuery.toString());
+                stmt.setString(2, metricsIn.toString());
                 stmt.setInt(3, appConfig.getVerticaLimit());
                 stmt.setInt(4, offset);
                 try (ResultSet rs = stmt.executeQuery()) {
