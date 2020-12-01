@@ -15,7 +15,7 @@ import java.util.HashMap;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "ru.vtb.monitoring.vtb112.vertica",
+        basePackages = "ru.vtb.monitoring.vtb112.db.vertica",
         entityManagerFactoryRef = "verticaEntityManager",
         transactionManagerRef = "verticaTransactionManager"
 )
@@ -52,7 +52,7 @@ public class VerticaConfig {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(verticaDataSource());
-        em.setPackagesToScan("ru.vtb.monitoring.vtb112.vertica");
+        em.setPackagesToScan("ru.vtb.monitoring.vtb112.db.vertica");
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         HashMap<String, Object> properties = new HashMap<>();

@@ -2,7 +2,7 @@ package ru.vtb.monitoring.vtb112.services.api.impl;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import ru.vtb.monitoring.vtb112.db.repositories.interfaces.ChangesRepository;
+import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.ChangesRepository;
 import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.*;
 import ru.vtb.monitoring.vtb112.mappers.ChangesMapper;
 import ru.vtb.monitoring.vtb112.services.api.interfaces.PlansService;

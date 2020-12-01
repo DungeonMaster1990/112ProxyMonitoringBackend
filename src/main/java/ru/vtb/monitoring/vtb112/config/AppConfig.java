@@ -19,7 +19,7 @@ import java.util.HashMap;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "ru.vtb.monitoring.vtb112.db"
+        basePackages = "ru.vtb.monitoring.vtb112.db.pg"
 )
 public class AppConfig implements WebMvcConfigurer {
 
@@ -101,7 +101,7 @@ public class AppConfig implements WebMvcConfigurer {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan("ru.vtb.monitoring.vtb112.db");
+        em.setPackagesToScan("ru.vtb.monitoring.vtb112.db.pg");
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         HashMap<String, Object> properties = new HashMap<>();

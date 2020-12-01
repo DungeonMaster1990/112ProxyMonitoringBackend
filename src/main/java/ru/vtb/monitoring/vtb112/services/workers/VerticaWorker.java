@@ -8,18 +8,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import ru.vtb.monitoring.vtb112.db.models.Metrics;
-import ru.vtb.monitoring.vtb112.db.models.SmDefMeasurementApi;
-import ru.vtb.monitoring.vtb112.db.models.SmRawdataMeasApi;
-import ru.vtb.monitoring.vtb112.db.models.Updates;
-import ru.vtb.monitoring.vtb112.db.repositories.interfaces.MetricsRepository;
-import ru.vtb.monitoring.vtb112.db.repositories.interfaces.SmDefMeasurementApiRepository;
-import ru.vtb.monitoring.vtb112.db.repositories.interfaces.SmRawdataMeasApiRepository;
-import ru.vtb.monitoring.vtb112.db.repositories.interfaces.UpdatesRepository;
-import ru.vtb.monitoring.vtb112.vertica.models.SmDefMeasurementVertica;
-import ru.vtb.monitoring.vtb112.vertica.models.SmRawdataMeasVertica;
-import ru.vtb.monitoring.vtb112.vertica.repositories.interfaces.SmDefMeasurementVerticaRepository;
-import ru.vtb.monitoring.vtb112.vertica.repositories.interfaces.SmRawDataMeasVerticaRepository;
+import ru.vtb.monitoring.vtb112.db.pg.models.Metrics;
+import ru.vtb.monitoring.vtb112.db.pg.models.SmDefMeasurementApi;
+import ru.vtb.monitoring.vtb112.db.pg.models.SmRawdataMeasApi;
+import ru.vtb.monitoring.vtb112.db.pg.models.Updates;
+import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.MetricsRepository;
+import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.SmDefMeasurementApiRepository;
+import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.SmRawdataMeasApiRepository;
+import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.UpdatesRepository;
+import ru.vtb.monitoring.vtb112.db.vertica.models.SmDefMeasurementVertica;
+import ru.vtb.monitoring.vtb112.db.vertica.models.SmRawdataMeasVertica;
+import ru.vtb.monitoring.vtb112.db.vertica.repositories.interfaces.SmDefMeasurementVerticaRepository;
+import ru.vtb.monitoring.vtb112.db.vertica.repositories.interfaces.SmRawDataMeasVerticaRepository;
 import ru.vtb.monitoring.vtb112.mappers.VerticaMapper;
 
 import java.sql.SQLException;
@@ -60,10 +60,7 @@ public class VerticaWorker {
     @Transactional
     public void takeSmDefMeasurementVertica() {
         try {
-            List<Metrics> metrics = metricsRepository.findAll()
-                    .stream()
-                    .filter(m -> !m.isMerged())
-                    .collect(Collectors.toList());
+            List<Metrics> metrics = metricsRepository.findByIsMerged(false);
             if (!metrics.isEmpty()) {
                 List<SmDefMeasurementVertica> smDefMeasurementVerticaList =
                         smDefMeasurementVerticaRepository.getSmDefMeasurements(metrics);
@@ -92,12 +89,16 @@ public class VerticaWorker {
 
         String verticaServiceName = "VerticaSmRawData";
         Updates update = updatesRepository.getUpdateEntityByServiceName(verticaServiceName);
+        List<Integer> measurementIds = metricsRepository.findByIsMerged(true)
+                .stream()
+                .map(Metrics::getMeasurementId)
+                .collect(Collectors.toList());
 
         PriorityQueue<ZonedDateTime> maxTimestampPQ = new PriorityQueue<>(Comparator.reverseOrder());
         int maxIterations = 100;
         int curIteration = 0;
         while (curIteration++ < maxIterations) {
-            int processedRows = processSingleBatch(update, curIteration-1, maxTimestampPQ);
+            int processedRows = processSingleBatch(update, measurementIds,curIteration-1, maxTimestampPQ);
             log.info("Processed rows {} on iteration # {}", processedRows, curIteration);
             if (processedRows < verticaLimit) {
                 break;
@@ -112,12 +113,14 @@ public class VerticaWorker {
 
     @Transactional
     private int processSingleBatch(Updates update,
+                                   List<Integer> measurementIds,
                                    int pageNumber,
                                    PriorityQueue<ZonedDateTime> maxTimestampPQ) {
 
         List<SmRawdataMeasVertica> smRawDataMeasVerticaList =
-                smRawdataMeasVerticaRepository.findByStatusIdAndTimeStampGreaterThan(0,
+                smRawdataMeasVerticaRepository.findByStatusIdAndTimeStampGreaterThanAndMeasurementIdIn(0,
                         update.getUpdateTime(),
+                        measurementIds,
                         PageRequest.of(pageNumber, verticaLimit));
         List<SmRawdataMeasApi> smRawDataMeasApiList =
                 smRawDataMeasVerticaList
