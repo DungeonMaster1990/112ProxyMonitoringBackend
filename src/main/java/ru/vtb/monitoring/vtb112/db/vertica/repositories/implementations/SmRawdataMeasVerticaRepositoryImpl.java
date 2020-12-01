@@ -45,6 +45,7 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
                     limit ?
                     offset ?
                 """, metricsIn.toString());
+
         var formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         try (Connection connection = DriverManager.getConnection(appConfig.getVerticaUrl(), appConfig.getVerticaUserPass());
              PreparedStatement stmt = connection.prepareStatement(query)) {
@@ -52,7 +53,7 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
             int offset = 0;
             int max = 100;
             int cur = 0;
-            while (cur++ < max) {
+            while (cur++ < appConfig.getVerticaMaxPages()) {
                 stmt.setTimestamp(1, timestamp);
                 stmt.setInt(2, appConfig.getVerticaLimit());
                 stmt.setInt(3, offset);

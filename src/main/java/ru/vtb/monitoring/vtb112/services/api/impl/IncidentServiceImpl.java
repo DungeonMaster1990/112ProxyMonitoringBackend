@@ -3,6 +3,7 @@ package ru.vtb.monitoring.vtb112.services.api.impl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.vtb.monitoring.vtb112.config.AppConfig;
 import ru.vtb.monitoring.vtb112.db.models.AffectedSystem;
 import ru.vtb.monitoring.vtb112.db.repositories.interfaces.IncidentRepository;
 import ru.vtb.monitoring.vtb112.dto.api.viewmodels.converters.IncidentStatusConverter;
@@ -11,7 +12,6 @@ import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.*;
 import ru.vtb.monitoring.vtb112.dto.api.viewmodels.submodels.VmManager;
 import ru.vtb.monitoring.vtb112.services.api.interfaces.IncidentService;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,8 +20,10 @@ import java.util.stream.Collectors;
 public class IncidentServiceImpl implements IncidentService {
 
     private final IncidentRepository incidentDAO;
+    private final List<String> supportedCategories;
 
-    public IncidentServiceImpl(IncidentRepository incidentDAO) {
+    public IncidentServiceImpl(AppConfig appConfig, IncidentRepository incidentDAO) {
+        this.supportedCategories = appConfig.getSupportedCategories();
         this.incidentDAO = incidentDAO;
     }
 
@@ -29,7 +31,6 @@ public class IncidentServiceImpl implements IncidentService {
     @Transactional
     public List<VmAccidentResponse> getAccidents(VmAccidentsRequest request) {
         var paging = PageRequest.of(request.getPage(), request.getLimit());
-        var supportedCategories = Arrays.asList("1", "2");
         return incidentDAO.allByCriteria(supportedCategories,
                 request.getAffectedSystems(),
                 request.getStartDate(),

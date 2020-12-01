@@ -3,7 +3,6 @@ package ru.vtb.monitoring.vtb112.controllers;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmPlanRequest;
 import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmPlanSectionRequest;
@@ -11,6 +10,9 @@ import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.*;
 import ru.vtb.monitoring.vtb112.services.api.interfaces.PlansService;
 
 import java.util.List;
+
+import static ru.vtb.monitoring.vtb112.services.helpers.ValidationUtils.stringToInt;
+import static ru.vtb.monitoring.vtb112.services.helpers.ValidationUtils.validatePageAndLimit;
 
 @RestController
 @RequestMapping(value = PathConstants.PLANS, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -23,14 +25,12 @@ public class PlansController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<VmPlanResponse>> get(@RequestBody VmPlanRequest request) {
-        if(request.getPage() < 1 || request.getLimit() < 1) {
-            return new ResponseEntity("Параметры page и limit не могут быть меньше 1", HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(plansService.getSection(
+    public List<VmPlanResponse> get(@RequestBody VmPlanRequest request) {
+        validatePageAndLimit(request);
+        return plansService.getSection(
                 request.getPlanSectionID().getSection(),
                 request.getKeyword(),
-                PageRequest.of(request.getPage() - 1, request.getLimit())), HttpStatus.OK);
+                PageRequest.of(request.getPage() - 1, request.getLimit()));
     }
 
     @PostMapping(value = "/sections", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -41,23 +41,23 @@ public class PlansController {
     }
 
     @GetMapping("/info")
-    public VmPlanInfoResponse getPlanInfo(@RequestParam Integer id) {
-        return plansService.getInfo(id);
+    public VmPlanInfoResponse getPlanInfo(@RequestParam String id) {
+        return plansService.getInfo(stringToInt("id", id));
     }
 
     @GetMapping("/workers")
-    public VmPlanWorkersResponse getPlanWorkers(@RequestParam Integer id) {
-        return plansService.getWorkers(id);
+    public VmPlanWorkersResponse getPlanWorkers(@RequestParam String id) {
+        return plansService.getWorkers(stringToInt("id", id));
     }
 
     @GetMapping("/history")
     @ResponseStatus(HttpStatus.NOT_IMPLEMENTED)
-    public VmPlanHistoryResponse getPlanHistory(@RequestParam Integer id) {
+    public VmPlanHistoryResponse getPlanHistory(@RequestParam String id) {
         return null;
     }
 
     @GetMapping("/descriptions")
-    public List<VmPlanDescriptionResponse> getPlanDescriptions(@RequestParam Integer id) {
-        return plansService.getDescriptions(id);
+    public List<VmPlanDescriptionResponse> getPlanDescriptions(@RequestParam String id) {
+        return plansService.getDescriptions(stringToInt("id", id));
     }
 }
