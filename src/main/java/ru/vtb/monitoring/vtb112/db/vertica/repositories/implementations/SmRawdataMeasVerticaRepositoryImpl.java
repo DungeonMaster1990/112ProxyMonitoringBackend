@@ -2,6 +2,7 @@ package ru.vtb.monitoring.vtb112.db.vertica.repositories.implementations;
 
 import org.springframework.stereotype.Repository;
 import ru.vtb.monitoring.vtb112.config.AppConfig;
+import ru.vtb.monitoring.vtb112.db.models.Metrics;
 import ru.vtb.monitoring.vtb112.db.models.Updates;
 import ru.vtb.monitoring.vtb112.db.vertica.models.SmRawdataMeasVertica;
 import ru.vtb.monitoring.vtb112.db.vertica.repositories.interfaces.SmRawdataMeasVerticaRepository;
@@ -23,16 +24,26 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
     }
 
     @Override
-    public List<SmRawdataMeasVertica> getSmRawdataMeasVertica(Updates lastUpdate) throws SQLException {
+    public List<SmRawdataMeasVertica> getSmRawdataMeasVertica(Updates lastUpdate, List<Metrics> metrics) throws SQLException {
         List<SmRawdataMeasVertica> smRawdataMeasesVertica = new ArrayList<>();
-        String query = """
+
+        StringBuilder metricsIn = new StringBuilder();
+        for (int i = 0; i < metrics.size(); i++) {
+            if (i != metrics.size() - 1) {
+                metricsIn.append(String.format("%s, ", metrics.get(i).getMeasurementId()));
+            } else {
+                metricsIn.append(String.format("%s", metrics.get(i).getMeasurementId()));
+            }
+        }
+        String query = String.format("""
                     select session_id, time_stamp, measurement_id, status_id, err_msg, raw_monitor_id, raw_target_id, 
                     raw_connection_id, raw_category_id, raw_threshold_quality, dbdate, meas_value
                     from bsm_replica.SM_RAWDATA_MEAS
-                    where status_id = 0 and time_stamp > ?
+                    where status_id = 0 and time_stamp > ? and measurement_id in (%s)
                     limit ?
                     offset ?
-                """;
+                """, metricsIn.toString());
+
         try (Connection connection = DriverManager.getConnection(appConfig.getVerticaUrl(), appConfig.getVerticaUserPass());
              PreparedStatement stmt = connection.prepareStatement(query)) {
             var timestamp = Timestamp.from(lastUpdate.getUpdateTime().toInstant());
