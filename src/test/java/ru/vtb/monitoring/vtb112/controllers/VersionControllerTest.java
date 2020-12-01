@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import ru.vtb.monitoring.vtb112.infrastructure.PostgreSQL;
@@ -21,13 +20,22 @@ class VersionControllerTest extends PostgreSQL {
     private MockMvc mockMvc;
 
     @Test
-    void testCheckVersion() throws Exception {
+    void testCheckVersionNormal() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
-                .get(PathConstants.API_VERSION + "/checkVersion")
-                .param("version", "1.0")
-                .contentType(MediaType.APPLICATION_JSON_VALUE))
+                .get(PathConstants.API + "/checkVersion")
+                .param("version", PathConstants.VERSION))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$['status'])").value("normal"));
+    }
+
+    @Test
+    void testCheckVersionUnsupported() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                .get(PathConstants.API + "/checkVersion")
+                .param("version", "777"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$['status'])").value("unsupported"));
     }
 }

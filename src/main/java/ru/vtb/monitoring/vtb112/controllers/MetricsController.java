@@ -1,5 +1,6 @@
 package ru.vtb.monitoring.vtb112.controllers;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,6 +18,7 @@ import ru.vtb.monitoring.vtb112.mocks.VmMock;
 import ru.vtb.monitoring.vtb112.services.api.interfaces.MetricsService;
 
 @RestController
+@Slf4j
 @RequestMapping(value = PathConstants.METRICS, produces = MediaType.APPLICATION_JSON_VALUE)
 public class MetricsController {
 
@@ -29,14 +31,13 @@ public class MetricsController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<VmMetricsResponse[]> get(@RequestBody VmMetricsRequest vmMetricsRequest) {
-        if(vmMetricsRequest.getPage() < 1)
+        if (vmMetricsRequest.getPage() < 1)
             return new ResponseEntity("Страница не может быть меньше 1", HttpStatus.BAD_REQUEST);
         return ResponseEntity.ok(metricsService.getMetrics(vmMetricsRequest));
     }
 
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public VmUpdateResponse updateMetrics(@RequestBody String[] vmUpdateRequest)
-    {
+    public VmUpdateResponse updateMetrics(@RequestBody String[] vmUpdateRequest) {
         return VmMock.updateMetricsOrSystem;
     }
 
