@@ -36,11 +36,11 @@ public class PushTokenRepositoryImpl implements PushTokenRepositoryCustom {
         String pushTokenQry = """
                 select t.id as id,
                 t.token as token,
-                t.installId as install_id,
+                t.install_id as install_id,
                 t.platform as platform,
                 t.update_token_date as update_token_date
                 from monitoring.pushtokens t
-                where installId = :install_id and 
+                where install_id = :install_id and 
                       platform = :platform                     
                 """;
 
