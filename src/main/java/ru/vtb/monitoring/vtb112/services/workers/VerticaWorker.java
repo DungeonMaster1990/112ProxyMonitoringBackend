@@ -84,10 +84,7 @@ public class VerticaWorker {
         try {
             String verticaServiceName = "VerticaSmRawData";
             Updates update = updatesRepository.getUpdateEntityByServiceName(verticaServiceName);
-            List<Metrics> metrics = metricsRepository.findAll()
-                    .stream()
-                    .filter(m -> !m.isMerged())
-                    .collect(Collectors.toList());
+            List<Metrics> metrics = metricsRepository.findAll();
             List<SmRawdataMeasVertica> smRawdataMeasVerticaList =
                     smRawdataMeasVerticaRepository.getSmRawdataMeasVertica(update, metrics);
             List<SmRawdataMeasApi> smRawdataMeasApiList =
