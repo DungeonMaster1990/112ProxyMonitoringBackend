@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
 import ru.vtb.monitoring.vtb112.config.AppConfig;
 import ru.vtb.monitoring.vtb112.db.models.BaseSmModel;
 import ru.vtb.monitoring.vtb112.db.models.Updates;
@@ -32,7 +31,6 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
     private final Class<K> vmModelWrapperType;
     private final String workerName;
     private final String url;
-    private final String smPort;
     private final RestTemplate restTemplate;
 
     public BaseSmWorker(AppConfig appConfig,
@@ -47,9 +45,9 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
         this.updatesRepository = updatesRepository;
         this.vmModelWrapperType = vmModelWrapperType;
         this.workerName = workerName;
-        this.url = requestString;
+        var serverPort = Strings.isNullOrEmpty(appConfig.getSmPort()) ? "?" : ("?serverPort=" + appConfig.getSmPort() + '&');
+        this.url = requestString + serverPort + "view={view}&query={query}";
         this.restTemplate = buildRestTemplate(appConfig.getSmUserLoginPass());
-        this.smPort = appConfig.getSmPort();
     }
 
     private static RestTemplate buildRestTemplate(String smUserLoginPass) {
@@ -68,21 +66,14 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
         try {
             update = updatesRepository.getUpdateEntityByServiceName(workerName);
             var updateTime = update.getUpdateTime().toInstant();
-            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
-            if (!Strings.isNullOrEmpty(smPort)) {
-                builder.queryParam("serverPort", smPort);
-            }
-            builder.queryParam("view", "expand")
-                    .queryParam("query", buildQuery(updateTime));
-            var request = builder.toUriString();
 
             log.info("Try to load for service: {}, updateTime: {}, request: {}",
                     workerName,
                     updateTime,
-                    request
+                    url
             );
 
-            response = restTemplate.getForEntity(request, vmModelWrapperType);
+            response = restTemplate.getForEntity(url, vmModelWrapperType, "expand", buildQuery(updateTime));
 
             log.debug("Load data for service: {}, updateTime: {}, response: {}",
                     workerName,
