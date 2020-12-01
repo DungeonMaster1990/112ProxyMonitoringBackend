@@ -6,39 +6,50 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.TestPropertySource;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import ru.vtb.monitoring.vtb112.config.AppConfig;
 import ru.vtb.monitoring.vtb112.db.models.Metrics;
+import ru.vtb.monitoring.vtb112.db.models.Updates;
 import ru.vtb.monitoring.vtb112.db.repositories.interfaces.MetricsRepository;
+import ru.vtb.monitoring.vtb112.db.repositories.interfaces.UpdatesRepository;
 import ru.vtb.monitoring.vtb112.infrastructure.PostgreSQL;
 import ru.vtb.monitoring.vtb112.infrastructure.Vertica;
 import ru.vtb.monitoring.vtb112.services.workers.VerticaWorker;
+import ru.vtb.monitoring.vtb112.vertica.models.SmRawdataMeasVertica;
+import ru.vtb.monitoring.vtb112.vertica.repositories.interfaces.SmRawDataMeasVerticaRepository;
 
+import javax.sql.DataSource;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.Statement;
+import java.time.ZonedDateTime;
+import java.util.Comparator;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @Testcontainers(disabledWithoutDocker = true)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@TestPropertySource(properties = "vertica.limit=10")
 class VerticaWorkerTest extends PostgreSQL {
 
     @Autowired
-    private VerticaWorker verticaWorker;
-
+    @Qualifier("verticaDataSource")
+    DataSource dataSource;
     @Autowired
-    private AppConfig appConfig;
-
+    private VerticaWorker verticaWorker;
     @Autowired
     private MetricsRepository metricsRepository;
+    @Autowired
+    private UpdatesRepository updatesRepository;
+    @Autowired
+    SmRawDataMeasVerticaRepository smRawdataMeasVerticaRepository;
 
     @DynamicPropertySource
     static void setUpVertica(DynamicPropertyRegistry registry) {
@@ -48,9 +59,9 @@ class VerticaWorkerTest extends PostgreSQL {
     @BeforeAll
     public void setUp() throws Throwable {
         String query = getTestDataSql();
-        try (Connection connection = DriverManager.getConnection(appConfig.getVerticaUrl(), appConfig.getVerticaUserPass());
+        try (Connection connection = dataSource.getConnection();
              Statement stmt = connection.createStatement()) {
-            stmt.execute(query);
+             stmt.execute(query);
         }
     }
 
@@ -63,8 +74,17 @@ class VerticaWorkerTest extends PostgreSQL {
 
     @Test
     void testTakeSmRawDataMeasVertica() {
-        verticaWorker.takeSmRawdataMeasVertica();
-        // TODO add assertions
+        ZonedDateTime expectedAfterWorker = smRawdataMeasVerticaRepository.findAll().stream()
+                .map(SmRawdataMeasVertica::getTimeStamp)
+                .max(Comparator.naturalOrder())
+                .orElse(null);
+        Updates updateBefore = updatesRepository.getUpdateEntityByServiceName("VerticaSmRawData");
+
+        verticaWorker.takeSmRawDataMeasVertica();
+
+        Updates updateAfter = updatesRepository.getUpdateEntityByServiceName("VerticaSmRawData");
+        Assert.assertEquals(expectedAfterWorker, updateAfter.getUpdateTime());
+        Assert.assertNotEquals(updateBefore.getUpdateTime(), updateAfter.getUpdateTime());
     }
 
     @NotNull

@@ -2,12 +2,25 @@ package ru.vtb.monitoring.vtb112.config;
 
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.jpa.JpaTransactionManager;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import java.util.Properties;
+import javax.sql.DataSource;
+import java.util.HashMap;
 
 @Configuration
+@EnableJpaRepositories(
+        basePackages = "ru.vtb.monitoring.vtb112.db"
+)
 public class AppConfig implements WebMvcConfigurer {
 
     @Value("${sm.baseurl}")
@@ -18,19 +31,16 @@ public class AppConfig implements WebMvcConfigurer {
     private String smUnavailabilityMethod;
     @Value("${sm.methods.changes}")
     private String smChangesMethod;
+    @Value("${spring.jpa.properties.hibernate.dialect}")
+    private String hibernateDialect;
+    @Value("${spring.jpa.properties.hibernate.jdbc.time_zone}")
+    private String hibernateTimeZone;
 
     @Value("${api.timeout}")
     private int timeout;
     @Getter
     @Value("${api.deep.days}")
     private long deepDays;
-    @Getter
-    @Value("${spring.verticaDatasource.url}")
-    private String verticaUrl;
-    @Value("${spring.verticaDatasource.password}")
-    private String verticaPassword;
-    @Value("${spring.verticaDatasource.username}")
-    private String verticaUser;
     @Getter
     @Value("${notificationSender.url}")
     private String pusherUrl;
@@ -44,9 +54,6 @@ public class AppConfig implements WebMvcConfigurer {
     @Getter
     @Value("${sm.port:}")
     private String smPort;
-    @Getter
-    @Value("${vertica.limit}")
-    private Integer verticaLimit;
 
     public String getSmIncidentUrl() {
         return this.baseSmUrl + this.smIncidentMethod;
@@ -56,14 +63,6 @@ public class AppConfig implements WebMvcConfigurer {
         return this.baseSmUrl + this.smUnavailabilityMethod;
     }
 
-    public Properties getVerticaUserPass() {
-        Properties verticaProps = new Properties();
-        verticaProps.put("user", this.verticaUser);
-        verticaProps.put("password", this.verticaPassword);
-        verticaProps.put("LoginTimeout", "35");
-        return verticaProps;
-    }
-
     public String getSmUserLoginPass() {
         return String.format("%s:%s", smLogin, smPassword);
     }
@@ -71,4 +70,45 @@ public class AppConfig implements WebMvcConfigurer {
     public String getSmChangesUrl() {
         return this.baseSmUrl + this.smChangesMethod;
     }
+
+    @Bean
+    @Primary
+    @ConfigurationProperties("spring.datasource")
+    public DataSourceProperties firstDataSourceProperties() {
+        return new DataSourceProperties();
+    }
+
+    @Bean
+    @Primary
+    @ConfigurationProperties("spring.datasource")
+    public DataSource dataSource() {
+        return firstDataSourceProperties().initializeDataSourceBuilder().build();
+    }
+
+    @Primary
+    @Bean
+    public PlatformTransactionManager transactionManager() {
+        JpaTransactionManager transactionManager
+                = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(
+                entityManagerFactory().getObject());
+        return transactionManager;
+    }
+
+    @Bean
+    @Primary
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+        LocalContainerEntityManagerFactoryBean em
+                = new LocalContainerEntityManagerFactoryBean();
+        em.setDataSource(dataSource());
+        em.setPackagesToScan("ru.vtb.monitoring.vtb112.db");
+        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+        em.setJpaVendorAdapter(vendorAdapter);
+        HashMap<String, Object> properties = new HashMap<>();
+        properties.put("hibernate.dialect", hibernateDialect);
+        properties.put("hibernate.jdbc.time_zone", hibernateTimeZone);
+        em.setJpaPropertyMap(properties);
+        return em;
+    }
+
 }

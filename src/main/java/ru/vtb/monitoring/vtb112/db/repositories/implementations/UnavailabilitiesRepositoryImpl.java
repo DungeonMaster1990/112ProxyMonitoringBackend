@@ -2,6 +2,7 @@ package ru.vtb.monitoring.vtb112.db.repositories.implementations;
 
 import com.google.common.collect.Streams;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,15 +25,12 @@ public class UnavailabilitiesRepositoryImpl implements UnavailabilitiesRepositor
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Autowired
     @Lazy
-    private final UnavailabilitiesRepository availabilitiesRepo;
+    private UnavailabilitiesRepository availabilitiesRepo;
 
-    private final UnavailabilityMapper unavailabilityMapper;
-
-    public UnavailabilitiesRepositoryImpl(UnavailabilitiesRepository availabilitiesRepo, UnavailabilityMapper unavailabilityMapper) {
-        this.availabilitiesRepo = availabilitiesRepo;
-        this.unavailabilityMapper = unavailabilityMapper;
-    }
+    @Autowired
+    private UnavailabilityMapper unavailabilityMapper;
 
     @Override
     public List<Unavailabilities> getAllVtbUnavailabilities() {

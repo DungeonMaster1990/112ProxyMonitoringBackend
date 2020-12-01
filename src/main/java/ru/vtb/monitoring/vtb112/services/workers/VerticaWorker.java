@@ -2,7 +2,9 @@ package ru.vtb.monitoring.vtb112.services.workers;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,15 +16,18 @@ import ru.vtb.monitoring.vtb112.db.repositories.interfaces.MetricsRepository;
 import ru.vtb.monitoring.vtb112.db.repositories.interfaces.SmDefMeasurementApiRepository;
 import ru.vtb.monitoring.vtb112.db.repositories.interfaces.SmRawdataMeasApiRepository;
 import ru.vtb.monitoring.vtb112.db.repositories.interfaces.UpdatesRepository;
-import ru.vtb.monitoring.vtb112.db.vertica.models.SmDefMeasurementVertica;
-import ru.vtb.monitoring.vtb112.db.vertica.models.SmRawdataMeasVertica;
-import ru.vtb.monitoring.vtb112.db.vertica.repositories.interfaces.SmDefMeasurementVerticaRepository;
-import ru.vtb.monitoring.vtb112.db.vertica.repositories.interfaces.SmRawdataMeasVerticaRepository;
+import ru.vtb.monitoring.vtb112.vertica.models.SmDefMeasurementVertica;
+import ru.vtb.monitoring.vtb112.vertica.models.SmRawdataMeasVertica;
+import ru.vtb.monitoring.vtb112.vertica.repositories.interfaces.SmDefMeasurementVerticaRepository;
+import ru.vtb.monitoring.vtb112.vertica.repositories.interfaces.SmRawDataMeasVerticaRepository;
 import ru.vtb.monitoring.vtb112.mappers.VerticaMapper;
 
 import java.sql.SQLException;
+import java.time.ZonedDateTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 
 @ConditionalOnProperty(value = "vertica.scheduling.enabled", havingValue = "true", matchIfMissing = true)
@@ -32,13 +37,16 @@ public class VerticaWorker {
     private final SmDefMeasurementApiRepository smDefMeasurementApiRepository;
     private final SmDefMeasurementVerticaRepository smDefMeasurementVerticaRepository;
     private final SmRawdataMeasApiRepository smRawdataMeasApiRepository;
-    private final SmRawdataMeasVerticaRepository smRawdataMeasVerticaRepository;
+    private final SmRawDataMeasVerticaRepository smRawdataMeasVerticaRepository;
     private final MetricsRepository metricsRepository;
     private final UpdatesRepository updatesRepository;
     private final VerticaMapper verticaMapper;
 
+    @Value("${vertica.limit}")
+    private Integer verticaLimit;
+
     @Autowired
-    public VerticaWorker(SmDefMeasurementApiRepository smDefMeasurementApiRepository, SmDefMeasurementVerticaRepository smDefMeasurementVerticaRepository, SmRawdataMeasApiRepository smRawdataMeasApiRepository, SmRawdataMeasVerticaRepository smRawdataMeasVerticaRepository, MetricsRepository metricsRepository, UpdatesRepository updatesRepository, VerticaMapper verticaMapper) {
+    public VerticaWorker(SmDefMeasurementApiRepository smDefMeasurementApiRepository, SmDefMeasurementVerticaRepository smDefMeasurementVerticaRepository, SmRawdataMeasApiRepository smRawdataMeasApiRepository, SmRawDataMeasVerticaRepository smRawdataMeasVerticaRepository, MetricsRepository metricsRepository, UpdatesRepository updatesRepository, VerticaMapper verticaMapper) {
         this.smDefMeasurementApiRepository = smDefMeasurementApiRepository;
         this.smDefMeasurementVerticaRepository = smDefMeasurementVerticaRepository;
         this.smRawdataMeasApiRepository = smRawdataMeasApiRepository;
@@ -80,27 +88,48 @@ public class VerticaWorker {
 
     @Scheduled(fixedRateString = "${vertica.scheduler.fixedRate}")
     @Transactional
-    public void takeSmRawdataMeasVertica() {
-        try {
-            String verticaServiceName = "VerticaSmRawData";
-            Updates update = updatesRepository.getUpdateEntityByServiceName(verticaServiceName);
-            List<SmRawdataMeasVertica> smRawdataMeasVerticaList =
-                    smRawdataMeasVerticaRepository.getSmRawdataMeasVertica(update);
-            List<SmRawdataMeasApi> smRawdataMeasApiList =
-                    smRawdataMeasVerticaList
-                            .stream()
-                            .map(verticaMapper::mapToSmRawdataMeasApi)
-                            .collect(Collectors.toList());
-            smRawdataMeasApiRepository.saveAll(smRawdataMeasApiList);
+    public void takeSmRawDataMeasVertica() {
 
-            smRawdataMeasVerticaList.stream()
-                    .max(Comparator.comparing(SmRawdataMeasVertica::getTimeStamp))
-                    .map(SmRawdataMeasVertica::getTimeStamp)
-                    .ifPresent(update::setUpdateTime);
+        String verticaServiceName = "VerticaSmRawData";
+        Updates update = updatesRepository.getUpdateEntityByServiceName(verticaServiceName);
 
-            updatesRepository.putUpdate(update);
-        } catch (SQLException sqlException) {
-            log.error("Произошла ошибка при попытке выгрузки данных из Vertic-и из таблицы SmRawdataMeas", sqlException);
+        PriorityQueue<ZonedDateTime> maxTimestampPQ = new PriorityQueue<>(Comparator.reverseOrder());
+        int maxIterations = 100;
+        int curIteration = 0;
+        while (curIteration++ < maxIterations) {
+            int processedRows = processSingleBatch(update, curIteration-1, maxTimestampPQ);
+            log.info("Processed rows {} on iteration # {}", processedRows, curIteration);
+            if (processedRows < verticaLimit) {
+                break;
+            }
         }
+        Optional.ofNullable(maxTimestampPQ.peek())
+                .ifPresent(maxTimestamp -> {
+                    update.setUpdateTime(maxTimestamp);
+                    updatesRepository.putUpdate(update);
+                });
+    }
+
+    @Transactional
+    private int processSingleBatch(Updates update,
+                                   int pageNumber,
+                                   PriorityQueue<ZonedDateTime> maxTimestampPQ) {
+
+        List<SmRawdataMeasVertica> smRawDataMeasVerticaList =
+                smRawdataMeasVerticaRepository.findByStatusIdAndTimeStampGreaterThan(0,
+                        update.getUpdateTime(),
+                        PageRequest.of(pageNumber, verticaLimit));
+        List<SmRawdataMeasApi> smRawDataMeasApiList =
+                smRawDataMeasVerticaList
+                        .stream()
+                        .map(verticaMapper::mapToSmRawdataMeasApi)
+                        .collect(Collectors.toList());
+        smRawdataMeasApiRepository.saveAll(smRawDataMeasApiList);
+
+        maxTimestampPQ.addAll(smRawDataMeasVerticaList.stream()
+                .map(SmRawdataMeasVertica::getTimeStamp)
+                .collect(Collectors.toList()));
+
+        return smRawDataMeasVerticaList.size();
     }
 }

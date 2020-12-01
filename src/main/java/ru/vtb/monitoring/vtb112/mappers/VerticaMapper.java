@@ -4,8 +4,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import ru.vtb.monitoring.vtb112.db.models.SmDefMeasurementApi;
 import ru.vtb.monitoring.vtb112.db.models.SmRawdataMeasApi;
-import ru.vtb.monitoring.vtb112.db.vertica.models.SmDefMeasurementVertica;
-import ru.vtb.monitoring.vtb112.db.vertica.models.SmRawdataMeasVertica;
+import ru.vtb.monitoring.vtb112.vertica.models.SmDefMeasurementVertica;
+import ru.vtb.monitoring.vtb112.vertica.models.SmRawdataMeasVertica;
 
 @Mapper(componentModel = "spring")
 public interface VerticaMapper {

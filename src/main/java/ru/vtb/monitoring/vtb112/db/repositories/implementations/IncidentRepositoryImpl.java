@@ -1,6 +1,7 @@
 package ru.vtb.monitoring.vtb112.db.repositories.implementations;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -31,15 +32,12 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Autowired
     @Lazy
-    private final IncidentRepository incidentRepository;
+    private IncidentRepository incidentRepository;
 
-    private final IncidentMapper incidentMapper;
-
-    public IncidentRepositoryImpl(IncidentRepository incidentRepository, IncidentMapper incidentMapper) {
-        this.incidentRepository = incidentRepository;
-        this.incidentMapper = incidentMapper;
-    }
+    @Autowired
+    private IncidentMapper incidentMapper;
 
     @Override
     public List<Incident> getAllVtbIncidents() {
