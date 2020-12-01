@@ -3,6 +3,7 @@ package ru.vtb.monitoring.vtb112.controllers;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmPlanRequest;
 import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmPlanSectionRequest;
@@ -22,11 +23,14 @@ public class PlansController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public List<VmPlanResponse> get(@RequestBody VmPlanRequest request) {
-        return plansService.getSection(
+    public ResponseEntity<List<VmPlanResponse>> get(@RequestBody VmPlanRequest request) {
+        if(request.getPage() < 1 || request.getLimit() < 1) {
+            return new ResponseEntity("Параметры page и limit не могут быть меньше 1", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(plansService.getSection(
                 request.getPlanSectionID().getSection(),
                 request.getKeyword(),
-                PageRequest.of(request.getPage() - 1, request.getLimit()));
+                PageRequest.of(request.getPage() - 1, request.getLimit())), HttpStatus.OK);
     }
 
     @PostMapping(value = "/sections", consumes = MediaType.APPLICATION_JSON_VALUE)

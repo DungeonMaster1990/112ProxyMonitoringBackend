@@ -51,6 +51,29 @@ class AccidentsControllerTest extends PostgreSQL {
     }
 
     @Test
+    void testInvalidPagingAccidents() throws Exception {
+        VmAccidentsRequest request = VmAccidentsRequest.builder()
+                .limit(5)
+                .page(0)
+                .startDate(dayNow)
+                .build();
+        mockMvc.perform(MockMvcRequestBuilders
+                .post(PathConstants.ACCIDENTS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+        request.setLimit(0);
+        request.setPage(1);
+        mockMvc.perform(MockMvcRequestBuilders
+                .post(PathConstants.ACCIDENTS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void testAccidents() throws Exception {
         VmAccidentsRequest request = VmAccidentsRequest.builder()
                 .limit(5)
