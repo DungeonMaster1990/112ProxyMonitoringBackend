@@ -56,7 +56,6 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
                 stmt.setTimestamp(1, timestamp);
                 stmt.setInt(2, appConfig.getVerticaLimit());
                 stmt.setInt(3, offset);
-                System.out.println(stmt);
                 try (ResultSet rs = stmt.executeQuery()) {
                     offset = offset + appConfig.getVerticaLimit();
                     if (!rs.next()) {
