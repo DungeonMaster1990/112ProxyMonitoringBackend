@@ -116,8 +116,7 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
 
         String dateTimeString = update.getUpdateTime().toInstant().toString();
         String queryString = String.format("UpdatedAt>'%s'", dateTimeString);
-        String encodeQueryString = UriEncoder.encode(queryString);
-
+        String encodeQueryString = UriEncoder.encode(queryString).replace(":", "%3A");
         String serverPortString = Strings.isNullOrEmpty(smPort) ? "" : String.format("serverPort=%s&", smPort);
 
         return String.format("%s?%sview=expand&query=%s", url, serverPortString, encodeQueryString);
