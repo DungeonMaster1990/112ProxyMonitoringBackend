@@ -31,10 +31,8 @@ public class MetricsController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<VmMetricsResponse[]> get(@RequestBody VmMetricsRequest vmMetricsRequest) {
-        if (vmMetricsRequest.getPage() < 1 || vmMetricsRequest.getLimit() < 1) {
-            log.warn("Страница или лимит не могут быть меньше 1. Получены значения: {}/{}", vmMetricsRequest.getPage(), vmMetricsRequest.getLimit());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
+        if (vmMetricsRequest.getPage() < 1)
+            return new ResponseEntity("Страница не может быть меньше 1", HttpStatus.BAD_REQUEST);
         return ResponseEntity.ok(metricsService.getMetrics(vmMetricsRequest));
     }
 
