@@ -36,16 +36,16 @@ public class PushTokenRepositoryImpl implements PushTokenRepositoryCustom {
         String pushTokenQry = """
                 select t.id as id,
                 t.token as token,
-                t.installId as installId,
+                t.install_id as install_id,
                 t.platform as platform,
                 t.update_token_date as update_token_date
                 from monitoring.pushtokens t
-                where installId = :installId and 
+                where install_id = :install_id and 
                       platform = :platform                     
                 """;
 
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
-                .addValue("installId", pushToken.getInstallId())
+                .addValue("install_id", pushToken.getInstallId())
                 .addValue("platform", pushToken.getPlatform());
 
         List<PushTokens> existedPushTokens = namedParameterJdbcTemplate.query(
