@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.List;
 import java.util.Properties;
 
 @Configuration
@@ -19,11 +20,6 @@ public class AppConfig implements WebMvcConfigurer {
     @Value("${sm.methods.changes}")
     private String smChangesMethod;
 
-    @Value("${api.timeout}")
-    private int timeout;
-    @Getter
-    @Value("${api.deep.days}")
-    private long deepDays;
     @Getter
     @Value("${spring.verticaDatasource.url}")
     private String verticaUrl;
@@ -47,6 +43,12 @@ public class AppConfig implements WebMvcConfigurer {
     @Getter
     @Value("${vertica.limit}")
     private Integer verticaLimit;
+    @Getter
+    @Value("${vertica.maxPages}")
+    private Integer verticaMaxPages;
+    @Getter
+    @Value("#{'${api.categories}'.split(',')}")
+    private List<String> supportedCategories;
 
     public String getSmIncidentUrl() {
         return this.baseSmUrl + this.smIncidentMethod;
