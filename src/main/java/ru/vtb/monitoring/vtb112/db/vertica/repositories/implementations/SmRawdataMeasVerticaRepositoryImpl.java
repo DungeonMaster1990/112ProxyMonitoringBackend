@@ -8,7 +8,6 @@ import ru.vtb.monitoring.vtb112.db.vertica.repositories.interfaces.SmRawdataMeas
 import ru.vtb.monitoring.vtb112.services.helpers.interfaces.DateFormatterHelper;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,14 +33,12 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
                     limit ?
                     offset ?
                 """;
-        var formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         try (Connection connection = DriverManager.getConnection(appConfig.getVerticaUrl(), appConfig.getVerticaUserPass());
              PreparedStatement stmt = connection.prepareStatement(query)) {
             var timestamp = Timestamp.from(lastUpdate.getUpdateTime().toInstant());
             int offset = 0;
-            int max = 100;
             int cur = 0;
-            while (cur++ < max) {
+            while (cur++ < appConfig.getVerticaMaxPages()) {
                 stmt.setTimestamp(1, timestamp);
                 stmt.setInt(2, appConfig.getVerticaLimit());
                 stmt.setInt(3, offset);
