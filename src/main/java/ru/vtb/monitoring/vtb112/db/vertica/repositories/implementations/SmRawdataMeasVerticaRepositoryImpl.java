@@ -51,7 +51,6 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
              PreparedStatement stmt = connection.prepareStatement(query)) {
             var timestamp = Timestamp.from(lastUpdate.getUpdateTime().toInstant());
             int offset = 0;
-            int max = 100;
             int cur = 0;
             while (cur++ < appConfig.getVerticaMaxPages()) {
                 stmt.setTimestamp(1, timestamp);
