@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import org.yaml.snakeyaml.util.UriEncoder;
 import ru.vtb.monitoring.vtb112.config.AppConfig;
 import ru.vtb.monitoring.vtb112.db.models.BaseSmModel;
 import ru.vtb.monitoring.vtb112.db.models.Updates;
@@ -15,7 +14,11 @@ import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.modelwrappers.V
 import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.modelwrappers.VmModelWrapper;
 import ru.vtb.monitoring.vtb112.mappers.ResponseMapper;
 
-import java.util.*;
+import java.time.Instant;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -28,7 +31,6 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
     private final Class<K> vmModelWrapperType;
     private final String workerName;
     private final String url;
-    private final String smPort;
     private final RestTemplate restTemplate;
 
     public BaseSmWorker(AppConfig appConfig,
@@ -43,9 +45,9 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
         this.updatesRepository = updatesRepository;
         this.vmModelWrapperType = vmModelWrapperType;
         this.workerName = workerName;
-        this.url = requestString;
+        var serverPort = Strings.isNullOrEmpty(appConfig.getSmPort()) ? "?" : ("?serverPort=" + appConfig.getSmPort() + '&');
+        this.url = requestString + serverPort + "view={view}&query={query}";
         this.restTemplate = buildRestTemplate(appConfig.getSmUserLoginPass());
-        this.smPort = appConfig.getSmPort();
     }
 
     private static RestTemplate buildRestTemplate(String smUserLoginPass) {
@@ -63,23 +65,21 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
 
         try {
             update = updatesRepository.getUpdateEntityByServiceName(workerName);
+            var updateTime = update.getUpdateTime().toInstant();
 
-            String urlWithParams = getUrlWithParams(update);
-            
             log.info("Try to load for service: {}, updateTime: {}, request: {}",
                     workerName,
-                    update.getUpdateTime().toInstant(),
-                    urlWithParams
+                    updateTime,
+                    url
             );
 
-            response = restTemplate.getForEntity(urlWithParams, vmModelWrapperType);
+            response = restTemplate.getForEntity(url, vmModelWrapperType, "expand", buildQuery(updateTime));
 
             log.debug("Load data for service: {}, updateTime: {}, response: {}",
                     workerName,
-                    update.getUpdateTime().toInstant(),
+                    updateTime,
                     response
             );
-
         } catch (Exception exception) {
             log.error("Exception during process in worker {}", workerName, exception);
             return;
@@ -112,13 +112,8 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
         );
     }
 
-    private String getUrlWithParams(Updates update){
-
-        String dateTimeString = update.getUpdateTime().toInstant().toString();
-        String queryString = String.format("UpdatedAt>'%s'", dateTimeString);
-        String encodeQueryString = UriEncoder.encode(queryString).replace(":", "%3A");
-        String serverPortString = Strings.isNullOrEmpty(smPort) ? "" : String.format("serverPort=%s&", smPort);
-
-        return String.format("%s?%sview=expand&query=%s", url, serverPortString, encodeQueryString);
+    private String buildQuery(Instant updateTime) {
+        String dateTimeString = updateTime.toString();
+        return String.format("UpdatedAt>'%s'", dateTimeString);
     }
 }
