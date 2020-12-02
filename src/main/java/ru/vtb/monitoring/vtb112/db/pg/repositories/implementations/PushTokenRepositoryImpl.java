@@ -71,7 +71,7 @@ public class PushTokenRepositoryImpl implements PushTokenRepositoryCustom {
                 .id(rs.getInt("id"))
                 .token(rs.getString("token"))
                 .installId(rs.getString("installId"))
-                .updateTokenDate(dateFormatterHelper.dbDateToZonedDate(rs.getTimestamp("update_token_date")))
+                .updateTokenDate(dateFormatterHelper.dbDateToZonedDate(rs.getTimestamp("update_token_date"), "UTC"))
                 .build();
     }
 }

@@ -10,7 +10,7 @@ import java.time.ZonedDateTime;
 @Component
 public class DateFormatterHelperImpl implements DateFormatterHelper {
     @Override
-    public ZonedDateTime dbDateToZonedDate(Timestamp dbDate) {
-        return ZonedDateTime.ofInstant(dbDate.toInstant(), ZoneId.of("UTC"));
+    public ZonedDateTime dbDateToZonedDate(Timestamp dbDate, String zonedId) {
+        return ZonedDateTime.ofInstant(dbDate.toInstant(), ZoneId.of(zonedId));
     }
 }
