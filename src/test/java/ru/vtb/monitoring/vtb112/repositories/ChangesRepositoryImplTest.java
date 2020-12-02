@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import ru.vtb.monitoring.vtb112.db.models.Changes;
-import ru.vtb.monitoring.vtb112.db.repositories.interfaces.ChangesRepository;
+import ru.vtb.monitoring.vtb112.db.pg.models.Changes;
+import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.ChangesRepository;
 import ru.vtb.monitoring.vtb112.infrastructure.PostgreSQL;
 
 import java.util.Arrays;
