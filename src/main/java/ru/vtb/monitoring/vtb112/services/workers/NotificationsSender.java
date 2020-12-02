@@ -14,7 +14,6 @@ import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.IncidentRepository
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.PushTokenRepository;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -32,13 +31,14 @@ public class NotificationsSender {
     private final PushTokenRepository pushTokenRepository;
     private final RestTemplate restTemplate;
 
-    private final List<String> supportedPriorities = Arrays.asList("1", "2");
+    private final List<String> supportedCategories;
 
     public NotificationsSender(AppConfig appConfig,
                                IncidentRepository vtbIncidentsRepository,
                                PushTokenRepository pushTokenRepository,
                                RestTemplateBuilder restTemplateBuilder) {
         this.appConfig = appConfig;
+        this.supportedCategories = appConfig.getSupportedCategories();
         this.vtbIncidentsRepository = vtbIncidentsRepository;
         this.pushTokenRepository = pushTokenRepository;
         this.restTemplate = restTemplateBuilder.build();
@@ -55,7 +55,7 @@ public class NotificationsSender {
         try {
             // TODO отправлять все аварии в одном вызове?
             incidents.stream()
-                    .filter(incident -> supportedPriorities.contains(incident.getPriority()))
+                    .filter(incident -> supportedCategories.contains(incident.getPriority()))
                     .forEach(this::sendNotificationsForIncident);
             var ids = incidents.stream().map(Incident::getId).collect(toSet());
             vtbIncidentsRepository.markAsNotificationSent(ids);

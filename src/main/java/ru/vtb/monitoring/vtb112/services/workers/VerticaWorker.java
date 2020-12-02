@@ -44,6 +44,8 @@ public class VerticaWorker {
 
     @Value("${vertica.limit}")
     private Integer verticaLimit;
+    @Value("${vertica.maxPages}")
+    private Integer verticaMaxPages;
 
     @Autowired
     public VerticaWorker(SmDefMeasurementApiRepository smDefMeasurementApiRepository, SmDefMeasurementVerticaRepository smDefMeasurementVerticaRepository, SmRawdataMeasApiRepository smRawdataMeasApiRepository, SmRawDataMeasVerticaRepository smRawdataMeasVerticaRepository, MetricsRepository metricsRepository, UpdatesRepository updatesRepository, VerticaMapper verticaMapper) {
@@ -95,9 +97,8 @@ public class VerticaWorker {
                 .collect(Collectors.toList());
 
         PriorityQueue<ZonedDateTime> maxTimestampPQ = new PriorityQueue<>(Comparator.reverseOrder());
-        int maxIterations = 100;
         int curIteration = 0;
-        while (curIteration++ < maxIterations) {
+        while (curIteration++ < verticaMaxPages) {
             int processedRows = processSingleBatch(update, measurementIds,curIteration-1, maxTimestampPQ);
             log.info("Processed rows {} on iteration # {}", processedRows, curIteration);
             if (processedRows < verticaLimit) {

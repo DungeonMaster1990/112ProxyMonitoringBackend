@@ -16,6 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
+import java.util.List;
 
 @Configuration
 @EnableJpaRepositories(
@@ -36,11 +37,6 @@ public class AppConfig implements WebMvcConfigurer {
     @Value("${spring.jpa.properties.hibernate.jdbc.time_zone}")
     private String hibernateTimeZone;
 
-    @Value("${api.timeout}")
-    private int timeout;
-    @Getter
-    @Value("${api.deep.days}")
-    private long deepDays;
     @Getter
     @Value("${notificationSender.url}")
     private String pusherUrl;
@@ -54,6 +50,9 @@ public class AppConfig implements WebMvcConfigurer {
     @Getter
     @Value("${sm.port:}")
     private String smPort;
+    @Getter
+    @Value("#{'${api.categories}'.split(',')}")
+    private List<String> supportedCategories;
 
     public String getSmIncidentUrl() {
         return this.baseSmUrl + this.smIncidentMethod;

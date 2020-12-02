@@ -23,47 +23,45 @@ public class PushTokenRepositoryImpl implements PushTokenRepositoryCustom {
 
     @Autowired
     @Lazy
-    PushTokenRepository pushTokenRepository;
-
+    private PushTokenRepository pushTokenRepository;
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-
     @Autowired
     private DateFormatterHelper dateFormatterHelper;
+
 
     @Override
     public Boolean pushToken(PushTokens pushToken) {
         String pushTokenQry = """
                 select t.id as id,
                 t.token as token,
-                t.installId as installId,
+                t.install_id as install_id,
                 t.platform as platform,
                 t.update_token_date as update_token_date
                 from monitoring.pushtokens t
-                where installId = :installId and 
+                where install_id = :install_id and 
                       platform = :platform                     
                 """;
 
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
-                .addValue("installId", pushToken.getInstallId())
+                .addValue("install_id", pushToken.getInstallId())
                 .addValue("platform", pushToken.getPlatform());
 
         List<PushTokens> existedPushTokens = namedParameterJdbcTemplate.query(
                 pushTokenQry, sqlParameterSource, (rs, rowNum) -> toPushTokens(rs));
-        if(!existedPushTokens.isEmpty()) {
-            for(PushTokens tokenInfo : existedPushTokens){
+        if (!existedPushTokens.isEmpty()) {
+            for (PushTokens tokenInfo : existedPushTokens) {
                 tokenInfo.setToken(pushToken.getToken());
                 tokenInfo.setUpdateTokenDate(ZonedDateTime.now());
                 tokenInfo.setInstallId(pushToken.getInstallId());
                 tokenInfo.setPlatform(pushToken.getPlatform());
             }
             pushTokenRepository.saveAll(existedPushTokens);
-        }
-        else {
+        } else {
             pushToken.setUpdateTokenDate(ZonedDateTime.now());
             pushTokenRepository.save(pushToken);
         }
-        log.info("token was added", pushToken);
+        log.info("token was added: {}", pushToken);
         return true;
     }
 

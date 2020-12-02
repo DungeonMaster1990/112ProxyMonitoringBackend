@@ -1,6 +1,7 @@
 package ru.vtb.monitoring.vtb112.db.pg.models;
 
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -15,7 +16,14 @@ import java.time.ZonedDateTime;
 @Table(name="pushtokens", schema = "monitoring")
 public class PushTokens {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GenericGenerator(
+            name = "pushtokens_id_generator",
+            strategy = "org.hibernate.id.enhanced.SequenceStyleGenerator",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "monitoring.pushtokens_id_seq")
+            }
+    )
+    @GeneratedValue(generator = "pushtokens_id_generator")
     private int id;
 
     @Column(name = "token", unique = false, nullable = false)
