@@ -1,6 +1,6 @@
 package ru.vtb.monitoring.vtb112.dto.api.viewmodels.converters;
 
-import ru.vtb.monitoring.vtb112.db.models.enums.Status;
+import ru.vtb.monitoring.vtb112.db.pg.models.enums.Status;
 import ru.vtb.monitoring.vtb112.dto.api.viewmodels.enums.BlAccidentStatusType;
 
 import java.time.ZonedDateTime;

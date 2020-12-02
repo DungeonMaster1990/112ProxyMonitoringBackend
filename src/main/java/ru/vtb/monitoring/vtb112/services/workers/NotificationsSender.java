@@ -8,10 +8,10 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import ru.vtb.monitoring.vtb112.config.AppConfig;
-import ru.vtb.monitoring.vtb112.db.models.Incident;
-import ru.vtb.monitoring.vtb112.db.models.PushTokens;
-import ru.vtb.monitoring.vtb112.db.repositories.interfaces.IncidentRepository;
-import ru.vtb.monitoring.vtb112.db.repositories.interfaces.PushTokenRepository;
+import ru.vtb.monitoring.vtb112.db.pg.models.Incident;
+import ru.vtb.monitoring.vtb112.db.pg.models.PushTokens;
+import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.IncidentRepository;
+import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.PushTokenRepository;
 
 import java.io.Serializable;
 import java.util.List;
