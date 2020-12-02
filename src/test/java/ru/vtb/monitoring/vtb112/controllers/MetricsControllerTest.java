@@ -56,6 +56,20 @@ class MetricsControllerTest extends PostgreSQL {
     }
 
     @Test
+    void testAllMetricsDefaultValues() throws Exception {
+        VmMetricsRequest request = new VmMetricsRequest(true, "hello", 10, 1);
+        mockMvc.perform(MockMvcRequestBuilders
+                .post(PathConstants.METRICS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+                .andDo(print())
+                .andExpect(jsonPath("$[0]['delta'])").doesNotExist())
+                .andExpect(jsonPath("$[0]['deltaPercent'])").doesNotExist())
+                .andExpect(jsonPath("$[0]['totalPercent'])").doesNotExist())
+                .andExpect(status().isOk());
+    }
+
+    @Test
     void testPagedMetrics() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                 .post(PathConstants.METRICS)
