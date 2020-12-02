@@ -2,15 +2,13 @@ package ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.modelwrappers;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class VmBaseResponseWrapper<T> {
     @JsonAlias("@count")
