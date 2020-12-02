@@ -2,17 +2,15 @@ package ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.ZonedDateTime;
 
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VmSmUnavailability {
     @JsonAlias("FaultId")
@@ -37,5 +35,4 @@ public class VmSmUnavailability {
     private ZonedDateTime updatedAt;
     @JsonAlias("UpdatedById")
     private int updatedById;
-
 }

@@ -51,8 +51,8 @@ public class CustomRequestInterceptor extends HandlerInterceptorAdapter {
                 Client ip address: {} 
                 User agent: {} 
                 Event code: {} 
-                Description: {}
-                Result: {}
+                Description: {} 
+                Result: {} 
                 """, principal, startTime, duration, ipAdd, userAgent, eventLogCode, description, result);
     }
 
