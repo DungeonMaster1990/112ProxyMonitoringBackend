@@ -63,8 +63,8 @@ public class SmDefMeasurementVerticaRepositoryImpl implements SmDefMeasurementVe
                 smDefMeasurementVertica.setEtiId(rs.getString("eti_id"));
                 smDefMeasurementVertica.setIntegrationName(rs.getString("integration_name"));
                 smDefMeasurementVertica.setProfileId(rs.getString("profile_id"));
-                smDefMeasurementVertica.setCreationDate(dateFormatterHelper.dbDateToZonedDate(rs.getTimestamp("creation_date")));
-                smDefMeasurementVertica.setModifiedDate(dateFormatterHelper.dbDateToZonedDate(rs.getTimestamp("modified_date")));
+                smDefMeasurementVertica.setCreationDate(dateFormatterHelper.dbDateToZonedDate(rs.getTimestamp("creation_date"),"Europe/Moscow"));
+                smDefMeasurementVertica.setModifiedDate(dateFormatterHelper.dbDateToZonedDate(rs.getTimestamp("modified_date"), "Europe/Moscow"));
                 smDefMeasurementVertica.setIsDeleted(rs.getBoolean("is_deleted"));
                 smDefMeasurementsVertica.add(smDefMeasurementVertica);
             }
