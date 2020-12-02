@@ -1,6 +1,5 @@
 package ru.vtb.monitoring.vtb112.db.vertica.repositories.implementations;
 
-import liquibase.pro.packaged.S;
 import org.springframework.stereotype.Repository;
 import ru.vtb.monitoring.vtb112.config.AppConfig;
 import ru.vtb.monitoring.vtb112.db.models.Metrics;
@@ -10,7 +9,6 @@ import ru.vtb.monitoring.vtb112.db.vertica.repositories.interfaces.SmRawdataMeas
 import ru.vtb.monitoring.vtb112.services.helpers.interfaces.DateFormatterHelper;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +24,7 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
     }
 
     @Override
-    public List<SmRawdataMeasVertica> getSmRawdataMeasVertica(Updates lastUpdate, List<Metrics> metrics ) throws SQLException {
+    public List<SmRawdataMeasVertica> getSmRawdataMeasVertica(Updates lastUpdate, List<Metrics> metrics) throws SQLException {
         List<SmRawdataMeasVertica> smRawdataMeasesVertica = new ArrayList<>();
 
         StringBuilder metricsIn = new StringBuilder();
@@ -46,7 +44,6 @@ public class SmRawdataMeasVerticaRepositoryImpl implements SmRawdataMeasVerticaR
                     offset ?
                 """, metricsIn.toString());
 
-        var formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         try (Connection connection = DriverManager.getConnection(appConfig.getVerticaUrl(), appConfig.getVerticaUserPass());
              PreparedStatement stmt = connection.prepareStatement(query)) {
             var timestamp = Timestamp.from(lastUpdate.getUpdateTime().toInstant());
