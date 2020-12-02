@@ -24,7 +24,7 @@ public class VerticaConfig extends AppConfig {
 
     @Value("${vertica.hibernate.dialect}")
     private String hibernateDialect;
-    @Value("${vertica.hibernate.connection.pool_size}")
+    @Value("${vertica.hibernate.connection.pool-size}")
     private String poolSize;
 
     @Bean

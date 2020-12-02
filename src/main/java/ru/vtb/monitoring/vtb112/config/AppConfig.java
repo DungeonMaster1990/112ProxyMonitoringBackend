@@ -3,12 +3,11 @@ package ru.vtb.monitoring.vtb112.config;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
 @Configuration
-public class AppConfig implements WebMvcConfigurer {
+public class AppConfig {
 
     @Value("${sm.baseurl}")
     private String baseSmUrl;
@@ -18,7 +17,7 @@ public class AppConfig implements WebMvcConfigurer {
     private String smUnavailabilityMethod;
     @Value("${sm.methods.changes}")
     private String smChangesMethod;
-    @Value("${spring.jpa.properties.hibernate.jdbc.time_zone}")
+    @Value("${spring.jpa.properties.hibernate.jdbc.time-zone}")
     protected String hibernateTimeZone;
 
     @Getter
