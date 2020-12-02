@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -16,52 +17,50 @@ import java.util.HashMap;
 
 @Configuration
 @EnableJpaRepositories(
-        basePackages = "ru.vtb.monitoring.vtb112.db.vertica",
-        entityManagerFactoryRef = "verticaEntityManager",
-        transactionManagerRef = "verticaTransactionManager"
+        basePackages = "ru.vtb.monitoring.vtb112.db.pg"
 )
-public class VerticaConfig extends AppConfig {
+public class PostgreConfig extends AppConfig {
 
-    @Value("${vertica.hibernate.dialect}")
+    @Value("${spring.jpa.properties.hibernate.dialect}")
     private String hibernateDialect;
-    @Value("${vertica.hibernate.connection.pool_size}")
-    private String poolSize;
 
     @Bean
-    @ConfigurationProperties("spring.vertica")
-    public DataSourceProperties verticaDataSourceProperties() {
+    @Primary
+    @ConfigurationProperties("spring.datasource")
+    public DataSourceProperties firstDataSourceProperties() {
         return new DataSourceProperties();
     }
 
-    @Bean("verticaDataSource")
-    public DataSource verticaDataSource() {
-        return verticaDataSourceProperties().initializeDataSourceBuilder().build();
+    @Bean
+    @Primary
+    @ConfigurationProperties("spring.datasource")
+    public DataSource dataSource() {
+        return firstDataSourceProperties().initializeDataSourceBuilder().build();
     }
 
-    @Bean("verticaEntityManager")
-    public LocalContainerEntityManagerFactoryBean verticaEntityManager() {
+    @Primary
+    @Bean
+    public PlatformTransactionManager transactionManager() {
+        JpaTransactionManager transactionManager
+                = new JpaTransactionManager();
+        transactionManager.setEntityManagerFactory(
+                entityManagerFactory().getObject());
+        return transactionManager;
+    }
+
+    @Bean
+    @Primary
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em
                 = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(verticaDataSource());
-        em.setPackagesToScan("ru.vtb.monitoring.vtb112.db.vertica");
+        em.setDataSource(dataSource());
+        em.setPackagesToScan("ru.vtb.monitoring.vtb112.db.pg");
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("hibernate.dialect", hibernateDialect);
         properties.put("hibernate.jdbc.time_zone", hibernateTimeZone);
-        properties.put("hibernate.connection.pool_size", poolSize);
         em.setJpaPropertyMap(properties);
-
         return em;
     }
-
-    @Bean
-    public PlatformTransactionManager verticaTransactionManager() {
-        JpaTransactionManager transactionManager
-                = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(
-                verticaEntityManager().getObject());
-        return transactionManager;
-    }
-
 }
