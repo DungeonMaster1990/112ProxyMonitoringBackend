@@ -1,10 +1,11 @@
 package ru.vtb.monitoring.vtb112.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -21,14 +22,6 @@ import java.util.HashMap;
 )
 public class VerticaConfig {
 
-    @Value("${spring.verticaDatasource.url}")
-    private String verticaUrl;
-    @Value("${spring.verticaDatasource.password}")
-    private String verticaPassword;
-    @Value("${spring.verticaDatasource.username}")
-    private String verticaUser;
-    @Value("${spring.verticaDatasource.driver}")
-    private String verticaDriver;
     @Value("${vertica.hibernate.dialect}")
     private String hibernateDialect;
     @Value("${spring.jpa.properties.hibernate.jdbc.time_zone}")
@@ -36,15 +29,15 @@ public class VerticaConfig {
     @Value("${vertica.hibernate.connection.pool_size}")
     private String poolSize;
 
+    @Bean
+    @ConfigurationProperties("spring.vertica")
+    public DataSourceProperties verticaDataSourceProperties() {
+        return new DataSourceProperties();
+    }
 
     @Bean("verticaDataSource")
     public DataSource verticaDataSource() {
-        DriverManagerDataSource source = new DriverManagerDataSource();
-        source.setDriverClassName(verticaDriver);
-        source.setUrl(verticaUrl);
-        source.setUsername(verticaUser);
-        source.setPassword(verticaPassword);
-        return source;
+        return verticaDataSourceProperties().initializeDataSourceBuilder().build();
     }
 
     @Bean("verticaEntityManager")
