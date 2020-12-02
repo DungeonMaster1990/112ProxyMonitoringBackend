@@ -48,7 +48,13 @@ public class VerticaWorker {
     private Integer verticaMaxPages;
 
     @Autowired
-    public VerticaWorker(SmDefMeasurementApiRepository smDefMeasurementApiRepository, SmDefMeasurementVerticaRepository smDefMeasurementVerticaRepository, SmRawdataMeasApiRepository smRawdataMeasApiRepository, SmRawDataMeasVerticaRepository smRawdataMeasVerticaRepository, MetricsRepository metricsRepository, UpdatesRepository updatesRepository, VerticaMapper verticaMapper) {
+    public VerticaWorker(SmDefMeasurementApiRepository smDefMeasurementApiRepository,
+                         SmDefMeasurementVerticaRepository smDefMeasurementVerticaRepository,
+                         SmRawdataMeasApiRepository smRawdataMeasApiRepository,
+                         SmRawDataMeasVerticaRepository smRawdataMeasVerticaRepository,
+                         MetricsRepository metricsRepository,
+                         UpdatesRepository updatesRepository,
+                         VerticaMapper verticaMapper) {
         this.smDefMeasurementApiRepository = smDefMeasurementApiRepository;
         this.smDefMeasurementVerticaRepository = smDefMeasurementVerticaRepository;
         this.smRawdataMeasApiRepository = smRawdataMeasApiRepository;
