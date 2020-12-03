@@ -3,6 +3,12 @@ package ru.vtb.monitoring.vtb112.infrastructure;
 import org.testcontainers.containers.GenericContainer;
 import org.testcontainers.containers.wait.strategy.LogMessageWaitStrategy;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.time.Duration;
 
 import static java.time.temporal.ChronoUnit.SECONDS;
@@ -35,9 +41,26 @@ public class Vertica extends GenericContainer<Vertica> {
     @Override
     public void start() {
         super.start();
-        Integer exposePort = vertica.getMappedPort(VERTICA_HOST_PORT);
-        String url = "jdbc:vertica://"+Vertica.vertica.getContainerIpAddress()+":"+exposePort+"/docker";
-        System.setProperty("VERTICA_URL", url);
+        System.setProperty("VERTICA_URL", getJdbcUrl());
         System.setProperty("VERTICA_USER", VERTICA_DB_USER);
+        runSqlScript("vertica_test_data.sql");
+    }
+
+    public void runSqlScript(String sqlFileName) throws RuntimeException {
+        String file = "src/test/resources/db/vendor/"+sqlFileName;
+        try {
+            String query = Files.readString(Paths.get(file), StandardCharsets.UTF_8);
+            try (Connection connection = DriverManager.getConnection(getJdbcUrl(), VERTICA_DB_USER, "");
+                 Statement stmt = connection.createStatement()) {
+                stmt.execute(query);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private String getJdbcUrl() {
+        Integer exposePort = vertica.getMappedPort(VERTICA_HOST_PORT);
+        return  "jdbc:vertica://"+Vertica.vertica.getContainerIpAddress()+":"+exposePort+"/docker";
     }
 }
