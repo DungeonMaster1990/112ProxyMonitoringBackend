@@ -12,11 +12,11 @@ import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 @ConditionalOnProperty(value = "app.scheduling.enabled", havingValue = "true", matchIfMissing = true)
 @EnableScheduling
 @Configuration
-class SchedulingConfiguration implements SchedulingConfigurer {
+class SchedulingConfig implements SchedulingConfigurer {
     private final Logger logger = LoggerFactory.getLogger(getClass());
     private final ThreadPoolTaskScheduler taskScheduler;
 
-    SchedulingConfiguration() {
+    SchedulingConfig() {
         taskScheduler = new ThreadPoolTaskScheduler();
         taskScheduler.setErrorHandler(t -> logger.error("Exception in @Scheduled task. ", t));
         taskScheduler.setThreadNamePrefix("@scheduled-");

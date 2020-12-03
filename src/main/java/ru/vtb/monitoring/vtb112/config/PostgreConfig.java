@@ -19,10 +19,12 @@ import java.util.HashMap;
 @EnableJpaRepositories(
         basePackages = "ru.vtb.monitoring.vtb112.db.pg"
 )
-public class PostgreConfig extends AppConfig {
+public class PostgreConfig {
 
     @Value("${spring.jpa.properties.hibernate.dialect}")
     private String hibernateDialect;
+    @Value("${spring.jpa.properties.hibernate.jdbc.time-zone}")
+    protected String hibernateTimeZone;
 
     @Bean
     @Primary
@@ -33,7 +35,6 @@ public class PostgreConfig extends AppConfig {
 
     @Bean
     @Primary
-    @ConfigurationProperties("spring.datasource")
     public DataSource dataSource() {
         return firstDataSourceProperties().initializeDataSourceBuilder().build();
     }

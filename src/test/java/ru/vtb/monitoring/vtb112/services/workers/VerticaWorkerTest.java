@@ -1,14 +1,7 @@
-package ru.vtb.monitoring.vtb112.workesr;
+package ru.vtb.monitoring.vtb112.services.workers;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -20,13 +13,11 @@ import ru.vtb.monitoring.vtb112.db.pg.models.Updates;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.MetricsRepository;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.SmRawdataMeasApiRepository;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.UpdatesRepository;
-import ru.vtb.monitoring.vtb112.infrastructure.PostgreSQL;
-import ru.vtb.monitoring.vtb112.infrastructure.Vertica;
-import ru.vtb.monitoring.vtb112.services.workers.VerticaWorker;
 import ru.vtb.monitoring.vtb112.db.vertica.models.SmRawdataMeasVertica;
 import ru.vtb.monitoring.vtb112.db.vertica.repositories.interfaces.SmRawDataMeasVerticaRepository;
+import ru.vtb.monitoring.vtb112.infrastructure.PostgreSQL;
+import ru.vtb.monitoring.vtb112.infrastructure.Vertica;
 
-import javax.sql.DataSource;
 import java.time.ZonedDateTime;
 import java.util.Comparator;
 
@@ -38,11 +29,6 @@ import java.util.Comparator;
 @TestPropertySource(properties = "vertica.limit=10")
 class VerticaWorkerTest extends PostgreSQL {
 
-    private static final String SERVICE_NAME = "VerticaSmRawData";
-
-    @Autowired
-    @Qualifier("verticaDataSource")
-    private DataSource dataSource;
     @Autowired
     private VerticaWorker verticaWorker;
     @Autowired
@@ -57,7 +43,9 @@ class VerticaWorkerTest extends PostgreSQL {
     private int initialRawDataCount;
 
     @DynamicPropertySource
-    static void setUpVertica(DynamicPropertyRegistry registry) { Vertica.getInstance(); }
+    static void setUpVertica(DynamicPropertyRegistry registry) {
+        Vertica.getInstance();
+    }
 
     @BeforeAll
     public void setUp() {
@@ -79,11 +67,11 @@ class VerticaWorkerTest extends PostgreSQL {
                 .map(SmRawdataMeasVertica::getTimeStamp)
                 .max(Comparator.naturalOrder())
                 .orElse(null);
-        Updates updateBefore = updatesRepository.getUpdateEntityByServiceName(SERVICE_NAME);
+        Updates updateBefore = updatesRepository.getUpdateEntityByServiceName(WorkerName.VERTICA_SM_RAW_DATA.getName());
 
         verticaWorker.takeSmRawDataMeasVertica();
 
-        Updates updateAfter = updatesRepository.getUpdateEntityByServiceName(SERVICE_NAME);
+        Updates updateAfter = updatesRepository.getUpdateEntityByServiceName(WorkerName.VERTICA_SM_RAW_DATA.getName());
         Assertions.assertEquals(expectedAfterWorker, updateAfter.getUpdateTime());
         Assertions.assertNotEquals(updateBefore.getUpdateTime(), updateAfter.getUpdateTime());
     }
@@ -93,6 +81,6 @@ class VerticaWorkerTest extends PostgreSQL {
     void testVerticaNewDataUploading() {
         Vertica.getInstance().runSqlScript("vertica_new_data.sql"); //12 new rows for uploading
         testTakeSmRawDataMeasVertica();
-        Assertions.assertEquals(25, rawDataMeasApiRepository.findAll().size()-initialRawDataCount);
+        Assertions.assertEquals(25, rawDataMeasApiRepository.findAll().size() - initialRawDataCount);
     }
 }

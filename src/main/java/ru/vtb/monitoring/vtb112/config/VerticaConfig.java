@@ -20,10 +20,12 @@ import java.util.HashMap;
         entityManagerFactoryRef = "verticaEntityManager",
         transactionManagerRef = "verticaTransactionManager"
 )
-public class VerticaConfig extends AppConfig {
+public class VerticaConfig {
 
     @Value("${vertica.hibernate.dialect}")
     private String hibernateDialect;
+    @Value("${spring.jpa.properties.hibernate.jdbc.time-zone}")
+    protected String hibernateTimeZone;
     @Value("${vertica.hibernate.connection.pool-size}")
     private String poolSize;
 

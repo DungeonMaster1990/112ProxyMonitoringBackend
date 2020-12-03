@@ -12,7 +12,7 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VmSmIncident {
+public class VmSmIncident implements VmBaseModel {
     @JsonAlias("Id")
     private String id;
     @JsonAlias("CreatedAt")

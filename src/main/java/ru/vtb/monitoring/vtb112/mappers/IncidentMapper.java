@@ -4,6 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import ru.vtb.monitoring.vtb112.db.pg.models.Incident;
+import ru.vtb.monitoring.vtb112.db.pg.models.enums.Status;
 import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmSmIncident;
 
 import java.util.Arrays;
@@ -26,5 +27,9 @@ public interface IncidentMapper extends ResponseMapper<Incident, VmSmIncident> {
         return value != null
                 ? String.join(System.lineSeparator(), Arrays.asList(value))
                 : null;
+    }
+
+    default Status mapStringToStatus(String statusName) {
+        return Status.getStatusByString(statusName);
     }
 }

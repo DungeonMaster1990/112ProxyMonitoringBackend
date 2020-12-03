@@ -1,0 +1,130 @@
+{
+  "@count": 9,
+  "@start": 1,
+  "@totalcount": 9,
+  "Messages": [],
+  "ResourceName": "vtbUnavailability",
+  "ReturnCode": 0,
+  "content": [
+    {
+      "vtbUnavailability": {
+        "BeginAt": "2020-10-06T21:00:00+00:00",
+        "CreatedAt": "2020-10-09T12:23:51+00:00",
+        "CreatedById": "yuzatsepin",
+        "Duration": "P1DT0H0M0S",
+        "EndAt": "2020-10-07T21:00:00+00:00",
+        "FaultId": "IM-006889399",
+        "ServiceId": "CI1090505",
+        "ServiceName": "Диасофт Дилинг",
+        "Type": "ИТ-система"
+      }
+    },
+    {
+      "vtbUnavailability": {
+        "BeginAt": "2020-10-11T21:00:00+00:00",
+        "CreatedAt": "2020-10-19T06:15:26+00:00",
+        "CreatedById": "yuzatsepin",
+        "Duration": "P2DT0H0M0S",
+        "EndAt": "2020-10-13T21:00:00+00:00",
+        "FaultId": "IM-006889394",
+        "ServiceId": "CI1090506",
+        "ServiceName": "Кворум (касса)",
+        "Type": "ИТ-система"
+      }
+    },
+    {
+      "vtbUnavailability": {
+        "BeginAt": "2020-11-03T00:00:00+00:00",
+        "CreatedAt": "2020-11-03T08:38:51+00:00",
+        "CreatedById": "Евдокимов Андрей Сергеевич (20024353)",
+        "Duration": "P7DT21H0M0S",
+        "EndAt": "2020-11-10T21:00:00+00:00",
+        "FaultId": "IM-006889485",
+        "ServiceId": "CI1120685",
+        "ServiceName": "Citrix VDI",
+        "Type": "ИТ-система"
+      }
+    },
+    {
+      "vtbUnavailability": {
+        "BeginAt": "2020-11-03T00:00:00+00:00",
+        "CreatedAt": "2020-11-03T08:40:19+00:00",
+        "CreatedById": "Евдокимов Андрей Сергеевич (20024353)",
+        "Duration": "P1DT19H0M0S",
+        "EndAt": "2020-11-04T19:00:00+00:00",
+        "FaultId": "IM-006889485",
+        "ServiceId": "CI1090900",
+        "ServiceName": "Citrix Terminal Services",
+        "Type": "ИТ-система"
+      }
+    },
+    {
+      "vtbUnavailability": {
+        "BeginAt": "2020-11-10T21:00:00+00:00",
+        "CreatedAt": "2020-11-11T11:58:35+00:00",
+        "CreatedById": "Евдокимов Андрей Сергеевич (20024353)",
+        "Duration": "P1DT0H0M0S",
+        "EndAt": "2020-11-11T21:00:00+00:00",
+        "FaultId": "IM-006889485",
+        "ServiceId": "CI1090507",
+        "ServiceName": "АРМ 'Касса'",
+        "Type": "ИТ-система"
+      }
+    },
+    {
+      "vtbUnavailability": {
+        "BeginAt": "2020-11-11T22:00:00+00:00",
+        "CreatedAt": "2020-11-12T10:09:58+00:00",
+        "CreatedById": "Евдокимов Андрей Сергеевич (20024353)",
+        "Duration": "P1DT3H30M0S",
+        "EndAt": "2020-11-13T01:30:00+00:00",
+        "FaultId": "IM-006889492",
+        "ServiceId": "CI1090506",
+        "ServiceName": "Кворум (касса)",
+        "Type": "ИТ-система"
+      }
+    },
+    {
+      "vtbUnavailability": {
+        "BeginAt": "2020-11-25T07:24:14+00:00",
+        "CreatedAt": "2020-11-25T15:09:39+00:00",
+        "CreatedById": "Евдокимов Андрей Сергеевич (20024353)",
+        "Duration": "P0DT0H0M0S",
+        "EndAt": "2020-11-25T07:24:14+00:00",
+        "FaultId": "IM-006889499",
+        "ServiceId": "CI1090900",
+        "ServiceName": "Citrix Terminal Services",
+        "Type": "ИТ-система",
+        "UpdatedAt": "2020-11-25T15:09:39+00:00"
+      }
+    },
+    {
+      "vtbUnavailability": {
+        "BeginAt": "2020-11-25T07:24:14+00:00",
+        "CreatedAt": "2020-11-25T15:10:35+00:00",
+        "CreatedById": "Евдокимов Андрей Сергеевич (20024353)",
+        "Duration": "P0DT0H0M0S",
+        "EndAt": "2020-11-25T07:24:14+00:00",
+        "FaultId": "IM-006889499",
+        "ServiceId": "CI1116602",
+        "ServiceName": "ТЕСТ SLA",
+        "Type": "ИТ-сервис",
+        "UpdatedAt": "2020-11-25T15:10:35+00:00"
+      }
+    },
+    {
+      "vtbUnavailability": {
+        "BeginAt": "2020-11-03T08:37:50+00:00",
+        "CreatedAt": "2020-11-25T16:10:59+00:00",
+        "CreatedById": "Евдокимов Андрей Сергеевич (20024353)",
+        "Duration": "P0DT0H0M0S",
+        "EndAt": "2020-11-03T08:37:50+00:00",
+        "FaultId": "IM-006889485",
+        "ServiceId": "CI1116602",
+        "ServiceName": "ТЕСТ SLA",
+        "Type": "ИТ-сервис",
+        "UpdatedAt": "2020-11-25T16:10:59+00:00"
+      }
+    }
+  ]
+}

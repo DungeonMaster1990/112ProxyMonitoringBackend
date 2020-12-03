@@ -2,14 +2,16 @@ package ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.modelwrappers;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmBaseModel;
 
-@Getter
-@Setter
-@AllArgsConstructor
+import java.util.List;
+
+@Data
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public abstract class VmBaseResponseWrapper<T> {
+public class VmBaseResponseWrapper<T extends VmBaseModel> {
     @JsonAlias("@count")
     private Integer count;
     @JsonAlias("@start")
@@ -23,5 +25,5 @@ public abstract class VmBaseResponseWrapper<T> {
     @JsonAlias("ReturnCode")
     private Integer returnCode;
     @JsonAlias("content")
-    private VmModelWrapper<T>[] content;
+    private List<VmModelWrapper<T>> content;
 }

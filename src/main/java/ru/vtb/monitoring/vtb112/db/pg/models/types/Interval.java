@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.time.Duration;
 import java.util.Date;
 
 
@@ -22,10 +23,8 @@ public class Interval implements UserType {
         return SQL_TYPES;
     }
 
-    @SuppressWarnings("rawtypes")
-    @Override
-    public Class returnedClass() {
-        return Integer.class;
+    public static String getInterval(Duration duration) {
+        return new PGInterval(0, 0, 0, 0, 0, duration.getSeconds()).getValue();
     }
 
     @Override
@@ -50,8 +49,9 @@ public class Interval implements UserType {
         return (int) epoch.getTime() / 1000;
     }
 
-    public static String getInterval(int value) {
-        return new PGInterval(0, 0, 0, 0, 0, value).getValue();
+    @Override
+    public Class<?> returnedClass() {
+        return Duration.class;
     }
 
     @Override
@@ -60,7 +60,7 @@ public class Interval implements UserType {
         if (value == null) {
             st.setNull(index, Types.VARCHAR);
         } else {
-            st.setObject(index, getInterval((Integer) value), Types.OTHER);
+            st.setObject(index, getInterval((Duration) value), Types.OTHER);
         }
     }
 

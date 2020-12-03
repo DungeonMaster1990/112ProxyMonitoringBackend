@@ -16,7 +16,7 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VmSmChange {
+public class VmSmChange implements VmBaseModel {
     @JsonAlias("CreatedBy")
     private String createdBy;
     @JsonAlias("CreatedAt")

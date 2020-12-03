@@ -15,6 +15,7 @@ import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmSm
 import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.submodels.VmSmChangeHeader;
 import ru.vtb.monitoring.vtb112.infrastructure.PostgreSQL;
 
+import java.time.Duration;
 import java.time.ZonedDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -53,7 +54,7 @@ class MappersTest extends PostgreSQL {
                 .beginAt(ZonedDateTime.now())
                 .createdAt(ZonedDateTime.now())
                 .createdById("A_1")
-                .duration("15")
+                .duration("PT0H0M15S")
                 .serviceName("Service")
                 .serviceId("5")
                 .faultId("1")
@@ -65,7 +66,7 @@ class MappersTest extends PostgreSQL {
         Unavailabilities savedUnavailabilities = unavailabilitiesRepository.save(
                 unavailabilityMapper.mapToResponse(unavailability));
         assertEquals("1", savedUnavailabilities.getFaultId());
-        assertEquals(Integer.valueOf(15), savedUnavailabilities.getDuration());
+        assertEquals(Duration.ofSeconds(15), savedUnavailabilities.getDuration());
     }
 
     @Test

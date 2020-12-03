@@ -17,8 +17,6 @@ public class AppConfig {
     private String smUnavailabilityMethod;
     @Value("${sm.methods.changes}")
     private String smChangesMethod;
-    @Value("${spring.jpa.properties.hibernate.jdbc.time-zone}")
-    protected String hibernateTimeZone;
 
     @Getter
     @Value("${notificationSender.url}")
@@ -26,13 +24,15 @@ public class AppConfig {
     @Getter
     @Value("${notificationSender.incidents.lastDaysToProcess}")
     private long lastDaysToProcess;
+    @Getter
     @Value("${sm.login}")
     private String smLogin;
+    @Getter
     @Value("${sm.password}")
     private String smPassword;
     @Getter
     @Value("${sm.port:}")
-    private String smPort;
+    private Integer smPort;
     @Getter
     @Value("#{'${api.categories}'.split(',')}")
     private List<String> supportedCategories;
@@ -43,10 +43,6 @@ public class AppConfig {
 
     public String getSmUnavailabilityUrl() {
         return this.baseSmUrl + this.smUnavailabilityMethod;
-    }
-
-    public String getSmUserLoginPass() {
-        return String.format("%s:%s", smLogin, smPassword);
     }
 
     public String getSmChangesUrl() {
