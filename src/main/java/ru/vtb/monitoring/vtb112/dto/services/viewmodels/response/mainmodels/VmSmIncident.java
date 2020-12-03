@@ -48,7 +48,7 @@ public class VmSmIncident {
     @JsonAlias("CloseCode")
     private String closeCode;
     @JsonAlias("Resolution")
-    private String resolution;
+    private String[] resolution;
     @JsonAlias("Comment")
     private String comment;
     @JsonAlias("UpdatedAt")

@@ -91,6 +91,13 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
             return;
         }
 
+        if (body.getContent() == null || body.getContent().length == 0){
+            log.debug("From sm service {} was loaded 0 rows", workerName);
+            return;
+        }
+
+        log.debug("From sm service {} was loaded {} entities", workerName, body.getContent().length);
+
         List<T> result = Arrays.stream(body.getContent())
                 .map(VmModelWrapper::getModel)
                 .collect(Collectors.toList());
@@ -106,7 +113,7 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
         repository.putModels(models);
         updatesRepository.putUpdate(update);
 
-        log.info("Put data to db for service: {}, new updateTime: {}",
+        log.info("Put data to db for sm service: {}, new updateTime: {}",
                 workerName,
                 update.getUpdateTime().toInstant()
         );
