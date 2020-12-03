@@ -23,6 +23,9 @@ public class Updates {
     @Column(name = "service_name", unique = true, nullable = false)
     private String serviceName;
 
-    @Column(name = "update_time", unique = false, nullable = false)
+    @Column(name = "update_time", nullable = false)
     private ZonedDateTime updateTime;
+
+    @Column(name = "start_time", nullable = false)
+    private ZonedDateTime startTime;
 }
