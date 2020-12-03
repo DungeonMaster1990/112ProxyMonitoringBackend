@@ -22,7 +22,7 @@ public interface IncidentMapper extends ResponseMapper<Incident, VmSmIncident> {
     @Mapping(target = "id", ignore = true)
     void updateIncident(Incident incident, @MappingTarget Incident updated);
 
-    default String mapDescription(String[] value) {
+    default String mapDescriptionOrResolution(String[] value) {
         return value != null
                 ? String.join(System.lineSeparator(), Arrays.asList(value))
                 : null;

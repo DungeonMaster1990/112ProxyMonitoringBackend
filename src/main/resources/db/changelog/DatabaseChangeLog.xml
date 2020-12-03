@@ -19,4 +19,7 @@
     <changeSet author="AStepchkov" id="UnavalabilitiesTypo" context="prod">
         <sqlFile path="/db/changelog/migrations/UnavalabilitiesTypo.sql"/>
     </changeSet>
+    <changeSet author="SShvykin" id="Updates_add_CreatedAt.sql" context="prod">
+        <sqlFile path="/db/changelog/migrations/Updates_add_CreatedAt.sql"/>
+    </changeSet>
 </databaseChangeLog>
