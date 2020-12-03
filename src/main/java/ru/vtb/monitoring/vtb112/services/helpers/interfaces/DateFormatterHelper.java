@@ -8,4 +8,5 @@ import java.time.ZonedDateTime;
 @Component
 public interface DateFormatterHelper {
     ZonedDateTime dbDateToZonedDate(Timestamp dbDate, String zonedId);
+    ZonedDateTime dbDateToZonedDate(ZonedDateTime dbDate, String fromZonedId, String toZonedId);
 }

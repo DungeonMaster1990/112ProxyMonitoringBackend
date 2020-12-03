@@ -1,8 +1,6 @@
 package ru.vtb.monitoring.vtb112.db.pg.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -13,6 +11,8 @@ import java.time.ZonedDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Table(name = "sm_rawdata_meas", schema = "monitoring")
 public class SmRawdataMeasApi {
     @GenericGenerator(
