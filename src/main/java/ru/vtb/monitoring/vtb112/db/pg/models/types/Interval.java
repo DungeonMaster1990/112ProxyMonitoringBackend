@@ -11,9 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.time.Duration;
-import java.util.Date;
+import java.time.temporal.ChronoUnit;
 
-
+// vladmihalcea/hibernate-types
 public class Interval implements UserType {
 
     private static final int[] SQL_TYPES = {Types.OTHER};
@@ -21,10 +21,6 @@ public class Interval implements UserType {
     @Override
     public int[] sqlTypes() {
         return SQL_TYPES;
-    }
-
-    public static String getInterval(Duration duration) {
-        return new PGInterval(0, 0, 0, 0, 0, duration.getSeconds()).getValue();
     }
 
     @Override
@@ -39,14 +35,21 @@ public class Interval implements UserType {
 
     @Override
     public Object nullSafeGet(ResultSet rs, String[] names, SharedSessionContractImplementor session, Object owner) throws HibernateException, SQLException {
-        String interval = rs.getString(names[0]);
+        final PGInterval interval = (PGInterval) rs.getObject(names[0]);
+
         if (rs.wasNull() || interval == null) {
             return null;
         }
-        PGInterval pgInterval = new PGInterval(interval);
-        Date epoch = new Date(0L);
-        pgInterval.add(epoch);
-        return (int) epoch.getTime() / 1000;
+
+        final int days = interval.getDays();
+        final int hours = interval.getHours();
+        final int minutes = interval.getMinutes();
+        final double seconds = interval.getSeconds();
+
+        return Duration.ofDays(days)
+                .plus(hours, ChronoUnit.HOURS)
+                .plus(minutes, ChronoUnit.MINUTES)
+                .plus((long) Math.floor(seconds), ChronoUnit.SECONDS);
     }
 
     @Override
@@ -57,10 +60,15 @@ public class Interval implements UserType {
     @Override
     public void nullSafeSet(PreparedStatement st, Object value, int index, SharedSessionContractImplementor session)
             throws HibernateException, SQLException {
-        if (value == null) {
-            st.setNull(index, Types.VARCHAR);
+        if (!(value instanceof Duration)) {
+            st.setNull(index, Types.OTHER);
         } else {
-            st.setObject(index, getInterval((Duration) value), Types.OTHER);
+            Duration duration = (Duration) value;
+            final int days = (int) duration.toDays();
+            final int hours = (int) (duration.toHours() % 24);
+            final int minutes = (int) (duration.toMinutes() % 60);
+            final double seconds = duration.getSeconds() % 60;
+            st.setObject(index, new PGInterval(0, 0, days, hours, minutes, seconds));
         }
     }
 
@@ -88,6 +96,5 @@ public class Interval implements UserType {
     public Object replace(Object original, Object target, Object owner) throws HibernateException {
         return original;
     }
-
 
 }
