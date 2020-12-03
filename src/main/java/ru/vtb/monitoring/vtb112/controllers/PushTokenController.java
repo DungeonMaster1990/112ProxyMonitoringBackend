@@ -21,7 +21,7 @@ public class PushTokenController {
         this.pushTokenService = pushTokenService;
     }
 
-    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE,  produces = MediaType.APPLICATION_JSON_VALUE)
     public VmPushTokenResponse pushTokenUpdate(@RequestBody VmPushTokenRequest vmPushTokenRequest){
         return new VmPushTokenResponse(pushTokenService.pushToken(vmPushTokenRequest));
     }
