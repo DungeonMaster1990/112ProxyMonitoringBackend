@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestPropertySource(properties = "vertica.limit=2")
-public class WorkerUnitTest extends PostgreSQL {
+public class VerticaWorkerUnitTest extends PostgreSQL {
 
     @MockBean
     private SmRawDataMeasVerticaRepository repository;

@@ -46,7 +46,7 @@ public class Vertica extends GenericContainer<Vertica> {
         runSqlScript("vertica_test_data.sql");
     }
 
-    public void runSqlScript(String sqlFileName) {
+    public void runSqlScript(String sqlFileName) throws RuntimeException {
         String file = "src/test/resources/db/vendor/"+sqlFileName;
         try {
             String query = Files.readString(Paths.get(file), StandardCharsets.UTF_8);
@@ -55,7 +55,7 @@ public class Vertica extends GenericContainer<Vertica> {
                 stmt.execute(query);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

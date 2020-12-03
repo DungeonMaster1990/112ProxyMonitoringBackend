@@ -1,6 +1,5 @@
 package ru.vtb.monitoring.vtb112.workesr;
 
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
@@ -28,11 +27,6 @@ import ru.vtb.monitoring.vtb112.db.vertica.models.SmRawdataMeasVertica;
 import ru.vtb.monitoring.vtb112.db.vertica.repositories.interfaces.SmRawDataMeasVerticaRepository;
 
 import javax.sql.DataSource;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.Statement;
 import java.time.ZonedDateTime;
 import java.util.Comparator;
 
