@@ -42,7 +42,7 @@ class MetricsControllerTest extends PostgreSQL {
 
     @Test
     void testAllMetrics() throws Exception {
-        VmMetricsRequest request = new VmMetricsRequest(true, "hello", 10, 1);
+        VmMetricsRequest request = new VmMetricsRequest(true, "", 10, 1);
         mockMvc.perform(MockMvcRequestBuilders
                 .post(PathConstants.METRICS)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -57,7 +57,7 @@ class MetricsControllerTest extends PostgreSQL {
 
     @Test
     void testAllMetricsDefaultValues() throws Exception {
-        VmMetricsRequest request = new VmMetricsRequest(true, "hello", 10, 1);
+        VmMetricsRequest request = new VmMetricsRequest(true, "", 10, 1);
         mockMvc.perform(MockMvcRequestBuilders
                 .post(PathConstants.METRICS)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -74,14 +74,14 @@ class MetricsControllerTest extends PostgreSQL {
         mockMvc.perform(MockMvcRequestBuilders
                 .post(PathConstants.METRICS)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(new VmMetricsRequest(true, "hello", 2, 1))))
+                .content(objectMapper.writeValueAsString(new VmMetricsRequest(true, "", 2, 1))))
                 .andExpect(jsonPath("$[*])", hasSize(2)));
 
         int remainderAfter3Pages = 2;
         mockMvc.perform(MockMvcRequestBuilders
                 .post(PathConstants.METRICS)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(new VmMetricsRequest(true, "hello", 2, 1))))
+                .content(objectMapper.writeValueAsString(new VmMetricsRequest(true, "", 2, 1))))
                 .andExpect(jsonPath("$[*])", hasSize(remainderAfter3Pages)));
     }
 
