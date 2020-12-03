@@ -28,4 +28,6 @@ public interface ChangesRepository extends JpaRepository<Changes, Integer>, Chan
 
     List<Changes> findByCategoryAndChangeIdContaining(String category, String keyword, Pageable paging);
 
+    List<Changes> findByCategory(String category, Pageable paging);
+
 }

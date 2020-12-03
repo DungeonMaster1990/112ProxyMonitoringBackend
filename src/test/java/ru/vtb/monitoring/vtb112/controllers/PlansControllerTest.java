@@ -47,6 +47,35 @@ class PlansControllerTest extends PostgreSQL {
     }
 
     @Test
+    void testPlansEmptyKeyword() throws Exception {
+        VmPlanRequest request = VmPlanRequest.builder()
+                .limit(10)
+                .page(1)
+                .planSectionID(VmPlanSection.emergency)
+                .build();
+        mockMvc.perform(MockMvcRequestBuilders
+                .post(PathConstants.PLANS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void testPlansEmptySectionId() throws Exception {
+        VmPlanRequest request = VmPlanRequest.builder()
+                .limit(10)
+                .page(1)
+                .build();
+        mockMvc.perform(MockMvcRequestBuilders
+                .post(PathConstants.PLANS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)))
+                .andDo(print())
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void testInvalidPagingPlans() throws Exception {
         VmPlanRequest request = VmPlanRequest.builder()
                 .limit(0)

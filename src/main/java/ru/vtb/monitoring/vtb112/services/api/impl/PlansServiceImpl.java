@@ -2,6 +2,8 @@ package ru.vtb.monitoring.vtb112.services.api.impl;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import ru.vtb.monitoring.vtb112.db.pg.models.Changes;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.ChangesRepository;
 import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.*;
 import ru.vtb.monitoring.vtb112.mappers.ChangesMapper;
@@ -51,7 +53,10 @@ public class PlansServiceImpl implements PlansService {
 
     @Override
     public List<VmPlanResponse> getSection(String category, String keyword, Pageable paging) {
-        return changesRepository.findByCategoryAndChangeIdContaining(category, keyword, paging)
+        List<Changes> foundedChanges = StringUtils.isEmpty(keyword)
+                ? changesRepository.findByCategory(category, paging)
+                : changesRepository.findByCategoryAndChangeIdContaining(category, keyword, paging);
+        return foundedChanges
                 .stream()
                 .map(changesMapper::mapToVmPlan)
                 .collect(Collectors.toList());
