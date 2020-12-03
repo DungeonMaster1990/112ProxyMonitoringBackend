@@ -11,8 +11,7 @@ import ru.vtb.monitoring.vtb112.services.api.interfaces.PlansService;
 
 import java.util.List;
 
-import static ru.vtb.monitoring.vtb112.services.helpers.ValidationUtils.stringToInt;
-import static ru.vtb.monitoring.vtb112.services.helpers.ValidationUtils.validatePageAndLimit;
+import static ru.vtb.monitoring.vtb112.services.helpers.ValidationUtils.*;
 
 @RestController
 @RequestMapping(value = PathConstants.PLANS, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -26,7 +25,7 @@ public class PlansController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<VmPlanResponse> get(@RequestBody VmPlanRequest request) {
-        validatePageAndLimit(request);
+        validatePlansRequest(request);
         return plansService.getSection(
                 request.getPlanSectionID().getSection(),
                 request.getKeyword(),
