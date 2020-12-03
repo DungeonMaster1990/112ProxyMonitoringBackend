@@ -47,6 +47,7 @@ public class MetricsServiceImpl implements MetricsService {
                           from monitoring.sm_rawdata_meas srm
                          order by measurement_id, time_stamp desc, id desc) vals
                     on m.measurement_id  = vals.measurement_id
+                   where lower(m.msname) like :keyword
                  order by m.id
                  LIMIT :limit
                 OFFSET :offset
@@ -54,7 +55,8 @@ public class MetricsServiceImpl implements MetricsService {
 
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
                 .addValue("limit", vmMetricsRequest.getLimit())
-                .addValue("offset", (vmMetricsRequest.getPage() - 1) * vmMetricsRequest.getLimit());
+                .addValue("offset", (vmMetricsRequest.getPage() - 1) * vmMetricsRequest.getLimit())
+                .addValue("keyword", "%" + vmMetricsRequest.getKeyword().toLowerCase() + "%");
 
         List<VmMetricsResponse> result = namedParameterJdbcTemplate.query(
                 allMetricsQry, sqlParameterSource, (rs, rowNum) -> toMetricsResponse(rs));
