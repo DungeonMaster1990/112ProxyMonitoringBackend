@@ -33,6 +33,7 @@ import java.util.stream.Collectors;
 @ConditionalOnProperty(value = "vertica.scheduling.enabled", havingValue = "true", matchIfMissing = true)
 @Slf4j
 @Component
+@Transactional
 public class VerticaWorker {
     private final SmDefMeasurementApiRepository smDefMeasurementApiRepository;
     private final SmDefMeasurementVerticaRepository smDefMeasurementVerticaRepository;
@@ -65,7 +66,6 @@ public class VerticaWorker {
     }
 
     @Scheduled(fixedRateString = "${vertica.scheduler.fixedRate}")
-    @Transactional
     public void takeSmDefMeasurementVertica() {
         try {
             List<Metrics> metrics = metricsRepository.findByIsMerged(false);
@@ -92,7 +92,6 @@ public class VerticaWorker {
     }
 
     @Scheduled(fixedRateString = "${vertica.scheduler.fixedRate}")
-    @Transactional
     public void takeSmRawDataMeasVertica() {
 
         String verticaServiceName = "VerticaSmRawData";
@@ -118,7 +117,6 @@ public class VerticaWorker {
                 });
     }
 
-    @Transactional
     private int processSingleBatch(Updates update,
                                    List<Integer> measurementIds,
                                    int pageNumber,

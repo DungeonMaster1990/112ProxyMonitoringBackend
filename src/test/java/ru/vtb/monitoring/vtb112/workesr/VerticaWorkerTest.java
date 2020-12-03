@@ -1,6 +1,7 @@
 package ru.vtb.monitoring.vtb112.workesr;
 
 import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
@@ -62,22 +63,19 @@ class VerticaWorkerTest extends PostgreSQL {
     private int initialRawDataCount;
 
     @DynamicPropertySource
-    static void setUpVertica(DynamicPropertyRegistry registry) {
-        Vertica.getInstance();
-    }
+    static void setUpVertica(DynamicPropertyRegistry registry) { Vertica.getInstance(); }
 
     @BeforeAll
-    public void setUp() throws Throwable {
+    public void setUp() {
         initialRawDataCount += rawDataMeasApiRepository.findAll().size();
-        runSqlScript("vertica_test_data.sql");//13 rows for uploading
     }
 
     @Test
     @Order(1)
     void testTakeSmDefMeasurementVertica() {
-        Assert.assertFalse(metricsRepository.findById(2).map(Metrics::isMerged).orElse(true));
+        Assertions.assertFalse(metricsRepository.findById(2).map(Metrics::isMerged).orElse(true));
         verticaWorker.takeSmDefMeasurementVertica();
-        Assert.assertTrue(metricsRepository.findById(2).map(Metrics::isMerged).orElse(false));
+        Assertions.assertTrue(metricsRepository.findById(2).map(Metrics::isMerged).orElse(false));
     }
 
     @Test
@@ -92,25 +90,15 @@ class VerticaWorkerTest extends PostgreSQL {
         verticaWorker.takeSmRawDataMeasVertica();
 
         Updates updateAfter = updatesRepository.getUpdateEntityByServiceName(SERVICE_NAME);
-        Assert.assertEquals(expectedAfterWorker, updateAfter.getUpdateTime());
-        Assert.assertNotEquals(updateBefore.getUpdateTime(), updateAfter.getUpdateTime());
+        Assertions.assertEquals(expectedAfterWorker, updateAfter.getUpdateTime());
+        Assertions.assertNotEquals(updateBefore.getUpdateTime(), updateAfter.getUpdateTime());
     }
 
     @Test
     @Order(3)
-    void testVerticaNewDataUploading() throws Exception {
-        runSqlScript("vertica_new_data.sql"); //12 new rows for uploading
+    void testVerticaNewDataUploading() {
+        Vertica.getInstance().runSqlScript("vertica_new_data.sql"); //12 new rows for uploading
         testTakeSmRawDataMeasVertica();
-        Assert.assertEquals(25, rawDataMeasApiRepository.findAll().size()-initialRawDataCount);
+        Assertions.assertEquals(25, rawDataMeasApiRepository.findAll().size()-initialRawDataCount);
     }
-
-    private void runSqlScript(String sqlFileName) throws Exception {
-        String file = "src/test/resources/db/vendor/"+sqlFileName;
-        String query = Files.readString(Paths.get(file), StandardCharsets.UTF_8);
-        try (Connection connection = dataSource.getConnection();
-             Statement stmt = connection.createStatement()) {
-            stmt.execute(query);
-        }
-    }
-
 }
