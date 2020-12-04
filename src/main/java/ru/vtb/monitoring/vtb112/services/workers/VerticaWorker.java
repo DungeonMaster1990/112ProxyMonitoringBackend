@@ -43,7 +43,6 @@ public class VerticaWorker {
     private final MetricsRepository metricsRepository;
     private final UpdatesRepository updatesRepository;
     private final VerticaMapper verticaMapper;
-    private final DateFormatterHelper dateFormatterHelper;
 
     @Value("${vertica.limit}")
     private Integer verticaLimit;
@@ -57,8 +56,7 @@ public class VerticaWorker {
                          SmRawDataMeasVerticaRepository smRawdataMeasVerticaRepository,
                          MetricsRepository metricsRepository,
                          UpdatesRepository updatesRepository,
-                         VerticaMapper verticaMapper,
-                         DateFormatterHelper dateFormatterHelper) {
+                         VerticaMapper verticaMapper) {
         this.smDefMeasurementApiRepository = smDefMeasurementApiRepository;
         this.smDefMeasurementVerticaRepository = smDefMeasurementVerticaRepository;
         this.smRawdataMeasApiRepository = smRawdataMeasApiRepository;
@@ -66,7 +64,6 @@ public class VerticaWorker {
         this.metricsRepository = metricsRepository;
         this.updatesRepository = updatesRepository;
         this.verticaMapper = verticaMapper;
-        this.dateFormatterHelper = dateFormatterHelper;
     }
 
     @Scheduled(fixedRateString = "${vertica.scheduler.fixedRate}")
@@ -82,10 +79,6 @@ public class VerticaWorker {
                                 .stream()
                                 .map(verticaMapper::mapToSmDefMeasurementApi)
                                 .collect(Collectors.toList());
-                smDefMeasurementApiList.forEach(x-> {
-                    x.setCreationDate(dateFormatterHelper.dbDateToZonedDate(x.getCreationDate(),"Europe/Moscow", "UTC"));
-                    x.setModifiedDate(dateFormatterHelper.dbDateToZonedDate(x.getModifiedDate(),"Europe/Moscow", "UTC"));
-                });
                 smDefMeasurementApiRepository.saveAll(smDefMeasurementApiList);
 
                 for (Metrics metric : metrics) {
@@ -138,10 +131,6 @@ public class VerticaWorker {
                         .stream()
                         .map(verticaMapper::mapToSmRawdataMeasApi)
                         .collect(Collectors.toList());
-        smRawDataMeasApiList.forEach(x-> {
-                x.setDbdate(dateFormatterHelper.dbDateToZonedDate(x.getDbdate(), "Europe/Moscow","UTC"));
-                x.setTimeStamp(dateFormatterHelper.dbDateToZonedDate(x.getTimeStamp(),"Europe/Moscow", "UTC"));
-        });
         smRawdataMeasApiRepository.saveAll(smRawDataMeasApiList);
 
         maxTimestampPQ.addAll(smRawDataMeasVerticaList.stream()
