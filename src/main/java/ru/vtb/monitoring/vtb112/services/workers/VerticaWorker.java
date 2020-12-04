@@ -100,9 +100,7 @@ public class VerticaWorker {
 
     @Scheduled(fixedRateString = "${vertica.scheduler.fixedRate}")
     public void takeSmRawDataMeasVertica() {
-
-        String verticaServiceName = "VerticaSmRawData";
-        Updates update = updatesRepository.getUpdateEntityByServiceName(verticaServiceName);
+        Updates update = updatesRepository.getUpdateEntityByServiceName(WorkerName.VERTICA_SM_RAW_DATA.getName());
         List<Integer> measurementIds = metricsRepository.findByIsMerged(true)
                 .stream()
                 .map(Metrics::getMeasurementId)

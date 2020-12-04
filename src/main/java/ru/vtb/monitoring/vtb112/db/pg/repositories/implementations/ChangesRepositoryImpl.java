@@ -32,13 +32,12 @@ public class ChangesRepositoryImpl implements ChangesRepositoryCustom {
                 .stream()
                 .map(Changes::getChangeId)
                 .collect(Collectors.toList()));
-        log.info("changes founded: {}", changes.size());
+        log.debug("Changes founded: {}", changes.size());
 
         Map<Boolean, List<Changes>> groups = models
                 .stream()
                 .collect(Collectors.partitioningBy(changes::contains));
-        log.info("changes for update: {}", groups.get(Boolean.FALSE).size());
-        log.info("changes for insert: {}", groups.get(Boolean.TRUE).size());
+        log.info("Changes for insert: {}; for update: {}", groups.get(Boolean.FALSE).size(), groups.get(Boolean.TRUE).size());
         changesRepository.saveAll(groups.get(Boolean.FALSE));
 
         changes.forEach(forUpdate ->

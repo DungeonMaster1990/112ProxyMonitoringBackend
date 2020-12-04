@@ -5,8 +5,10 @@ import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmMetricsRequest;
 import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.VmMetricInfoResponse;
 import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.VmMetricsResponse;
 
-public interface MetricsService {
-    VmMetricsResponse[] getMetrics(VmMetricsRequest vmMetricsRequest);
+import java.util.List;
 
-    VmMetricInfoResponse[] getMetricsInfos(VmMetricInfoRequest vmMetricInfoRequest);
+public interface MetricsService {
+    List<VmMetricsResponse> getMetrics(VmMetricsRequest vmMetricsRequest);
+
+    List<VmMetricInfoResponse> getMetricsInfos(VmMetricInfoRequest vmMetricInfoRequest);
 }

@@ -47,18 +47,15 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
 
     @Override
     public List<Incident> getTimeFilteredNonSentVtbIncidents(long daysDiff) {
-
         String qryString = """
                 select i 
                   from Incident i 
                  where i.factBeginAt >= :twoDaysBackFromNow
                    and i.notificationSent <> true
                 """;
-
         TypedQuery<Incident> vtbIncidentsQuery = entityManager
                 .createQuery(qryString, Incident.class)
                 .setParameter("twoDaysBackFromNow", ZonedDateTime.now().minusDays(daysDiff));
-
         return vtbIncidentsQuery.getResultList();
     }
 
@@ -97,29 +94,24 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
 
     @Override
     public List<Incident> getVtbIncidents(List<String> incidentIds) {
-
         String idsString = String.join(", ", incidentIds);
-
         String query = String.format("select a from VtbIncidents a where a.incident_id in %s;", idsString);
-
-        return entityManager.createQuery(query, Incident.class)
-                .getResultList();
+        return entityManager.createQuery(query, Incident.class).
+                getResultList();
     }
 
     @Override
     @Transactional
     public void putModels(List<Incident> models) {
-        List<Incident> incidents = incidentRepository.findByIncidentIdIn(models
-                .stream()
-                .map(Incident::getIncidentId)
-                .collect(Collectors.toList()));
-        log.info("incidents founded: {}", incidents.size());
+        List<Incident> incidents = incidentRepository.findByIncidentIdIn(
+                models.stream()
+                        .map(Incident::getIncidentId)
+                        .collect(Collectors.toList()));
+        log.debug("Incidents founded: {}", incidents.size());
 
-        Map<Boolean, List<Incident>> groups = models
-                .stream()
+        Map<Boolean, List<Incident>> groups = models.stream()
                 .collect(Collectors.partitioningBy(incidents::contains));
-        log.info("incidents for update: {}", groups.get(Boolean.FALSE).size());
-        log.info("incidents for insert: {}", groups.get(Boolean.TRUE).size());
+        log.info("Incidents for insert: {}; for update: {}", groups.get(Boolean.FALSE).size(), groups.get(Boolean.TRUE).size());
         incidentRepository.saveAll(groups.get(Boolean.FALSE));
 
         incidents.forEach(forUpdate ->
@@ -153,7 +145,7 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
         }
 
         var categoryPredicate = cb.in(from.get("priority"));
-        for (var category : categories){
+        for (var category : categories) {
             categoryPredicate.value(category);
         }
 

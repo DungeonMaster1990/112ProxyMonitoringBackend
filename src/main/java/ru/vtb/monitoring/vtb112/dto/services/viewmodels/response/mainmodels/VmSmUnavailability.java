@@ -12,25 +12,25 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 @Builder
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VmSmUnavailability {
-    @JsonAlias("FaultId")
-    private String faultId;
+public class VmSmUnavailability implements VmBaseModel {
     @JsonAlias("BeginAt")
     private ZonedDateTime beginAt;
-    @JsonAlias("EndAt")
-    private ZonedDateTime endAt;
-    @JsonAlias("Duration")
-    private String duration;
-    @JsonAlias("ServiceName")
-    private String serviceName;
-    @JsonAlias("Type")
-    private String type;
-    @JsonAlias("ServiceId")
-    private String serviceId;
     @JsonAlias("CreatedAt")
     private ZonedDateTime createdAt;
     @JsonAlias("CreatedById")
     private String createdById;
+    @JsonAlias("Duration")
+    private String duration;
+    @JsonAlias("EndAt")
+    private ZonedDateTime endAt;
+    @JsonAlias("FaultId")
+    private String faultId;
+    @JsonAlias("ServiceId")
+    private String serviceId;
+    @JsonAlias("ServiceName")
+    private String serviceName;
+    @JsonAlias("Type")
+    private String type;
     @JsonAlias("UpdatedAt")
     private ZonedDateTime updatedAt;
     @JsonAlias("UpdatedById")

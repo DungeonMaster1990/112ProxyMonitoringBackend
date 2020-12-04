@@ -15,6 +15,8 @@ import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.VmUpdateResponse;
 import ru.vtb.monitoring.vtb112.mocks.VmMock;
 import ru.vtb.monitoring.vtb112.services.api.interfaces.MetricsService;
 
+import java.util.List;
+
 import static ru.vtb.monitoring.vtb112.services.helpers.ValidationUtils.validatePageAndLimit;
 
 @RestController
@@ -30,7 +32,7 @@ public class MetricsController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public VmMetricsResponse[] get(@RequestBody VmMetricsRequest vmMetricsRequest) {
+    public List<VmMetricsResponse> get(@RequestBody VmMetricsRequest vmMetricsRequest) {
         validatePageAndLimit(vmMetricsRequest);
         return metricsService.getMetrics(vmMetricsRequest);
     }
@@ -41,7 +43,7 @@ public class MetricsController {
     }
 
     @PostMapping(value = "/info", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public VmMetricInfoResponse[] getMetricInfo(@RequestBody VmMetricInfoRequest vmMetricInfoRequest) {
+    public List<VmMetricInfoResponse> getMetricInfo(@RequestBody VmMetricInfoRequest vmMetricInfoRequest) {
         return metricsService.getMetricsInfos(vmMetricInfoRequest);
     }
 }

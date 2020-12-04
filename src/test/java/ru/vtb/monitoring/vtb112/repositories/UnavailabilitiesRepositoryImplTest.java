@@ -1,7 +1,7 @@
 package ru.vtb.monitoring.vtb112.repositories;
 
 import com.sun.istack.NotNull;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -10,6 +10,7 @@ import ru.vtb.monitoring.vtb112.db.pg.models.Unavailabilities;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.UnavailabilitiesRepository;
 import ru.vtb.monitoring.vtb112.infrastructure.PostgreSQL;
 
+import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Collections;
@@ -45,8 +46,8 @@ class UnavailabilitiesRepositoryImplTest extends PostgreSQL {
                 .findFirst()
                 .orElse(null);
 
-        Assert.assertEquals("Новый тип", type);
-        Assert.assertNotNull(newUnavailability);
+        Assertions.assertEquals("Новый тип", type);
+        Assertions.assertNotNull(newUnavailability);
     }
 
     @NotNull
@@ -58,7 +59,7 @@ class UnavailabilitiesRepositoryImplTest extends PostgreSQL {
         unavailability.setType("Тип");
         unavailability.setBeginAt(ZonedDateTime.now());
         unavailability.setCreatedById("A_1");
-        unavailability.setDuration(15);
+        unavailability.setDuration(Duration.ofSeconds(15));
         unavailability.setServiceName("Service");
         unavailability.setEndAt(ZonedDateTime.now());
         unavailability.setUpdatedAt(ZonedDateTime.now());

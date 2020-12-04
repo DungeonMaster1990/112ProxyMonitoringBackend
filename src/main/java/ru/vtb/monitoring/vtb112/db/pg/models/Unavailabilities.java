@@ -10,6 +10,7 @@ import org.hibernate.annotations.TypeDef;
 import ru.vtb.monitoring.vtb112.db.pg.models.types.Interval;
 
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
@@ -42,7 +43,7 @@ public class Unavailabilities implements BaseSmModel {
 
     @Column(name = "duration", columnDefinition = "interval", nullable = false)
     @Type(type = "interval")
-    private Integer duration;
+    private Duration duration;
 
     @Column(name = "service_name", nullable = false)
     private String serviceName;

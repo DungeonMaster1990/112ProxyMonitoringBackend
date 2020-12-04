@@ -8,23 +8,21 @@ import ru.vtb.monitoring.vtb112.db.pg.models.Incident;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.IncidentRepository;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.UpdatesRepository;
 import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmSmIncident;
-import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.modelwrappers.VmIncidentWrapper;
 import ru.vtb.monitoring.vtb112.mappers.IncidentMapper;
 
 @ConditionalOnProperty(value = "sm.scheduling.enabled", havingValue = "true", matchIfMissing = true)
 @Component
-public class SmIncidentWorker extends BaseSmWorker<VmSmIncident, VmIncidentWrapper, Incident> {
+public class SmIncidentsWorker extends BaseSmWorker<VmSmIncident, Incident> {
 
-    SmIncidentWorker(AppConfig appConfig,
-                     IncidentRepository incidentRepository,
-                     IncidentMapper incidentMapper,
-                     UpdatesRepository updatesRepository) {
-        super(appConfig,
+    SmIncidentsWorker(AppConfig appConfig,
+                      IncidentRepository incidentRepository,
+                      IncidentMapper incidentMapper,
+                      UpdatesRepository updatesRepository) {
+        super(appConfig.getSmPort(),
                 incidentRepository,
                 incidentMapper,
                 updatesRepository,
-                VmIncidentWrapper.class,
-                "Incidents",
+                WorkerName.SM_INCIDENTS,
                 appConfig.getSmIncidentUrl());
     }
 

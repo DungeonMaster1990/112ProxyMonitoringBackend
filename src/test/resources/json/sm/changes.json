@@ -1,0 +1,3898 @@
+{
+  "@count": 78,
+  "@start": 1,
+  "@totalcount": 78,
+  "Messages": [],
+  "ResourceName": "VtbChange",
+  "ReturnCode": 0,
+  "content": [
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "Тест"
+        ],
+        "CreatedAt": "2020-03-29T11:30:03+00:00",
+        "CreatedBy": "aevdokimov",
+        "UpdatedAt": "2020-03-29T11:31:07+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "Тест"
+          ],
+          "Description": [
+            "Тест"
+          ],
+          "Justification": [
+            "Тест"
+          ],
+          "Plan": [
+            "Тест"
+          ]
+        },
+        "header": {
+          "AssignDept": "SM Разработчики",
+          "BriefDescription": "Тест",
+          "Category": "Нормальное",
+          "CurrentPhase": "Регистрация",
+          "Id": "C-00000001",
+          "PlannedEndAt": "2020-03-30T21:00:00+00:00",
+          "PlannedStartAt": "2020-03-30T11:29:38+00:00",
+          "RequestedBy": "aevdokimov",
+          "RequestedFor": "aevdokimov",
+          "Status": "Зарегистрировано",
+          "Subcategory": "Видео-конференц-связь"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedCis": [
+          "CI1268220",
+          "CI1268250"
+        ],
+        "AffectedIts": [
+          "CI1268182",
+          "CI1268184",
+          "CI1268214"
+        ],
+        "BackoutPlan": [
+          "Тест"
+        ],
+        "CreatedAt": "2020-03-29T11:32:08+00:00",
+        "CreatedBy": "aevdokimov",
+        "InitialImpact": "Не влияет",
+        "TemplateId": "4",
+        "TemplateName": "Тестовый шаблон",
+        "UpdatedAt": "2020-03-29T11:32:28+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "Тест"
+          ],
+          "Description": [
+            "Тест"
+          ],
+          "Justification": [
+            "Тест"
+          ],
+          "Plan": [
+            "Тест"
+          ]
+        },
+        "header": {
+          "AssignDept": "SM Разработчики",
+          "BriefDescription": "Тест",
+          "Category": "Стандартное",
+          "CurrentPhase": "Регистрация",
+          "Id": "C-00000002",
+          "PlannedEndAt": "2020-04-28T21:00:00+00:00",
+          "PlannedStartAt": "2020-03-29T21:00:00+00:00",
+          "RequestedBy": "aevdokimov",
+          "RequestedFor": "aevdokimov",
+          "Status": "Зарегистрировано",
+          "Subcategory": "Видео-конференц-связь"
+        },
+        "middle": {
+          "AffectedServices": [
+            "CI1268180"
+          ],
+          "Assets": [
+            "CI1268190"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "ТЕСТ"
+        ],
+        "ChangeOwner": "Стеблинов Алексей Викторович (20023716)",
+        "CreatedAt": "2020-03-29T11:43:20+00:00",
+        "CreatedBy": "Фатихов Наиль Миндибаевич (20026453)",
+        "UpdatedAt": "2020-03-29T11:43:20+00:00",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "ТЕСТ"
+          ],
+          "Description": [
+            "Патч на КИС"
+          ],
+          "Justification": [
+            "ТЕСТ"
+          ],
+          "Plan": [
+            "ТЕСТ"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "Патч на КИС",
+          "Category": "Нормальное",
+          "CurrentPhase": "Регистрация",
+          "Id": "C-00000003",
+          "PlannedEndAt": "2020-03-29T18:00:00+00:00",
+          "PlannedStartAt": "2020-03-29T13:00:00+00:00",
+          "RequestedBy": "Фатихов Наиль Миндибаевич (20026453)",
+          "RequestedFor": "Фатихов Наиль Миндибаевич (20026453)",
+          "Status": "Зарегистрировано",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "ТЕСТ"
+        ],
+        "ChangeOwner": "Стеблинов Алексей Викторович (20023716)",
+        "CreatedAt": "2020-03-29T11:50:39+00:00",
+        "CreatedBy": "Фатихов Наиль Миндибаевич (20026453)",
+        "UpdatedAt": "2020-04-03T11:37:37+00:00",
+        "UpdatedBy": "Стеблинов Алексей Викторович (20023716)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "ТЕСТ"
+          ],
+          "Description": [
+            "Обновление КИС"
+          ],
+          "Justification": [
+            "ТЕСТ"
+          ],
+          "Plan": [
+            "ТЕСТ"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "Обновление КИС",
+          "Category": "Нормальное",
+          "CurrentPhase": "Планирование",
+          "Id": "C-00000004",
+          "PlannedEndAt": "2020-04-03T20:30:00+00:00",
+          "PlannedStartAt": "2020-04-03T17:00:00+00:00",
+          "RequestedBy": "Фатихов Наиль Миндибаевич (20026453)",
+          "RequestedFor": "Фатихов Наиль Миндибаевич (20026453)",
+          "Status": "В планировании",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {
+          "Assets": [
+            "CI1090508"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedCis": [
+          "CI1268220",
+          "CI1268250"
+        ],
+        "AffectedIts": [
+          "CI1268182",
+          "CI1268184",
+          "CI1268214"
+        ],
+        "BackoutPlan": [
+          "ТЕСТ"
+        ],
+        "CLosedAt": "2020-03-29T12:27:56+00:00",
+        "ChangeOwner": "Стеблинов Алексей Викторович (20023716)",
+        "ClosedBy": "Фатихов Наиль Миндибаевич (20026453)",
+        "CreatedAt": "2020-03-29T12:17:09+00:00",
+        "CreatedBy": "Фатихов Наиль Миндибаевич (20026453)",
+        "InitialImpact": "Не влияет",
+        "ResolutionCode": "Отменено инициатором",
+        "TemplateId": "4",
+        "TemplateName": "Тестовый шаблон",
+        "UpdatedAt": "2020-03-29T12:27:56+00:00",
+        "UpdatedBy": "Фатихов Наиль Миндибаевич (20026453)",
+        "close": {
+          "ClosingComments": [
+            "Не актуально"
+          ]
+        },
+        "description.structure": {
+          "AcceptanceComments": [
+            "ТЕСТ"
+          ],
+          "Description": [
+            "ТЕСТ"
+          ],
+          "Justification": [
+            "ТЕСТ"
+          ],
+          "Plan": [
+            "ТЕСТ"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "Тест",
+          "Category": "Стандартное",
+          "CurrentPhase": "Закрытие",
+          "Id": "C-00000005",
+          "PlannedEndAt": "2020-03-29T17:00:00+00:00",
+          "PlannedStartAt": "2020-03-29T15:00:00+00:00",
+          "RequestedBy": "Фатихов Наиль Миндибаевич (20026453)",
+          "RequestedFor": "Фатихов Наиль Миндибаевич (20026453)",
+          "Status": "Закрыто",
+          "Subcategory": "Видео-конференц-связь"
+        },
+        "middle": {
+          "AffectedServices": [
+            "CI1268180"
+          ],
+          "Assets": [
+            "CI1268190"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1090508",
+        "BackoutPlan": [
+          "тест"
+        ],
+        "CLosedAt": "2020-03-29T13:57:48+00:00",
+        "ChangeOwner": "Стеблинов Алексей Викторович (20023716)",
+        "ClosedBy": "Фатихов Наиль Миндибаевич (20026453)",
+        "CreatedAt": "2020-03-29T12:18:33+00:00",
+        "CreatedBy": "Фатихов Наиль Миндибаевич (20026453)",
+        "ImplementationEndAt": "2020-03-29T15:30:00+00:00",
+        "ImplementationStartAt": "2020-03-29T14:00:00+00:00",
+        "InitialImpact": "Простой",
+        "IsHaveReport": true,
+        "ResolutionCode": "Выполнено успешно",
+        "UpdatedAt": "2020-03-29T13:57:48+00:00",
+        "UpdatedBy": "Фатихов Наиль Миндибаевич (20026453)",
+        "close": {
+          "ClosingComments": [
+            "ФАПФАПФЫВПФЫПФ"
+          ]
+        },
+        "description.structure": {
+          "AcceptanceComments": [
+            "тест"
+          ],
+          "Description": [
+            "ТЕСТ"
+          ],
+          "Justification": [
+            "тест"
+          ],
+          "Plan": [
+            "тест"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "ТЕСТ",
+          "Category": "Экстренное",
+          "CurrentPhase": "Закрытие",
+          "Id": "C-00000006",
+          "PlannedEndAt": "2020-03-29T10:00:00+00:00",
+          "PlannedStartAt": "2020-03-28T23:00:00+00:00",
+          "RequestedBy": "Фатихов Наиль Миндибаевич (20026453)",
+          "RequestedFor": "Фатихов Наиль Миндибаевич (20026453)",
+          "Status": "Закрыто",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {
+          "Assets": [
+            "CI1090508"
+          ],
+          "DownEndAt": "2020-03-29T14:15:00+00:00",
+          "DownStartAt": "2020-03-29T14:00:00+00:00",
+          "SchedOutageEndAt": "2020-03-29T18:00:00+00:00",
+          "SchedOutageStartAt": "2020-03-29T18:00:00+00:00"
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "вава"
+        ],
+        "CreatedAt": "2020-03-29T19:52:44+00:00",
+        "CreatedBy": "Стеблинов Алексей Викторович (20023716)",
+        "UpdatedAt": "2020-03-29T19:52:44+00:00",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "вава"
+          ],
+          "Description": [
+            "ТЕСТ"
+          ],
+          "Justification": [
+            "вава"
+          ],
+          "Plan": [
+            "вава"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "ТЕСТ",
+          "Category": "Нормальное",
+          "CurrentPhase": "Регистрация",
+          "Id": "C-00000007",
+          "PlannedEndAt": "2020-03-30T00:00:00+00:00",
+          "PlannedStartAt": "2020-03-29T21:30:00+00:00",
+          "RequestedBy": "Стеблинов Алексей Викторович (20023716)",
+          "RequestedFor": "Стеблинов Алексей Викторович (20023716)",
+          "Status": "Зарегистрировано",
+          "Subcategory": "Сеть"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "Тест"
+        ],
+        "CLosedAt": "2020-03-31T14:19:25+00:00",
+        "ChangeOwner": "Дешевой Артур Александрович (20028698)",
+        "ClosedBy": "Дешевой Артур Александрович (20028698)",
+        "CreatedAt": "2020-03-31T14:18:00+00:00",
+        "CreatedBy": "Дешевой Артур Александрович (20028698)",
+        "ResolutionCode": "Отменено инициатором",
+        "UpdatedAt": "2020-03-31T14:19:25+00:00",
+        "UpdatedBy": "Дешевой Артур Александрович (20028698)",
+        "close": {
+          "ClosingComments": [
+            "Выполнено."
+          ]
+        },
+        "description.structure": {
+          "AcceptanceComments": [
+            "Тест"
+          ],
+          "Description": [
+            "Hot-Fix ПКБ (Тест)"
+          ],
+          "Justification": [
+            "Тест"
+          ],
+          "Plan": [
+            "Тест"
+          ]
+        },
+        "header": {
+          "AssignDept": "Поддержка ПКБ L2",
+          "BriefDescription": "Hot-Fix ПКБ (Тест)",
+          "Category": "Нормальное",
+          "CurrentPhase": "Закрытие",
+          "Id": "C-00000009",
+          "PlannedEndAt": "2020-03-31T15:00:00+00:00",
+          "PlannedStartAt": "2020-03-31T15:00:00+00:00",
+          "RequestedBy": "Дешевой Артур Александрович (20028698)",
+          "RequestedFor": "Дешевой Артур Александрович (20028698)",
+          "Status": "Закрыто",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedCis": [
+          "CI1268220",
+          "CI1268250"
+        ],
+        "AffectedIts": [
+          "CI1268182",
+          "CI1268184",
+          "CI1268214"
+        ],
+        "BackoutPlan": [
+          "вернуть старые сервисы"
+        ],
+        "ChangeOwner": "Богородский Тимофей Юрьевич (20029434)",
+        "CreatedAt": "2020-03-31T14:25:43+00:00",
+        "CreatedBy": "Кузнецов Андрей Викторович (20009500)",
+        "InitialImpact": "Не влияет",
+        "TemplateId": "4",
+        "TemplateName": "Тестовый шаблон",
+        "UpdatedAt": "2020-03-31T14:27:20+00:00",
+        "UpdatedBy": "Кузнецов Андрей Викторович (20009500)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "ПО работоспособно"
+          ],
+          "Description": [
+            "Тестовое изменение"
+          ],
+          "Justification": [
+            "устранение ошибок"
+          ],
+          "Plan": [
+            "обновить сервисы"
+          ]
+        },
+        "header": {
+          "AssignDept": "НДС (ГО)",
+          "BriefDescription": "Тестовое изменение",
+          "Category": "Стандартное",
+          "CurrentPhase": "Планирование",
+          "Id": "C-00000010",
+          "PlannedEndAt": "2020-04-03T16:00:00+00:00",
+          "PlannedStartAt": "2020-04-03T16:00:00+00:00",
+          "RequestedBy": "Кузнецов Андрей Викторович (20009500)",
+          "RequestedFor": "Кузнецов Андрей Викторович (20009500)",
+          "Status": "В планировании",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {
+          "AffectedServices": [
+            "CI1268180"
+          ],
+          "Assets": [
+            "CI1268190"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "hfgh"
+        ],
+        "CreatedAt": "2020-03-30T21:10:44+00:00",
+        "CreatedBy": "aevdokimov",
+        "UpdatedAt": "2020-03-30T21:11:12+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "ghfh"
+          ],
+          "Description": [
+            "bghgfh"
+          ],
+          "Justification": [
+            "ghgfh"
+          ],
+          "Plan": [
+            "gfh"
+          ]
+        },
+        "header": {
+          "AssignDept": "SM Разработчики",
+          "BriefDescription": "bfdh",
+          "Category": "Нормальное",
+          "CurrentPhase": "Планирование",
+          "Id": "C-00000012",
+          "PlannedEndAt": "2020-03-31T21:00:00+00:00",
+          "PlannedStartAt": "2020-03-31T21:00:00+00:00",
+          "RequestedBy": "aevdokimov",
+          "RequestedFor": "aevdokimov",
+          "Status": "Назначение владельца",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedCis": [
+          "CI1268220",
+          "CI1268250"
+        ],
+        "AffectedIts": [
+          "CI1268182",
+          "CI1268184",
+          "CI1268214"
+        ],
+        "BackoutPlan": [
+          "Откат пункта 1",
+          "Откат пункта 2"
+        ],
+        "ChangeOwner": "Семин Виктор Сергеевич (20011789)",
+        "CreatedAt": "2020-03-31T14:30:02+00:00",
+        "CreatedBy": "Цепляев Павел Сергеевич (20024168)",
+        "InitialImpact": "Не влияет",
+        "TemplateId": "4",
+        "TemplateName": "Тестовый шаблон",
+        "UpdatedAt": "2020-03-31T14:30:36+00:00",
+        "UpdatedBy": "Цепляев Павел Сергеевич (20024168)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "Критерий 1",
+            "Критерий 2"
+          ],
+          "Description": [
+            "ЕРК. Тестовое изменение"
+          ],
+          "Justification": [
+            "Тестовое требование 1"
+          ],
+          "Plan": [
+            "Пункт 1",
+            "Пункт 2"
+          ]
+        },
+        "header": {
+          "AssignDept": "ЕРК (ГО)",
+          "BriefDescription": "ЕРК. Тестовое изменение",
+          "Category": "Стандартное",
+          "CurrentPhase": "Регистрация",
+          "Id": "C-00000014",
+          "PlannedEndAt": "2020-04-04T07:00:00+00:00",
+          "PlannedStartAt": "2020-04-04T06:00:00+00:00",
+          "RequestedBy": "Цепляев Павел Сергеевич (20024168)",
+          "RequestedFor": "Цепляев Павел Сергеевич (20024168)",
+          "Status": "Зарегистрировано",
+          "Subcategory": "Видео-конференц-связь"
+        },
+        "middle": {
+          "AffectedServices": [
+            "CI1268180"
+          ],
+          "Assets": [
+            "CI1268190"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1090502",
+        "BackoutPlan": [
+          "план отката приложен."
+        ],
+        "ChangeOwner": "Петунин Сергей Сергеевич (20028051)",
+        "CreatedAt": "2020-03-31T10:00:10+00:00",
+        "CreatedBy": "Чулюков Алексей Владимирович (20025271)",
+        "InitialImpact": "Простой",
+        "ResolutionCode": "Выполнено успешно",
+        "UpdatedAt": "2020-04-02T21:00:01+00:00",
+        "UpdatedBy": "HP Service Manager(hpclinker3)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "Полное отсутствие ошибок в работе системы в течение 10 лет"
+          ],
+          "Description": [
+            "тестовое описание2"
+          ],
+          "Justification": [
+            "Тестирование"
+          ],
+          "Plan": [
+            "План приложен. 12345"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "Тестовое изменение.",
+          "Category": "Нормальное",
+          "CurrentPhase": "Реализация",
+          "Id": "C-00000015",
+          "PlannedEndAt": "2020-04-17T21:00:00+00:00",
+          "PlannedStartAt": "2020-04-02T21:00:00+00:00",
+          "RequestedBy": "Чулюков Алексей Владимирович (20025271)",
+          "RequestedFor": "Чулюков Алексей Владимирович (20025271)",
+          "Status": "Проведение работ",
+          "Subcategory": "Нестандартное изменение"
+        },
+        "middle": {
+          "SchedOutageEndAt": "2020-04-14T21:00:00+00:00",
+          "SchedOutageStartAt": "2020-04-03T21:00:00+00:00"
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedCis": [
+          "CI1268220",
+          "CI1268250"
+        ],
+        "AffectedIts": [
+          "CI1268182",
+          "CI1268184",
+          "CI1268214"
+        ],
+        "BackoutPlan": [
+          "4"
+        ],
+        "CLosedAt": "2020-03-31T10:30:13+00:00",
+        "ChangeOwner": "Петунин Сергей Сергеевич (20028051)",
+        "ClosedBy": "Чулюков Алексей Владимирович (20025271)",
+        "CreatedAt": "2020-03-31T10:12:17+00:00",
+        "CreatedBy": "Чулюков Алексей Владимирович (20025271)",
+        "InitialImpact": "Не влияет",
+        "ResolutionCode": "Отменено инициатором",
+        "TemplateId": "4",
+        "TemplateName": "Тестовый шаблон",
+        "UpdatedAt": "2020-03-31T10:30:13+00:00",
+        "UpdatedBy": "Чулюков Алексей Владимирович (20025271)",
+        "close": {
+          "ClosingComments": [
+            "1"
+          ]
+        },
+        "description.structure": {
+          "AcceptanceComments": [
+            "2"
+          ],
+          "Description": [
+            "тестирование ВКС"
+          ],
+          "Justification": [
+            "1"
+          ],
+          "Plan": [
+            "3"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "тест ВКС",
+          "Category": "Стандартное",
+          "CurrentPhase": "Закрытие",
+          "Id": "C-00000016",
+          "PlannedEndAt": "2020-04-02T21:00:00+00:00",
+          "PlannedStartAt": "2020-03-31T21:00:00+00:00",
+          "RequestedBy": "Чулюков Алексей Владимирович (20025271)",
+          "RequestedFor": "Чулюков Алексей Владимирович (20025271)",
+          "Status": "Закрыто",
+          "Subcategory": "Видео-конференц-связь"
+        },
+        "middle": {
+          "AffectedServices": [
+            "CI1268180"
+          ],
+          "Assets": [
+            "CI1268190"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "4"
+        ],
+        "CreatedAt": "2020-03-31T10:19:07+00:00",
+        "CreatedBy": "Чулюков Алексей Владимирович (20025271)",
+        "UpdatedAt": "2020-03-31T13:57:50+00:00",
+        "UpdatedBy": "Чулюков Алексей Владимирович (20025271)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "2"
+          ],
+          "Description": [
+            "123"
+          ],
+          "Justification": [
+            "1"
+          ],
+          "Plan": [
+            "3"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "тест_экстренное",
+          "Category": "Экстренное",
+          "CurrentPhase": "Планирование",
+          "Id": "C-00000017",
+          "PlannedEndAt": "2020-04-04T21:00:00+00:00",
+          "PlannedStartAt": "2020-04-02T21:00:00+00:00",
+          "RequestedBy": "Чулюков Алексей Владимирович (20025271)",
+          "RequestedFor": "Чулюков Алексей Владимирович (20025271)",
+          "Status": "Назначение владельца",
+          "Subcategory": "Нестандартное изменение"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedCis": [
+          "CI1268220",
+          "CI1268250"
+        ],
+        "AffectedIts": [
+          "CI1268182",
+          "CI1268184",
+          "CI1268214"
+        ],
+        "BackoutPlan": [
+          "1) откатить"
+        ],
+        "CLosedAt": "2020-03-31T15:11:20+00:00",
+        "ChangeOwner": "Мухин Андрей Николаевич (20020381)",
+        "ClosedBy": "Семин Виктор Сергеевич (20011789)",
+        "CreatedAt": "2020-03-31T15:08:47+00:00",
+        "CreatedBy": "Семин Виктор Сергеевич (20011789)",
+        "InitialImpact": "Не влияет",
+        "ResolutionCode": "Отменено инициатором",
+        "TemplateId": "4",
+        "TemplateName": "Тестовый шаблон",
+        "UpdatedAt": "2020-03-31T15:11:20+00:00",
+        "UpdatedBy": "Семин Виктор Сергеевич (20011789)",
+        "close": {
+          "ClosingComments": [
+            "все прошло хорошо"
+          ]
+        },
+        "description.structure": {
+          "AcceptanceComments": [
+            "Если не упало, то все ок."
+          ],
+          "Description": [
+            "Установка обновления на систему"
+          ],
+          "Justification": [
+            "Просто захотелось"
+          ],
+          "Plan": [
+            "1) установить"
+          ]
+        },
+        "header": {
+          "AssignDept": "ЭДК (ГО)",
+          "BriefDescription": "Жопа",
+          "Category": "Стандартное",
+          "CurrentPhase": "Закрытие",
+          "Id": "C-00000018",
+          "PlannedEndAt": "2020-04-03T22:00:00+00:00",
+          "PlannedStartAt": "2020-04-03T21:00:00+00:00",
+          "RequestedBy": "Семин Виктор Сергеевич (20011789)",
+          "RequestedFor": "Семин Виктор Сергеевич (20011789)",
+          "Status": "Закрыто",
+          "Subcategory": "Нестандартное изменение"
+        },
+        "middle": {
+          "AffectedServices": [
+            "CI1268180"
+          ],
+          "Assets": [
+            "CI1268190"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "6"
+        ],
+        "CreatedAt": "2020-03-31T15:18:16+00:00",
+        "CreatedBy": "Чулюков Алексей Владимирович (20025271)",
+        "UpdatedAt": "2020-03-31T15:18:16+00:00",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "4"
+          ],
+          "Description": [
+            "2"
+          ],
+          "Justification": [
+            "3"
+          ],
+          "Plan": [
+            "5"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "1",
+          "Category": "Нормальное",
+          "CurrentPhase": "Регистрация",
+          "Id": "C-00000020",
+          "PlannedEndAt": "2020-04-01T21:00:00+00:00",
+          "PlannedStartAt": "2020-03-31T21:00:00+00:00",
+          "RequestedBy": "Чулюков Алексей Владимирович (20025271)",
+          "RequestedFor": "Чулюков Алексей Владимирович (20025271)",
+          "Status": "Зарегистрировано",
+          "Subcategory": "Видео-конференц-связь"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1120434",
+        "BackoutPlan": [
+          "Провести откат согласно приложенного плана"
+        ],
+        "CLosedAt": "2020-04-03T20:10:55+00:00",
+        "ChangeOwner": "Стеблинов Алексей Викторович (20023716)",
+        "ClosedBy": "HP Service Manager(hpclinker8)",
+        "CreatedAt": "2020-03-31T17:05:35+00:00",
+        "CreatedBy": "Стеблинов Алексей Викторович (20023716)",
+        "ImplementationEndAt": "2020-04-01T10:30:00+00:00",
+        "ImplementationStartAt": "2020-04-01T10:00:00+00:00",
+        "InitialImpact": "Простой",
+        "IsHaveReport": true,
+        "ResolutionCode": "Выполнено успешно",
+        "UpdatedAt": "2020-04-03T20:10:55+00:00",
+        "UpdatedBy": "HP Service Manager(hpclinker8)",
+        "close": {
+          "ClosingComments": [
+            "Патч установлен успешно"
+          ]
+        },
+        "description.structure": {
+          "AcceptanceComments": [
+            "Патч # 3 установлен, ошибка на воспроизводится"
+          ],
+          "Description": [
+            "Установка патча # 3 на ИС"
+          ],
+          "Justification": [
+            "1. Исправление ошибки ИС"
+          ],
+          "Plan": [
+            "Установить патч #3 на ИС устраняющий ошибки, согласно плана установки во вложении"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "Установка патча на ИС",
+          "Category": "Нормальное",
+          "CurrentPhase": "Закрытие",
+          "Id": "C-00000023",
+          "PlannedEndAt": "2020-03-31T20:00:00+00:00",
+          "PlannedStartAt": "2020-03-31T19:30:00+00:00",
+          "RequestedBy": "Стеблинов Алексей Викторович (20023716)",
+          "RequestedFor": "Скачков Андрей Геннадьевич (20008534)",
+          "Status": "Закрыто",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {
+          "Assets": [
+            "CI1120434"
+          ],
+          "DownEndAt": "2020-04-01T10:15:00+00:00",
+          "DownStartAt": "2020-04-01T10:00:00+00:00",
+          "SchedOutageEndAt": "2020-03-31T19:30:00+00:00",
+          "SchedOutageStartAt": "2020-03-31T19:15:00+00:00"
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedCis": [
+          "CI1268220",
+          "CI1268250"
+        ],
+        "AffectedIts": [
+          "CI1268182",
+          "CI1268184",
+          "CI1268214"
+        ],
+        "BackoutPlan": [
+          "План отката"
+        ],
+        "CLosedAt": "2020-04-01T07:20:40+00:00",
+        "ClosedBy": "Андросов Александр Иванович (129616)",
+        "CreatedAt": "2020-04-01T07:18:16+00:00",
+        "CreatedBy": "Андросов Александр Иванович (129616)",
+        "InitialImpact": "Не влияет",
+        "ResolutionCode": "Отменено инициатором",
+        "TemplateId": "4",
+        "TemplateName": "Тестовый шаблон",
+        "UpdatedAt": "2020-04-01T07:20:40+00:00",
+        "UpdatedBy": "Андросов Александр Иванович (129616)",
+        "close": {
+          "ClosingComments": [
+            "Тестовый ЗНИ"
+          ]
+        },
+        "description.structure": {
+          "AcceptanceComments": [
+            "Критерии успеха"
+          ],
+          "Description": [
+            "Описание"
+          ],
+          "Justification": [
+            "Причина реализации"
+          ],
+          "Plan": [
+            "План реализации"
+          ]
+        },
+        "header": {
+          "AssignDept": "Согласование ДРВ ГО БИС",
+          "BriefDescription": "Краткое описание",
+          "Category": "Стандартное",
+          "CurrentPhase": "Закрытие",
+          "Id": "C-00000025",
+          "PlannedEndAt": "2020-04-01T20:00:00+00:00",
+          "PlannedStartAt": "2020-04-01T08:00:00+00:00",
+          "RequestedBy": "Андросов Александр Иванович (129616)",
+          "RequestedFor": "Андросов Александр Иванович (129616)",
+          "Status": "Закрыто",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {
+          "AffectedServices": [
+            "CI1268180"
+          ],
+          "Assets": [
+            "CI1268190"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1097814",
+        "BackoutPlan": [
+          "тест"
+        ],
+        "ChangeOwner": "Уфимцева Анна Владимировна (20023283)",
+        "CreatedAt": "2020-04-01T07:16:23+00:00",
+        "CreatedBy": "Уфимцева Анна Владимировна (20023283)",
+        "InitialImpact": "Простой",
+        "UpdatedAt": "2020-04-01T21:00:19+00:00",
+        "UpdatedBy": "HP Service Manager(hpclinker2)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "тест"
+          ],
+          "Description": [
+            "тест"
+          ],
+          "Justification": [
+            "тест"
+          ],
+          "Plan": [
+            "тест"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "тест",
+          "Category": "Нормальное",
+          "CurrentPhase": "Реализация",
+          "Id": "C-00000026",
+          "PlannedEndAt": "2020-04-05T21:00:00+00:00",
+          "PlannedStartAt": "2020-04-01T21:00:00+00:00",
+          "RequestedBy": "Уфимцева Анна Владимировна (20023283)",
+          "RequestedFor": "Уфимцева Анна Владимировна (20023283)",
+          "Status": "Проведение работ",
+          "Subcategory": "Нестандартное изменение"
+        },
+        "middle": {
+          "SchedOutageEndAt": "2020-04-02T17:00:00+00:00",
+          "SchedOutageStartAt": "2020-04-02T07:00:00+00:00"
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "4"
+        ],
+        "BuildTestPlan": [
+          "7"
+        ],
+        "BuildTestResult": [
+          "8"
+        ],
+        "CreatedAt": "2020-04-01T08:14:02+00:00",
+        "CreatedBy": "Чулюков Алексей Владимирович (20025271)",
+        "UpdatedAt": "2020-04-01T08:48:31+00:00",
+        "UpdatedBy": "Стеблинов Алексей Викторович (20023716)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "2"
+          ],
+          "Description": [
+            "6"
+          ],
+          "Justification": [
+            "1"
+          ],
+          "Plan": [
+            "3"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "5",
+          "Category": "Нормальное",
+          "CurrentPhase": "Регистрация",
+          "Id": "C-00000027",
+          "PlannedEndAt": "2020-04-02T21:00:00+00:00",
+          "PlannedStartAt": "2020-04-01T21:00:00+00:00",
+          "RequestedBy": "Чулюков Алексей Владимирович (20025271)",
+          "RequestedFor": "Чулюков Алексей Владимирович (20025271)",
+          "Status": "Возвращено на доработку",
+          "Subcategory": "Видео-конференц-связь"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedCis": [
+          "CI1268220",
+          "CI1268250"
+        ],
+        "AffectedIts": [
+          "CI1268182",
+          "CI1268184",
+          "CI1268214"
+        ],
+        "BackoutPlan": [
+          "1          Удаление внесенных изменений",
+          "            Ответственный:            Нарских И.Д."
+        ],
+        "CLosedAt": "2020-04-01T10:04:10+00:00",
+        "ChangeOwner": "Нарских Ирина Дмитриевна (20014043)",
+        "ClosedBy": "Щенникова Светлана Юрьевна (20009367)",
+        "CreatedAt": "2020-04-01T09:56:23+00:00",
+        "CreatedBy": "Щенникова Светлана Юрьевна (20009367)",
+        "InitialImpact": "Не влияет",
+        "ResolutionCode": "Отменено инициатором",
+        "TemplateName": "Тестовый шаблон",
+        "UpdatedAt": "2020-04-01T10:04:09+00:00",
+        "UpdatedBy": "Щенникова Светлана Юрьевна (20009367)",
+        "close": {
+          "ClosingComments": [
+            "потеряло актуальность"
+          ]
+        },
+        "description.structure": {
+          "AcceptanceComments": [
+            "Скрипты установлены успешно"
+          ],
+          "Description": [
+            "Для реализации ЗИ 1605 необходимо установить скрипты на ПРОМ КИХ для справочника:",
+            "DICT_AUTHORITY \u2013 Полномочия.",
+            "В КИХ справочник не синхронизировался.",
+            "Метаданные для справочника протестированы на ПРЕЛАЙВ-е КИХ.",
+            "После установления скриптов проверьте, пожалуйста, «валидность» объектов КИХ."
+          ],
+          "Justification": [
+            "Создание нового справочника"
+          ],
+          "Plan": [
+            "1          Сохранение текущего состояния объектов и их значений.",
+            "            Ответственный:            Нарских И.Д.",
+            "2          Проведение изменения",
+            "            Ответственный:            Нарских И.Д.",
+            "3          Тестирование изменения",
+            "            Ответственный:            Нарских И.Д"
+          ]
+        },
+        "header": {
+          "AssignDept": "КИХ (ГО)",
+          "BriefDescription": "Установка скриптов на ПРОМ КИХ",
+          "Category": "Нормальное",
+          "CurrentPhase": "Закрытие",
+          "Id": "C-00000030",
+          "PlannedEndAt": "2020-04-02T15:00:00+00:00",
+          "PlannedStartAt": "2020-04-02T11:00:00+00:00",
+          "RequestedBy": "Щенникова Светлана Юрьевна (20009367)",
+          "RequestedFor": "Щенникова Светлана Юрьевна (20009367)",
+          "Status": "Закрыто",
+          "Subcategory": "Нестандартное изменение"
+        },
+        "middle": {
+          "AffectedServices": [
+            "CI1268180"
+          ],
+          "Assets": [
+            "CI1268190"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedCis": [
+          "CI1268220",
+          "CI1268250"
+        ],
+        "AffectedIts": [
+          "CI1268182",
+          "CI1268184",
+          "CI1268214"
+        ],
+        "BackoutPlan": [
+          "Для реализации ЗИ 1605 необходимо установить скрипты на ПРОМ КИХ для справочника:",
+          "DICT_AUTHORITY \u2013 Полномочия.",
+          "В КИХ справочник не синхронизировался.",
+          "Метаданные для справочника протестированы на ПРЕЛАЙВ-е КИХ.",
+          "После установления скриптов проверьте, пожалуйста, «валидность» объектов КИХ."
+        ],
+        "ChangeOwner": "Нарских Ирина Дмитриевна (20014043)",
+        "CreatedAt": "2020-04-01T10:12:51+00:00",
+        "CreatedBy": "Щенникова Светлана Юрьевна (20009367)",
+        "InitialImpact": "Не влияет",
+        "TemplateId": "4",
+        "TemplateName": "Тестовый шаблон",
+        "UpdatedAt": "2020-04-01T10:12:57+00:00",
+        "UpdatedBy": "Щенникова Светлана Юрьевна (20009367)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "Для реализации ЗИ 1605 необходимо установить скрипты на ПРОМ КИХ для справочника:",
+            "DICT_AUTHORITY \u2013 Полномочия.",
+            "В КИХ справочник не синхронизировался.",
+            "Метаданные для справочника протестированы на ПРЕЛАЙВ-е КИХ.",
+            "После установления скриптов проверьте, пожалуйста, «валидность» объектов КИХ."
+          ],
+          "Description": [
+            "Для реализации ЗИ 1605 необходимо установить скрипты на ПРОМ КИХ для справочника:",
+            "DICT_AUTHORITY \u2013 Полномочия.",
+            "В КИХ справочник не синхронизировался.",
+            "Метаданные для справочника протестированы на ПРЕЛАЙВ-е КИХ.",
+            "После установления скриптов проверьте, пожалуйста, «валидность» объектов КИХ."
+          ],
+          "Justification": [
+            "Для реализации ЗИ 1605 необходимо установить скрипты на ПРОМ КИХ для справочника:",
+            "DICT_AUTHORITY \u2013 Полномочия.",
+            "В КИХ справочник не синхронизировался.",
+            "Метаданные для справочника протестированы на ПРЕЛАЙВ-е КИХ.",
+            "После установления скриптов проверьте, пожалуйста, «валидность» объектов КИХ."
+          ],
+          "Plan": [
+            "Для реализации ЗИ 1605 необходимо установить скрипты на ПРОМ КИХ для справочника:",
+            "DICT_AUTHORITY \u2013 Полномочия.",
+            "В КИХ справочник не синхронизировался.",
+            "Метаданные для справочника протестированы на ПРЕЛАЙВ-е КИХ.",
+            "После установления скриптов проверьте, пожалуйста, «валидность» объектов КИХ."
+          ]
+        },
+        "header": {
+          "AssignDept": "КИХ (ГО)",
+          "BriefDescription": "Установка скриптов на ПРОМ КИХ",
+          "Category": "Стандартное",
+          "CurrentPhase": "Планирование",
+          "Id": "C-00000032",
+          "PlannedEndAt": "2020-04-01T21:00:00+00:00",
+          "PlannedStartAt": "2020-04-01T21:00:00+00:00",
+          "RequestedBy": "Щенникова Светлана Юрьевна (20009367)",
+          "RequestedFor": "Щенникова Светлана Юрьевна (20009367)",
+          "Status": "В планировании",
+          "Subcategory": "Видео-конференц-связь"
+        },
+        "middle": {
+          "AffectedServices": [
+            "CI1268180"
+          ],
+          "Assets": [
+            "CI1268190"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedCis": [
+          "CI1268220",
+          "CI1268250"
+        ],
+        "AffectedIts": [
+          "CI1268182",
+          "CI1268184",
+          "CI1268214"
+        ],
+        "BackoutPlan": [
+          "Test"
+        ],
+        "CreatedAt": "2020-04-01T11:35:39+00:00",
+        "CreatedBy": "Любашевский Александр Валентинович (20027089)",
+        "InitialImpact": "Не влияет",
+        "TemplateId": "4",
+        "TemplateName": "Тестовый шаблон",
+        "UpdatedAt": "2020-04-01T11:35:56+00:00",
+        "UpdatedBy": "Любашевский Александр Валентинович (20027089)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "Test"
+          ],
+          "Description": [
+            "Test"
+          ],
+          "Justification": [
+            "Test"
+          ],
+          "Plan": [
+            "Test"
+          ]
+        },
+        "header": {
+          "AssignDept": "BE ИТ-поддержка",
+          "BriefDescription": "Test",
+          "Category": "Стандартное",
+          "CurrentPhase": "Планирование",
+          "Id": "C-00000033",
+          "PlannedEndAt": "2020-04-04T21:00:00+00:00",
+          "PlannedStartAt": "2020-04-03T21:00:00+00:00",
+          "RequestedBy": "Любашевский Александр Валентинович (20027089)",
+          "RequestedFor": "Любашевский Александр Валентинович (20027089)",
+          "Status": "Назначение владельца",
+          "Subcategory": "Видео-конференц-связь"
+        },
+        "middle": {
+          "AffectedServices": [
+            "CI1268180"
+          ],
+          "Assets": [
+            "CI1268190"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedCis": [
+          "CI1268220",
+          "CI1268250"
+        ],
+        "AffectedItem": "CI1090603",
+        "AffectedIts": [
+          "CI1268182",
+          "CI1268184",
+          "CI1268214"
+        ],
+        "BackoutPlan": [
+          "тест"
+        ],
+        "ChangeOwner": "Громов Сергей Юрьевич (20019288)",
+        "CreatedAt": "2020-04-02T10:36:22+00:00",
+        "CreatedBy": "Громов Сергей Юрьевич (20019288)",
+        "InitialImpact": "Не влияет",
+        "TemplateId": "4",
+        "TemplateName": "Тестовый шаблон",
+        "UpdatedAt": "2020-10-15T13:35:45+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "тест"
+          ],
+          "Description": [
+            "тест"
+          ],
+          "Justification": [
+            "тест"
+          ],
+          "Plan": [
+            "тест"
+          ]
+        },
+        "header": {
+          "AssignDept": "СУБД ORACLE (ГО)",
+          "BriefDescription": "тест",
+          "Category": "Стандартное",
+          "CurrentPhase": "Согласование",
+          "Id": "C-00000038",
+          "PlannedEndAt": "2020-04-02T12:30:00+00:00",
+          "PlannedStartAt": "2020-04-02T11:00:00+00:00",
+          "RequestedBy": "Громов Сергей Юрьевич (20019288)",
+          "RequestedFor": "Громов Сергей Юрьевич (20019288)",
+          "Status": "Отклонено",
+          "Subcategory": "Системное сопровождение"
+        },
+        "middle": {
+          "AffectedServices": [
+            "CI1268180"
+          ],
+          "Assets": [
+            "CI1268190"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedCis": [
+          "CI1268220",
+          "CI1268250"
+        ],
+        "AffectedIts": [
+          "CI1268182",
+          "CI1268184",
+          "CI1268214"
+        ],
+        "BackoutPlan": [
+          "1212"
+        ],
+        "CreatedAt": "2020-04-02T15:12:14+00:00",
+        "CreatedBy": "Черникова Наталья Анатольевна (20024439)",
+        "InitialImpact": "Не влияет",
+        "TemplateId": "4",
+        "TemplateName": "Тестовый шаблон",
+        "UpdatedAt": "2020-04-02T15:12:14+00:00",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "Установлен"
+          ],
+          "Description": [
+            "1"
+          ],
+          "Justification": [
+            "Требования заказчика"
+          ],
+          "Plan": [
+            "1212"
+          ]
+        },
+        "header": {
+          "BriefDescription": "разрешения в дмз",
+          "Category": "Стандартное",
+          "CurrentPhase": "Регистрация",
+          "Id": "C-00000040",
+          "PlannedEndAt": "2020-04-06T15:11:39+00:00",
+          "PlannedStartAt": "2020-04-02T21:00:00+00:00",
+          "RequestedBy": "Черникова Наталья Анатольевна (20024439)",
+          "RequestedFor": "Черникова Наталья Анатольевна (20024439)",
+          "Status": "Зарегистрировано",
+          "Subcategory": "Сеть"
+        },
+        "middle": {
+          "AffectedServices": [
+            "CI1268180"
+          ],
+          "Assets": [
+            "CI1268190"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "ТЕСТ"
+        ],
+        "ChangeOwner": "Стеблинов Алексей Викторович (20023716)",
+        "CreatedAt": "2020-04-03T11:41:59+00:00",
+        "CreatedBy": "Стеблинов Алексей Викторович (20023716)",
+        "UpdatedAt": "2020-04-03T11:42:13+00:00",
+        "UpdatedBy": "Стеблинов Алексей Викторович (20023716)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "ТЕСТ"
+          ],
+          "Description": [
+            "ТЕСТ"
+          ],
+          "Justification": [
+            "ТЕСТ"
+          ],
+          "Plan": [
+            "ТЕСТ"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "ТЕСТ",
+          "Category": "Нормальное",
+          "CurrentPhase": "Планирование",
+          "Id": "C-00000042",
+          "PlannedEndAt": "2020-04-03T18:00:00+00:00",
+          "PlannedStartAt": "2020-04-03T15:30:00+00:00",
+          "RequestedBy": "Стеблинов Алексей Викторович (20023716)",
+          "RequestedFor": "Стеблинов Алексей Викторович (20023716)",
+          "Status": "В планировании",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "Выполнить скрипт отката патча"
+        ],
+        "ChangeOwner": "Артемова Анастасия Сергеевна (Артемова Анастасия Сергеевна)",
+        "CreatedAt": "2020-04-06T10:17:48+00:00",
+        "CreatedBy": "Аблязов Антон Николаевич (20026246)",
+        "UpdatedAt": "2020-04-06T10:17:48+00:00",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "Отсутствие ошибок в файле лога установки"
+          ],
+          "Description": [
+            "Новая разработка по задачам:",
+            "VTBKIS-903",
+            "VTBKIS-904"
+          ],
+          "Justification": [
+            "Вывод нового функционала по задачам"
+          ],
+          "Plan": [
+            "Выполнить скрипт наката патча"
+          ]
+        },
+        "header": {
+          "AssignDept": "BE ИТ-поддержка",
+          "BriefDescription": "Установка патча CIS_20200406_01",
+          "Category": "Нормальное",
+          "CurrentPhase": "Регистрация",
+          "Id": "C-00000045",
+          "PlannedEndAt": "2020-04-10T15:00:00+00:00",
+          "PlannedStartAt": "2020-04-09T21:00:00+00:00",
+          "RequestedBy": "Аблязов Антон Николаевич (20026246)",
+          "RequestedFor": "Бобылёв Антон Станиславович (20008105)",
+          "Status": "Зарегистрировано",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "Откатывать версии прошивок до успешного запуска сервера."
+        ],
+        "BuildTestPlan": [
+          "нет"
+        ],
+        "BuildTestResult": [
+          "нет"
+        ],
+        "ChangeOwner": "Соколов Сергей Юрьевич (126104)",
+        "CreatedAt": "2020-04-06T11:17:00+00:00",
+        "CreatedBy": "Соколов Сергей Юрьевич (126104)",
+        "InitialImpact": "Не влияет",
+        "UpdatedAt": "2020-04-06T13:04:03+00:00",
+        "UpdatedBy": "Соколов Сергей Юрьевич (126104)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "Прошивки успешно обновлены."
+          ],
+          "Description": [
+            "Обновление прошивок на сервере test-sim-3 в рамках кейса HPE#1234567890"
+          ],
+          "Justification": [
+            "Самопроизвольная перезагрузка с неспецифической ошибкой."
+          ],
+          "Plan": [
+            "Выключение приклада.",
+            "Выключение сервера.",
+            "Обновление прошивок, запуск сервера",
+            "Проверка ОС",
+            "Проверка приклада"
+          ]
+        },
+        "header": {
+          "AssignDept": "УСИ - ЦОД (ГО)",
+          "BriefDescription": "Ремонт сервера test-sim-3",
+          "Category": "Нормальное",
+          "CurrentPhase": "Планирование",
+          "Id": "C-00000047",
+          "PlannedEndAt": "2020-04-12T00:00:00+00:00",
+          "PlannedStartAt": "2020-04-11T19:00:00+00:00",
+          "RequestedBy": "Соколов Сергей Юрьевич (126104)",
+          "RequestedFor": "Соколов Сергей Юрьевич (126104)",
+          "Status": "В планировании",
+          "Subcategory": "Системное сопровождение"
+        },
+        "middle": {
+          "Assets": [
+            "CI1092929"
+          ],
+          "SchedOutageEndAt": "2020-04-12T00:00:00+00:00",
+          "SchedOutageStartAt": "2020-04-11T19:00:00+00:00"
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1090968",
+        "BackoutPlan": [
+          "2"
+        ],
+        "ChangeOwner": "Хрусталев Кирилл Рустемович (125966)",
+        "CreatedAt": "2020-04-06T12:27:37+00:00",
+        "CreatedBy": "Хрусталев Кирилл Рустемович (125966)",
+        "InitialImpact": "Простой",
+        "ResolutionCode": "Отклонено согласующим",
+        "UpdatedAt": "2020-04-06T13:16:37+00:00",
+        "UpdatedBy": "HP Service Manager(hpclinker1)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "1"
+          ],
+          "Description": [
+            "1"
+          ],
+          "Justification": [
+            "1"
+          ],
+          "Plan": [
+            "1"
+          ]
+        },
+        "header": {
+          "AssignDept": "Внедрение",
+          "BriefDescription": "1",
+          "Category": "Нормальное",
+          "CurrentPhase": "Согласование",
+          "Id": "C-00000048",
+          "PlannedEndAt": "2020-04-08T00:30:00+00:00",
+          "PlannedStartAt": "2020-04-06T22:00:00+00:00",
+          "RequestedBy": "Хрусталев Кирилл Рустемович (125966)",
+          "RequestedFor": "Хрусталев Кирилл Рустемович (125966)",
+          "Status": "Отклонено",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {
+          "AffectedServices": [
+            "CI1090968"
+          ],
+          "SchedOutageEndAt": "2020-04-08T00:00:00+00:00",
+          "SchedOutageStartAt": "2020-04-06T23:00:00+00:00"
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1120325",
+        "BackoutPlan": [
+          "по инструкции"
+        ],
+        "ChangeOwner": "Батурин Андрей Васильевич (20029881)",
+        "CreatedAt": "2020-04-07T06:20:39+00:00",
+        "CreatedBy": "Батурин Андрей Васильевич (20029881)",
+        "InitialImpact": "Замедление",
+        "UpdatedAt": "2020-10-15T13:35:51+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "работа без ошибки"
+          ],
+          "Description": [
+            "Ошибка в ПО"
+          ],
+          "Justification": [
+            "ошибка ПО"
+          ],
+          "Plan": [
+            "исправление ошибки"
+          ]
+        },
+        "header": {
+          "AssignDept": "Система расчетов (ГО)",
+          "BriefDescription": "ошибка в ПО тест",
+          "Category": "Нормальное",
+          "CurrentPhase": "Авторизация",
+          "ForeignId": "1",
+          "Id": "C-00000051",
+          "PlannedEndAt": "2020-05-07T21:00:00+00:00",
+          "PlannedStartAt": "2020-04-07T21:00:00+00:00",
+          "RequestedBy": "Батурин Андрей Васильевич (20029881)",
+          "RequestedFor": "Покрамович Марина Витальевна (20029297)",
+          "Status": "Отклонено",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {
+          "Assets": [
+            "CI1120325"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1090508",
+        "BackoutPlan": [
+          "23"
+        ],
+        "ChangeOwner": "Стеблинов Алексей Викторович (20023716)",
+        "CreatedAt": "2020-04-07T08:52:02+00:00",
+        "CreatedBy": "Стеблинов Алексей Викторович (20023716)",
+        "InitialImpact": "Не влияет",
+        "UpdatedAt": "2020-10-15T13:35:52+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "123"
+          ],
+          "Description": [
+            "123"
+          ],
+          "Justification": [
+            "123"
+          ],
+          "Plan": [
+            "123"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "123",
+          "Category": "Нормальное",
+          "CurrentPhase": "Авторизация",
+          "Id": "C-00000056",
+          "PlannedEndAt": "2020-04-09T08:51:45+00:00",
+          "PlannedStartAt": "2020-04-08T08:51:43+00:00",
+          "RequestedBy": "Стеблинов Алексей Викторович (20023716)",
+          "RequestedFor": "Стеблинов Алексей Викторович (20023716)",
+          "Status": "Отклонено",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedCis": [
+          "CI1013465"
+        ],
+        "AffectedItem": "CI1120279",
+        "AffectedIts": [
+          "CI1120282"
+        ],
+        "BackoutPlan": [
+          "Тестовый откат отсутствует, но тестовое вложение присутствует."
+        ],
+        "ChangeOwner": "Куприенко Владимир Николаевич (20010227)",
+        "CreatedAt": "2020-04-10T06:55:22+00:00",
+        "CreatedBy": "Абрамов Юрий Игоревич (20016716)",
+        "InitialImpact": "Не влияет",
+        "UpdatedAt": "2020-10-15T13:35:52+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "Тестово работающий тестовый функционал"
+          ],
+          "Description": [
+            "тестовая доработка ЦАБС по тестовому обмену с ДБО"
+          ],
+          "Justification": [
+            "Тестовая реализация тестовго фукционала тестового обмена тестовго ЦАБС с тестовым ДБО тестовыми сообщениями по тестовым документам"
+          ],
+          "Plan": [
+            "1. Остановить тестовых демонов и NAQ",
+            "2. Запустить тестовый run",
+            "3. Запустить тестовых демонов и NAQ",
+            "4. Сделать тестовую настройку из тестового вложения"
+          ]
+        },
+        "header": {
+          "AssignDept": "СТФС Служба сопровождения",
+          "BriefDescription": "тестовая доработка ЦАБС",
+          "Category": "Нормальное",
+          "CurrentPhase": "Авторизация",
+          "Id": "C-00000101",
+          "PlannedEndAt": "2020-04-17T21:30:00+00:00",
+          "PlannedStartAt": "2020-04-17T21:00:00+00:00",
+          "RequestedBy": "Абрамов Юрий Игоревич (20016716)",
+          "RequestedFor": "Куприенко Владимир Николаевич (20010227)",
+          "Status": "Отклонено",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {
+          "Assets": [
+            "CI1120279"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1120279",
+        "BackoutPlan": [
+          "план 2"
+        ],
+        "ChangeOwner": "Куприенко Владимир Николаевич (20010227)",
+        "CreatedAt": "2020-04-12T18:52:37+00:00",
+        "CreatedBy": "Куприенко Владимир Николаевич (20010227)",
+        "InitialImpact": "Не влияет",
+        "UpdatedAt": "2020-04-12T21:00:04+00:00",
+        "UpdatedBy": "HP Service Manager(hpclinker6)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "критерии"
+          ],
+          "Description": [
+            "Тест ..."
+          ],
+          "Justification": [
+            "причина"
+          ],
+          "Plan": [
+            "план"
+          ]
+        },
+        "header": {
+          "AssignDept": "СТФС Служба сопровождения",
+          "BriefDescription": "Тест",
+          "Category": "Экстренное",
+          "CurrentPhase": "Реализация",
+          "Id": "C-00000103",
+          "PlannedEndAt": "2020-04-12T21:30:00+00:00",
+          "PlannedStartAt": "2020-04-12T21:00:00+00:00",
+          "RequestedBy": "Куприенко Владимир Николаевич (20010227)",
+          "RequestedFor": "Пономарева Елена Александровна (20014938)",
+          "Status": "Проведение работ",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {
+          "Assets": [
+            "CI1120279"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1090504",
+        "BackoutPlan": [
+          "тест"
+        ],
+        "ChangeOwner": "Кудряшов Илья Андреевич (20024794)",
+        "CreatedAt": "2020-04-13T10:09:48+00:00",
+        "CreatedBy": "Кудряшов Илья Андреевич (20024794)",
+        "InitialImpact": "Замедление",
+        "UpdatedAt": "2020-10-15T13:35:45+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "тест"
+          ],
+          "Description": [
+            "тест"
+          ],
+          "Justification": [
+            "тест"
+          ],
+          "Plan": [
+            "тест"
+          ]
+        },
+        "header": {
+          "AssignDept": "УСИ - СХД (ГО)",
+          "BriefDescription": "тест",
+          "Category": "Нормальное",
+          "CurrentPhase": "Согласование",
+          "Id": "C-00000104",
+          "PlannedEndAt": "2020-04-18T21:00:00+00:00",
+          "PlannedStartAt": "2020-04-17T21:00:00+00:00",
+          "RequestedBy": "Кудряшов Илья Андреевич (20024794)",
+          "RequestedFor": "Кудряшов Илья Андреевич (20024794)",
+          "Status": "Отклонено",
+          "Subcategory": "Нестандартное изменение"
+        },
+        "middle": {
+          "Assets": [
+            "CI1120243"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          null,
+          null,
+          "тест"
+        ],
+        "ChangeOwner": "Кудряшов Илья Андреевич (20024794)",
+        "CreatedAt": "2020-04-13T10:16:49+00:00",
+        "CreatedBy": "Кудряшов Илья Андреевич (20024794)",
+        "UpdatedAt": "2020-04-13T10:16:52+00:00",
+        "UpdatedBy": "Кудряшов Илья Андреевич (20024794)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            null,
+            null,
+            "тест"
+          ],
+          "Description": [
+            "тест"
+          ],
+          "Justification": [
+            null,
+            null,
+            "тест"
+          ],
+          "Plan": [
+            null,
+            null,
+            "тест"
+          ]
+        },
+        "header": {
+          "AssignDept": "УСИ - СХД (ГО)",
+          "BriefDescription": "тест",
+          "Category": "Нормальное",
+          "CurrentPhase": "Планирование",
+          "Id": "C-00000105",
+          "PlannedEndAt": "2020-04-17T21:00:00+00:00",
+          "PlannedStartAt": "2020-04-16T21:00:00+00:00",
+          "RequestedBy": "Кудряшов Илья Андреевич (20024794)",
+          "RequestedFor": "Кудряшов Илья Андреевич (20024794)",
+          "Status": "В планировании",
+          "Subcategory": "Нестандартное изменение"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedCis": [
+          "CI1268220",
+          "CI1268250"
+        ],
+        "AffectedIts": [
+          "CI1268182",
+          "CI1268184",
+          "CI1268214"
+        ],
+        "BackoutPlan": [
+          "патч 3552 (реализация ф.101  ЗИ № 1751 \u2013 Publisher-отчет по 5386-У)"
+        ],
+        "BuildTestPlan": [
+          "патч 3552 (реализация ф.101  ЗИ № 1751 \u2013 Publisher-отчет по 5386-У)"
+        ],
+        "BuildTestResult": [
+          "патч 3552 (реализация ф.101  ЗИ № 1751 \u2013 Publisher-отчет по 5386-У)"
+        ],
+        "ChangeOwner": "Нарских Ирина Дмитриевна (20014043)",
+        "CreatedAt": "2020-04-13T13:37:17+00:00",
+        "CreatedBy": "Нарских Ирина Дмитриевна (20014043)",
+        "InitialImpact": "Не влияет",
+        "TemplateId": "4",
+        "TemplateName": "Тестовый шаблон",
+        "UpdatedAt": "2020-04-13T13:48:06+00:00",
+        "UpdatedBy": "Нарских Ирина Дмитриевна (20014043)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "патч 3552 (реализация ф.101  ЗИ № 1751 \u2013 Publisher-отчет по 5386-У)"
+          ],
+          "Description": [
+            "патч 3552 (реализация ф.101  ЗИ № 1751 \u2013 Publisher-отчет по 5386-У)"
+          ],
+          "Justification": [
+            "патч 3552 (реализация ф.101  ЗИ № 1751 \u2013 Publisher-отчет по 5386-У)"
+          ],
+          "Plan": [
+            "патч 3552 (реализация ф.101  ЗИ № 1751 \u2013 Publisher-отчет по 5386-У)"
+          ]
+        },
+        "header": {
+          "AssignDept": "КИХ (ГО)",
+          "BriefDescription": "Установка патч 3552",
+          "Category": "Стандартное",
+          "CurrentPhase": "Планирование",
+          "Id": "C-00000107",
+          "PlannedEndAt": "2020-04-17T06:00:00+00:00",
+          "PlannedStartAt": "2020-04-17T03:30:00+00:00",
+          "RequestedBy": "Нарских Ирина Дмитриевна (20014043)",
+          "RequestedFor": "Никулина Ирина Валерьевна (20016606)",
+          "Status": "В планировании",
+          "Subcategory": "Видео-конференц-связь"
+        },
+        "middle": {
+          "AffectedServices": [
+            "CI1268180"
+          ],
+          "Assets": [
+            "CI1268190"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1120342",
+        "BackoutPlan": [
+          "1. (Телицын М.) Остановка приложения УПП на сервере приложений WAS",
+          "2. (Колчин И.) Восстановление предыдущих версий объектов БД из бэкапа",
+          "3. (Телицын М.) Восстановление предыдущей версии приложения из бэкапа",
+          "4. (Телицын М.) Запуск приложения на сервере приложений WAS"
+        ],
+        "ChangeOwner": "Талалаев Михаил Валентинович (20023759)",
+        "CreatedAt": "2020-04-14T11:32:33+00:00",
+        "CreatedBy": "Талалаев Михаил Валентинович (20023759)",
+        "InitialImpact": "Простой",
+        "UpdatedAt": "2020-10-15T13:35:52+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "Указанные изменения успешно установлены"
+          ],
+          "Description": [
+            " Исправление TFS390657",
+            null,
+            "1. В папку Repo KSU добавили сделки Репо с ЦБ РФ из фолдера LIQ_REPOCB",
+            "2. Очередная доработка Большого отчета",
+            "\t- добавлена строка Repo KSU",
+            "\t- При заведении ручной корр-ки исключен пересчет остатков",
+            "3. Task 373345: УПП.Объединение закладок ВТБ24 и М-Банк, переименование закладки Филиалы"
+          ],
+          "Justification": [
+            "Требования владельцев задачи по доработке ППО"
+          ],
+          "Plan": [
+            "1. (Телицын М.) Остановка приложения УПП на сервере приложений WAS",
+            "2. (Колчин И.) Прогон скриптов от пользователя LMS на БД LMS",
+            "2.1 (Колчин И.) Компиляция невалидных объектов",
+            "3. (Телицын М.) Обновление приложения УПП на сервере приложений WAS",
+            "4. (Телицын М.) Запуск приложения на сервере приложений WAS",
+            "5. (Колчин И., Логуш Л.) Проверка доступности и корректности работы промышленной среды УПП"
+          ]
+        },
+        "header": {
+          "AssignDept": "Тестовая группа",
+          "BriefDescription": "!!!ТЕСТ!!!Перенос доработок УПП со 2ой витрины на 1ую",
+          "Category": "Нормальное",
+          "CurrentPhase": "Авторизация",
+          "Id": "C-00000109",
+          "PlannedEndAt": "2020-04-18T08:00:00+00:00",
+          "PlannedStartAt": "2020-04-18T07:00:00+00:00",
+          "RequestedBy": "Талалаев Михаил Валентинович (20023759)",
+          "RequestedFor": "Родина Ольга Сергеевна (20015649)",
+          "Status": "Отклонено",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {
+          "SchedOutageEndAt": "2020-04-18T08:00:00+00:00",
+          "SchedOutageStartAt": "2020-04-18T07:00:00+00:00"
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "какой-топлан"
+        ],
+        "CreatedAt": "2020-04-14T12:31:58+00:00",
+        "CreatedBy": "Ткачев Александр Леонидович (20018368)",
+        "UpdatedAt": "2020-04-14T12:38:20+00:00",
+        "UpdatedBy": "Ткачев Александр Леонидович (20018368)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "test"
+          ],
+          "Description": [
+            "RKC_Test"
+          ],
+          "Justification": [
+            "test"
+          ],
+          "Plan": [
+            "какой-топлан"
+          ]
+        },
+        "header": {
+          "AssignDept": "ПБС (БМ)",
+          "BriefDescription": "RKC_Test",
+          "Category": "Нормальное",
+          "CurrentPhase": "Планирование",
+          "Id": "C-00000111",
+          "PlannedEndAt": "2020-04-18T22:00:00+00:00",
+          "PlannedStartAt": "2020-04-18T21:00:00+00:00",
+          "RequestedBy": "Ткачев Александр Леонидович (20018368)",
+          "RequestedFor": "Есырев Андрей Владимирович (20021080)",
+          "Status": "Назначение владельца",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1120460",
+        "BackoutPlan": [
+          "234234"
+        ],
+        "ChangeOwner": "Ткачев Александр Леонидович (20018368)",
+        "CreatedAt": "2020-04-14T12:41:09+00:00",
+        "CreatedBy": "Ткачев Александр Леонидович (20018368)",
+        "InitialImpact": "Простой",
+        "UpdatedAt": "2020-10-15T13:35:52+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "23432423"
+          ],
+          "Description": [
+            "RKC_test1"
+          ],
+          "Justification": [
+            "4324234"
+          ],
+          "Plan": [
+            "234234"
+          ]
+        },
+        "header": {
+          "AssignDept": "МБАНК (БМ)",
+          "BriefDescription": "RKC_test1",
+          "Category": "Нормальное",
+          "CurrentPhase": "Авторизация",
+          "Id": "C-00000112",
+          "PlannedEndAt": "2020-04-18T22:00:00+00:00",
+          "PlannedStartAt": "2020-04-18T21:00:00+00:00",
+          "RequestedBy": "Ткачев Александр Леонидович (20018368)",
+          "RequestedFor": "Есырев Андрей Владимирович (20021080)",
+          "Status": "Отклонено",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {
+          "SchedOutageEndAt": "2020-04-18T22:00:00+00:00",
+          "SchedOutageStartAt": "2020-04-18T21:00:00+00:00"
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1120345",
+        "AffectedIts": [
+          "CI1120345"
+        ],
+        "BackoutPlan": [
+          "Отсутствует."
+        ],
+        "ChangeOwner": "Толстов Алексей Юрьевич (20010517)",
+        "CreatedAt": "2020-04-14T13:39:12+00:00",
+        "CreatedBy": "Толстов Алексей Юрьевич (20010517)",
+        "InitialImpact": "Не влияет",
+        "UpdatedAt": "2020-10-15T13:35:52+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "установлен новая версия антивируса Dr.WEB"
+          ],
+          "Description": [
+            "Обновление антивирусного ПО на серверах msknxsdb001v.region.vtb.ru  и trnzcl001v.region.vtb.ru"
+          ],
+          "Justification": [
+            " Устранение уязвимости информационных систем SWIFT ALLIANCE и Транзит."
+          ],
+          "Plan": [
+            "План работ:",
+            "1.       Установка агента SCCM",
+            "2.       Удаление антивируса Symantec",
+            "3.       Перезагрузка сервера",
+            "4.       Установка антивируса Drweb",
+            "5.       Перезагрузка сервера",
+            "6.       Проверка функциональности сервера"
+          ]
+        },
+        "header": {
+          "AssignDept": "ПОДДЕРЖКА SWIFT/TELEX (ГО)",
+          "BriefDescription": "Обновление антивирусного ПО",
+          "Category": "Нормальное",
+          "CurrentPhase": "Авторизация",
+          "Id": "C-00000113",
+          "PlannedEndAt": "2020-04-18T11:00:00+00:00",
+          "PlannedStartAt": "2020-04-18T07:00:00+00:00",
+          "RequestedBy": "Толстов Алексей Юрьевич (20010517)",
+          "RequestedFor": "Комаров Павел Михайлович (20007718)",
+          "Status": "Отклонено",
+          "Subcategory": "Системное сопровождение"
+        },
+        "middle": {
+          "AffectedServices": [
+            "Расчеты по корреспондентским счетам и счетам межфилиальных расчетов"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1090548",
+        "BackoutPlan": [
+          "тест"
+        ],
+        "ChangeOwner": "Уфимцева Анна Владимировна (20023283)",
+        "CreatedAt": "2020-04-14T16:53:11+00:00",
+        "CreatedBy": "Уфимцева Анна Владимировна (20023283)",
+        "InitialImpact": "Не влияет",
+        "UpdatedAt": "2020-10-15T13:35:52+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "тест"
+          ],
+          "Description": [
+            "тест"
+          ],
+          "Justification": [
+            "тест"
+          ],
+          "Plan": [
+            "тест"
+          ]
+        },
+        "header": {
+          "AssignDept": "Тестовая группа",
+          "BriefDescription": "тест",
+          "Category": "Экстренное",
+          "CurrentPhase": "Авторизация",
+          "Id": "C-00000115",
+          "PlannedEndAt": "2020-04-14T19:00:00+00:00",
+          "PlannedStartAt": "2020-04-14T18:00:00+00:00",
+          "RequestedBy": "Уфимцева Анна Владимировна (20023283)",
+          "RequestedFor": "Уфимцева Анна Владимировна (20023283)",
+          "Status": "Отклонено",
+          "Subcategory": "Нестандартное изменение"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1090508",
+        "BackoutPlan": [
+          "тест"
+        ],
+        "ChangeOwner": "Уфимцева Анна Владимировна (20023283)",
+        "CreatedAt": "2020-04-14T17:03:10+00:00",
+        "CreatedBy": "Уфимцева Анна Владимировна (20023283)",
+        "InitialImpact": "Не влияет",
+        "UpdatedAt": "2020-10-15T13:35:52+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "тест"
+          ],
+          "Description": [
+            "ntcn"
+          ],
+          "Justification": [
+            "тест"
+          ],
+          "Plan": [
+            "тест"
+          ]
+        },
+        "header": {
+          "AssignDept": "Тестовая группа",
+          "BriefDescription": "ntcn",
+          "Category": "Нормальное",
+          "CurrentPhase": "Авторизация",
+          "Id": "C-00000116",
+          "PlannedEndAt": "2020-04-27T21:00:00+00:00",
+          "PlannedStartAt": "2020-04-20T21:00:00+00:00",
+          "RequestedBy": "Уфимцева Анна Владимировна (20023283)",
+          "RequestedFor": "Уфимцева Анна Владимировна (20023283)",
+          "Status": "Отклонено",
+          "Subcategory": "Нестандартное изменение"
+        },
+        "middle": {
+          "Assets": [
+            "CI1090508",
+            "CI1090962"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "прь"
+        ],
+        "ChangeOwner": "Уфимцева Анна Владимировна (20023283)",
+        "CreatedAt": "2020-04-15T16:38:35+00:00",
+        "CreatedBy": "Уфимцева Анна Владимировна (20023283)",
+        "UpdatedAt": "2020-04-15T16:38:43+00:00",
+        "UpdatedBy": "Уфимцева Анна Владимировна (20023283)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "ьпь"
+          ],
+          "Description": [
+            "nghm"
+          ],
+          "Justification": [
+            "трпь"
+          ],
+          "Plan": [
+            "прь"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "nhm",
+          "Category": "Нормальное",
+          "CurrentPhase": "Планирование",
+          "Id": "C-00000118",
+          "PlannedEndAt": "2020-04-21T21:00:00+00:00",
+          "PlannedStartAt": "2020-04-21T21:00:00+00:00",
+          "RequestedBy": "Уфимцева Анна Владимировна (20023283)",
+          "RequestedFor": "Уфимцева Анна Владимировна (20023283)",
+          "Status": "В планировании",
+          "Subcategory": "Видео-конференц-связь"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "план отката 1"
+        ],
+        "CLosedAt": "2020-04-22T06:50:49+00:00",
+        "ClosedBy": "Уфимцева Анна Владимировна (20023283)",
+        "CreatedAt": "2020-04-22T06:49:27+00:00",
+        "CreatedBy": "Уфимцева Анна Владимировна (20023283)",
+        "ResolutionCode": "Отменено инициатором",
+        "UpdatedAt": "2020-04-22T06:50:48+00:00",
+        "UpdatedBy": "Уфимцева Анна Владимировна (20023283)",
+        "close": {
+          "ClosingComments": [
+            "решение 1"
+          ]
+        },
+        "description.structure": {
+          "AcceptanceComments": [
+            "критерии 1"
+          ],
+          "Description": [
+            "12346"
+          ],
+          "Justification": [
+            "причина 1"
+          ],
+          "Plan": [
+            "план 1"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "123",
+          "Category": "Нормальное",
+          "CurrentPhase": "Закрытие",
+          "Id": "C-00000406",
+          "PlannedEndAt": "2020-04-23T21:00:00+00:00",
+          "PlannedStartAt": "2020-04-22T21:00:00+00:00",
+          "RequestedBy": "Уфимцева Анна Владимировна (20023283)",
+          "RequestedFor": "Уфимцева Анна Владимировна (20023283)",
+          "Status": "Закрыто",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1120856",
+        "BackoutPlan": [
+          "план отката2"
+        ],
+        "ChangeOwner": "Уфимцева Анна Владимировна (20023283)",
+        "CreatedAt": "2020-04-22T06:52:02+00:00",
+        "CreatedBy": "Уфимцева Анна Владимировна (20023283)",
+        "InitialImpact": "Не влияет",
+        "UpdatedAt": "2020-04-22T21:00:13+00:00",
+        "UpdatedBy": "HP Service Manager(hpclinker7)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "критерии2"
+          ],
+          "Description": [
+            "123"
+          ],
+          "Justification": [
+            "причина2"
+          ],
+          "Plan": [
+            "план2"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "12",
+          "Category": "Нормальное",
+          "CurrentPhase": "Реализация",
+          "Id": "C-00000407",
+          "PlannedEndAt": "2020-04-23T21:00:00+00:00",
+          "PlannedStartAt": "2020-04-22T21:00:00+00:00",
+          "RequestedBy": "Уфимцева Анна Владимировна (20023283)",
+          "RequestedFor": "Уфимцева Анна Владимировна (20023283)",
+          "Status": "Проведение работ",
+          "Subcategory": "Сеть"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "план отката3"
+        ],
+        "CreatedAt": "2020-04-22T07:15:44+00:00",
+        "CreatedBy": "Уфимцева Анна Владимировна (20023283)",
+        "UpdatedAt": "2020-04-22T07:16:06+00:00",
+        "UpdatedBy": "Уфимцева Анна Владимировна (20023283)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "критерии3"
+          ],
+          "Description": [
+            "ррррр"
+          ],
+          "Justification": [
+            "причина3"
+          ],
+          "Plan": [
+            "план3"
+          ]
+        },
+        "header": {
+          "AssignDept": "Уфимцева Анна Владимировна (20023283)",
+          "BriefDescription": "ппппп",
+          "Category": "Нормальное",
+          "CurrentPhase": "Планирование",
+          "Id": "C-00000408",
+          "PlannedEndAt": "2020-04-25T21:00:00+00:00",
+          "PlannedStartAt": "2020-04-24T21:00:00+00:00",
+          "RequestedBy": "Уфимцева Анна Владимировна (20023283)",
+          "RequestedFor": "Уфимцева Анна Владимировна (20023283)",
+          "Status": "Назначение владельца",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedCis": [
+          "CI1268220",
+          "CI1268250"
+        ],
+        "AffectedItem": "CI1120856",
+        "AffectedIts": [
+          "CI1268182",
+          "CI1268184",
+          "CI1268214"
+        ],
+        "BackoutPlan": [
+          "план4"
+        ],
+        "ChangeOwner": "Уфимцева Анна Владимировна (20023283)",
+        "CreatedAt": "2020-04-22T07:19:12+00:00",
+        "CreatedBy": "Уфимцева Анна Владимировна (20023283)",
+        "InitialImpact": "Не влияет",
+        "TemplateId": "4",
+        "TemplateName": "Тестовый шаблон",
+        "UpdatedAt": "2020-04-23T21:00:07+00:00",
+        "UpdatedBy": "HP Service Manager(hpclinker8)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "критерии4"
+          ],
+          "Description": [
+            "стнд1"
+          ],
+          "Justification": [
+            "причина4"
+          ],
+          "Plan": [
+            "план4"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "стнд1",
+          "Category": "Стандартное",
+          "CurrentPhase": "Реализация",
+          "Id": "C-00000409",
+          "PlannedEndAt": "2020-04-25T21:00:00+00:00",
+          "PlannedStartAt": "2020-04-23T21:00:00+00:00",
+          "RequestedBy": "Уфимцева Анна Владимировна (20023283)",
+          "RequestedFor": "Уфимцева Анна Владимировна (20023283)",
+          "Status": "Проведение работ",
+          "Subcategory": "Видео-конференц-связь"
+        },
+        "middle": {
+          "AffectedServices": [
+            "CI1268180"
+          ],
+          "Assets": [
+            "CI1268190"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1120856",
+        "BackoutPlan": [
+          "ддд"
+        ],
+        "CLosedAt": "2020-04-24T19:56:10+00:00",
+        "ChangeOwner": "Уфимцева Анна Владимировна (20023283)",
+        "ClosedBy": "HP Service Manager(hpclinker5)",
+        "CreatedAt": "2020-04-22T07:32:57+00:00",
+        "CreatedBy": "Уфимцева Анна Владимировна (20023283)",
+        "ImplementationEndAt": "2020-04-20T21:00:10+00:00",
+        "ImplementationStartAt": "2020-04-20T21:00:00+00:00",
+        "InitialImpact": "Не влияет",
+        "IsHaveReport": false,
+        "IsNoDowntime": false,
+        "ResolutionCode": "Выполнено частично",
+        "UpdatedAt": "2020-04-24T19:56:10+00:00",
+        "UpdatedBy": "HP Service Manager(hpclinker5)",
+        "close": {
+          "ClosingComments": [
+            "дддд"
+          ]
+        },
+        "description.structure": {
+          "AcceptanceComments": [
+            "ддд"
+          ],
+          "Description": [
+            "8888"
+          ],
+          "Justification": [
+            "дддд"
+          ],
+          "Plan": [
+            "дддд"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "8888",
+          "Category": "Нормальное",
+          "CurrentPhase": "Закрытие",
+          "Id": "C-00000410",
+          "PlannedEndAt": "2020-04-22T07:35:29+00:00",
+          "PlannedStartAt": "2020-04-22T07:33:29+00:00",
+          "RequestedBy": "Уфимцева Анна Владимировна (20023283)",
+          "RequestedFor": "Уфимцева Анна Владимировна (20023283)",
+          "Status": "Закрыто",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {
+          "DownEndAt": "2020-04-20T21:00:10+00:00",
+          "DownStartAt": "2020-04-20T21:00:00+00:00"
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "аа"
+        ],
+        "CreatedAt": "2020-04-22T10:10:18+00:00",
+        "CreatedBy": "Уфимцева Анна Владимировна (20023283)",
+        "UpdatedAt": "2020-04-22T10:10:32+00:00",
+        "UpdatedBy": "Уфимцева Анна Владимировна (20023283)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "аа"
+          ],
+          "Description": [
+            "ввв"
+          ],
+          "Justification": [
+            "ааа"
+          ],
+          "Plan": [
+            "аа"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "вввв",
+          "Category": "Нормальное",
+          "CurrentPhase": "Регистрация",
+          "Id": "C-00000411",
+          "PlannedEndAt": "2020-04-23T21:00:00+00:00",
+          "PlannedStartAt": "2020-04-22T21:00:00+00:00",
+          "RequestedBy": "Уфимцева Анна Владимировна (20023283)",
+          "RequestedFor": "Уфимцева Анна Владимировна (20023283)",
+          "Status": "Возвращено на доработку",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1090508",
+        "BackoutPlan": [
+          "ывпывпа"
+        ],
+        "ChangeOwner": "Стеблинов Алексей Викторович (20023716)",
+        "CreatedAt": "2020-04-22T11:17:02+00:00",
+        "CreatedBy": "Стеблинов Алексей Викторович (20023716)",
+        "InitialImpact": "Не влияет",
+        "UpdatedAt": "2020-04-22T11:23:46+00:00",
+        "UpdatedBy": "Стеблинов Алексей Викторович (20023716)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "вапвп"
+          ],
+          "Description": [
+            "fgasfgas"
+          ],
+          "Justification": [
+            "аыпыва"
+          ],
+          "Plan": [
+            "ыввпывп"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "kljlskjasl;",
+          "Category": "Нормальное",
+          "CurrentPhase": "Планирование",
+          "Id": "C-00000412",
+          "PlannedEndAt": "2020-04-22T13:00:00+00:00",
+          "PlannedStartAt": "2020-04-22T12:00:00+00:00",
+          "RequestedBy": "Стеблинов Алексей Викторович (20023716)",
+          "RequestedFor": "Стеблинов Алексей Викторович (20023716)",
+          "Status": "В планировании",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1120342",
+        "BackoutPlan": [
+          "Тестовый тест"
+        ],
+        "ChangeOwner": "Талалаев Михаил Валентинович (20023759)",
+        "CreatedAt": "2020-04-28T06:55:36+00:00",
+        "CreatedBy": "Талалаев Михаил Валентинович (20023759)",
+        "InitialImpact": "Не влияет",
+        "UpdatedAt": "2020-10-15T13:35:52+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "Тестовый тест"
+          ],
+          "Description": [
+            "Тестовый тест"
+          ],
+          "Justification": [
+            "Тестовый тест"
+          ],
+          "Plan": [
+            "Тестовый тест"
+          ]
+        },
+        "header": {
+          "AssignDept": "Задачи казначейства (ГО)",
+          "BriefDescription": "Тестовый тест",
+          "Category": "Нормальное",
+          "CurrentPhase": "Авторизация",
+          "Id": "C-00000413",
+          "PlannedEndAt": "2020-04-28T21:00:00+00:00",
+          "PlannedStartAt": "2020-04-28T08:00:00+00:00",
+          "RequestedBy": "Талалаев Михаил Валентинович (20023759)",
+          "RequestedFor": "Сидорчук Андрей Сергеевич (20029934)",
+          "Status": "Отклонено",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "тестовый детальный план"
+        ],
+        "BuildTestPlan": [
+          "1"
+        ],
+        "BuildTestResult": [
+          "2"
+        ],
+        "ChangeOwner": "Комаров Павел Михайлович (20007718)",
+        "CreatedAt": "2020-04-28T09:00:44+00:00",
+        "CreatedBy": "Скобелев Александр Николаевич (20026263)",
+        "UpdatedAt": "2020-04-28T09:00:44+00:00",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "Приложение нормально работает, отправлено тестовое сообщение самим себе и получено тестовое сообщение."
+          ],
+          "Description": [
+            "Тестовое обновление для проверки процесса оформления планового обновления."
+          ],
+          "Justification": [
+            "Обязательное обновление по рекомендации разработчика (SWIFT)."
+          ],
+          "Plan": [
+            "тестовый план"
+          ]
+        },
+        "header": {
+          "AssignDept": "ПОДДЕРЖКА SWIFT/TELEX (ГО)",
+          "BriefDescription": "Обновление SAA 7.1.99",
+          "Category": "Нормальное",
+          "CurrentPhase": "Регистрация",
+          "Id": "C-00000414",
+          "PlannedEndAt": "2020-05-02T17:00:00+00:00",
+          "PlannedStartAt": "2020-05-02T07:00:00+00:00",
+          "RequestedBy": "Скобелев Александр Николаевич (20026263)",
+          "RequestedFor": "Лактюшкина Лариса Алексеевна (20006599)",
+          "Status": "Зарегистрировано",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {
+          "SchedOutageEndAt": "2020-05-02T18:00:00+00:00",
+          "SchedOutageStartAt": "2020-05-02T06:00:00+00:00"
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "отсутствует"
+        ],
+        "CreatedAt": "2020-04-28T11:37:07+00:00",
+        "CreatedBy": "Синицын Илья Валерьевич (20018959)",
+        "UpdatedAt": "2020-04-28T11:37:07+00:00",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "Выход пользователей из сегмента nInet-Guest в сегмент Internet через МСЭ vInet-ASA"
+          ],
+          "Description": [
+            "В рамках работ по завершению тестированию сетевого оборудования, будет произведено возвращение маршрутизации трафика гостевого интернет сегмента nInet-Guest с тестового МСЭ ForgiGate на промышленный межсетевой экран vInet-ASA."
+          ],
+          "Justification": [
+            "Возвращение тестового оборудования вендору"
+          ],
+          "Plan": [
+            "1) Уведомить дежурного ООП о проводимых работах",
+            "2) Изменить маршрутизацию на vCore и vOffice",
+            "     -добвить маршрут:      no ip route vrf nInet-Guest 0.0.0.0 0.0.0.0 172.16.241.113 name vInet-ASA track 415",
+            "     -удалить маршрут:         ip route vrf nInet-Guest 0.0.0.0 0.0.0.0 172.16.241.117 name FortiGate-Inet track 415",
+            "3) Посмотреть трафик и сессии на МСЭ vInet-ASA",
+            "4) Уведомить дежурного ООП об окончании работ"
+          ]
+        },
+        "header": {
+          "AssignDept": "Отдел интеллектуальных сетевых сервисов",
+          "BriefDescription": "Переключение маршрутизации",
+          "Category": "Нормальное",
+          "CurrentPhase": "Регистрация",
+          "Id": "C-00000415",
+          "PlannedEndAt": "2020-04-30T07:00:00+00:00",
+          "PlannedStartAt": "2020-04-30T06:00:00+00:00",
+          "RequestedBy": "Синицын Илья Валерьевич (20018959)",
+          "RequestedFor": "Синицын Илья Валерьевич (20018959)",
+          "Status": "Зарегистрировано",
+          "Subcategory": "Сеть"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "апипр"
+        ],
+        "ChangeOwner": "Уфимцева Анна Владимировна (20023283)",
+        "CreatedAt": "2020-05-18T15:55:54+00:00",
+        "CreatedBy": "Уфимцева Анна Владимировна (20023283)",
+        "UpdatedAt": "2020-05-18T15:55:54+00:00",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "рр"
+          ],
+          "Description": [
+            "gngh"
+          ],
+          "Justification": [
+            "ипир"
+          ],
+          "Plan": [
+            "вивив"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "nrcn",
+          "Category": "Нормальное",
+          "CurrentPhase": "Регистрация",
+          "Id": "C-00001522",
+          "PlannedEndAt": "2020-05-21T21:00:00+00:00",
+          "PlannedStartAt": "2020-05-21T21:00:00+00:00",
+          "RequestedBy": "Уфимцева Анна Владимировна (20023283)",
+          "RequestedFor": "Уфимцева Анна Владимировна (20023283)",
+          "Status": "Зарегистрировано",
+          "Subcategory": "Нестандартное изменение"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "bt"
+        ],
+        "ChangeOwner": "Уфимцева Анна Владимировна (20023283)",
+        "CreatedAt": "2020-05-18T15:57:17+00:00",
+        "CreatedBy": "Уфимцева Анна Владимировна (20023283)",
+        "UpdatedAt": "2020-05-18T15:57:23+00:00",
+        "UpdatedBy": "Уфимцева Анна Владимировна (20023283)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "br"
+          ],
+          "Description": [
+            "ghnh"
+          ],
+          "Justification": [
+            "b"
+          ],
+          "Plan": [
+            "bht"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": " fgh",
+          "Category": "Нормальное",
+          "CurrentPhase": "Планирование",
+          "Id": "C-00001523",
+          "PlannedEndAt": "2020-05-18T21:00:00+00:00",
+          "PlannedStartAt": "2020-05-18T21:00:00+00:00",
+          "RequestedBy": "Уфимцева Анна Владимировна (20023283)",
+          "RequestedFor": "Уфимцева Анна Владимировна (20023283)",
+          "Status": "В планировании",
+          "Subcategory": "Нестандартное изменение"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1120856",
+        "BackoutPlan": [
+          "ТЕСТ"
+        ],
+        "CLosedAt": "2020-05-19T15:07:56+00:00",
+        "ChangeOwner": "Стеблинов Алексей Викторович (20023716)",
+        "ClosedBy": "Стеблинов Алексей Викторович (20023716)",
+        "CreatedAt": "2020-05-19T15:06:08+00:00",
+        "CreatedBy": "Стеблинов Алексей Викторович (20023716)",
+        "InitialImpact": "Не влияет",
+        "ResolutionCode": "Отклонено согласующим",
+        "UpdatedAt": "2020-05-19T15:07:56+00:00",
+        "UpdatedBy": "Стеблинов Алексей Викторович (20023716)",
+        "close": {
+          "ClosingComments": [
+            "Не актуально"
+          ]
+        },
+        "description.structure": {
+          "AcceptanceComments": [
+            "ТЕСТ"
+          ],
+          "Description": [
+            "ТЕСТ"
+          ],
+          "Justification": [
+            "ТЕСТ"
+          ],
+          "Plan": [
+            "ТЕСТ"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "ТЕСТ",
+          "Category": "Нормальное",
+          "CurrentPhase": "Закрытие",
+          "Id": "C-00001524",
+          "PlannedEndAt": "2020-05-19T20:00:00+00:00",
+          "PlannedStartAt": "2020-05-19T19:30:00+00:00",
+          "RequestedBy": "Стеблинов Алексей Викторович (20023716)",
+          "RequestedFor": "Стеблинов Алексей Викторович (20023716)",
+          "Status": "Закрыто",
+          "Subcategory": "Нестандартное изменение"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "чм"
+        ],
+        "CreatedAt": "2020-05-20T14:40:21+00:00",
+        "CreatedBy": "Стариков Алексей Александрович (134608)",
+        "UpdatedAt": "2020-05-20T14:40:31+00:00",
+        "UpdatedBy": "Стариков Алексей Александрович (134608)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "ам"
+          ],
+          "Description": [
+            "ро"
+          ],
+          "Justification": [
+            "чам"
+          ],
+          "Plan": [
+            "чам"
+          ]
+        },
+        "header": {
+          "AssignDept": "Группа типовых заявок",
+          "BriefDescription": "по",
+          "Category": "Нормальное",
+          "CurrentPhase": "Планирование",
+          "Id": "C-00001525",
+          "PlannedEndAt": "2020-05-25T21:00:00+00:00",
+          "PlannedStartAt": "2020-05-24T21:00:00+00:00",
+          "RequestedBy": "Стариков Алексей Александрович (134608)",
+          "RequestedFor": "Стариков Алексей Александрович",
+          "Status": "Назначение владельца",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1090501",
+        "BackoutPlan": [
+          "фыв"
+        ],
+        "ChangeOwner": "Подшипкова Евгения Петровна (20022067)",
+        "CreatedAt": "2020-05-20T14:42:37+00:00",
+        "CreatedBy": "Стариков Алексей Александрович (134608)",
+        "InitialImpact": "Не влияет",
+        "UpdatedAt": "2020-10-15T13:35:46+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "фыв"
+          ],
+          "Description": [
+            "фыв"
+          ],
+          "Justification": [
+            "фыв"
+          ],
+          "Plan": [
+            "фы"
+          ]
+        },
+        "header": {
+          "AssignDept": "Группа типовых заявок",
+          "BriefDescription": "фы",
+          "Category": "Нормальное",
+          "CurrentPhase": "Согласование",
+          "Id": "C-00001526",
+          "PlannedEndAt": "2020-05-25T21:00:00+00:00",
+          "PlannedStartAt": "2020-05-24T21:00:00+00:00",
+          "RequestedBy": "Стариков Алексей Александрович (134608)",
+          "RequestedFor": "Стариков Алексей Александрович (134608)",
+          "Status": "Отклонено",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1120278",
+        "BackoutPlan": [
+          "sf"
+        ],
+        "ChangeOwner": "Стариков Алексей Александрович (134608)",
+        "CreatedAt": "2020-05-20T14:52:40+00:00",
+        "CreatedBy": "Стариков Алексей Александрович (134608)",
+        "InitialImpact": "Не влияет",
+        "UpdatedAt": "2020-10-15T13:35:46+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "sdf"
+          ],
+          "Description": [
+            "df"
+          ],
+          "Justification": [
+            "sdf"
+          ],
+          "Plan": [
+            "sdf"
+          ]
+        },
+        "header": {
+          "AssignDept": "Администраторы СУБД/Unix",
+          "BriefDescription": "sdf",
+          "Category": "Нормальное",
+          "CurrentPhase": "Согласование",
+          "Id": "C-00001527",
+          "PlannedEndAt": "2020-05-23T21:00:00+00:00",
+          "PlannedStartAt": "2020-05-21T21:00:00+00:00",
+          "RequestedBy": "Стариков Алексей Александрович (134608)",
+          "RequestedFor": "Стариков Алексей Александрович (134608)",
+          "Status": "Отклонено",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "тест"
+        ],
+        "CreatedAt": "2020-05-20T14:57:27+00:00",
+        "CreatedBy": "Уфимцева Анна Владимировна (20023283)",
+        "UpdatedAt": "2020-05-20T14:57:26+00:00",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "тест"
+          ],
+          "Description": [
+            "тест"
+          ],
+          "Justification": [
+            "тест"
+          ],
+          "Plan": [
+            "тест"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "тест",
+          "Category": "Экстренное",
+          "CurrentPhase": "Регистрация",
+          "Id": "C-00001529",
+          "PlannedEndAt": "2020-05-20T21:00:00+00:00",
+          "PlannedStartAt": "2020-05-20T21:00:00+00:00",
+          "RequestedBy": "Уфимцева Анна Владимировна (20023283)",
+          "RequestedFor": "Уфимцева Анна Владимировна (20023283)",
+          "Status": "Зарегистрировано",
+          "Subcategory": "Нестандартное изменение"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "тест1"
+        ],
+        "CLosedAt": "2020-06-04T10:19:26+00:00",
+        "ChangeOwner": "Ткачев Александр Леонидович (20018368)",
+        "ClosedBy": "Ткачев Александр Леонидович (20018368)",
+        "CreatedAt": "2020-06-02T12:13:43+00:00",
+        "CreatedBy": "Ткачев Александр Леонидович (20018368)",
+        "ResolutionCode": "Отменено владельцем",
+        "UpdatedAt": "2020-06-04T10:19:26+00:00",
+        "UpdatedBy": "Ткачев Александр Леонидович (20018368)",
+        "close": {
+          "ClosingComments": [
+            "234"
+          ]
+        },
+        "description.structure": {
+          "AcceptanceComments": [
+            "тест1"
+          ],
+          "Description": [
+            "тест2"
+          ],
+          "Justification": [
+            "тест1"
+          ],
+          "Plan": [
+            "тест1"
+          ]
+        },
+        "header": {
+          "AssignDept": "МБАНК (БМ)",
+          "BriefDescription": "тст2",
+          "Category": "Нормальное",
+          "CurrentPhase": "Закрытие",
+          "Id": "C-00001532",
+          "PlannedEndAt": "2020-06-02T13:10:00+00:00",
+          "PlannedStartAt": "2020-06-02T13:00:00+00:00",
+          "RequestedBy": "Ткачев Александр Леонидович (20018368)",
+          "RequestedFor": "Ткачев Александр Леонидович (20018368)",
+          "Status": "Закрыто",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "123"
+        ],
+        "CLosedAt": "2020-06-04T10:19:36+00:00",
+        "ChangeOwner": "Ткачев Александр Леонидович (20018368)",
+        "ClosedBy": "Ткачев Александр Леонидович (20018368)",
+        "CreatedAt": "2020-06-04T10:18:39+00:00",
+        "CreatedBy": "Ткачев Александр Леонидович (20018368)",
+        "ResolutionCode": "Отменено инициатором",
+        "UpdatedAt": "2020-06-04T10:19:35+00:00",
+        "UpdatedBy": "Ткачев Александр Леонидович (20018368)",
+        "close": {
+          "ClosingComments": [
+            "234"
+          ]
+        },
+        "description.structure": {
+          "AcceptanceComments": [
+            "123"
+          ],
+          "Description": [
+            "23"
+          ],
+          "Justification": [
+            "123"
+          ],
+          "Plan": [
+            "3"
+          ]
+        },
+        "header": {
+          "AssignDept": "МБАНК (БМ)",
+          "BriefDescription": "123",
+          "Category": "Нормальное",
+          "CurrentPhase": "Закрытие",
+          "Id": "C-00001533",
+          "PlannedEndAt": "2020-06-04T10:25:41+00:00",
+          "PlannedStartAt": "2020-06-04T10:20:38+00:00",
+          "RequestedBy": "Ткачев Александр Леонидович (20018368)",
+          "RequestedFor": "Ткачев Александр Леонидович (20018368)",
+          "Status": "Закрыто",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "21"
+        ],
+        "CLosedAt": "2020-06-04T10:26:52+00:00",
+        "ChangeOwner": "Ткачев Александр Леонидович (20018368)",
+        "ClosedBy": "Ткачев Александр Леонидович (20018368)",
+        "CreatedAt": "2020-06-04T10:26:01+00:00",
+        "CreatedBy": "Ткачев Александр Леонидович (20018368)",
+        "ResolutionCode": "Отменено владельцем",
+        "UpdatedAt": "2020-06-04T10:26:52+00:00",
+        "UpdatedBy": "Ткачев Александр Леонидович (20018368)",
+        "close": {
+          "ClosingComments": [
+            "2323"
+          ]
+        },
+        "description.structure": {
+          "AcceptanceComments": [
+            "123"
+          ],
+          "Description": [
+            "123"
+          ],
+          "Justification": [
+            "123"
+          ],
+          "Plan": [
+            "123"
+          ]
+        },
+        "header": {
+          "AssignDept": "МБАНК (БМ)",
+          "BriefDescription": "123",
+          "Category": "Нормальное",
+          "CurrentPhase": "Закрытие",
+          "Id": "C-00001534",
+          "PlannedEndAt": "2020-06-04T10:35:36+00:00",
+          "PlannedStartAt": "2020-06-04T10:30:36+00:00",
+          "RequestedBy": "Ткачев Александр Леонидович (20018368)",
+          "RequestedFor": "Ткачев Александр Леонидович (20018368)",
+          "Status": "Закрыто",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedCis": [
+          "CI1268220",
+          "CI1268250"
+        ],
+        "AffectedIts": [
+          "CI1268182",
+          "CI1268184",
+          "CI1268214"
+        ],
+        "BackoutPlan": [
+          "вапва"
+        ],
+        "ChangeOwner": "Стеблинов Алексей Викторович (20023716)",
+        "CreatedAt": "2020-06-09T19:57:08+00:00",
+        "CreatedBy": "Стеблинов Алексей Викторович (20023716)",
+        "InitialImpact": "Не влияет",
+        "TemplateId": "4",
+        "TemplateName": "Тестовый шаблон",
+        "UpdatedAt": "2020-06-09T19:58:18+00:00",
+        "UpdatedBy": "Стеблинов Алексей Викторович (20023716)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "счмчсмсч"
+          ],
+          "Description": [
+            "чсмсч"
+          ],
+          "Justification": [
+            "   чсмсч"
+          ],
+          "Plan": [
+            "апавп"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "мсчм",
+          "Category": "Стандартное",
+          "CurrentPhase": "Планирование",
+          "Id": "C-00001535",
+          "PlannedEndAt": "2020-06-24T21:00:00+00:00",
+          "PlannedStartAt": "2020-06-16T21:00:00+00:00",
+          "RequestedBy": "Стеблинов Алексей Викторович (20023716)",
+          "RequestedFor": "Стеблинов Алексей Викторович (20023716)",
+          "Status": "В планировании",
+          "Subcategory": "Видео-конференц-связь"
+        },
+        "middle": {
+          "AffectedServices": [
+            "CI1268180"
+          ],
+          "Assets": [
+            "CI1268190"
+          ]
+        }
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "test"
+        ],
+        "CLosedAt": "2020-06-20T11:13:38+00:00",
+        "ChangeOwner": "Ткачев Александр Леонидович (20018368)",
+        "ClosedBy": "Ткачев Александр Леонидович (20018368)",
+        "CreatedAt": "2020-06-20T11:12:16+00:00",
+        "CreatedBy": "Ткачев Александр Леонидович (20018368)",
+        "ResolutionCode": "Отменено инициатором",
+        "UpdatedAt": "2020-06-20T11:13:38+00:00",
+        "UpdatedBy": "Ткачев Александр Леонидович (20018368)",
+        "close": {
+          "ClosingComments": [
+            "отмена"
+          ]
+        },
+        "description.structure": {
+          "AcceptanceComments": [
+            "test"
+          ],
+          "Description": [
+            "test"
+          ],
+          "Justification": [
+            "test"
+          ],
+          "Plan": [
+            "test"
+          ]
+        },
+        "header": {
+          "AssignDept": "МБАНК (БМ)",
+          "BriefDescription": "test",
+          "Category": "Экстренное",
+          "CurrentPhase": "Закрытие",
+          "Id": "C-00001536",
+          "PlannedEndAt": "2020-06-20T21:30:00+00:00",
+          "PlannedStartAt": "2020-06-20T21:00:00+00:00",
+          "RequestedBy": "Ткачев Александр Леонидович (20018368)",
+          "RequestedFor": "Гавриленко Виктор Сергеевич (20017144)",
+          "Status": "Закрыто",
+          "Subcategory": "Нестандартное изменение"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "1. Удаление добавленного TLS сертификата с сервера as-r9.oso.mmbank.ru (Исп. МБанк (БМ)) и перезапуск сервиса.",
+          "2. Удаление ссылки на новый контейнер из конфигурации на сервере mgate001lv.oso.mmbank.ru и возврат к старому контейнеру.  (Исп. МБанк (БМ))",
+          "3. Уведомление площадки о возврате к старым сертификатам.  (Исп. МБанк (БМ))"
+        ],
+        "ChangeOwner": "Ткачев Александр Леонидович (20018368)",
+        "CreatedAt": "2020-07-30T00:26:11+00:00",
+        "CreatedBy": "Ткачев Александр Леонидович (20018368)",
+        "UpdatedAt": "2020-07-30T00:26:11+00:00",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "успешный переход на обмен по новым сертификатам с площадкой РТС-тендер."
+          ],
+          "Description": [
+            "Обновление истекающих сертификатов площадки РТС-тендер в рамках  обмена с площадкой по 44ФЗ"
+          ],
+          "Justification": [
+            "Истекает срок действия сертификатов обмена данными с площадкой в рамках 44-ФЗ.",
+            "На стороне площадки РТС-тендер переход на новые сертификаты будет осуществлен 02.07.2020 в 21:00"
+          ],
+          "Plan": [
+            "1. Копирование новых TLS сертификатов площадки на сервер as-r9.oso.mmbank.ru (Исп. МБанк (БМ)) и перезапуск сервиса.",
+            "2. Копирование нового контейнера сертификатов проверки подписи площадки на сервер mgate001lv.oso.mmbank.ru, добавление его в конфигурацию и перезапуск сервиса. (Исп. МБанк (БМ))",
+            "3. Уведомление площадки об установке новых сертификатов и проверка обмена (Исп. МБанк (БМ))"
+          ]
+        },
+        "header": {
+          "AssignDept": "МБАНК (БМ)",
+          "BriefDescription": "Обновление сертификата РТС в рамках обмена по 44ФЗ",
+          "Category": "Нормальное",
+          "CurrentPhase": "Регистрация",
+          "Id": "C-00001538",
+          "PlannedEndAt": "2020-07-31T00:25:03+00:00",
+          "PlannedStartAt": "2020-07-30T02:00:00+00:00",
+          "RequestedBy": "Ткачев Александр Леонидович (20018368)",
+          "RequestedFor": "Скворцов Дмитрий Юрьевич (20012742)",
+          "Status": "Зарегистрировано",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "11"
+        ],
+        "CreatedAt": "2020-07-30T00:33:54+00:00",
+        "CreatedBy": "Ткачев Александр Леонидович (20018368)",
+        "UpdatedAt": "2020-07-30T00:34:15+00:00",
+        "UpdatedBy": "Ткачев Александр Леонидович (20018368)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "11"
+          ],
+          "Description": [
+            "111"
+          ],
+          "Justification": [
+            "111"
+          ],
+          "Plan": [
+            "11"
+          ]
+        },
+        "header": {
+          "AssignDept": "МБАНК (БМ)",
+          "BriefDescription": "111",
+          "Category": "Нормальное",
+          "CurrentPhase": "Планирование",
+          "Id": "C-00001541",
+          "PlannedEndAt": "2020-07-30T21:00:00+00:00",
+          "PlannedStartAt": "2020-07-30T00:50:27+00:00",
+          "RequestedBy": "Ткачев Александр Леонидович (20018368)",
+          "RequestedFor": "Скворцов Александр Андреевич (612188)",
+          "Status": "Назначение владельца",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "BackoutPlan": [
+          "описание:",
+          null,
+          "Обязательное полеОписание:",
+          null,
+          "еуые"
+        ],
+        "ChangeOwner": "Ткачев Александр Леонидович (20018368)",
+        "CreatedAt": "2020-07-30T05:27:16+00:00",
+        "CreatedBy": "Ткачев Александр Леонидович (20018368)",
+        "UpdatedAt": "2020-07-30T05:27:26+00:00",
+        "UpdatedBy": "Ткачев Александр Леонидович (20018368)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "описание:",
+            null,
+            "Обязательное полеОписание:",
+            null,
+            "еуые"
+          ],
+          "Description": [
+            "еуые"
+          ],
+          "Justification": [
+            "описание:",
+            null,
+            "Обязательное полеОписание:",
+            null,
+            "еуые"
+          ],
+          "Plan": [
+            "описание:",
+            null,
+            "Обязательное полеОписание:",
+            null,
+            "еуые"
+          ]
+        },
+        "header": {
+          "AssignDept": "МБАНК (БМ)",
+          "BriefDescription": "еуые",
+          "Category": "Нормальное",
+          "CurrentPhase": "Планирование",
+          "Id": "C-00001542",
+          "PlannedEndAt": "2020-07-30T05:40:00+00:00",
+          "PlannedStartAt": "2020-07-30T05:30:00+00:00",
+          "RequestedBy": "Ткачев Александр Леонидович (20018368)",
+          "RequestedFor": "Ткачев Александр Леонидович (20018368)",
+          "Status": "В планировании",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1120460",
+        "BackoutPlan": [
+          "1. Удаление добавленного TLS сертификата с сервера as-r9.oso.mmbank.ru (Исп. МБанк (БМ)) и перезапуск сервиса.",
+          "2. Удаление ссылки на новый контейнер из конфигурации на сервере mgate001lv.oso.mmbank.ru и возврат к старому контейнеру.  (Исп. МБанк (БМ))",
+          "3. Уведомление площадки о возврате к старым сертификатам.  (Исп. МБанк (БМ))"
+        ],
+        "ChangeOwner": "Ткачев Александр Леонидович (20018368)",
+        "CreatedAt": "2020-08-02T18:46:51+00:00",
+        "CreatedBy": "Ткачев Александр Леонидович (20018368)",
+        "InitialImpact": "Не влияет",
+        "UpdatedAt": "2020-10-15T13:35:46+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "успешный переход на обмен по новым сертификатам с площадкой РТС-тендер."
+          ],
+          "Description": [
+            "Обновление истекающих сертификатов площадки РТС-тендер в рамках  обмена с площадкой по 44ФЗ"
+          ],
+          "Justification": [
+            "Истекает срок действия сертификатов обмена данными с площадкой в рамках 44-ФЗ.",
+            "На стороне площадки РТС-тендер переход на новые сертификаты будет осуществлен 02.07.2020 в 21:00"
+          ],
+          "Plan": [
+            "1. Копирование новых TLS сертификатов площадки на сервер as-r9.oso.mmbank.ru (Исп. МБанк (БМ)) и перезапуск сервиса.",
+            "2. Копирование нового контейнера сертификатов проверки подписи площадки на сервер mgate001lv.oso.mmbank.ru, добавление его в конфигурацию и перезапуск сервиса. (Исп. МБанк (БМ))",
+            "3. Уведомление площадки об установке новых сертификатов и проверка обмена (Исп. МБанк (БМ))"
+          ]
+        },
+        "header": {
+          "AssignDept": "МБАНК (БМ)",
+          "BriefDescription": "Обновление сертификата РТС в рамках обмена по 44ФЗ",
+          "Category": "Нормальное",
+          "CurrentPhase": "Согласование",
+          "Id": "C-00001544",
+          "PlannedEndAt": "2020-08-09T03:00:00+00:00",
+          "PlannedStartAt": "2020-08-09T01:30:00+00:00",
+          "RequestedBy": "Ткачев Александр Леонидович (20018368)",
+          "RequestedFor": "Скворцов Дмитрий Юрьевич (20012742)",
+          "Status": "Отклонено",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1120460",
+        "BackoutPlan": [
+          "вапавп"
+        ],
+        "ChangeOwner": "Ткачев Александр Леонидович (20018368)",
+        "CreatedAt": "2020-08-03T21:22:40+00:00",
+        "CreatedBy": "Ткачев Александр Леонидович (20018368)",
+        "InitialImpact": "Не влияет",
+        "UpdatedAt": "2020-10-15T13:35:46+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "пвапвапавп"
+          ],
+          "Description": [
+            "test rog"
+          ],
+          "Justification": [
+            "впвапвапавп"
+          ],
+          "Plan": [
+            "вапвп"
+          ]
+        },
+        "header": {
+          "AssignDept": "МБАНК - БО (БМ)",
+          "BriefDescription": "test rogachev",
+          "Category": "Нормальное",
+          "CurrentPhase": "Согласование",
+          "Id": "C-00001545",
+          "PlannedEndAt": "2020-08-06T02:00:00+00:00",
+          "PlannedStartAt": "2020-08-03T21:44:31+00:00",
+          "RequestedBy": "Ткачев Александр Леонидович (20018368)",
+          "RequestedFor": "Ткачев Александр Леонидович (20018368)",
+          "Status": "Отклонено",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1120460",
+        "BackoutPlan": [
+          "1. Удаление добавленного TLS сертификата с сервера as-r9.oso.mmbank.ru (Исп. МБанк (БМ)) и перезапуск сервиса.",
+          "2. Удаление ссылки на новый контейнер из конфигурации на сервере mgate001lv.oso.mmbank.ru и возврат к старому контейнеру.  (Исп. МБанк (БМ))",
+          "3. Уведомление площадки о возврате к старым сертификатам.  (Исп. МБанк (БМ))"
+        ],
+        "ChangeOwner": "Ткачев Александр Леонидович (20018368)",
+        "CreatedAt": "2020-08-04T21:03:27+00:00",
+        "CreatedBy": "Ткачев Александр Леонидович (20018368)",
+        "InitialImpact": "Не влияет",
+        "UpdatedAt": "2020-10-15T13:35:46+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "успешный переход на обмен по новым сертификатам с площадкой РТС-тендер."
+          ],
+          "Description": [
+            "Обновление истекающих сертификатов площадки РТС-тендер в рамках  обмена с площадкой по 44ФЗ"
+          ],
+          "Justification": [
+            "Истекает срок действия сертификатов обмена данными с площадкой в рамках 44-ФЗ.",
+            "На стороне площадки РТС-тендер переход на новые сертификаты будет осуществлен 02.07.2020 в 21:00"
+          ],
+          "Plan": [
+            "1. Копирование новых TLS сертификатов площадки на сервер as-r9.oso.mmbank.ru (Исп. МБанк (БМ)) и перезапуск сервиса.",
+            "2. Копирование нового контейнера сертификатов проверки подписи площадки на сервер mgate001lv.oso.mmbank.ru, добавление его в конфигурацию и перезапуск сервиса. (Исп. МБанк (БМ))",
+            "3. Уведомление площадки об установке новых сертификатов и проверка обмена (Исп. МБанк (БМ))"
+          ]
+        },
+        "header": {
+          "AssignDept": "МБАНК (БМ)",
+          "BriefDescription": "Обновление сертификата РТС в рамках обмена по 44ФЗ",
+          "Category": "Нормальное",
+          "CurrentPhase": "Согласование",
+          "Id": "C-00001548",
+          "PlannedEndAt": "2020-08-06T02:00:00+00:00",
+          "PlannedStartAt": "2020-08-05T01:00:00+00:00",
+          "RequestedBy": "Ткачев Александр Леонидович (20018368)",
+          "RequestedFor": "Скворцов Дмитрий Юрьевич (20012742)",
+          "Status": "Отклонено",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1090501",
+        "BackoutPlan": [
+          "быстро откатили"
+        ],
+        "ChangeOwner": "Дехтярев Сергей Николаевич (20015509)",
+        "CreatedAt": "2020-08-18T08:08:18+00:00",
+        "CreatedBy": "Ткачев Александр Леонидович (20018368)",
+        "InitialImpact": "Не влияет",
+        "UpdatedAt": "2020-08-26T07:21:38+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "Все успешно"
+          ],
+          "Description": [
+            "тест смена тест"
+          ],
+          "Justification": [
+            "надо делать"
+          ],
+          "Plan": [
+            "все сделали"
+          ]
+        },
+        "header": {
+          "AssignDept": "МБАНК - ЭКСПЕРТНАЯ ПОДДЕРЖКА (БМ)",
+          "BriefDescription": "тест",
+          "Category": "Экстренное",
+          "CurrentPhase": "Согласование",
+          "Id": "C-00001551",
+          "PlannedEndAt": "2020-08-18T07:30:00+00:00",
+          "PlannedStartAt": "2020-08-18T08:00:00+00:00",
+          "RequestedBy": "Ткачев Александр Леонидович (20018368)",
+          "RequestedFor": "Дехтярев Сергей Николаевич (20015509)",
+          "Status": "На согласовании",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1090508",
+        "BackoutPlan": [
+          "ыва"
+        ],
+        "ChangeOwner": "Уфимцева Анна Владимировна (20023283)",
+        "CreatedAt": "2020-08-24T07:08:05+00:00",
+        "CreatedBy": "aevdokimov",
+        "InitialImpact": "Замедление",
+        "UpdatedAt": "2020-10-15T13:35:46+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "ваы"
+          ],
+          "Description": [
+            "уцкуцк"
+          ],
+          "Justification": [
+            "вмав"
+          ],
+          "Plan": [
+            "ыва"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "цукцук",
+          "Category": "Нормальное",
+          "CurrentPhase": "Согласование",
+          "Id": "C-00001553",
+          "PlannedEndAt": "2020-08-25T21:00:00+00:00",
+          "PlannedStartAt": "2020-08-24T21:00:00+00:00",
+          "RequestedBy": "aevdokimov",
+          "RequestedFor": " Дильдин Николай Владиславович",
+          "Status": "Отклонено",
+          "Subcategory": "Нестандартное изменение"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1120342",
+        "BackoutPlan": [
+          "Во вложении"
+        ],
+        "ChangeOwner": "Талалаев Михаил Валентинович (20023759)",
+        "CreatedAt": "2020-08-25T10:16:32+00:00",
+        "CreatedBy": "Талалаев Михаил Валентинович (20023759)",
+        "InitialImpact": "Замедление",
+        "UpdatedAt": "2020-10-15T13:35:52+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "Обновление успешно установлено, промышленная среда доступна"
+          ],
+          "Description": [
+            "Treasury-123 - Доработка отчета SWIFT, доработка загрузчика SWIFTLOADER"
+          ],
+          "Justification": [
+            "Требования бизнес-пользователей"
+          ],
+          "Plan": [
+            "Во вложении"
+          ]
+        },
+        "header": {
+          "AssignDept": "Задачи казначейства (ГО)",
+          "BriefDescription": "Установка обновления на промышленную среду УПП (1ая витрина)",
+          "Category": "Нормальное",
+          "CurrentPhase": "Авторизация",
+          "Id": "C-00001554",
+          "PlannedEndAt": "2020-08-25T16:00:00+00:00",
+          "PlannedStartAt": "2020-08-25T13:30:00+00:00",
+          "RequestedBy": "Талалаев Михаил Валентинович (20023759)",
+          "RequestedFor": "Родина Ольга Сергеевна (20015649)",
+          "Status": "Отклонено",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1120337",
+        "BackoutPlan": [
+          "(Телицын М.) Остановить приложение УПП на сервере приложений",
+          "(Колчин И.) Восстановить из бэкапа предыдущие версии объектов БД",
+          "(Телицын М.) Восстановить из бэкапа предыдущую версию приложения",
+          "(Телицын М.) Запустить приложение на сервере приложений WAS"
+        ],
+        "ChangeOwner": "Талалаев Михаил Валентинович (20023759)",
+        "CreatedAt": "2020-08-25T13:33:08+00:00",
+        "CreatedBy": "Талалаев Михаил Валентинович (20023759)",
+        "InitialImpact": "Замедление",
+        "UpdatedAt": "2020-10-15T13:35:52+00:00",
+        "UpdatedBy": "aevdokimov",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "Обновление успешно установлено, промышленная среда доступна"
+          ],
+          "Description": [
+            "Treasury-999",
+            "SWIFT такой-то"
+          ],
+          "Justification": [
+            "Требования бизнес-пользователей"
+          ],
+          "Plan": [
+            "(Телицын М.) Остановить приложение ЕРПВ на сервере приложений WAS",
+            "(Телицын М.) Выполнить бэкап текущей версии приложения",
+            "(Колчин И.) Выполнить бэкап изменяемых объектов БД",
+            "(Колчин И.) Прогнать скрипты от пользователя VEKSEL",
+            "(Колчин И.) При наличии инвалидных объектов откомпилировать их",
+            "(Телицын М.) Обновить и запустить приложение ЕРПВ на сервере приложений WAS",
+            "(Колчин И.) Проверить доступность промышленной среды ЕРПВ"
+          ]
+        },
+        "header": {
+          "AssignDept": "Задачи казначейства (ГО)",
+          "BriefDescription": "Установка обновления на промышленную среду ЕРПВ",
+          "Category": "Нормальное",
+          "CurrentPhase": "Авторизация",
+          "Id": "C-00001555",
+          "PlannedEndAt": "2020-08-29T10:00:00+00:00",
+          "PlannedStartAt": "2020-08-29T07:00:00+00:00",
+          "RequestedBy": "Талалаев Михаил Валентинович (20023759)",
+          "RequestedFor": "Родина Ольга Сергеевна (20015649)",
+          "Status": "Отклонено",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1120460",
+        "BackoutPlan": [
+          "Истекает срок действия сертификатов обмена данными с ЭТП ГПБ в рамках 44-ФЗ.",
+          "На стороне ЭТП ГПБ переход на новые сертификаты будет осуществлен 10:00 09.09.2020"
+        ],
+        "ChangeOwner": "Ткачев Александр Леонидович (20018368)",
+        "CreatedAt": "2020-09-05T11:05:04+00:00",
+        "CreatedBy": "Ткачев Александр Леонидович (20018368)",
+        "InitialImpact": "Не влияет",
+        "UpdatedAt": "2020-09-05T11:07:50+00:00",
+        "UpdatedBy": "Ткачев Александр Леонидович (20018368)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "Истекает срок действия сертификатов обмена данными с ЭТП ГПБ в рамках 44-ФЗ.",
+            "На стороне ЭТП ГПБ переход на новые сертификаты будет осуществлен 10:00 09.09.2020"
+          ],
+          "Description": [
+            "Обновление сертификата ЭТП ГПБ"
+          ],
+          "Justification": [
+            "Истекает срок действия сертификатов обмена данными с ЭТП ГПБ в рамках 44-ФЗ.",
+            "На стороне ЭТП ГПБ переход на новые сертификаты будет осуществлен 10:00 09.09.2020"
+          ],
+          "Plan": [
+            "Истекает срок действия сертификатов обмена данными с ЭТП ГПБ в рамках 44-ФЗ.",
+            "На стороне ЭТП ГПБ переход на новые сертификаты будет осуществлен 10:00 09.09.2020"
+          ]
+        },
+        "header": {
+          "AssignDept": "МБАНК - ЭКСПЕРТНАЯ ПОДДЕРЖКА (БМ)",
+          "BriefDescription": "Обновление сертификата ЭТП ГПБ",
+          "Category": "Нормальное",
+          "CurrentPhase": "Планирование",
+          "Id": "C-00001557",
+          "PlannedEndAt": "2020-09-12T21:00:00+00:00",
+          "PlannedStartAt": "2020-09-11T21:00:00+00:00",
+          "RequestedBy": "Ткачев Александр Леонидович (20018368)",
+          "RequestedFor": "Скворцов Дмитрий Александрович (20017119)",
+          "Status": "В планировании",
+          "Subcategory": "Прикладное ПО"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1120856",
+        "BackoutPlan": [
+          "1"
+        ],
+        "ChangeOwner": "Суханов Сергей Валерьевич (20027357)",
+        "CreatedAt": "2020-09-24T09:44:41+00:00",
+        "CreatedBy": "Суханов Сергей Валерьевич (20027357)",
+        "InitialImpact": "Не влияет",
+        "ResolutionCode": "Отклонено согласующим",
+        "UpdatedAt": "2020-09-24T09:46:58+00:00",
+        "UpdatedBy": "HP Service Manager(hpclinker1)",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "1"
+          ],
+          "Description": [
+            "ntcn12"
+          ],
+          "Justification": [
+            "1"
+          ],
+          "Plan": [
+            "1"
+          ]
+        },
+        "header": {
+          "AssignDept": "SM конфиг",
+          "BriefDescription": "ntcn12",
+          "Category": "Нормальное",
+          "CurrentPhase": "Согласование",
+          "Id": "C-00001564",
+          "PlannedEndAt": "2020-09-26T18:00:00+00:00",
+          "PlannedStartAt": "2020-09-24T18:00:00+00:00",
+          "RequestedBy": "Суханов Сергей Валерьевич (20027357)",
+          "RequestedFor": "Суханов Сергей Валерьевич (20027357)",
+          "Status": "Отклонено",
+          "Subcategory": "Нестандартное изменение"
+        },
+        "middle": {}
+      }
+    },
+    {
+      "VtbChange": {
+        "AffectedItem": "CI1146437",
+        "BackoutPlan": [
+          "1212"
+        ],
+        "ChangeFailure": "Нет данных",
+        "ChangeOwner": "Галушкин Михаил Юрьевич (4037917)",
+        "CreatedAt": "2020-10-13T07:13:31+00:00",
+        "CreatedBy": "aevdokimov",
+        "CustomReach": "Пилотная фокус-группа",
+        "FaultCategory": "Срочное изменение",
+        "FreezeTime": "Нет",
+        "FuncTesting": "Положительное",
+        "InitialImpact": "Не влияет",
+        "PrWindowTime": "Нет",
+        "ReasonNoCab": "Прочее",
+        "ReserveSystem": "Нет",
+        "RiskFinance": "Да",
+        "RiskLevel": "4",
+        "RollbackDuration": "Не предусмотрен",
+        "SensitiveInfrImpact": "Нет",
+        "SysImpact": "1 система",
+        "UpdatedAt": "2020-10-15T13:35:46+00:00",
+        "UpdatedBy": "aevdokimov",
+        "WasLoadingTesting": "Нет",
+        "close": {},
+        "description.structure": {
+          "AcceptanceComments": [
+            "1212"
+          ],
+          "Description": [
+            "sdsd"
+          ],
+          "Justification": [
+            "<указать причину, по которой ЗНИ должно быть реализовано незамедлительно>всвсвс"
+          ],
+          "Plan": [
+            "1212"
+          ],
+          "RiskDescription": [
+            "1212"
+          ]
+        },
+        "header": {
+          "AssignDept": "Менеджеры процессов HPE SM",
+          "BriefDescription": "sdsd",
+          "Category": "Экстренное",
+          "CurrentPhase": "Согласование",
+          "Id": "C-00001566",
+          "PlannedEndAt": "2020-10-14T21:00:00+00:00",
+          "PlannedStartAt": "2020-10-13T21:00:00+00:00",
+          "RequestedBy": "aevdokimov",
+          "RequestedFor": "aevdokimov",
+          "Status": "Отклонено",
+          "Subcategory": "Сеть"
+        },
+        "middle": {
+          "Assets": [
+            "CI1008238"
+          ]
+        }
+      }
+    }
+  ]
+}

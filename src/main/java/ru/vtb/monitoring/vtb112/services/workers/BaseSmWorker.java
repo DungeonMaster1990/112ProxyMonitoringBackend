@@ -1,79 +1,81 @@
 package ru.vtb.monitoring.vtb112.services.workers;
 
-import com.google.common.base.Strings;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-import ru.vtb.monitoring.vtb112.config.AppConfig;
 import ru.vtb.monitoring.vtb112.db.pg.models.BaseSmModel;
 import ru.vtb.monitoring.vtb112.db.pg.models.Updates;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.SmRepository;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.UpdatesRepository;
+import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmBaseModel;
 import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.modelwrappers.VmBaseResponseWrapper;
 import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.modelwrappers.VmModelWrapper;
 import ru.vtb.monitoring.vtb112.mappers.ResponseMapper;
 
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.Base64;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Slf4j
-public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U extends BaseSmModel> {
+public abstract class BaseSmWorker<T extends VmBaseModel, U extends BaseSmModel> {
 
+    @Getter(AccessLevel.PROTECTED)
     private final SmRepository<U> repository;
     private final UpdatesRepository updatesRepository;
     private final ResponseMapper<U, T> responseMapper;
 
-    private final Class<K> vmModelWrapperType;
     private final String workerName;
     private final String url;
-    private final RestTemplate restTemplate;
 
-    public BaseSmWorker(AppConfig appConfig,
-                        SmRepository<U> repository,
-                        ResponseMapper<U, T> responseMapper,
-                        UpdatesRepository updatesRepository,
-                        Class<K> vmModelWrapperType,
-                        String workerName,
-                        String requestString) {
+    @Autowired
+    @Qualifier("smRestTemplate")
+    private RestTemplate restTemplate;
+
+    protected BaseSmWorker(Integer smPort,
+                           SmRepository<U> repository,
+                           ResponseMapper<U, T> responseMapper,
+                           UpdatesRepository updatesRepository,
+                           WorkerName workerName,
+                           String requestString) {
         this.responseMapper = responseMapper;
         this.repository = repository;
         this.updatesRepository = updatesRepository;
-        this.vmModelWrapperType = vmModelWrapperType;
-        this.workerName = workerName;
-        var serverPort = Strings.isNullOrEmpty(appConfig.getSmPort()) ? "?" : ("?serverPort=" + appConfig.getSmPort() + '&');
-        this.url = requestString + serverPort + "view={view}&query={query}";
-        this.restTemplate = buildRestTemplate(appConfig.getSmUserLoginPass());
+        this.workerName = workerName.getName();
+        this.url = buildUrl(smPort, requestString);
     }
 
-    private static RestTemplate buildRestTemplate(String smUserLoginPass) {
-        String loginBasicEncoded = Base64.getEncoder().encodeToString(smUserLoginPass.getBytes());
+    protected static String buildQuery(Instant updateTime) {
+        String dateTimeString = updateTime.toString();
+        return String.format("UpdatedAt>'%s'", dateTimeString);
+    }
 
-        return new RestTemplateBuilder(rt -> rt.getInterceptors().add((request, body, execution) -> {
-            request.getHeaders().add("Authorization", "Basic " + loginBasicEncoded);
-            return execution.execute(request, body);
-        })).build();
+    protected static String buildUrl(Integer smPort, String requestString) {
+        var serverPort = smPort == null ? "?" : ("?serverPort=" + smPort + '&');
+        return requestString + serverPort + "view={view}&query={query}";
     }
 
     protected void process() {
         Updates update;
-        ResponseEntity<K> response;
+        ResponseEntity<VmBaseResponseWrapper<T>> response;
 
         try {
             update = updatesRepository.getUpdateEntityByServiceName(workerName);
             var updateTime = update.getUpdateTime().toInstant();
 
-            log.info("Try to load for service: {}, updateTime: {}, request: {}",
+            log.debug("Try to load for service: {}, updateTime: {}, request: {}",
                     workerName,
                     updateTime,
                     url
             );
-
-            response = restTemplate.getForEntity(url, vmModelWrapperType, "expand", buildQuery(updateTime));
+            response = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<>() {
+            }, "expand", buildQuery(updateTime));
 
             log.debug("Load data for service: {}, updateTime: {}, response: {}",
                     workerName,
@@ -84,21 +86,21 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
             log.error("Exception during process in worker {}", workerName, exception);
             return;
         }
-        K body = response.getBody();
+        VmBaseResponseWrapper<T> body = response.getBody();
 
         if (body == null || !response.getStatusCode().is2xxSuccessful() || body.getReturnCode() > 0) {
             log.error(String.format("The SM service: %s returns response: %s", workerName, response.toString()));
             return;
         }
 
-        if (body.getContent() == null || body.getContent().length == 0){
+        if (body.getContent() == null || body.getContent().isEmpty()) {
             log.debug("From sm service {} was loaded 0 rows", workerName);
             return;
         }
 
-        log.debug("From sm service {} was loaded {} entities", workerName, body.getContent().length);
+        log.debug("From sm service {} was loaded {} entities", workerName, body.getContent().size());
 
-        List<T> result = Arrays.stream(body.getContent())
+        List<T> result = body.getContent().stream()
                 .map(VmModelWrapper::getModel)
                 .collect(Collectors.toList());
 
@@ -107,20 +109,16 @@ public abstract class BaseSmWorker<T, K extends VmBaseResponseWrapper<T>, U exte
                 .collect(Collectors.toList());
 
         models.stream()
+                .filter(u -> u.getUpdatedAt() != null)
                 .max(Comparator.comparing(U::getUpdatedAt))
                 .ifPresent(bm -> update.setUpdateTime(bm.getUpdatedAt()));
 
         repository.putModels(models);
         updatesRepository.putUpdate(update);
 
-        log.info("Put data to db for sm service: {}, new updateTime: {}",
+        log.info("Put {} items to db for sm service: {}, new updateTime: {}", models.size(),
                 workerName,
                 update.getUpdateTime().toInstant()
         );
-    }
-
-    private String buildQuery(Instant updateTime) {
-        String dateTimeString = updateTime.toString();
-        return String.format("UpdatedAt>'%s'", dateTimeString);
     }
 }
