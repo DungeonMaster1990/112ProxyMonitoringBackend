@@ -60,21 +60,17 @@ public class UnavailabilitiesRepositoryImpl implements UnavailabilitiesRepositor
     @Transactional
     public void putModels(List<Unavailabilities> models) {
         List<Unavailabilities> unavailabilities = availabilitiesRepo.findByFaultIdInAndServiceIdIn(
-                models
-                        .stream()
+                models.stream()
                         .map(Unavailabilities::getFaultId)
                         .collect(Collectors.toList()),
-                models
-                        .stream()
+                models.stream()
                         .map(Unavailabilities::getServiceId)
                         .collect(Collectors.toList()));
-        log.info("unavailabilities founded: {}", unavailabilities.size());
+        log.info("Unavailabilities founded: {}", unavailabilities.size());
 
-        Map<Boolean, List<Unavailabilities>> groups = models
-                .stream()
+        Map<Boolean, List<Unavailabilities>> groups = models.stream()
                 .collect(Collectors.partitioningBy(unavailabilities::contains));
-        log.info("unavailabilities for update: {}", groups.get(Boolean.FALSE).size());
-        log.info("unavailabilities for insert: {}", groups.get(Boolean.TRUE).size());
+        log.info("Unavailabilities for insert: {}; for update: {}", groups.get(Boolean.FALSE).size(), groups.get(Boolean.TRUE).size());
 
         availabilitiesRepo.saveAll(groups.get(Boolean.FALSE));
 

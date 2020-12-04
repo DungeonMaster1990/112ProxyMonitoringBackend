@@ -69,7 +69,7 @@ public abstract class BaseSmWorker<T extends VmBaseModel, U extends BaseSmModel>
             update = updatesRepository.getUpdateEntityByServiceName(workerName);
             var updateTime = update.getUpdateTime().toInstant();
 
-            log.info("Try to load for service: {}, updateTime: {}, request: {}",
+            log.debug("Try to load for service: {}, updateTime: {}, request: {}",
                     workerName,
                     updateTime,
                     url
@@ -116,7 +116,7 @@ public abstract class BaseSmWorker<T extends VmBaseModel, U extends BaseSmModel>
         repository.putModels(models);
         updatesRepository.putUpdate(update);
 
-        log.info("Put data to db for sm service: {}, new updateTime: {}",
+        log.info("Put {} items to db for sm service: {}, new updateTime: {}", models.size(),
                 workerName,
                 update.getUpdateTime().toInstant()
         );
