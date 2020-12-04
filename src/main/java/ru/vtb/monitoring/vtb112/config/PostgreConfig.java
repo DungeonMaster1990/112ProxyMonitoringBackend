@@ -23,8 +23,6 @@ public class PostgreConfig {
 
     @Value("${spring.jpa.properties.hibernate.dialect}")
     private String hibernateDialect;
-    @Value("${spring.jpa.properties.hibernate.jdbc.time-zone}")
-    protected String hibernateTimeZone;
 
     @Bean
     @Primary
@@ -60,7 +58,6 @@ public class PostgreConfig {
         em.setJpaVendorAdapter(vendorAdapter);
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("hibernate.dialect", hibernateDialect);
-        properties.put("hibernate.jdbc.time_zone", hibernateTimeZone);
         em.setJpaPropertyMap(properties);
         return em;
     }
