@@ -81,10 +81,6 @@ public class VerticaWorker {
                         smDefMeasurementVerticaList
                                 .stream()
                                 .map(verticaMapper::mapToSmDefMeasurementApi)
-                                .map(smDefMeasurementApi -> {
-                                    smDefMeasurementApi.setId(1);
-                                    return smDefMeasurementApi;
-                                })
                                 .collect(Collectors.toList());
                 smDefMeasurementApiList.forEach(x-> {
                     x.setCreationDate(dateFormatterHelper.dbDateToZonedDate(x.getCreationDate(),"Europe/Moscow", "UTC"));
