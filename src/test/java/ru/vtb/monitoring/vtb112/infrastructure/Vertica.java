@@ -43,7 +43,7 @@ public class Vertica extends GenericContainer<Vertica> {
         super.start();
         System.setProperty("VERTICA_URL", getJdbcUrl());
         System.setProperty("VERTICA_USER", VERTICA_DB_USER);
-        runSqlScript("vertica_test_data.sql");
+        runSqlScript("create_schema.sql");
     }
 
     public void runSqlScript(String sqlFileName) throws RuntimeException {

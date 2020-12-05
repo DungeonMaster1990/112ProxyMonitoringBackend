@@ -24,8 +24,6 @@ public class VerticaConfig {
 
     @Value("${vertica.hibernate.dialect}")
     private String hibernateDialect;
-    @Value("${spring.jpa.properties.hibernate.jdbc.time-zone}")
-    protected String hibernateTimeZone;
     @Value("${vertica.hibernate.connection.pool-size}")
     private String poolSize;
 
@@ -50,7 +48,6 @@ public class VerticaConfig {
         em.setJpaVendorAdapter(vendorAdapter);
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("hibernate.dialect", hibernateDialect);
-        properties.put("hibernate.jdbc.time_zone", hibernateTimeZone);
         properties.put("hibernate.connection.pool_size", poolSize);
         em.setJpaPropertyMap(properties);
 

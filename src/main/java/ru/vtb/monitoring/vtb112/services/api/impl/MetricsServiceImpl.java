@@ -13,7 +13,7 @@ import ru.vtb.monitoring.vtb112.services.api.interfaces.MetricsService;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 
 @Service
@@ -84,7 +84,7 @@ public class MetricsServiceImpl implements MetricsService {
 
     private VmMetricInfoResponse toMetricInfoResponse(ResultSet rs) throws SQLException {
         return VmMetricInfoResponse.builder()
-                .date(rs.getObject("time_stamp", OffsetDateTime.class).toZonedDateTime())
+                .date(rs.getTimestamp("time_stamp").toInstant().atOffset(ZoneOffset.UTC).toZonedDateTime())
                 .deltaStatus(BlMetricsStatus.resolve(rs.getInt("raw_threshold_quality")))
                 .deltaPercent(0)
                 .delta(0)

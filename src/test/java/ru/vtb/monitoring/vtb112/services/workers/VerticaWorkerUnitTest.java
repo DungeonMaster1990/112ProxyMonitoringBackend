@@ -1,4 +1,4 @@
-package ru.vtb.monitoring.vtb112.workesr;
+package ru.vtb.monitoring.vtb112.services.workers;
 
 
 import org.junit.jupiter.api.Assertions;
@@ -16,7 +16,6 @@ import ru.vtb.monitoring.vtb112.db.vertica.models.SmRawdataMeasVertica;
 import ru.vtb.monitoring.vtb112.db.vertica.repositories.interfaces.SmRawDataMeasVerticaRepository;
 import ru.vtb.monitoring.vtb112.infrastructure.PostgreSQL;
 import ru.vtb.monitoring.vtb112.infrastructure.Vertica;
-import ru.vtb.monitoring.vtb112.services.workers.VerticaWorker;
 
 import java.time.ZonedDateTime;
 import java.util.Arrays;
@@ -31,10 +30,8 @@ public class VerticaWorkerUnitTest extends PostgreSQL {
 
     @MockBean
     private SmRawDataMeasVerticaRepository repository;
-
     @Autowired
     private VerticaWorker verticaWorker;
-
     @Autowired
     private SmRawdataMeasApiRepository smRawdataMeasApiRepository;
 

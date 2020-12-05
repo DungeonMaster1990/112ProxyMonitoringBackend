@@ -2,7 +2,6 @@ package ru.vtb.monitoring.vtb112.services.workers;
 
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
@@ -22,7 +21,6 @@ import java.time.ZonedDateTime;
 import java.util.Comparator;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 @Testcontainers(disabledWithoutDocker = true)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -50,6 +48,7 @@ class VerticaWorkerTest extends PostgreSQL {
     @BeforeAll
     public void setUp() {
         initialRawDataCount += rawDataMeasApiRepository.findAll().size();
+        Vertica.getInstance().runSqlScript("base_data.sql");
     }
 
     @Test
@@ -79,8 +78,13 @@ class VerticaWorkerTest extends PostgreSQL {
     @Test
     @Order(3)
     void testVerticaNewDataUploading() {
-        Vertica.getInstance().runSqlScript("vertica_new_data.sql"); //12 new rows for uploading
+        Vertica.getInstance().runSqlScript("new_data.sql"); //12 new rows for uploading
         testTakeSmRawDataMeasVertica();
         Assertions.assertEquals(25, rawDataMeasApiRepository.findAll().size() - initialRawDataCount);
+    }
+
+    @AfterAll
+    public void tearDown() {
+        Vertica.getInstance().runSqlScript("drop_data.sql");
     }
 }
