@@ -1,5 +1,6 @@
 package ru.vtb.monitoring.vtb112.dto.api.viewmodels.request;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -14,6 +15,7 @@ import ru.vtb.monitoring.vtb112.dto.api.viewmodels.enums.VmPlanSection;
 @EqualsAndHashCode(callSuper = true)
 public class VmPlanRequest extends VmPageRequestBase {
 
+    @ApiModelProperty(value = "Ключевое слово для поиска", example = "Авария")
     private String keyword;
     private VmPlanSection planSectionID;
 
