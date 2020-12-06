@@ -27,6 +27,7 @@ public class VmPlanRequest extends VmPageRequestBase {
     @Min(1)
     @Max(3)
     @JsonAlias("planSectionID")
+    @ApiModelProperty(value = "Идентификатор секции плановых работ", example = "'1'")
     private Integer planSectionId;
     @Nullable
     @ApiModelProperty(value = "Дата начала плановой работы", example = "2020-06-26T18:00:00Z")
