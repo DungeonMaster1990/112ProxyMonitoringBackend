@@ -3,10 +3,12 @@ package ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.vtb.monitoring.vtb112.db.pg.models.Unavailabilities;
 import ru.vtb.monitoring.vtb112.db.pg.models.dto.GroupedUnavailabilities;
 
+import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -20,10 +22,12 @@ public interface UnavailabilitiesRepository extends JpaRepository<Unavailabiliti
                 join Incident i
                   on u.faultId = i.incidentId
                where i.status is not null
-                 and i.status not in ('Закрыто', 'Завершено')
+                 and i.status not in (:closedStatuses)
+                 and i.identedAt is not null
               group by u.serviceName
               order by count(u.serviceName) desc
             """)
-    List<GroupedUnavailabilities> getTopUnavailabilities(Pageable pageable);
+    List<GroupedUnavailabilities> getTopUnavailabilities(@Param("closedStatuses") Collection<String> closedStatuses,
+                                                         Pageable pageable);
 
 }

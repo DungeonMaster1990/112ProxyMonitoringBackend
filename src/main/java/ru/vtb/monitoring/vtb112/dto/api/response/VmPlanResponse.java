@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import ru.vtb.monitoring.vtb112.dto.api.enums.BlPlanStatusType;
 
 import java.time.ZonedDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -27,7 +27,7 @@ public class VmPlanResponse {
     @ApiModelProperty(value = "Описание плановой работы", example = "Описание")
     private String description;
     @ApiModelProperty(value = "Затронутые системы", example = "[\"Платежи\",\"Переводы\"]")
-    private List<String> affectedSystems;
+    private Set<String> affectedSystems;
     @ApiModelProperty(value = "Плановое начало", example = "2020-06-26T18:31:42Z")
     private ZonedDateTime startDate;
 

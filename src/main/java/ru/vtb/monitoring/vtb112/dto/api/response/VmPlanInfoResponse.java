@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import ru.vtb.monitoring.vtb112.dto.api.enums.BlPlanStatusType;
 
 import java.time.ZonedDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -23,7 +23,7 @@ public class VmPlanInfoResponse {
     private String impactDescription;
     private String degradationRate;
     private String configurationUnit;
-    private List<String> affectedSystems;
+    private Set<String> affectedSystems;
     private ZonedDateTime startDate;
     private ZonedDateTime finishDate;
     private ZonedDateTime startDownDate;

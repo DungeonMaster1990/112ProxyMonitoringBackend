@@ -61,7 +61,7 @@ class MappersTest extends PostgreSQL {
                 .faultId("1")
                 .endAt(ZonedDateTime.now())
                 .updatedAt(ZonedDateTime.now())
-                .updatedById(100)
+                .updatedById("Иванов И.И.")
                 .type("Type")
                 .build();
         Unavailabilities savedUnavailabilities = unavailabilitiesRepository.save(
@@ -91,11 +91,12 @@ class MappersTest extends PostgreSQL {
 
         change.setMiddle(middle);
 
-        Changes savedChanges = changesRepository.save(
-                changesMapper.mapToResponse(change));
+        Changes savedChanges = changesRepository.save(changesMapper.mapToResponse(change));
         assertEquals("ID_1", savedChanges.getChangeId());
-        assertEquals(middleStart, savedChanges.getPlannedStartAt());
-        assertEquals(middleEnd, savedChanges.getPlannedEndAt());
+        assertEquals(headerStart, savedChanges.getPlannedStartAt());
+        assertEquals(headerEnd, savedChanges.getPlannedEndAt());
+        assertEquals(middleStart, savedChanges.getSchedOutageStartAt());
+        assertEquals(middleEnd, savedChanges.getSchedOutageEndAt());
     }
 
 }
