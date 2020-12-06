@@ -5,10 +5,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.VmSystemResponse;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.VmUpdateResponse;
-import ru.vtb.monitoring.vtb112.mocks.VmMock;
+import ru.vtb.monitoring.vtb112.dto.api.response.VmSystemResponse;
+import ru.vtb.monitoring.vtb112.dto.api.response.VmUpdateResponse;
 import ru.vtb.monitoring.vtb112.services.api.interfaces.SystemsService;
+
+import javax.validation.constraints.Min;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = PathConstants.SYSTEMS, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -21,17 +23,17 @@ public class SystemsController {
     }
 
     @GetMapping
-    public VmSystemResponse[] get(@RequestParam int page, @RequestParam int limit) {
-        return VmMock.vmSystemResponse;
+    public List<VmSystemResponse> get(@RequestParam @Min(1) int page, @RequestParam @Min(1) int limit) {
+        return systemsService.get(page, limit);
     }
 
     @GetMapping("/affected")
-    public String[] getAffectedSystem() {
-        return VmMock.affectedSystems;
+    public List<String> getAffectedServices() {
+        return systemsService.getTop10Unavailabilities();
     }
 
     @GetMapping("/update")
     public VmUpdateResponse updateSystems() {
-        return VmMock.updateMetricsOrSystem;
+        return new VmUpdateResponse(true);
     }
 }

@@ -1,7 +1,7 @@
 package ru.vtb.monitoring.vtb112.repositories;
 
 import com.sun.istack.NotNull;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -42,14 +42,14 @@ class IncidentRepositoryImplTest extends PostgreSQL {
                 .findFirst()
                 .orElse(null);
 
-        Assert.assertEquals("Изменение в описании", description);
-        Assert.assertNotNull(newIncident);
+        Assertions.assertEquals("Изменение в описании", description);
+        Assertions.assertNotNull(newIncident);
     }
 
     @NotNull
     private Incident makeIncident(int i, String incidentId) {
         Incident incident = new Incident();
-        incident.setIncidentId(incidentId +" I_" + i);
+        incident.setIncidentId(incidentId + " I_" + i);
         incident.setSpecialistId("Иванов Василий " + i);
         incident.setDescription("Проблема");
         incident.setCreatedAt(ZonedDateTime.now());

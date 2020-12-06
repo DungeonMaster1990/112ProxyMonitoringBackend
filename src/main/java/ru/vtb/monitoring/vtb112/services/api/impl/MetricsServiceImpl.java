@@ -4,13 +4,14 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Service;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.enums.BlMetricsStatus;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmMetricInfoRequest;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmMetricsRequest;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.VmMetricInfoResponse;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.VmMetricsResponse;
+import ru.vtb.monitoring.vtb112.dto.api.enums.BlMetricsStatus;
+import ru.vtb.monitoring.vtb112.dto.api.request.VmMetricInfoRequest;
+import ru.vtb.monitoring.vtb112.dto.api.request.VmMetricsRequest;
+import ru.vtb.monitoring.vtb112.dto.api.response.VmMetricInfoResponse;
+import ru.vtb.monitoring.vtb112.dto.api.response.VmMetricsResponse;
 import ru.vtb.monitoring.vtb112.services.api.interfaces.MetricsService;
 
+import javax.validation.Valid;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.ZoneOffset;
@@ -26,18 +27,13 @@ public class MetricsServiceImpl implements MetricsService {
     }
 
     @Override
-    public List<VmMetricsResponse> getMetrics(VmMetricsRequest vmMetricsRequest) {
+    public List<VmMetricsResponse> getMetrics(VmMetricsRequest request) {
         // TODO Пока в постановке задачи нет четкого описания как группировать значения measurements
         // так что просто берем последнее по времени значение
         String allMetricsQry = """
                 select m.id as id,
                        m.msname as name,
-                       false as mine,
-                       vals.meas_value as value,
-                       0 as delta,
-                       0 as deltaPercent,
-                       0 as deltaStatus,
-                       0 as totalPercent
+                       vals.meas_value as value
                   from monitoring.metrics m
                   join (select distinct on (measurement_id) meas_value, 
                                measurement_id, 
@@ -51,17 +47,19 @@ public class MetricsServiceImpl implements MetricsService {
                 OFFSET :offset
                 """;
 
+        String keyword = "%" + (request.getKeyword() == null ? "" : request.getKeyword().toLowerCase()) + "%";
+
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource()
-                .addValue("limit", vmMetricsRequest.getLimit())
-                .addValue("offset", (vmMetricsRequest.getPage() - 1) * vmMetricsRequest.getLimit())
-                .addValue("keyword", "%" + vmMetricsRequest.getKeyword().toLowerCase() + "%");
+                .addValue("limit", request.getLimit())
+                .addValue("offset", (request.getPage() - 1) * request.getLimit())
+                .addValue("keyword", keyword);
 
         return namedParameterJdbcTemplate.query(
                 allMetricsQry, sqlParameterSource, (rs, rowNum) -> toMetricsResponse(rs));
     }
 
     @Override
-    public List<VmMetricInfoResponse> getMetricsInfos(VmMetricInfoRequest vmMetricInfoRequest) {
+    public List<VmMetricInfoResponse> getMetricsInfos(@Valid VmMetricInfoRequest vmMetricInfoRequest) {
         String metricInfosQry = """
                 select id, time_stamp , measurement_id , meas_value , raw_threshold_quality
                   from monitoring.sm_rawdata_meas srm
@@ -97,12 +95,8 @@ public class MetricsServiceImpl implements MetricsService {
                 .builder()
                 .id(rs.getString("id"))
                 .name(rs.getString("name"))
-                .mine(rs.getBoolean("mine"))
                 .value(String.format("%,d", rs.getLong("value")))
-                .delta(rs.getLong("delta"))
-                .deltaPercent(rs.getDouble("deltaPercent"))
-                .deltaStatus(BlMetricsStatus.resolve(rs.getInt("deltaStatus")))
-                .totalPercent(0)
+                .deltaStatus(BlMetricsStatus.normal)
                 .build();
     }
 }

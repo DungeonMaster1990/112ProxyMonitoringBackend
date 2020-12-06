@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import ru.vtb.monitoring.vtb112.db.pg.models.PushTokens;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.PushTokenRepository;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.PushTokenRepositoryCustom;
-import ru.vtb.monitoring.vtb112.services.helpers.interfaces.DateFormatterHelper;
+import ru.vtb.monitoring.vtb112.utils.DateUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,9 +26,6 @@ public class PushTokenRepositoryImpl implements PushTokenRepositoryCustom {
     private PushTokenRepository pushTokenRepository;
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    @Autowired
-    private DateFormatterHelper dateFormatterHelper;
-
 
     @Override
     public Boolean pushToken(PushTokens pushToken) {
@@ -70,8 +67,8 @@ public class PushTokenRepositoryImpl implements PushTokenRepositoryCustom {
                 .builder()
                 .id(rs.getInt("id"))
                 .token(rs.getString("token"))
-                .installId(rs.getString("installId"))
-                .updateTokenDate(dateFormatterHelper.dbDateToZonedDate(rs.getTimestamp("update_token_date"), "UTC"))
+                .installId(rs.getString("install_id"))
+                .updateTokenDate(DateUtil.dbDateToZonedDate(rs.getTimestamp("update_token_date"), "UTC"))
                 .build();
     }
 }

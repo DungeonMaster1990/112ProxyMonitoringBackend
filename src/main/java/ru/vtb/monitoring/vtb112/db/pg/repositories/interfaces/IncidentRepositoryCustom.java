@@ -11,16 +11,6 @@ import java.util.Set;
 @Repository
 public interface IncidentRepositoryCustom extends SmRepository<Incident> {
 
-    List<Incident> getAllVtbIncidents();
-
-    List<Incident> getTimeFilteredVtbIncidents(long daysDiff);
-
-    void putVtbIncidents(List<Incident> incidents);
-
-    Incident getVtbIncident(int id);
-
-    List<Incident> getVtbIncidents(List<String> incidentIds);
-
     List<Incident> getTimeFilteredNonSentVtbIncidents(long daysDiff);
 
     void markAsNotificationSent(Set<Integer> incidentsIds);

@@ -35,5 +35,5 @@ public class Metrics {
     private Integer monitorId;
 
     @Column(name = "is_merged", nullable = false)
-    private boolean isMerged;
+    private boolean merged;
 }

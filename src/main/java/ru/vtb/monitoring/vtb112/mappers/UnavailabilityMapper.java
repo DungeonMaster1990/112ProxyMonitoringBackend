@@ -4,7 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import ru.vtb.monitoring.vtb112.db.pg.models.Unavailabilities;
-import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmSmUnavailability;
+import ru.vtb.monitoring.vtb112.dto.sm.response.VmSmUnavailability;
 
 import java.time.Duration;
 

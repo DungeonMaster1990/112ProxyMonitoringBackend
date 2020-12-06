@@ -13,9 +13,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.enums.VmPlanSection;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmPlanRequest;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmPlanSectionRequest;
+import ru.vtb.monitoring.vtb112.dto.api.enums.VmPlanSection;
+import ru.vtb.monitoring.vtb112.dto.api.request.VmPlanRequest;
+import ru.vtb.monitoring.vtb112.dto.api.request.VmPlanSectionRequest;
 import ru.vtb.monitoring.vtb112.infrastructure.PostgreSQL;
 
 import java.io.File;
@@ -51,7 +51,7 @@ class PlansControllerTest extends PostgreSQL {
         VmPlanRequest request = VmPlanRequest.builder()
                 .limit(10)
                 .page(1)
-                .planSectionID(VmPlanSection.emergency)
+                .planSectionId(VmPlanSection.EMERGENCY.getId())
                 .build();
         mockMvc.perform(MockMvcRequestBuilders
                 .post(PathConstants.PLANS)
@@ -80,7 +80,7 @@ class PlansControllerTest extends PostgreSQL {
         VmPlanRequest request = VmPlanRequest.builder()
                 .limit(0)
                 .page(2)
-                .planSectionID(VmPlanSection.emergency)
+                .planSectionId(VmPlanSection.EMERGENCY.getId())
                 .build();
         mockMvc.perform(MockMvcRequestBuilders
                 .post(PathConstants.PLANS)
@@ -103,7 +103,7 @@ class PlansControllerTest extends PostgreSQL {
         VmPlanRequest request = VmPlanRequest.builder()
                 .limit(3)
                 .page(2)
-                .planSectionID(VmPlanSection.emergency)
+                .planSectionId(VmPlanSection.EMERGENCY.getId())
                 .keyword("Измен")
                 .build();
         mockMvc.perform(MockMvcRequestBuilders
@@ -113,8 +113,7 @@ class PlansControllerTest extends PostgreSQL {
                 .content(objectMapper.writeValueAsString(request)))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[*])", hasSize(2)))
-                .andExpect(jsonPath("$[0]['affectedSystems'][*])", hasSize(2)));
+                .andExpect(jsonPath("$[*])", hasSize(2)));
     }
 
     @Test
@@ -154,7 +153,7 @@ class PlansControllerTest extends PostgreSQL {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$['manager']['name'])").value("Иванов Василий"))
-                .andExpect(jsonPath("$['workers'][0]['name'])").value("Петов Иван"));
+                .andExpect(jsonPath("$['workers'][0]['name'])").value("Петров Иван"));
     }
 
     @Test
@@ -175,7 +174,8 @@ class PlansControllerTest extends PostgreSQL {
                 .contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0]['name'])").value("Подробное описание"));
+                .andExpect(jsonPath("$[0]['name'])").value("Для сотрудников"))
+                .andExpect(jsonPath("$[0]['value'])").value("Подробное описание"));
     }
 
     @NotNull

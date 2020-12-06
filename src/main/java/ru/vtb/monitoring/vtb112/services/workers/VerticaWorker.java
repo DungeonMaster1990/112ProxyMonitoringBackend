@@ -21,7 +21,6 @@ import ru.vtb.monitoring.vtb112.db.vertica.models.SmRawdataMeasVertica;
 import ru.vtb.monitoring.vtb112.db.vertica.repositories.interfaces.SmDefMeasurementVerticaRepository;
 import ru.vtb.monitoring.vtb112.db.vertica.repositories.interfaces.SmRawDataMeasVerticaRepository;
 import ru.vtb.monitoring.vtb112.mappers.VerticaMapper;
-import ru.vtb.monitoring.vtb112.services.helpers.interfaces.DateFormatterHelper;
 
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
@@ -69,7 +68,7 @@ public class VerticaWorker {
     @Scheduled(fixedRateString = "${vertica.scheduler.fixedRate}")
     public void takeSmDefMeasurementVertica() {
         try {
-            List<Metrics> metrics = metricsRepository.findByIsMerged(false);
+            List<Metrics> metrics = metricsRepository.findByMerged(false);
             if (!metrics.isEmpty()) {
                 List<SmDefMeasurementVertica> smDefMeasurementVerticaList =
                         smDefMeasurementVerticaRepository.getSmDefMeasurements(metrics);
@@ -94,7 +93,7 @@ public class VerticaWorker {
     @Scheduled(fixedRateString = "${vertica.scheduler.fixedRate}")
     public void takeSmRawDataMeasVertica() {
         Updates update = updatesRepository.getUpdateEntityByServiceName(WorkerName.VERTICA_SM_RAW_DATA.getName());
-        List<Integer> measurementIds = metricsRepository.findByIsMerged(true)
+        List<Integer> measurementIds = metricsRepository.findByMerged(true)
                 .stream()
                 .map(Metrics::getMeasurementId)
                 .collect(Collectors.toList());

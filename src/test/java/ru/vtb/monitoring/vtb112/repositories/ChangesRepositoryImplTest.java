@@ -1,7 +1,7 @@
 package ru.vtb.monitoring.vtb112.repositories;
 
 import com.sun.istack.NotNull;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,14 +38,19 @@ class ChangesRepositoryImplTest extends PostgreSQL {
                 .findFirst()
                 .orElse(null);
 
-        Assert.assertEquals("Изменение в описании", description);
-        Assert.assertNotNull(newChange);
+        Assertions.assertEquals("Изменение в описании", description);
+        Assertions.assertNotNull(newChange);
+    }
+
+    @Test
+    void testGetGroupedChanges() {
+
     }
 
     @NotNull
     private Changes makeChange(int i, String changeId) {
         Changes changes = new Changes();
-        changes.setChangeId(changeId +" S_" + i);
+        changes.setChangeId(changeId + " S_" + i);
         changes.setDescription("Описание");
         return changes;
     }

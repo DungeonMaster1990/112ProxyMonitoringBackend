@@ -4,12 +4,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.vtb.monitoring.vtb112.config.AppConfig;
-import ru.vtb.monitoring.vtb112.db.pg.models.AffectedSystem;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.IncidentRepository;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.converters.IncidentStatusConverter;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmAccidentsRequest;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.*;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.submodels.VmManager;
+import ru.vtb.monitoring.vtb112.dto.api.request.VmAccidentsRequest;
+import ru.vtb.monitoring.vtb112.dto.api.response.*;
+import ru.vtb.monitoring.vtb112.mappers.IncidentMapper;
 import ru.vtb.monitoring.vtb112.services.api.interfaces.IncidentService;
 
 import java.util.Collections;
@@ -21,47 +19,32 @@ public class IncidentServiceImpl implements IncidentService {
 
     private final IncidentRepository incidentDAO;
     private final List<String> supportedCategories;
+    private final IncidentMapper incidentMapper;
 
-    public IncidentServiceImpl(AppConfig appConfig, IncidentRepository incidentDAO) {
+    public IncidentServiceImpl(AppConfig appConfig, IncidentRepository incidentDAO, IncidentMapper incidentMapper) {
         this.supportedCategories = appConfig.getSupportedCategories();
         this.incidentDAO = incidentDAO;
+        this.incidentMapper = incidentMapper;
     }
 
     @Override
     @Transactional
     public List<VmAccidentResponse> getAccidents(VmAccidentsRequest request) {
-        var paging = PageRequest.of(request.getPage(), request.getLimit());
+        var paging = PageRequest.of(request.getPage() - 1, request.getLimit());
         return incidentDAO.allByCriteria(supportedCategories,
                 request.getAffectedSystems(),
                 request.getStartDate(),
                 request.getKeyword(),
                 paging)
                 .stream()
-                .map(incident -> new VmAccidentResponse(
-                        incident.getId().toString(),
-                        incident.getIncidentId(),
-                        incident.getPriority() == null ? 0 : Integer.parseInt(incident.getPriority()),
-                        IncidentStatusConverter.convertToStatus(
-                                incident.getStatus(),
-                                incident.getFactEndAt(),
-                                incident.getExpiredAt()
-                        ),
-                        IncidentStatusConverter.convertToStatusType(incident.getStatus()),
-                        incident.getDescription(),
-                        incident.getAffectedSystems()
-                                .stream()
-                                .map(AffectedSystem::getName)
-                                .collect(Collectors.toList()),
-                        incident.getIdentedAt()))
+                .map(incidentMapper::mapToApiResponse)
                 .collect(Collectors.toList());
     }
 
     @Override
     public VmNewAccidentResponse getNewAccident() {
         return incidentDAO.findMaxByCreatedDate()
-                .map(incident -> new VmNewAccidentResponse(
-                        incident.getId().toString(),
-                        incident.getIncidentId()))
+                .map(incidentMapper::mapToApiNewResponse)
                 .orElse(null);
     }
 
@@ -69,38 +52,14 @@ public class IncidentServiceImpl implements IncidentService {
     @Transactional
     public VmAccidentInfoResponse getAccidentInfo(Integer id) {
         return incidentDAO.findById(id)
-                .map(incident -> new VmAccidentInfoResponse(
-                        incident.getId().toString(),
-                        incident.getIncidentId(),
-                        incident.getPriority() == null ? 0 : Integer.parseInt(incident.getPriority()),
-                        IncidentStatusConverter.convertToStatus(
-                                incident.getStatus(),
-                                incident.getFactEndAt(),
-                                incident.getExpiredAt()
-                        ),
-                        IncidentStatusConverter.convertToStatusType(incident.getStatus()),
-                        incident.getDescription(),
-                        incident.getImpact(),
-                        incident.getFailurePoint(),
-                        "М-Банк",
-                        incident.getAffectedSystems()
-                                .stream()
-                                .map(AffectedSystem::getName)
-                                .collect(Collectors.toList()),
-                        incident.getCreatedAt(),
-                        incident.getIdentedAt(),
-                        incident.getExpiredAt(),
-                        "https://bankvtb.webex.com/meet/xxx",
-                        "https://t.me/vtb"))
+                .map(incidentMapper::mapToApiInfoResponse)
                 .orElse(null);
     }
 
     @Override
     public VmAccidentWorkersResponse getWorkers(Integer id) {
         return incidentDAO.findById(id)
-                .map(incident -> new VmAccidentWorkersResponse(
-                        new VmManager(incident.getSpecialistId(), null, null),
-                        Collections.emptyList()))
+                .map(incidentMapper::mapToWorkersResponse)
                 .orElse(null);
     }
 
@@ -108,7 +67,7 @@ public class IncidentServiceImpl implements IncidentService {
     public List<VmAccidentDescriptionResponse> getAccidentDescriptions(Integer id) {
         return incidentDAO.findById(id)
                 .map(incident -> Collections.singletonList(
-                        new VmAccidentDescriptionResponse(incident.getDescription(), null)))
-                .orElse(null);
+                        incidentMapper.mapToDescriptionResponse(incident)))
+                .orElse(Collections.emptyList());
     }
 }

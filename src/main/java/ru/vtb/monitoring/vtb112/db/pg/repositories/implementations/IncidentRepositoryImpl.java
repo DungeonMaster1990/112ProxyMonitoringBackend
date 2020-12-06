@@ -17,7 +17,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
-import java.time.Clock;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +39,6 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
     private IncidentMapper incidentMapper;
 
     @Override
-    public List<Incident> getAllVtbIncidents() {
-        TypedQuery<Incident> vtbIncidentsQuery = entityManager.createQuery("select a from Incidents a", Incident.class);
-        return vtbIncidentsQuery.getResultList();
-    }
-
-    @Override
     public List<Incident> getTimeFilteredNonSentVtbIncidents(long daysDiff) {
         String qryString = """
                 select i 
@@ -65,39 +58,6 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
         entityManager.createQuery("update Incident set notificationSent = true where id in (:ids)")
                 .setParameter("ids", incidentsIds)
                 .executeUpdate();
-    }
-
-    @Override
-    public List<Incident> getTimeFilteredVtbIncidents(long daysDiff) {
-        Clock cl = Clock.systemUTC();
-        ZonedDateTime dt = ZonedDateTime.now(cl).minusDays(daysDiff);
-        return entityManager.createQuery(String.format("select incident from VtbIncidents incident where incident.factBeginAt >= timestamp '%d'", dt), Incident.class)
-                .getResultList();
-    }
-
-    @Override
-    @Transactional
-    public void putVtbIncidents(List<Incident> incidents) {
-        entityManager.getTransaction().begin();
-        for (Incident vtbIncident : incidents) {
-            entityManager.persist(vtbIncident);
-        }
-        entityManager.getTransaction().commit();
-    }
-
-    @Override
-    public Incident getVtbIncident(int id) {
-        String query = String.format("select a from VtbIncidents a where a.id=%s;", id);
-        return entityManager.createQuery(query, Incident.class)
-                .getSingleResult();
-    }
-
-    @Override
-    public List<Incident> getVtbIncidents(List<String> incidentIds) {
-        String idsString = String.join(", ", incidentIds);
-        String query = String.format("select a from VtbIncidents a where a.incident_id in %s;", idsString);
-        return entityManager.createQuery(query, Incident.class).
-                getResultList();
     }
 
     @Override
@@ -123,6 +83,7 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
         incidentRepository.saveAll(incidents);
     }
 
+    @Override
     public List<Incident> allByCriteria(List<String> categories,
                                         List<String> affectedSystems,
                                         ZonedDateTime startDate,
@@ -153,7 +114,7 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
 
         criteriaQuery.where(predicates.toArray(new Predicate[0]));
         TypedQuery<Incident> query = entityManager.createQuery(criteriaQuery);
-        query.setFirstResult((paging.getPageNumber() - 1) * paging.getPageSize());
+        query.setFirstResult(paging.getPageNumber() * paging.getPageSize());
         query.setMaxResults(paging.getPageSize());
 
         return query.getResultList();

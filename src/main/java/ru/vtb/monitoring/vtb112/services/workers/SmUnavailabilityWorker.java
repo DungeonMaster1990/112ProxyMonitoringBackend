@@ -7,7 +7,7 @@ import ru.vtb.monitoring.vtb112.config.AppConfig;
 import ru.vtb.monitoring.vtb112.db.pg.models.Unavailabilities;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.UnavailabilitiesRepository;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.UpdatesRepository;
-import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmSmUnavailability;
+import ru.vtb.monitoring.vtb112.dto.sm.response.VmSmUnavailability;
 import ru.vtb.monitoring.vtb112.mappers.UnavailabilityMapper;
 
 @ConditionalOnProperty(value = "sm.scheduling.enabled", havingValue = "true", matchIfMissing = true)

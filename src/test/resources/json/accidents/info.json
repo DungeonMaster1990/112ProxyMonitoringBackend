@@ -1,12 +1,13 @@
 {
-  "id":"5",
-  "name":"Инцидент А_5",
-  "category":3,
-  "configurationUnit":"М-Банк",
-  "affectedSystems":[
-    "Платежи","Переводы"
+  "id": "5",
+  "name": "Инцидент А_5",
+  "category": 3,
+  "configurationUnit": "М-Банк",
+  "affectedSystems": [
+    "Платежи",
+    "Переводы"
   ],
-  "startDate":"2020-11-16T16:00:00+03:00",
-  "conferenceLink":"https://bankvtb.webex.com/meet/xxx",
-  "telegramLink":"https://t.me/vtb"
+  "startDate": "2020-11-16T16:00:00+03:00",
+  "conferenceLink": "https://bankvtb.webex.com/meet/xxx",
+  "telegramLink": "https://t.me/vtb"
 }

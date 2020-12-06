@@ -7,7 +7,7 @@ import ru.vtb.monitoring.vtb112.config.AppConfig;
 import ru.vtb.monitoring.vtb112.db.pg.models.Incident;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.IncidentRepository;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.UpdatesRepository;
-import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmSmIncident;
+import ru.vtb.monitoring.vtb112.dto.sm.response.VmSmIncident;
 import ru.vtb.monitoring.vtb112.mappers.IncidentMapper;
 
 @ConditionalOnProperty(value = "sm.scheduling.enabled", havingValue = "true", matchIfMissing = true)

@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmEventRequest;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.VmEventResponse;
+import ru.vtb.monitoring.vtb112.dto.api.request.VmEventRequest;
+import ru.vtb.monitoring.vtb112.dto.api.response.VmEventResponse;
 import ru.vtb.monitoring.vtb112.mocks.VmMock;
 import ru.vtb.monitoring.vtb112.services.api.interfaces.EventsService;
 

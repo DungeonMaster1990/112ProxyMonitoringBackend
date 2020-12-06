@@ -13,9 +13,9 @@ import ru.vtb.monitoring.vtb112.db.pg.models.BaseSmModel;
 import ru.vtb.monitoring.vtb112.db.pg.models.Updates;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.SmRepository;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.UpdatesRepository;
-import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmBaseModel;
-import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.modelwrappers.VmBaseResponseWrapper;
-import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.modelwrappers.VmModelWrapper;
+import ru.vtb.monitoring.vtb112.dto.sm.response.VmBaseModel;
+import ru.vtb.monitoring.vtb112.dto.sm.response.wrappers.VmBaseResponseWrapper;
+import ru.vtb.monitoring.vtb112.dto.sm.response.wrappers.VmModelWrapper;
 import ru.vtb.monitoring.vtb112.mappers.ResponseMapper;
 
 import java.time.Instant;
