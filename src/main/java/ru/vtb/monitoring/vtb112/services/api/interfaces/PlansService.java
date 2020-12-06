@@ -18,6 +18,10 @@ public interface PlansService {
 
     List<VmPlanSectionsResponse> getSections(ZonedDateTime startDate, ZonedDateTime endDate);
 
-    List<VmPlanResponse> getSection(String category, String keyword, Pageable paging);
+    List<VmPlanResponse> getSection(ZonedDateTime startDate,
+                                    ZonedDateTime endDate,
+                                    String category,
+                                    String keyword,
+                                    Pageable paging);
 
 }
