@@ -32,6 +32,8 @@ public class PlansController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public List<VmPlanResponse> get(@RequestBody @Valid VmPlanRequest request) {
         return plansService.getSection(
+                request.getStartDate(),
+                request.getFinishDate(),
                 VmPlanSection.fromId(request.getPlanSectionId()).getSection(),
                 request.getKeyword(),
                 PageRequest.of(request.getPage() - 1, request.getLimit()));

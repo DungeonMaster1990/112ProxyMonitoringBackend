@@ -7,10 +7,12 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
+import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.time.ZonedDateTime;
 
 @Data
 @SuperBuilder
@@ -26,5 +28,11 @@ public class VmPlanRequest extends VmPageRequestBase {
     @Max(3)
     @JsonAlias("planSectionID")
     private Integer planSectionId;
+    @Nullable
+    @ApiModelProperty(value = "Дата начала плановой работы", example = "2020-06-26T18:00:00Z")
+    private ZonedDateTime startDate;
+    @Nullable
+    @ApiModelProperty(value = "Дата окончания плановой работы", example = "2020-06-26T19:00:00Z")
+    private ZonedDateTime finishDate;
 
 }

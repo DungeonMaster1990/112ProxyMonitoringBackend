@@ -42,8 +42,67 @@ public interface ChangesRepository extends JpaRepository<Changes, Integer>, Chan
     List<GroupedChanges> getCurrentGroupedChanges(@Param("now") ZonedDateTime now,
                                                   @Param("phases") Collection<String> phases);
 
-    List<Changes> findByCategoryAndChangeIdContaining(String category, String keyword, Pageable paging);
+    @Query("""
+                  select c
+                  from Changes c
+                  where c.plannedStartAt <= :now 
+                    and c.plannedEndAt >= :now
+                    and c.currentPhase in (:phases)
+                    and c.category = :category
+                    and LOWER(c.changeId) LIKE LOWER(CONCAT('%',:keyword,'%'))
+                    order by plannedStartAt
+            """)
+    List<Changes> getCurrentChanges(@Param("now") ZonedDateTime now,
+                                    @Param("phases") Collection<String> phases,
+                                    @Param("category") String category,
+                                    @Param("keyword") String keyword,
+                                    Pageable paging);
 
-    List<Changes> findByCategory(String category, Pageable paging);
+    @Query("""
+                  select c
+                  from Changes c
+                  where c.plannedStartAt <= :now 
+                    and c.plannedEndAt >= :now
+                    and c.currentPhase in (:phases)
+                    and c.category = :category
+                    order by plannedStartAt
+            """)
+    List<Changes> getCurrentChanges(@Param("now") ZonedDateTime now,
+                                    @Param("phases") Collection<String> phases,
+                                    @Param("category") String category,
+                                    Pageable paging);
+
+    @Query("""
+                  select c
+                  from Changes c
+                  where c.plannedStartAt >= :startDate
+                    and c.plannedStartAt <= :endDate
+                    and c.currentPhase in (:phases)
+                    and c.category = :category
+                    and LOWER(c.changeId) LIKE LOWER(CONCAT('%',:keyword,'%'))
+                    order by plannedStartAt
+                   
+            """)
+    List<Changes> getPlannedChanges(@Param("startDate") ZonedDateTime startDate,
+                                    @Param("endDate") ZonedDateTime endDate,
+                                    @Param("phases") Collection<String> phases,
+                                    @Param("category") String category,
+                                    @Param("keyword") String keyword,
+                                    Pageable paging);
+
+    @Query("""
+                  select c
+                  from Changes c
+                  where c.plannedStartAt >= :startDate
+                    and c.plannedStartAt <= :endDate
+                    and c.currentPhase in (:phases)
+                    and c.category = :category
+                    order by plannedStartAt
+            """)
+    List<Changes> getPlannedChanges(@Param("startDate") ZonedDateTime startDate,
+                                    @Param("endDate") ZonedDateTime endDate,
+                                    @Param("phases") Collection<String> phases,
+                                    @Param("category") String category,
+                                    Pageable paging);
 
 }

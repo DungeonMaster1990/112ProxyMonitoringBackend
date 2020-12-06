@@ -104,7 +104,50 @@ class PlansControllerTest extends PostgreSQL {
                 .limit(3)
                 .page(2)
                 .planSectionId(VmPlanSection.EMERGENCY.getId())
-                .keyword("Измен")
+                .keyword("ИзМеН")
+                .build();
+        mockMvc.perform(MockMvcRequestBuilders
+                .post(PathConstants.PLANS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(objectMapper.writeValueAsString(request)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[*])", hasSize(2)));
+    }
+
+    @Test
+    void testPlannedPlansWithKeyword() throws Exception {
+        VmPlanRequest request = VmPlanRequest.builder()
+                .limit(100)
+                .page(1)
+                .planSectionId(VmPlanSection.NORMAL.getId())
+                .startDate(ZonedDateTime.now().minusDays(3).minusHours(2))
+                .finishDate(ZonedDateTime.now().plusDays(3).plusHours(2))
+                .keyword("im")
+                .build();
+        mockMvc.perform(MockMvcRequestBuilders
+                .post(PathConstants.PLANS)
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(objectMapper.writeValueAsString(request)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[*])", hasSize(4)))
+                .andExpect(jsonPath("$[0]['name'])").value("Изменение IM-11"))
+                .andExpect(jsonPath("$[1]['name'])").value("Изменение IM-10"))
+                .andExpect(jsonPath("$[2]['name'])").value("Изменение IM-9"))
+                .andExpect(jsonPath("$[3]['name'])").value("Изменение IM-8"));
+    }
+
+    @Test
+    void testPlannedPlansNoKeyword() throws Exception {
+        VmPlanRequest request = VmPlanRequest.builder()
+                .limit(100)
+                .page(1)
+                .planSectionId(VmPlanSection.STANDARD.getId())
+                .startDate(ZonedDateTime.now().minusDays(3).minusHours(2))
+                .finishDate(ZonedDateTime.now().plusDays(3).plusHours(2))
                 .build();
         mockMvc.perform(MockMvcRequestBuilders
                 .post(PathConstants.PLANS)
@@ -119,8 +162,8 @@ class PlansControllerTest extends PostgreSQL {
     @Test
     void testPlansSections() throws Exception {
         VmPlanSectionRequest request = VmPlanSectionRequest.builder()
-                .startDate(ZonedDateTime.parse("2020-11-09T15:00:00.00000+03:00"))
-                .finishDate(ZonedDateTime.parse("2020-11-21T19:00:00.00000+03:00"))
+                .startDate(ZonedDateTime.now().minusDays(3))
+                .finishDate(ZonedDateTime.now().plusDays(3))
                 .build();
         mockMvc.perform(MockMvcRequestBuilders
                 .post(PathConstants.PLANS + "/sections")

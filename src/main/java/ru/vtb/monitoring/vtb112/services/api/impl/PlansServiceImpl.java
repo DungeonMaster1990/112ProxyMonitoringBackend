@@ -56,11 +56,19 @@ public class PlansServiceImpl implements PlansService {
     }
 
     @Override
-    public List<VmPlanResponse> getSection(String category, String keyword, Pageable paging) {
-        List<Changes> foundedChanges = StringUtils.isEmpty(keyword)
-                ? changesRepository.findByCategory(category, paging)
-                : changesRepository.findByCategoryAndChangeIdContaining(category, keyword, paging);
-        return foundedChanges.stream()
+    public List<VmPlanResponse> getSection(ZonedDateTime startDate,
+                                           ZonedDateTime endDate,
+                                           String category,
+                                           String keyword,
+                                           Pageable paging) {
+        var changes = startDate == null && endDate == null
+                ? StringUtils.isEmpty(keyword)
+                    ? changesRepository.getCurrentChanges(DateUtil.now(), phasesForCurrent, category, paging)
+                    : changesRepository.getCurrentChanges(DateUtil.now(), phasesForCurrent, category, keyword, paging)
+                : StringUtils.isEmpty(keyword)
+                    ? changesRepository.getPlannedChanges(startDate, endDate, phasesForPlanned, category, paging)
+                    : changesRepository.getPlannedChanges(startDate, endDate, phasesForPlanned, category, keyword, paging);
+        return changes.stream()
                 .map(changesMapper::mapToVmPlan)
                 .collect(Collectors.toList());
     }

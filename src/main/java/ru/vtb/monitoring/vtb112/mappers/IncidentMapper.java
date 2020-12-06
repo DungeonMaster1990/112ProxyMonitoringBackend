@@ -55,7 +55,7 @@ public interface IncidentMapper extends ResponseMapper<Incident, VmSmIncident> {
     @Mapping(target = "startDate", source = "createdAt")
     @Mapping(target = "detectionDate", source = "identedAt")
     @Mapping(target = "predictDate", source = "expiredAt")
-    @Mapping(target = "telegramLink", constant = "https://t.me/vtb")
+    //@Mapping(target = "telegramLink", constant = "https://t.me/vtb")
     @Mapping(target = "affectedSystems", source = "unavailabilities")
     VmAccidentInfoResponse mapToApiInfoResponse(Incident incident);
 
