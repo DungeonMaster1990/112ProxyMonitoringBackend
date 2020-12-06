@@ -28,42 +28,33 @@ SET resolution            = 'УНК в ВТБ-Онлайн: 10632683' ||
     configuration_item_id = 'М-Банк'
 WHERE id = 5;
 
-insert into monitoring.systems (name, accidentid)
-values ('Переводы', 1);
-insert into monitoring.systems (name, accidentid)
-values ('Переводы', 2);
-insert into monitoring.systems (name, accidentid)
-values ('Переводы', 3);
-insert into monitoring.systems (name, accidentid)
-values ('Переводы', 4);
-insert into monitoring.systems (name, accidentid)
-values ('Переводы', 5);
-insert into monitoring.systems (name, accidentid)
-values ('Переводы', 6);
-insert into monitoring.systems (name, accidentid)
-values ('Переводы', 7);
-insert into monitoring.systems (name, accidentid)
-values ('Переводы', 8);
-insert into monitoring.systems (name, accidentid)
-values ('Переводы', 9);
-insert into monitoring.systems (name, accidentid) values ('Переводы', 10);
-insert into monitoring.systems (name, accidentid) values ('Переводы', 11);
-insert into monitoring.systems (name, accidentid) values ('Переводы', 12);
-insert into monitoring.systems (name, accidentid) values ('Переводы', 13);
+insert into monitoring.unavailability (service_name, fault_id) values ('Переводы', 'Инцидент А_1');
+insert into monitoring.unavailability (service_name, fault_id) values ('Переводы', 'Инцидент А_2');
+insert into monitoring.unavailability (service_name, fault_id) values ('Переводы', 'Инцидент А_3');
+insert into monitoring.unavailability (service_name, fault_id) values ('Переводы', 'Инцидент А_4');
+insert into monitoring.unavailability (service_name, fault_id) values ('Переводы', 'Инцидент А_5');
+insert into monitoring.unavailability (service_name, fault_id) values ('Переводы', 'Инцидент А_6');
+insert into monitoring.unavailability (service_name, fault_id) values ('Переводы', 'Инцидент А_7');
+insert into monitoring.unavailability (service_name, fault_id) values ('Переводы', 'Инцидент А_8');
+insert into monitoring.unavailability (service_name, fault_id) values ('Переводы', 'Инцидент А_9');
+insert into monitoring.unavailability (service_name, fault_id) values ('Переводы', 'Инцидент А_10');
+insert into monitoring.unavailability (service_name, fault_id) values ('Переводы', 'Инцидент А_11');
+insert into monitoring.unavailability (service_name, fault_id) values ('Переводы', 'Инцидент А_12');
+insert into monitoring.unavailability (service_name, fault_id) values ('Переводы', 'Инцидент А_13');
 
-insert into monitoring.systems (name, accidentid) values ('Платежи', 1);
-insert into monitoring.systems (name, accidentid) values ('Платежи', 2);
-insert into monitoring.systems (name, accidentid) values ('Платежи', 3);
-insert into monitoring.systems (name, accidentid) values ('Платежи', 4);
-insert into monitoring.systems (name, accidentid) values ('Платежи', 5);
-insert into monitoring.systems (name, accidentid) values ('Платежи', 6);
-insert into monitoring.systems (name, accidentid) values ('Платежи', 7);
-insert into monitoring.systems (name, accidentid) values ('Платежи', 8);
-insert into monitoring.systems (name, accidentid) values ('Платежи', 9);
-insert into monitoring.systems (name, accidentid) values ('Платежи', 10);
-insert into monitoring.systems (name, accidentid) values ('Платежи', 11);
-insert into monitoring.systems (name, accidentid) values ('Платежи', 12);
-insert into monitoring.systems (name, accidentid) values ('Платежи', 13);
+insert into monitoring.unavailability (service_name, fault_id) values ('Платежи', 'Инцидент А_1');
+insert into monitoring.unavailability (service_name, fault_id) values ('Платежи', 'Инцидент А_2');
+insert into monitoring.unavailability (service_name, fault_id) values ('Платежи', 'Инцидент А_3');
+insert into monitoring.unavailability (service_name, fault_id) values ('Платежи', 'Инцидент А_4');
+insert into monitoring.unavailability (service_name, fault_id) values ('Платежи', 'Инцидент А_5');
+insert into monitoring.unavailability (service_name, fault_id) values ('Платежи', 'Инцидент А_6');
+insert into monitoring.unavailability (service_name, fault_id) values ('Платежи', 'Инцидент А_7');
+insert into monitoring.unavailability (service_name, fault_id) values ('Платежи', 'Инцидент А_8');
+insert into monitoring.unavailability (service_name, fault_id) values ('Платежи', 'Инцидент А_9');
+insert into monitoring.unavailability (service_name, fault_id) values ('Платежи', 'Инцидент А_10');
+insert into monitoring.unavailability (service_name, fault_id) values ('Платежи', 'Инцидент А_11');
+insert into monitoring.unavailability (service_name, fault_id) values ('Платежи', 'Инцидент А_12');
+insert into monitoring.unavailability (service_name, fault_id) values ('Платежи', 'Инцидент А_13');
 
 insert into monitoring.metrics (id, measurement_id, monitor_id, msname) values
     (nextval ('monitoring.metrics_id_seq'), 1, currval('monitoring.metrics_id_seq'), 'Клиентов в ВТБ Онлайн'),

@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.vtb.monitoring.vtb112.db.pg.models.AffectedSystem;
 import ru.vtb.monitoring.vtb112.db.pg.models.Incident;
+import ru.vtb.monitoring.vtb112.db.pg.models.Unavailabilities;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.IncidentRepository;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.IncidentRepositoryCustom;
 import ru.vtb.monitoring.vtb112.mappers.IncidentMapper;
@@ -95,8 +95,8 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
 
         List<Predicate> predicates = new ArrayList<>();
         if (affectedSystems != null && !affectedSystems.isEmpty()) {
-            Join<Incident, AffectedSystem> join = from.join("affectedSystems");
-            predicates.add(join.get("name").in(affectedSystems));
+            Join<Incident, Unavailabilities> join = from.join("unavailabilities");
+            predicates.add(join.get("serviceName").in(affectedSystems));
         }
         if (startDate != null) {
             predicates.add(cb.greaterThanOrEqualTo(from.get("createdAt"), startDate));

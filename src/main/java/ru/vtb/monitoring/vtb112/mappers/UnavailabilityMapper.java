@@ -12,6 +12,7 @@ import java.time.Duration;
 public interface UnavailabilityMapper extends ResponseMapper<Unavailabilities, VmSmUnavailability> {
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "incident", ignore = true)
     @Override
     Unavailabilities mapToResponse(VmSmUnavailability source);
 

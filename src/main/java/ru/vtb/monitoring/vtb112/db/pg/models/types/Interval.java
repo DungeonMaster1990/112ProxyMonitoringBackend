@@ -12,8 +12,8 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
 
-// vladmihalcea/hibernate-types
 public class Interval implements UserType {
 
     private static final int[] SQL_TYPES = {Types.OTHER};
@@ -25,12 +25,12 @@ public class Interval implements UserType {
 
     @Override
     public boolean equals(Object x, Object y) throws HibernateException {
-        return x.equals(y);
+        return Objects.equals(x, y);
     }
 
     @Override
     public int hashCode(Object x) throws HibernateException {
-        return x.hashCode();
+        return Objects.hash(x);
     }
 
     @Override
