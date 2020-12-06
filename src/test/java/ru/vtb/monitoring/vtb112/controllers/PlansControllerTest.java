@@ -104,7 +104,7 @@ class PlansControllerTest extends PostgreSQL {
                 .limit(3)
                 .page(2)
                 .planSectionId(VmPlanSection.EMERGENCY.getId())
-                .keyword("Измен")
+                .keyword("ИзМеН")
                 .build();
         mockMvc.perform(MockMvcRequestBuilders
                 .post(PathConstants.PLANS)
@@ -124,7 +124,7 @@ class PlansControllerTest extends PostgreSQL {
                 .planSectionId(VmPlanSection.NORMAL.getId())
                 .startDate(ZonedDateTime.now().minusDays(3).minusHours(2))
                 .finishDate(ZonedDateTime.now().plusDays(3).plusHours(2))
-                .keyword("IM")
+                .keyword("im")
                 .build();
         mockMvc.perform(MockMvcRequestBuilders
                 .post(PathConstants.PLANS)

@@ -49,7 +49,7 @@ public interface ChangesRepository extends JpaRepository<Changes, Integer>, Chan
                     and c.plannedEndAt >= :now
                     and c.currentPhase in (:phases)
                     and c.category = :category
-                    and c.changeId LIKE CONCAT('%',:keyword,'%')
+                    and LOWER(c.changeId) LIKE LOWER(CONCAT('%',:keyword,'%'))
                     order by plannedStartAt
             """)
     List<Changes> getCurrentChanges(@Param("now") ZonedDateTime now,
@@ -79,7 +79,7 @@ public interface ChangesRepository extends JpaRepository<Changes, Integer>, Chan
                     and c.plannedStartAt <= :endDate
                     and c.currentPhase in (:phases)
                     and c.category = :category
-                    and c.changeId LIKE CONCAT('%',:keyword,'%')
+                    and LOWER(c.changeId) LIKE LOWER(CONCAT('%',:keyword,'%'))
                     order by plannedStartAt
                    
             """)
