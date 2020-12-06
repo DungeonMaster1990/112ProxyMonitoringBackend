@@ -66,6 +66,10 @@ public class Unavailabilities implements BaseSmModel {
     @Column(name = "updated_by_id", nullable = false)
     private Integer updatedById;
 
+    @ManyToOne
+    @JoinColumn(name = "fault_id", referencedColumnName = "incident_id", insertable = false, updatable = false)
+    private Incident incident;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

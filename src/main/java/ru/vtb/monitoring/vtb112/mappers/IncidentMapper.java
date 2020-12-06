@@ -3,8 +3,8 @@ package ru.vtb.monitoring.vtb112.mappers;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
-import ru.vtb.monitoring.vtb112.db.pg.models.AffectedSystem;
 import ru.vtb.monitoring.vtb112.db.pg.models.Incident;
+import ru.vtb.monitoring.vtb112.db.pg.models.Unavailabilities;
 import ru.vtb.monitoring.vtb112.dto.api.enums.BlAccidentStatusType;
 import ru.vtb.monitoring.vtb112.dto.api.enums.BlWorkerStatus;
 import ru.vtb.monitoring.vtb112.dto.api.response.*;
@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 public interface IncidentMapper extends ResponseMapper<Incident, VmSmIncident> {
 
     @Mapping(target = "incidentId", source = "source.id")
-    @Mapping(target = "affectedSystems", ignore = true)
+    @Mapping(target = "unavailabilities", ignore = true)
     @Mapping(target = "notificationSent", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "managerId", source = "specialistId")
@@ -43,6 +43,7 @@ public interface IncidentMapper extends ResponseMapper<Incident, VmSmIncident> {
     @Mapping(target = "status", source = "incident")
     @Mapping(target = "statusType", source = "status")
     @Mapping(target = "detectionDate", source = "identedAt")
+    @Mapping(target = "affectedSystems", source = "unavailabilities")
     VmAccidentResponse mapToApiResponse(Incident incident);
 
     @Mapping(target = "name", source = "incidentId")
@@ -55,6 +56,7 @@ public interface IncidentMapper extends ResponseMapper<Incident, VmSmIncident> {
     @Mapping(target = "detectionDate", source = "identedAt")
     @Mapping(target = "predictDate", source = "expiredAt")
     @Mapping(target = "telegramLink", constant = "https://t.me/vtb")
+    @Mapping(target = "affectedSystems", source = "unavailabilities")
     VmAccidentInfoResponse mapToApiInfoResponse(Incident incident);
 
     @Mapping(target = "name", source = "incidentId")
@@ -71,9 +73,9 @@ public interface IncidentMapper extends ResponseMapper<Incident, VmSmIncident> {
         };
     }
 
-    default List<String> mapAffectedSystems(List<AffectedSystem> affectedSystems) {
-        return affectedSystems == null ? Collections.emptyList() :
-                affectedSystems.stream().map(AffectedSystem::getName).collect(Collectors.toList());
+    default List<String> mapUnavailabilities(List<Unavailabilities> unavailabilities) {
+        return unavailabilities == null ? Collections.emptyList() :
+                unavailabilities.stream().map(Unavailabilities::getServiceName).collect(Collectors.toList());
     }
 
     default String convertToStatus(Incident incident) {

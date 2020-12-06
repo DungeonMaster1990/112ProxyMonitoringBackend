@@ -8,6 +8,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "incidents", schema = "monitoring")
-public class Incident implements BaseSmModel {
+public class Incident implements BaseSmModel, Serializable {
 
     @Id
     @GenericGenerator(
@@ -144,17 +145,12 @@ public class Incident implements BaseSmModel {
     private ZonedDateTime eliminationConsequencesAt;
 
     @OneToMany(mappedBy = "incident", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<AffectedSystem> affectedSystems = new ArrayList<>();
+    private List<Unavailabilities> unavailabilities = new ArrayList<>();
 
     public void setManagerId(String managerId) {
         if (this.managerId == null) {
             this.managerId = managerId;
         }
-    }
-
-    public void addToAffectedSystem(AffectedSystem affectedSystem) {
-        affectedSystem.setIncident(this);
-        this.affectedSystems.add(affectedSystem);
     }
 
     public int getPriorityAsCategory() {
