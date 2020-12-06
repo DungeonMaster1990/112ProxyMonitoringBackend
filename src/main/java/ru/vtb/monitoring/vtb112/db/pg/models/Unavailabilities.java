@@ -3,13 +3,13 @@ package ru.vtb.monitoring.vtb112.db.pg.models;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.*;
 import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
 import ru.vtb.monitoring.vtb112.db.pg.models.types.Interval;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.util.Objects;
@@ -67,6 +67,7 @@ public class Unavailabilities implements BaseSmModel {
     private Integer updatedById;
 
     @ManyToOne
+    @NotFound(action = NotFoundAction.IGNORE)
     @JoinColumn(name = "fault_id", referencedColumnName = "incident_id", insertable = false, updatable = false)
     private Incident incident;
 
