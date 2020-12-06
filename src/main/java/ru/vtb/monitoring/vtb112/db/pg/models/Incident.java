@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
@@ -144,6 +146,7 @@ public class Incident implements BaseSmModel, Serializable {
     @Column(name = "elimination_consequences_at")
     private ZonedDateTime eliminationConsequencesAt;
 
+    @NotFound(action = NotFoundAction.IGNORE)
     @OneToMany(mappedBy = "incident", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Unavailabilities> unavailabilities = new ArrayList<>();
 
