@@ -75,6 +75,7 @@ public interface ChangesMapper extends ResponseMapper<Changes, VmSmChange> {
     @Mapping(target = "startDate", source = "plannedStartAt")
     VmPlanResponse mapToVmPlan(Changes source);
 
+    @Mapping(target = "id", ignore = true)
     void updateChange(Changes changes, @MappingTarget Changes updated);
 
     default BlPlanStatusType mapPlanStatusType(String status) {

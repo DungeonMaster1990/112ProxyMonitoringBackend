@@ -9,6 +9,7 @@ import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -156,4 +157,17 @@ public class Changes implements BaseSmModel {
     //close
     @Column(name = "closing_comments")
     private String closingComments;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Changes changes = (Changes) o;
+        return Objects.equals(changeId, changes.changeId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(changeId);
+    }
 }

@@ -23,9 +23,9 @@ class ChangesRepositoryImplTest extends PostgreSQL {
     @Test
     void testPutModels() {
         changesRepository.save(makeChange(1, "Изменение"));
-        Changes oldChange = makeChange(1, "Инцидент");
+        Changes oldChange = makeChange(1, "Изменение");
         oldChange.setDescription("Изменение в описании");
-        Changes newChange = makeChange(2, "Инцидент");
+        Changes newChange = makeChange(2, "Изменение");
         changesRepository.putModels(Arrays.asList(oldChange, newChange));
 
         String description = changesRepository.findByChangeIdIn(Collections.singletonList(oldChange.getChangeId()))

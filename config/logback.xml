@@ -68,6 +68,9 @@
         <springProfile name="dev">
             <appender-ref ref="STDOUT"/>
         </springProfile>
+        <springProfile name="test">
+            <appender-ref ref="STDOUT"/>
+        </springProfile>
     </root>
 
     <logger name="org.apache.coyote" level="DEBUG" additivity="false">
@@ -75,11 +78,17 @@
         <springProfile name="dev">
             <appender-ref ref="STDOUT"/>
         </springProfile>
+        <springProfile name="test">
+            <appender-ref ref="STDOUT"/>
+        </springProfile>
     </logger>
 
     <logger name="org.hibernate.SQL" level="DEBUG" additivity="false">
         <appender-ref ref="DEBUG-ROLLING"/>
         <springProfile name="dev">
+            <appender-ref ref="STDOUT"/>
+        </springProfile>
+        <springProfile name="test">
             <appender-ref ref="STDOUT"/>
         </springProfile>
     </logger>
