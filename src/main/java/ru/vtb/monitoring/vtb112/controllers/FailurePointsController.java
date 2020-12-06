@@ -5,14 +5,15 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.vtb.monitoring.vtb112.mocks.VmMock;
 import ru.vtb.monitoring.vtb112.services.api.interfaces.FailurePointsService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = PathConstants.FAILURE_POINTS, produces = MediaType.APPLICATION_JSON_VALUE)
 public class FailurePointsController {
 
-    private FailurePointsService failurePointsService;
+    private final FailurePointsService failurePointsService;
 
     @Autowired
     public FailurePointsController(FailurePointsService failurePointsService) {
@@ -20,7 +21,7 @@ public class FailurePointsController {
     }
 
     @GetMapping
-    public String[] get() {
-        return VmMock.failurePoints;
+    public List<String> get() {
+        return failurePointsService.getTop10FailurePoints();
     }
 }

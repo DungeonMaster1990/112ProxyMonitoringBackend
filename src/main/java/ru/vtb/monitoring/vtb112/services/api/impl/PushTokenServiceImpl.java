@@ -4,17 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.vtb.monitoring.vtb112.db.pg.models.PushTokens;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.PushTokenRepository;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmPushTokenRequest;
+import ru.vtb.monitoring.vtb112.dto.api.request.VmPushTokenRequest;
 import ru.vtb.monitoring.vtb112.mappers.PushTokenMapper;
 import ru.vtb.monitoring.vtb112.services.api.interfaces.PushTokenService;
 
 @Service
 public class PushTokenServiceImpl implements PushTokenService {
-    private PushTokenRepository pushTokenRepository;
-    private PushTokenMapper pushTokenMapper;
+
+    private final PushTokenRepository pushTokenRepository;
+    private final PushTokenMapper pushTokenMapper;
 
     @Autowired
-    public PushTokenServiceImpl(PushTokenRepository pushTokenRepository, PushTokenMapper pushTokenMapper){
+    public PushTokenServiceImpl(PushTokenRepository pushTokenRepository, PushTokenMapper pushTokenMapper) {
         this.pushTokenRepository = pushTokenRepository;
         this.pushTokenMapper = pushTokenMapper;
     }

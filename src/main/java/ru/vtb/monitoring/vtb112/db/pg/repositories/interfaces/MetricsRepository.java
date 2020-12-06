@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface MetricsRepository extends JpaRepository<Metrics, Integer> {
 
-    List<Metrics> findByIsMerged(boolean isMerged);
+    List<Metrics> findByMerged(boolean merged);
 
 }

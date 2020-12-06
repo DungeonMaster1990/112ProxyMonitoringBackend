@@ -1,7 +1,7 @@
 package ru.vtb.monitoring.vtb112.services.api.interfaces;
 
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmAccidentsRequest;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.*;
+import ru.vtb.monitoring.vtb112.dto.api.request.VmAccidentsRequest;
+import ru.vtb.monitoring.vtb112.dto.api.response.*;
 
 import java.util.List;
 

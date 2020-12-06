@@ -4,7 +4,7 @@ package ru.vtb.monitoring.vtb112.mappers;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import ru.vtb.monitoring.vtb112.db.pg.models.PushTokens;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmPushTokenRequest;
+import ru.vtb.monitoring.vtb112.dto.api.request.VmPushTokenRequest;
 
 @Mapper(componentModel = "spring")
 public interface PushTokenMapper {

@@ -22,4 +22,7 @@
     <changeSet author="SShvykin" id="Updates_add_CreatedAt.sql" context="prod">
         <sqlFile path="/db/changelog/migrations/Updates_add_CreatedAt.sql"/>
     </changeSet>
+    <changeSet author="AStepchkov" id="consequences" context="prod">
+        <sqlFile path="/db/changelog/migrations/consequences.sql"/>
+    </changeSet>
 </databaseChangeLog>

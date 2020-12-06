@@ -3,6 +3,7 @@
     <property name="HOME_DIR" value="logs/"/>
     <property name="APP_LOG" value="app.log"/>
     <property name="DEBUG_LOG" value="debug.log"/>
+    <property name="ERROR_LOG" value="error.log"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -32,11 +33,27 @@
         <file>${HOME_DIR}/${DEBUG_LOG}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${HOME_DIR}/archived/${DEBUG_LOG}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <!-- each file, size max 5MB -->
-            <maxFileSize>5MB</maxFileSize>
-            <!-- total size of all archive files, if total size > 10GB, it will delete old archived file -->
+            <maxFileSize>10MB</maxFileSize>
             <totalSizeCap>10GB</totalSizeCap>
-            <!-- 30 days to keep -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ERROR-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <file>${HOME_DIR}/${ERROR_LOG}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${HOME_DIR}/archived/${ERROR_LOG}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <totalSizeCap>10GB</totalSizeCap>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
@@ -47,17 +64,33 @@
 
     <root level="INFO">
         <appender-ref ref="APP-ROLLING"/>
+        <appender-ref ref="ERROR-ROLLING"/>
         <springProfile name="dev">
+            <appender-ref ref="STDOUT"/>
+        </springProfile>
+        <springProfile name="test">
             <appender-ref ref="STDOUT"/>
         </springProfile>
     </root>
 
     <logger name="org.apache.coyote" level="DEBUG" additivity="false">
         <appender-ref ref="DEBUG-ROLLING"/>
+        <springProfile name="dev">
+            <appender-ref ref="STDOUT"/>
+        </springProfile>
+        <springProfile name="test">
+            <appender-ref ref="STDOUT"/>
+        </springProfile>
     </logger>
 
     <logger name="org.hibernate.SQL" level="DEBUG" additivity="false">
         <appender-ref ref="DEBUG-ROLLING"/>
+        <springProfile name="dev">
+            <appender-ref ref="STDOUT"/>
+        </springProfile>
+        <springProfile name="test">
+            <appender-ref ref="STDOUT"/>
+        </springProfile>
     </logger>
 
 </included>

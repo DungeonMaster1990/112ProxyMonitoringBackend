@@ -2,7 +2,7 @@ package ru.vtb.monitoring.vtb112.services.api.interfaces;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.*;
+import ru.vtb.monitoring.vtb112.dto.api.response.*;
 
 import java.time.ZonedDateTime;
 import java.util.List;

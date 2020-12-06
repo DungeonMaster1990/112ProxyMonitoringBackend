@@ -5,9 +5,10 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import ru.vtb.monitoring.vtb112.db.pg.models.Changes;
 import ru.vtb.monitoring.vtb112.db.pg.models.dto.GroupedChanges;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.*;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.submodels.VmWorker;
-import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmSmChange;
+import ru.vtb.monitoring.vtb112.dto.api.enums.BlPlanStatusType;
+import ru.vtb.monitoring.vtb112.dto.api.response.*;
+import ru.vtb.monitoring.vtb112.dto.api.submodels.VmWorker;
+import ru.vtb.monitoring.vtb112.dto.sm.response.VmSmChange;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -56,29 +57,40 @@ public interface ChangesMapper extends ResponseMapper<Changes, VmSmChange> {
     @Mapping(target = "finishDownDate", source = "downEndAt")
     VmPlanInfoResponse mapToInfoResponse(Changes source);
 
-    @Mapping(target = "value", ignore = true)
-    @Mapping(target = "name", source = "description")
+    @Mapping(target = "name", constant = "Для сотрудников")
+    @Mapping(target = "value", source = "description")
     VmPlanDescriptionResponse mapToDescriptionResponse(Changes source);
 
     @Mapping(target = "manager.name", source = "requestedBy")
     @Mapping(target = "workers", source = "requestedFor")
-    VmPlanWorkersResponse mapToVmPlanWorkersResponse(Changes source);
+    VmPlanWorkersResponse mapToWorkersResponse(Changes source);
 
-    @Mapping(target = "name", source = "source.category.category")
+    @Mapping(target = "name", source = "source.category.section")
     @Mapping(target = "id", source = "source.category.id")
     VmPlanSectionsResponse mapToVmPlanSections(GroupedChanges source);
 
-    @Mapping(target = "statusType", ignore = true)
+    @Mapping(target = "statusType", source = "status")
     @Mapping(target = "affectedSystems", source = "affectedServices")
     @Mapping(target = "name", source = "changeId")
     @Mapping(target = "startDate", source = "plannedStartAt")
     VmPlanResponse mapToVmPlan(Changes source);
 
+    @Mapping(target = "id", ignore = true)
     void updateChange(Changes changes, @MappingTarget Changes updated);
+
+    default BlPlanStatusType mapPlanStatusType(String status) {
+        if (status == null) {
+            return null;
+        }
+        return switch (status) {
+            case "Проведение работ" -> BlPlanStatusType.warning;
+            default -> BlPlanStatusType.normal;
+        };
+    }
 
     default List<VmWorker> mapToWorkers(String requestedFor) {
         if (requestedFor == null) {
-            return null;
+            return Collections.emptyList();
         }
         VmWorker worker = new VmWorker();
         worker.setName(requestedFor);
@@ -94,7 +106,7 @@ public interface ChangesMapper extends ResponseMapper<Changes, VmSmChange> {
     default List<String> stringToArray(String value) {
         return value != null
                 ? Arrays.asList(value.split(","))
-                : null;
+                : Collections.emptyList();
     }
 
 }

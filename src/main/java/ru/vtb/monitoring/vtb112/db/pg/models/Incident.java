@@ -6,9 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
-import ru.vtb.monitoring.vtb112.db.pg.models.converters.IncidentStatusConverter;
-import ru.vtb.monitoring.vtb112.db.pg.models.enums.Status;
-import ru.vtb.monitoring.vtb112.db.pg.models.enums.StatusType;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
@@ -80,9 +77,8 @@ public class Incident implements BaseSmModel {
     @Column(name = "assignee_id")
     private String assigneeId;
 
-    @Convert(converter = IncidentStatusConverter.class)
     @Column(name = "status")
-    private Status status;
+    private String status;
 
     @Column(name = "close_code")
     private String closeCode;
@@ -95,9 +91,6 @@ public class Incident implements BaseSmModel {
 
     @Column(name = "updated_at")
     private ZonedDateTime updatedAt;
-
-    @Column(name = "type")
-    private StatusType statusType;
 
     @Column(name = "sla_start_time")
     private ZonedDateTime slaStartTime;
@@ -126,6 +119,9 @@ public class Incident implements BaseSmModel {
     @Column(name = "specialist_id")
     private String specialistId;
 
+    @Column(name = "manager_id")
+    private String managerId;
+
     @Column(name = "priority")
     private String priority;
 
@@ -141,12 +137,45 @@ public class Incident implements BaseSmModel {
     @Column(name = "notification_sent")
     private Boolean notificationSent;
 
+    @Column(name = "consequences")
+    private String consequences;
+
+    @Column(name = "elimination_consequences_at")
+    private ZonedDateTime eliminationConsequencesAt;
+
     @OneToMany(mappedBy = "incident", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<AffectedSystem> affectedSystems = new ArrayList<>();
+
+    public void setManagerId(String managerId) {
+        if (this.managerId == null) {
+            this.managerId = managerId;
+        }
+    }
 
     public void addToAffectedSystem(AffectedSystem affectedSystem) {
         affectedSystem.setIncident(this);
         this.affectedSystems.add(affectedSystem);
+    }
+
+    public int getPriorityAsCategory() {
+        if (priority == null) {
+            return 1;
+        }
+        try {
+            return Integer.parseInt(priority);
+        } catch (NumberFormatException ignored) {
+            return 1;
+        }
+    }
+
+    public String getConferenceLink() {
+        if (resolution == null) return null;
+        for (var line : resolution.split("#")) {
+            if (line != null && line.length() > 2 && line.stripLeading().startsWith("http")) {
+                return line.strip();
+            }
+        }
+        return null;
     }
 
     @Override

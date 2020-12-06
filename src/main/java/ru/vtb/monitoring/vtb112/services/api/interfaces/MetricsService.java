@@ -1,9 +1,9 @@
 package ru.vtb.monitoring.vtb112.services.api.interfaces;
 
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmMetricInfoRequest;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmMetricsRequest;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.VmMetricInfoResponse;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.VmMetricsResponse;
+import ru.vtb.monitoring.vtb112.dto.api.request.VmMetricInfoRequest;
+import ru.vtb.monitoring.vtb112.dto.api.request.VmMetricsRequest;
+import ru.vtb.monitoring.vtb112.dto.api.response.VmMetricInfoResponse;
+import ru.vtb.monitoring.vtb112.dto.api.response.VmMetricsResponse;
 
 import java.util.List;
 

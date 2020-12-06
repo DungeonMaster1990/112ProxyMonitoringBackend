@@ -26,15 +26,15 @@ public class PushTokens {
     @GeneratedValue(generator = "pushtokens_id_generator")
     private int id;
 
-    @Column(name = "token", unique = false, nullable = false)
+    @Column(name = "token", nullable = false)
     private String token;
 
-    @Column(name = "install_id", unique = false, nullable = false)
+    @Column(name = "install_id", nullable = false)
     private String installId;
 
-    @Column(name = "platform", unique = false, nullable = false)
+    @Column(name = "platform", nullable = false)
     private String platform;
 
-    @Column(name = "update_token_date", unique = false, nullable = false)
+    @Column(name = "update_token_date", nullable = false)
     private ZonedDateTime updateTokenDate;
 }

@@ -3,7 +3,7 @@ package ru.vtb.monitoring.vtb112.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.jetbrains.annotations.NotNull;
-import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -15,8 +15,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.testcontainers.junit.jupiter.Testcontainers;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmAccidentsRequest;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.VmAccidentResponse;
+import ru.vtb.monitoring.vtb112.dto.api.request.VmAccidentsRequest;
+import ru.vtb.monitoring.vtb112.dto.api.response.VmAccidentResponse;
 import ru.vtb.monitoring.vtb112.infrastructure.PostgreSQL;
 
 import java.io.File;
@@ -93,7 +93,7 @@ class AccidentsControllerTest extends PostgreSQL {
         List<VmAccidentResponse> response = objectMapper.readValue(result.getResponse().getContentAsString(),
                 objectMapper.getTypeFactory().constructCollectionType(List.class, VmAccidentResponse.class));
 
-        Assert.assertEquals(1, response.size());
+        Assertions.assertEquals(1, response.size());
     }
 
     @Test

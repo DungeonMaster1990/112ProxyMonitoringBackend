@@ -1,10 +1,10 @@
 package ru.vtb.monitoring.vtb112.mocks;
 
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.enums.*;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.*;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.submodels.VmHistoryRecord;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.submodels.VmManager;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.submodels.VmWorker;
+import ru.vtb.monitoring.vtb112.dto.api.enums.*;
+import ru.vtb.monitoring.vtb112.dto.api.response.*;
+import ru.vtb.monitoring.vtb112.dto.api.submodels.VmHistoryRecord;
+import ru.vtb.monitoring.vtb112.dto.api.submodels.VmManager;
+import ru.vtb.monitoring.vtb112.dto.api.submodels.VmWorker;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
@@ -37,7 +37,7 @@ public final class VmMock {
             );
 
     public static final VmPlanInfoResponse vmPlanInfoResponse =
-            new VmPlanInfoResponse("10", "Изменение IM-283501", "Согласование", BlPlanStatus.warning, "" +
+            new VmPlanInfoResponse("10", "Изменение IM-283501", "Согласование", BlPlanStatusType.warning, "" +
                     "Описание", "Описание последствий", "Не влияет", "М-Банк", Arrays.asList("Платежи", "Переводы"),
                     ZonedDateTime.of(2016, 5, 5, 0, 0, 0, 0, ZoneId.of("UTC")),
                     ZonedDateTime.of(2017, 9, 14, 0, 0, 0, 0, ZoneId.of("UTC")),
@@ -129,14 +129,14 @@ public final class VmMock {
                     new VmEventResponse("2", ZonedDateTime.of(2020, 04, 20, 0, 0, 0, 0, ZoneId.of("UTC")), BlWorkType.plan)
             };
 
-    public static final String[] failurePoints = new String[]{
+    public static final List<String> failurePoints = List.of(
             "Profile", // Название точки сбоя
             "УСБС – бэк",
             "Сервисы Мультикарта",
             "Каналы связи",
             "Golden Gate",
             "Service Manager"
-    };
+    );
 
     public static final VmMetricsResponse[] vmMetricsResponse = new VmMetricsResponse[]{
             VmMetricsResponse.builder()
@@ -171,7 +171,7 @@ public final class VmMock {
                     .build()
     };
 
-    public static final VmUpdateResponse updateMetricsOrSystem = new VmUpdateResponse("true");
+    public static final VmUpdateResponse updateMetricsOrSystem = new VmUpdateResponse(true);
 
     public static final VmMetricInfoResponse[] vmMetricInfoResponse = new VmMetricInfoResponse[]{
             VmMetricInfoResponse.builder()
@@ -190,19 +190,18 @@ public final class VmMock {
                     .build()
     };
 
-    public static final VmSystemResponse[] vmSystemResponse =
-            new VmSystemResponse[]{
-                    new VmSystemResponse("1", "Бизнес операции", true, 1, 3, 10),
-                    new VmSystemResponse("2", "Другие бизнес-опреации", false, 2, 3, 11)
-            };
+    public static final List<VmSystemResponse> vmSystemResponse = List.of(
+            new VmSystemResponse("1", "Все аварии", true, 1, 3, 10),
+            new VmSystemResponse("2", "Другие бизнес-операции", false, 2, 3, 11)
+    );
 
-    public static final String[] affectedSystems = new String[]{
+    public static final List<String> affectedSystems = List.of(
             "Платежи", // Название затронутой системы
             "Переводы",
             "Интернет банк",
             "Мобильный банк",
             "Вклады"
-    };
+    );
 
     private VmMock() {
     }

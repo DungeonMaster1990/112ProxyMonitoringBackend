@@ -2,18 +2,12 @@ package ru.vtb.monitoring.vtb112.testcases;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.test.context.TestPropertySource;
@@ -27,8 +21,8 @@ import ru.vtb.monitoring.vtb112.db.pg.models.Updates;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.MetricsRepository;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.SmRawdataMeasApiRepository;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.UpdatesRepository;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.request.VmMetricInfoRequest;
-import ru.vtb.monitoring.vtb112.dto.api.viewmodels.response.VmMetricInfoResponse;
+import ru.vtb.monitoring.vtb112.dto.api.request.VmMetricInfoRequest;
+import ru.vtb.monitoring.vtb112.dto.api.response.VmMetricInfoResponse;
 import ru.vtb.monitoring.vtb112.infrastructure.PostgreSQL;
 import ru.vtb.monitoring.vtb112.infrastructure.Vertica;
 import ru.vtb.monitoring.vtb112.services.workers.VerticaWorker;
@@ -39,9 +33,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.lessThan;
+import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -53,7 +45,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @TestPropertySource(properties = "vertica.limit=10")
-public class UploadFromVerticaAndFrontendGetTest extends PostgreSQL {
+class UploadFromVerticaAndFrontendGetTest extends PostgreSQL {
 
     @Autowired
     private MockMvc mockMvc;
@@ -61,8 +53,6 @@ public class UploadFromVerticaAndFrontendGetTest extends PostgreSQL {
     private VerticaWorker verticaWorker;
     @Autowired
     private SmRawdataMeasApiRepository smRawdataMeasApiRepository;
-    @Autowired
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @MockBean
     private UpdatesRepository updatesRepository;
@@ -85,7 +75,7 @@ public class UploadFromVerticaAndFrontendGetTest extends PostgreSQL {
         metrics.setMeasurementId(1);
         when(updatesRepository.getUpdateEntityByServiceName(WorkerName.VERTICA_SM_RAW_DATA.getName()))
                 .thenReturn(updates);
-        when(metricsRepository.findByIsMerged(true))
+        when(metricsRepository.findByMerged(true))
                 .thenReturn(Collections.singletonList(metrics));
         Vertica.getInstance().runSqlScript("timestamp_test.sql");
     }

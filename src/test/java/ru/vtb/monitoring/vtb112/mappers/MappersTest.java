@@ -9,10 +9,10 @@ import ru.vtb.monitoring.vtb112.db.pg.models.Unavailabilities;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.ChangesRepository;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.IncidentRepository;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.UnavailabilitiesRepository;
-import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmSmChange;
-import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmSmIncident;
-import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.VmSmUnavailability;
-import ru.vtb.monitoring.vtb112.dto.services.viewmodels.response.mainmodels.submodels.VmSmChangeHeader;
+import ru.vtb.monitoring.vtb112.dto.sm.response.VmSmChange;
+import ru.vtb.monitoring.vtb112.dto.sm.response.VmSmIncident;
+import ru.vtb.monitoring.vtb112.dto.sm.response.VmSmUnavailability;
+import ru.vtb.monitoring.vtb112.dto.sm.response.submodels.VmSmChangeHeader;
 import ru.vtb.monitoring.vtb112.infrastructure.PostgreSQL;
 
 import java.time.Duration;
