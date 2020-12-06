@@ -13,6 +13,7 @@ import ru.vtb.monitoring.vtb112.dto.sm.response.VmSmChange;
 import ru.vtb.monitoring.vtb112.dto.sm.response.VmSmIncident;
 import ru.vtb.monitoring.vtb112.dto.sm.response.VmSmUnavailability;
 import ru.vtb.monitoring.vtb112.dto.sm.response.submodels.VmSmChangeHeader;
+import ru.vtb.monitoring.vtb112.dto.sm.response.submodels.VmSmChangeMiddle;
 import ru.vtb.monitoring.vtb112.infrastructure.PostgreSQL;
 
 import java.time.Duration;
@@ -71,14 +72,30 @@ class MappersTest extends PostgreSQL {
 
     @Test
     void testChangesMapper() {
+        ZonedDateTime headerStart = ZonedDateTime.now().minusDays(3);
+        ZonedDateTime headerEnd = ZonedDateTime.now().plusDays(3);
+        ZonedDateTime middleStart = ZonedDateTime.now().minusDays(1);
+        ZonedDateTime middleEnd = ZonedDateTime.now().plusDays(1);
+
         VmSmChange change = new VmSmChange();
         VmSmChangeHeader header = new VmSmChangeHeader();
         header.setId("ID_1");
+        header.setPlannedStartAt(headerStart);
+        header.setPlannedEndAt(headerEnd);
+
         change.setHeader(header);
+
+        VmSmChangeMiddle middle = new VmSmChangeMiddle();
+        middle.setSchedOutageStartAt(middleStart);
+        middle.setSchedOutageEndAt(middleEnd);
+
+        change.setMiddle(middle);
 
         Changes savedChanges = changesRepository.save(
                 changesMapper.mapToResponse(change));
         assertEquals("ID_1", savedChanges.getChangeId());
+        assertEquals(middleStart, savedChanges.getPlannedStartAt());
+        assertEquals(middleEnd, savedChanges.getPlannedEndAt());
     }
 
 }

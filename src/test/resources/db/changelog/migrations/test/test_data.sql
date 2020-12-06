@@ -141,7 +141,7 @@ values ('Изменение IM-1',   current_timestamp - INTERVAL '1 HOUR', curr
        ('Изменение IM-5',   current_timestamp - INTERVAL '1 HOUR', current_timestamp + INTERVAL '1 HOUR', 'Экстренное', 'Платежи,Переводы', 'Реализация'),
        ('Изменение IM-6',   current_timestamp - INTERVAL '2 DAY',  current_timestamp + INTERVAL '2 DAY',  'Стандартное', 'Платежи,Переводы', 'Авторизация'),
        ('Изменение IM-7',   current_timestamp - INTERVAL '2 DAY',  current_timestamp + INTERVAL '2 DAY',  'Стандартное', 'Платежи,Переводы', 'Согласование'),
-       ('Изменение IM-8',   current_timestamp - INTERVAL '2 DAY',  current_timestamp + INTERVAL '2 DAY',  'Нормальное', 'Платежи,Переводы', 'Планирование'),
-       ('Изменение IM-10',  current_timestamp - INTERVAL '2 DAY',  current_timestamp + INTERVAL '2 DAY',  'Нормальное', 'Платежи,Переводы', 'Согласование'),
-       ('Изменение IM-11',  current_timestamp - INTERVAL '2 DAY',  current_timestamp + INTERVAL '2 DAY',  'Нормальное', 'Платежи,Переводы', 'Авторизация'),
-       ('Изменение IM-12',  current_timestamp - INTERVAL '2 DAY',  current_timestamp + INTERVAL '2 DAY',  'Нормальное', 'Платежи,Переводы', 'Анализ результатов реализации');
+       ('Изменение IM-8',   current_timestamp - INTERVAL '2 DAY' - INTERVAL '1 hour',  current_timestamp + INTERVAL '2 DAY',  'Нормальное', 'Платежи,Переводы', 'Планирование'),
+       ('Изменение IM-9',   current_timestamp - INTERVAL '2 DAY' - INTERVAL '2 hour',  current_timestamp + INTERVAL '2 DAY',  'Нормальное', 'Платежи,Переводы', 'Согласование'),
+       ('Изменение IM-10',  current_timestamp - INTERVAL '2 DAY' - INTERVAL '3 hour',  current_timestamp + INTERVAL '2 DAY',  'Нормальное', 'Платежи,Переводы', 'Авторизация'),
+       ('Изменение IM-11',  current_timestamp - INTERVAL '2 DAY' - INTERVAL '4 hour',  current_timestamp + INTERVAL '2 DAY',  'Нормальное', 'Платежи,Переводы', 'Анализ результатов реализации');

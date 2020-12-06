@@ -133,7 +133,11 @@ class PlansControllerTest extends PostgreSQL {
                 .content(objectMapper.writeValueAsString(request)))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[*])", hasSize(4)));
+                .andExpect(jsonPath("$[*])", hasSize(4)))
+                .andExpect(jsonPath("$[0]['name'])").value("Изменение IM-11"))
+                .andExpect(jsonPath("$[1]['name'])").value("Изменение IM-10"))
+                .andExpect(jsonPath("$[2]['name'])").value("Изменение IM-9"))
+                .andExpect(jsonPath("$[3]['name'])").value("Изменение IM-8"));
     }
 
     @Test
