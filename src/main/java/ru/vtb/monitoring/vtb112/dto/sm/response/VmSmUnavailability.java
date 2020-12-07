@@ -34,5 +34,5 @@ public class VmSmUnavailability implements VmBaseModel {
     @JsonAlias("UpdatedAt")
     private ZonedDateTime updatedAt;
     @JsonAlias("UpdatedById")
-    private int updatedById;
+    private String updatedById;
 }

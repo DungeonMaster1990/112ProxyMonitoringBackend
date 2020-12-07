@@ -63,7 +63,7 @@ class UnavailabilitiesRepositoryImplTest extends PostgreSQL {
         unavailability.setServiceName("Service");
         unavailability.setEndAt(ZonedDateTime.now());
         unavailability.setUpdatedAt(ZonedDateTime.now());
-        unavailability.setUpdatedById(100);
+        unavailability.setUpdatedById("Васильев В.В.");
         return unavailability;
     }
 }

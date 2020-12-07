@@ -6,10 +6,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
+import ru.vtb.monitoring.vtb112.dto.api.enums.BlPlanStatusType;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.util.Arrays;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Getter
 @Setter
@@ -18,6 +23,9 @@ import java.util.Objects;
 @AllArgsConstructor
 @Table(name = "changes", schema = "monitoring")
 public class Changes implements BaseSmModel {
+
+    private static final Set<String> phasesWarn = Set.of("Анализ результатов реализации", "Закрытие");
+
     @Id
     @GenericGenerator(
             name = "changesIdGenerator",
@@ -157,6 +165,21 @@ public class Changes implements BaseSmModel {
     //close
     @Column(name = "closing_comments")
     private String closingComments;
+
+    public BlPlanStatusType getStatusType() {
+        if (currentPhase != null && phasesWarn.contains(currentPhase)) {
+            return BlPlanStatusType.warning;
+        }
+        return BlPlanStatusType.normal;
+    }
+
+    public Set<String> getAllAffected() {
+        return Stream.of(affectedItem, affectedServices, affectedCis, affectedIts, assets)
+                .filter(Objects::nonNull)
+                .filter(affect -> !affect.isBlank())
+                .flatMap(affect -> Arrays.stream(affect.split(",")))
+                .collect(Collectors.toSet());
+    }
 
     @Override
     public boolean equals(Object o) {

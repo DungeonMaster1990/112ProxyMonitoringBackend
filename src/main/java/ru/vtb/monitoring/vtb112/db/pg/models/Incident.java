@@ -8,13 +8,18 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.Parameter;
+import ru.vtb.monitoring.vtb112.dto.api.enums.BlAccidentStatusType;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Getter
 @Setter
@@ -23,6 +28,8 @@ import java.util.Objects;
 @AllArgsConstructor
 @Table(name = "incidents", schema = "monitoring")
 public class Incident implements BaseSmModel, Serializable {
+
+    private static final Pattern CONFERENCE_LINK_PATTERN = Pattern.compile("(?<=#)([^#].+?)#+");
 
     @Id
     @GenericGenerator(
@@ -167,11 +174,33 @@ public class Incident implements BaseSmModel, Serializable {
         }
     }
 
+    public String getStatus() {
+        if ("Назначено".equals(status) && eliminationConsequencesAt != null) {
+            return "Устранение последствий";
+        }
+        return status;
+    }
+
+    public BlAccidentStatusType getStatusType() {
+        if (status == null) {
+            return BlAccidentStatusType.normal;
+        }
+        return switch (status) {
+            case "Назначено" -> BlAccidentStatusType.critical;
+            case "В работе" -> BlAccidentStatusType.warning;
+            default -> BlAccidentStatusType.normal;
+        };
+    }
+
     public String getConferenceLink() {
         if (resolution == null) return null;
-        for (var line : resolution.split("#")) {
-            if (line != null && line.length() > 2 && line.stripLeading().startsWith("http")) {
-                return line.strip();
+        Matcher matcher = CONFERENCE_LINK_PATTERN.matcher(resolution);
+        while (matcher.find()) {
+            String url = matcher.group(1);
+            try {
+                new URL(url);
+                return url;
+            } catch (MalformedURLException ignored) {
             }
         }
         return null;

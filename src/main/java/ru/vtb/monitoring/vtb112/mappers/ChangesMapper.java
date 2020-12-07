@@ -5,7 +5,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import ru.vtb.monitoring.vtb112.db.pg.models.Changes;
 import ru.vtb.monitoring.vtb112.db.pg.models.dto.GroupedChanges;
-import ru.vtb.monitoring.vtb112.dto.api.enums.BlPlanStatusType;
 import ru.vtb.monitoring.vtb112.dto.api.response.*;
 import ru.vtb.monitoring.vtb112.dto.api.submodels.VmWorker;
 import ru.vtb.monitoring.vtb112.dto.sm.response.VmSmChange;
@@ -13,11 +12,16 @@ import ru.vtb.monitoring.vtb112.dto.sm.response.VmSmChange;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface ChangesMapper extends ResponseMapper<Changes, VmSmChange> {
 
+    String DELIMITER = ",";
+
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "allAffected", ignore = true)
     @Mapping(target = "changeId", source = "source.header.id")
     @Mapping(target = "currentPhase", source = "source.header.currentPhase")
     @Mapping(target = "status", source = "source.header.status")
@@ -27,8 +31,8 @@ public interface ChangesMapper extends ResponseMapper<Changes, VmSmChange> {
     @Mapping(target = "requestedBy", source = "source.header.requestedBy")
     @Mapping(target = "requestedFor", source = "source.header.requestedFor")
     @Mapping(target = "assignDept", source = "source.header.assignDept")
-    @Mapping(target = "plannedStartAt", source = "source.middle.schedOutageStartAt")
-    @Mapping(target = "plannedEndAt", source = "source.middle.schedOutageEndAt")
+    @Mapping(target = "plannedStartAt", source = "source.header.plannedStartAt")
+    @Mapping(target = "plannedEndAt", source = "source.header.plannedEndAt")
     @Mapping(target = "foreignId", source = "source.header.foreignId")
     @Mapping(target = "affectedServices", source = "source.middle.affectedServices")
     @Mapping(target = "assets", source = "source.middle.assets")
@@ -45,16 +49,15 @@ public interface ChangesMapper extends ResponseMapper<Changes, VmSmChange> {
     @Override
     Changes mapToResponse(VmSmChange source);
 
-    @Mapping(target = "statusType", ignore = true)
     @Mapping(target = "configurationUnit", ignore = true)
     @Mapping(target = "name", source = "changeId")
     @Mapping(target = "impactDescription", source = "vtbRiskDescription")
     @Mapping(target = "degradationRate", source = "initialImpact")
-    @Mapping(target = "affectedSystems", source = "affectedServices")
+    @Mapping(target = "affectedSystems", source = "allAffected")
     @Mapping(target = "startDate", source = "plannedStartAt")
     @Mapping(target = "finishDate", source = "plannedEndAt")
-    @Mapping(target = "startDownDate", source = "downStartAt")
-    @Mapping(target = "finishDownDate", source = "downEndAt")
+    @Mapping(target = "startDownDate", source = "schedOutageStartAt")
+    @Mapping(target = "finishDownDate", source = "schedOutageEndAt")
     VmPlanInfoResponse mapToInfoResponse(Changes source);
 
     @Mapping(target = "name", constant = "Для сотрудников")
@@ -69,24 +72,13 @@ public interface ChangesMapper extends ResponseMapper<Changes, VmSmChange> {
     @Mapping(target = "id", source = "source.category.id")
     VmPlanSectionsResponse mapToVmPlanSections(GroupedChanges source);
 
-    @Mapping(target = "statusType", source = "status")
-    @Mapping(target = "affectedSystems", source = "affectedServices")
+    @Mapping(target = "affectedSystems", source = "allAffected")
     @Mapping(target = "name", source = "changeId")
     @Mapping(target = "startDate", source = "plannedStartAt")
     VmPlanResponse mapToVmPlan(Changes source);
 
     @Mapping(target = "id", ignore = true)
     void updateChange(Changes changes, @MappingTarget Changes updated);
-
-    default BlPlanStatusType mapPlanStatusType(String status) {
-        if (status == null) {
-            return null;
-        }
-        return switch (status) {
-            case "Проведение работ" -> BlPlanStatusType.warning;
-            default -> BlPlanStatusType.normal;
-        };
-    }
 
     default List<VmWorker> mapToWorkers(String requestedFor) {
         if (requestedFor == null) {
@@ -98,15 +90,14 @@ public interface ChangesMapper extends ResponseMapper<Changes, VmSmChange> {
     }
 
     default String arrayToPlainString(String[] value) {
-        return value != null
-                ? String.join(",", Arrays.asList(value))
-                : null;
+        return value == null ? null :
+                Arrays.stream(value).filter(Objects::isNull)
+                        .collect(Collectors.joining(DELIMITER));
     }
 
     default List<String> stringToArray(String value) {
-        return value != null
-                ? Arrays.asList(value.split(","))
-                : Collections.emptyList();
+        return value == null ? Collections.emptyList() :
+                Arrays.asList(value.split(DELIMITER));
     }
 
 }

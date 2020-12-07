@@ -10,11 +10,13 @@ import ru.vtb.monitoring.vtb112.mappers.SystemMapper;
 import ru.vtb.monitoring.vtb112.services.api.interfaces.SystemsService;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class SystemsServiceImpl implements SystemsService {
 
+    private static final Set<String> closedStatuses = Set.of("Закрыто");
     private final IncidentRepository incidentRepository;
     private final SystemMapper systemMapper;
     private final UnavailabilitiesRepository unavailabilitiesRepository;
@@ -27,14 +29,14 @@ public class SystemsServiceImpl implements SystemsService {
 
     @Override
     public List<VmSystemResponse> get(int page, int limit) {
-        return incidentRepository.countActiveIncidents().stream()
+        return incidentRepository.countActiveIncidents(closedStatuses).stream()
                 .map(systemMapper::mapToResponse)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<String> getTop10Unavailabilities() {
-        return unavailabilitiesRepository.getTopUnavailabilities(PageRequest.of(0, 10)).stream()
+        return unavailabilitiesRepository.getTopUnavailabilities(closedStatuses, PageRequest.of(0, 10)).stream()
                 .map(GroupedUnavailabilities::getService)
                 .collect(Collectors.toList());
     }

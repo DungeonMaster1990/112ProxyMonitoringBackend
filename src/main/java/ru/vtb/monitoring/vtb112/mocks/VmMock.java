@@ -11,6 +11,7 @@ import java.time.ZonedDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 public final class VmMock {
 
@@ -22,8 +23,8 @@ public final class VmMock {
 
     public static final VmPlanResponse[] vmPlanResponse =
             new VmPlanResponse[]{
-                    new VmPlanResponse("1", "Изменение IM-283501", "Согласование", BlPlanStatusType.warning, "Описание", Arrays.asList("Платежи", "Переводы"), ZonedDateTime.of(2020, 7, 2, 0, 0, 0, 0, ZoneId.of("UTC"))),
-                    new VmPlanResponse("2", "Изменение IM-283501", "Выполнено", BlPlanStatusType.normal, "Описание", Arrays.asList("Платежи"), ZonedDateTime.of(2016, 6, 5, 0, 0, 0, 0, ZoneId.of("UTC")))
+                    new VmPlanResponse("1", "Изменение IM-283501", "Согласование", BlPlanStatusType.warning, "Описание", Set.of("Платежи", "Переводы"), ZonedDateTime.of(2020, 7, 2, 0, 0, 0, 0, ZoneId.of("UTC"))),
+                    new VmPlanResponse("2", "Изменение IM-283501", "Выполнено", BlPlanStatusType.normal, "Описание", Set.of("Платежи"), ZonedDateTime.of(2016, 6, 5, 0, 0, 0, 0, ZoneId.of("UTC")))
             };
 
     public static final VmPlanWorkersResponse vmPlanWorkersResponse =
@@ -38,7 +39,7 @@ public final class VmMock {
 
     public static final VmPlanInfoResponse vmPlanInfoResponse =
             new VmPlanInfoResponse("10", "Изменение IM-283501", "Согласование", BlPlanStatusType.warning, "" +
-                    "Описание", "Описание последствий", "Не влияет", "М-Банк", Arrays.asList("Платежи", "Переводы"),
+                    "Описание", "Описание последствий", "Не влияет", "М-Банк", Set.of("Платежи", "Переводы"),
                     ZonedDateTime.of(2016, 5, 5, 0, 0, 0, 0, ZoneId.of("UTC")),
                     ZonedDateTime.of(2017, 9, 14, 0, 0, 0, 0, ZoneId.of("UTC")),
                     ZonedDateTime.of(2017, 11, 10, 0, 0, 0, 0, ZoneId.of("UTC")),

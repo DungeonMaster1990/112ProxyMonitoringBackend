@@ -45,6 +45,7 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
                   from Incident i 
                  where i.factBeginAt >= :twoDaysBackFromNow
                    and i.notificationSent <> true
+                   and i.identedAt is not null
                 """;
         TypedQuery<Incident> vtbIncidentsQuery = entityManager
                 .createQuery(qryString, Incident.class)
@@ -111,12 +112,14 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
         }
 
         predicates.add(categoryPredicate);
+        // Только у аварий есть поле identedAt, отфильтровываем инциденты.
+        predicates.add(cb.isNotNull(from.get("identedAt")));
 
         criteriaQuery.where(predicates.toArray(new Predicate[0]));
+        criteriaQuery.orderBy(cb.desc(from.get("identedAt")));
         TypedQuery<Incident> query = entityManager.createQuery(criteriaQuery);
         query.setFirstResult(paging.getPageNumber() * paging.getPageSize());
         query.setMaxResults(paging.getPageSize());
-
         return query.getResultList();
     }
 }
