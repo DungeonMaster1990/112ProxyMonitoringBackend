@@ -18,39 +18,39 @@ public interface ChangesRepository extends JpaRepository<Changes, Integer>, Chan
     List<Changes> findByChangeIdIn(List<String> changesIds);
 
     @Query("""
-                  select new ru.vtb.monitoring.vtb112.db.pg.models.dto.GroupedChanges(c.category, count(c.category))
-                  from Changes c
-                  where c.plannedStartAt >= :startDate
-                    and c.plannedStartAt <= :endDate
-                    and c.currentPhase in (:phases)
-                    and c.category is not null
-                  group by c.category
+                 select new ru.vtb.monitoring.vtb112.db.pg.models.dto.GroupedChanges(c.category, 
+                         sum(case when c.plannedStartAt >= :startDate
+                                   and c.plannedStartAt <= :endDate
+                                   and c.currentPhase in (:phases) then 1 else 0 end))
+                   from Changes c
+                  where c.category is not null
+               group by c.category
             """)
     List<GroupedChanges> getPlannedGroupedChanges(@Param("startDate") ZonedDateTime startDate,
                                                   @Param("endDate") ZonedDateTime endDate,
                                                   @Param("phases") Collection<String> phases);
 
     @Query("""
-                  select new ru.vtb.monitoring.vtb112.db.pg.models.dto.GroupedChanges(c.category, count(c.category))
-                  from Changes c
-                  where c.plannedStartAt <= :now 
-                    and c.plannedEndAt >= :now
-                    and c.currentPhase in (:phases)
-                    and c.category is not null
-                  group by c.category
+                 select new ru.vtb.monitoring.vtb112.db.pg.models.dto.GroupedChanges(c.category,
+                         sum(case when c.plannedStartAt <= :now 
+                                   and c.plannedEndAt >= :now
+                                   and c.currentPhase in (:phases) then 1 else 0 end))
+                   from Changes c
+                  where c.category is not null
+               group by c.category
             """)
     List<GroupedChanges> getCurrentGroupedChanges(@Param("now") ZonedDateTime now,
                                                   @Param("phases") Collection<String> phases);
 
     @Query("""
-                  select c
-                  from Changes c
+                 select c
+                   from Changes c
                   where c.plannedStartAt <= :now 
                     and c.plannedEndAt >= :now
                     and c.currentPhase in (:phases)
                     and c.category = :category
                     and LOWER(c.changeId) LIKE LOWER(CONCAT('%',:keyword,'%'))
-                    order by plannedStartAt
+               order by c.plannedStartAt
             """)
     List<Changes> getCurrentChanges(@Param("now") ZonedDateTime now,
                                     @Param("phases") Collection<String> phases,
@@ -59,13 +59,13 @@ public interface ChangesRepository extends JpaRepository<Changes, Integer>, Chan
                                     Pageable paging);
 
     @Query("""
-                  select c
-                  from Changes c
+                 select c
+                   from Changes c
                   where c.plannedStartAt <= :now 
                     and c.plannedEndAt >= :now
                     and c.currentPhase in (:phases)
                     and c.category = :category
-                    order by plannedStartAt
+               order by c.plannedStartAt
             """)
     List<Changes> getCurrentChanges(@Param("now") ZonedDateTime now,
                                     @Param("phases") Collection<String> phases,
@@ -80,7 +80,7 @@ public interface ChangesRepository extends JpaRepository<Changes, Integer>, Chan
                     and c.currentPhase in (:phases)
                     and c.category = :category
                     and LOWER(c.changeId) LIKE LOWER(CONCAT('%',:keyword,'%'))
-                    order by plannedStartAt
+                    order by c.plannedStartAt
                    
             """)
     List<Changes> getPlannedChanges(@Param("startDate") ZonedDateTime startDate,
@@ -91,13 +91,13 @@ public interface ChangesRepository extends JpaRepository<Changes, Integer>, Chan
                                     Pageable paging);
 
     @Query("""
-                  select c
-                  from Changes c
+                 select c
+                   from Changes c
                   where c.plannedStartAt >= :startDate
                     and c.plannedStartAt <= :endDate
                     and c.currentPhase in (:phases)
                     and c.category = :category
-                    order by plannedStartAt
+               order by c.plannedStartAt
             """)
     List<Changes> getPlannedChanges(@Param("startDate") ZonedDateTime startDate,
                                     @Param("endDate") ZonedDateTime endDate,

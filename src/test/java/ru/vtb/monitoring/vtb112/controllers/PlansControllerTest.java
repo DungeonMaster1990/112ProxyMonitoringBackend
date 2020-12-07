@@ -113,7 +113,7 @@ class PlansControllerTest extends PostgreSQL {
                 .content(objectMapper.writeValueAsString(request)))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[*])", hasSize(2)));
+                .andExpect(jsonPath("$[*]", hasSize(1)));
     }
 
     @Test
@@ -133,11 +133,11 @@ class PlansControllerTest extends PostgreSQL {
                 .content(objectMapper.writeValueAsString(request)))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[*])", hasSize(4)))
-                .andExpect(jsonPath("$[0]['name'])").value("Изменение IM-11"))
-                .andExpect(jsonPath("$[1]['name'])").value("Изменение IM-10"))
-                .andExpect(jsonPath("$[2]['name'])").value("Изменение IM-9"))
-                .andExpect(jsonPath("$[3]['name'])").value("Изменение IM-8"));
+                .andExpect(jsonPath("$[*]", hasSize(4)))
+                .andExpect(jsonPath("$[0]['name']").value("Изменение IM-11"))
+                .andExpect(jsonPath("$[1]['name']").value("Изменение IM-10"))
+                .andExpect(jsonPath("$[2]['name']").value("Изменение IM-9"))
+                .andExpect(jsonPath("$[3]['name']").value("Изменение IM-8"));
     }
 
     @Test
@@ -173,6 +173,25 @@ class PlansControllerTest extends PostgreSQL {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(getJson("sections.json")));
+    }
+
+    @Test
+    void testCurrentPlansSections() throws Exception {
+        VmPlanSectionRequest request = VmPlanSectionRequest.builder().build();
+        mockMvc.perform(MockMvcRequestBuilders
+                .post(PathConstants.PLANS + "/sections")
+                .contentType(MediaType.APPLICATION_JSON)
+                .characterEncoding("UTF-8")
+                .content(objectMapper.writeValueAsString(request)))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").value(1))
+                .andExpect(jsonPath("$[0].count").value(5))
+                .andExpect(jsonPath("$[1].id").value(2))
+                .andExpect(jsonPath("$[1].count").value(0))
+                .andExpect(jsonPath("$[2].id").value(3))
+                .andExpect(jsonPath("$[2].count").value(1))
+        ;
     }
 
     @Test

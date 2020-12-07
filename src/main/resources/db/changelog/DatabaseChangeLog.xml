@@ -13,9 +13,6 @@
         <sqlFile path="/db/changelog/migrations/Changes.sql"/>
         <sqlFile path="/db/changelog/migrations/InitialData.sql" endDelimiter=";;"/>
     </changeSet>
-    <changeSet author="NMarkov" id="test_data" context="test">
-        <sqlFile path="/db/changelog/migrations/test/test_data.sql"/>
-    </changeSet>
     <changeSet author="AStepchkov" id="UnavalabilitiesTypo" context="prod">
         <sqlFile path="/db/changelog/migrations/UnavalabilitiesTypo.sql"/>
     </changeSet>
@@ -24,5 +21,11 @@
     </changeSet>
     <changeSet author="AStepchkov" id="consequences" context="prod">
         <sqlFile path="/db/changelog/migrations/consequences.sql"/>
+    </changeSet>
+
+
+    <changeSet author="NMarkov" id="test_data" context="test">
+        <sqlFile path="/db/changelog/migrations/test/test_sm_data.sql"/>
+        <sqlFile path="/db/changelog/migrations/test/test_metrics_data.sql"/>
     </changeSet>
 </databaseChangeLog>
