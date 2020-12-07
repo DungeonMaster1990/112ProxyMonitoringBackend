@@ -3,30 +3,38 @@ package ru.vtb.monitoring.vtb112.logging;
 import lombok.Getter;
 
 import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public enum LogEvent {
+// @formatter:off
+    ACCIDENTS              ("/accidents",               "accidents.get",                     LogEvent.OPERATION_TYPE),
+    ACCIDENTS_NEW          ("/accidents/new",           "accidents.getNewAccident",          LogEvent.OPERATION_TYPE),
+    ACCIDENTS_INFO         ("/accidents/info",          "accidents.getAccidentInfo",         LogEvent.OPERATION_TYPE),
+    ACCIDENTS_WORKERS      ("/accidents/workers",       "accidents.getWorkers",              LogEvent.OPERATION_TYPE),
+    ACCIDENTS_HISTORY      ("/accidents/history",       "accidents.getHistory",              LogEvent.OPERATION_TYPE),
+    ACCIDENTS_DESCRIPTIONS ("/accidents/descriptions",  "accidents.getAccidentDescriptions", LogEvent.OPERATION_TYPE),
+    EVENTS                 ("/events",                  "events.get",                        LogEvent.OPERATION_TYPE),
+    FAILURE                ("/failurePoints",           "failure.get",                       LogEvent.OPERATION_TYPE),
+    METRICS                ("/metrics",                 "metrics.get",                       LogEvent.OPERATION_TYPE),
+    METRICS_INFO           ("/metrics/info",            "metrics.info",                      LogEvent.OPERATION_TYPE),
+    PLANS                  ("/plans",                   "plans.get",                         LogEvent.OPERATION_TYPE),
+    PLANS_SECTIONS         ("/plans/sections",          "plans.getPlanSections",             LogEvent.OPERATION_TYPE),
+    PLANS_INFO             ("/plans/info",              "plans.getPlanInfo",                 LogEvent.OPERATION_TYPE),
+    PLANS_WORKERS          ("/plans/workers",           "plans.getPlanWorkers",              LogEvent.OPERATION_TYPE),
+    PLANS_HISTORY          ("/plans/history",           "plans.getPlanHistory",              LogEvent.OPERATION_TYPE),
+    PLANS_DESCRIPTIONS     ("/plans/descriptions",      "plans.getPlanDescriptions",         LogEvent.OPERATION_TYPE),
+    SYSTEMS                ("/systems",                 "systems.get",                       LogEvent.OPERATION_TYPE),
+    SYSTEMS_AFFECTED       ("/systems/affected",        "systems.getAffectedSystem",         LogEvent.OPERATION_TYPE),
 
-    ACCIDENTS              ("/accidents", "accidents.get", "Readonly operation"),
-    ACCIDENTS_NEW          ("/accidents/new", "accidents.getNewAccident", "Readonly operation"),
-    ACCIDENTS_INFO         ("/accidents/info", "accidents.getAccidentInfo", "Readonly operation"),
-    ACCIDENTS_WORKERS      ("/accidents/workers", "accidents.getWorkers", "Readonly operation"),
-    ACCIDENTS_HISTORY      ("/accidents/history", "accidents.getHistory", "Readonly operation"),
-    ACCIDENTS_DESCRIPTIONS ("/accidents/descriptions", "accidents.getAccidentDescriptions", "Readonly operation"),
-    EVENTS                 ("/events", "events.get", "Readonly operation"),
-    FAILURE                ("/failurePoints", "failure.get", "Readonly operation"),
-    METRICS                ("/metrics", "metrics.get", "Readonly operation"),
-    METRICS_INFO           ("/metrics/info", "metrics.info", "Readonly operation"),
-    PLANS                  ("/plans", "plans.get", "Readonly operation"),
-    PLANS_SECTIONS         ("/plans/sections", "plans.getPlanSections", "Readonly operation"),
-    PLANS_INFO             ("/plans/info", "plans.getPlanInfo", "Readonly operation"),
-    PLANS_WORKERS          ("/plans/workers", "plans.getPlanWorkers", "Readonly operation"),
-    PLANS_HISTORY          ("/plans/history", "plans.getPlanHistory", "Readonly operation"),
-    PLANS_DESCRIPTIONS     ("/plans/descriptions", "plans.getPlanDescriptions", "Readonly operation"),
-    SYSTEMS                ("/systems", "systems.get", "Readonly operation"),
-    SYSTEMS_AFFECTED       ("/affected", "systems.getAffectedSystem", "Readonly operation"),
+    UNKNOWN                ("",                         "",                         "");
+// @formatter:on
 
-    UNKNOWN                ("", "", "");
+    private static final String OPERATION_TYPE = "Readonly operation";
+    private static final Map<String, LogEvent> LOOKUP = Arrays.stream(LogEvent.values())
+            .collect(Collectors.toUnmodifiableMap(LogEvent::getEventPath, logEvent -> logEvent));
 
+    @Getter
     private final String eventPath;
     @Getter
     private final String logCode;
@@ -40,10 +48,7 @@ public enum LogEvent {
     }
 
     public static LogEvent getEventByPath(String path) {
-        return Arrays.stream(LogEvent.values())
-                .filter(s -> s.eventPath.equals(path))
-                .findFirst()
-                .orElse(UNKNOWN);
+        return LOOKUP.getOrDefault(path, UNKNOWN);
     }
 
 }

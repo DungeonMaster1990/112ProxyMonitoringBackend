@@ -1,9 +1,9 @@
 <included>
 
     <property name="HOME_DIR" value="logs/"/>
-    <property name="APP_LOG" value="app.log"/>
-    <property name="DEBUG_LOG" value="debug.log"/>
-    <property name="ERROR_LOG" value="error.log"/>
+    <property name="APP_LOG" value="app"/>
+    <property name="DEBUG_LOG" value="debug"/>
+    <property name="ERROR_LOG" value="error"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -13,9 +13,9 @@
     </appender>
 
     <appender name="APP-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${HOME_DIR}/${APP_LOG}</file>
+        <file>${HOME_DIR}/${APP_LOG}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${HOME_DIR}/archived/${APP_LOG}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${HOME_DIR}/archived/${APP_LOG}.%d{yyyy-MM-dd}.%i.zip</fileNamePattern>
             <!-- each file, size max 5MB -->
             <maxFileSize>5MB</maxFileSize>
             <!-- total size of all archive files, if total size > 10GB, it will delete old archived file -->
@@ -30,9 +30,9 @@
     </appender>
 
     <appender name="DEBUG-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${HOME_DIR}/${DEBUG_LOG}</file>
+        <file>${HOME_DIR}/${DEBUG_LOG}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${HOME_DIR}/archived/${DEBUG_LOG}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${HOME_DIR}/archived/${DEBUG_LOG}.%d{yyyy-MM-dd}.%i.zip</fileNamePattern>
             <maxFileSize>10MB</maxFileSize>
             <totalSizeCap>10GB</totalSizeCap>
             <maxHistory>30</maxHistory>
@@ -44,15 +44,15 @@
     </appender>
 
     <appender name="ERROR-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${HOME_DIR}/${ERROR_LOG}.log</file>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>
             <onMatch>ACCEPT</onMatch>
             <onMismatch>DENY</onMismatch>
         </filter>
-        <file>${HOME_DIR}/${ERROR_LOG}</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${HOME_DIR}/archived/${ERROR_LOG}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
-            <maxFileSize>10MB</maxFileSize>
+            <fileNamePattern>${HOME_DIR}/archived/${ERROR_LOG}.%d{yyyy-MM-dd}.%i.zip</fileNamePattern>
+            <maxFileSize>5MB</maxFileSize>
             <totalSizeCap>10GB</totalSizeCap>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
