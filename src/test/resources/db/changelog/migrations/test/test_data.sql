@@ -60,7 +60,6 @@ insert into monitoring.unavailability (service_name, fault_id)
 values ('Переводы', 'Инцидент А_12');
 insert into monitoring.unavailability (service_name, fault_id)
 values ('Переводы', 'Инцидент А_13');
-
 insert into monitoring.unavailability (service_name, fault_id)
 values ('Платежи', 'Инцидент А_1');
 insert into monitoring.unavailability (service_name, fault_id)

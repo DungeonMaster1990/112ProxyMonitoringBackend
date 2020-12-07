@@ -183,7 +183,7 @@ public class Incident implements BaseSmModel, Serializable {
 
     public BlAccidentStatusType getStatusType() {
         if (status == null) {
-            return null;
+            return BlAccidentStatusType.normal;
         }
         return switch (status) {
             case "Назначено" -> BlAccidentStatusType.critical;

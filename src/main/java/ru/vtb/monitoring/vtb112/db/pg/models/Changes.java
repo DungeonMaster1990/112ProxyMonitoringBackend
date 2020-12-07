@@ -11,7 +11,6 @@ import ru.vtb.monitoring.vtb112.dto.api.enums.BlPlanStatusType;
 import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -175,13 +174,11 @@ public class Changes implements BaseSmModel {
     }
 
     public Set<String> getAllAffected() {
-        Set<String> affected = new HashSet<>();
-        for (String affect : Stream.of(affectedItem, affectedServices, affectedCis, affectedIts, assets).filter(Objects::nonNull).collect(Collectors.toList())) {
-            if (affect != null && !affect.isBlank()) {
-                affected.addAll(Arrays.asList(affect.split(",")));
-            }
-        }
-        return affected;
+        return Stream.of(affectedItem, affectedServices, affectedCis, affectedIts, assets)
+                .filter(Objects::nonNull)
+                .filter(affect -> !affect.isBlank())
+                .flatMap(affect -> Arrays.stream(affect.split(",")))
+                .collect(Collectors.toSet());
     }
 
     @Override
