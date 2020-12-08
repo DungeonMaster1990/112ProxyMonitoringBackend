@@ -16,45 +16,40 @@ import java.util.regex.Pattern;
 @Component
 public class CustomRequestInterceptor extends HandlerInterceptorAdapter {
 
-    private final Pattern apiPattern = Pattern.compile("[^|(\\d+.+\\d).]*$");
+    private static final Pattern API_PATTERN = Pattern.compile("^/api/v\\d+\\.\\d+(/.+)");
+
+    private static final String START_TIME_ATTRIBUTE = "startTime";
 
     @Override
     public boolean preHandle(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) {
-        request.setAttribute("startTime", Instant.now());
+        request.setAttribute(START_TIME_ATTRIBUTE, Instant.now());
         return true;
     }
 
     @Override
-    public void afterCompletion(HttpServletRequest request,
-                                @NotNull HttpServletResponse response, @NotNull Object handler, Exception ex) {
-
-        var matcher = apiPattern.matcher(request.getServletPath());
+    public void afterCompletion(HttpServletRequest request, @NotNull HttpServletResponse response,
+                                @NotNull Object handler, Exception ex) {
+        var matcher = API_PATTERN.matcher(request.getServletPath());
         if (!matcher.find()) {
             return;
         }
-        var event = LogEvent.getEventByPath(matcher.group());
+        var startTime =  (Instant) request.getAttribute(START_TIME_ATTRIBUTE);
         var principal = Optional.ofNullable(request.getUserPrincipal())
                 .map(Principal::getName)
                 .orElse("");
-        var startTime = (Instant) request.getAttribute("startTime");
-        var duration = Instant.now().toEpochMilli() - startTime.toEpochMilli();
-        var ipAdd = request.getRemoteAddr();
-        var userAgent = request.getHeader("User-Agent");
-        var eventLogCode = event.getLogCode();
-        var description = event.getDescription();
-        var result = response.getStatus();
+        String group = matcher.group(1);
+        var event = LogEvent.getEventByPath(group);
+        var logEntry = new LogEntry.LogEntryBuilder()
+                .username(principal)
+                .startTime(startTime)
+                .duration(Instant.now().toEpochMilli() - startTime.toEpochMilli())
+                .clientIpAddress(request.getRemoteAddr())
+                .userAgent(request.getHeader("User-Agent"))
+                .eventCode(event.getLogCode())
+                .description(event.getDescription())
+                .result(response.getStatus())
+                .build();
 
-        log.info("""
-                User name: {} 
-                Start time: {} 
-                Duration: {} 
-                Client ip address: {} 
-                User agent: {} 
-                Event code: {} 
-                Description: {} 
-                Result: {} 
-                """, principal, startTime, duration, ipAdd, userAgent, eventLogCode, description, result);
+        log.info("{}", logEntry);
     }
-
 }
-

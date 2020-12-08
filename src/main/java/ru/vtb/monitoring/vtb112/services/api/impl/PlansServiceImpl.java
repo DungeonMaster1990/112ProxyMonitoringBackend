@@ -12,6 +12,7 @@ import ru.vtb.monitoring.vtb112.utils.DateUtil;
 
 import java.time.ZonedDateTime;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -51,6 +52,7 @@ public class PlansServiceImpl implements PlansService {
                 changesRepository.getCurrentGroupedChanges(DateUtil.now(), phasesForCurrent) :
                 changesRepository.getPlannedGroupedChanges(startDate, endDate, phasesForPlanned);
         return changes.stream()
+                .sorted(Comparator.comparingInt(value -> value.getCategory().getId()))
                 .map(changesMapper::mapToVmPlanSections)
                 .collect(Collectors.toList());
     }
@@ -62,14 +64,23 @@ public class PlansServiceImpl implements PlansService {
                                            String keyword,
                                            Pageable paging) {
         var changes = startDate == null && endDate == null
-                ? StringUtils.isEmpty(keyword)
-                    ? changesRepository.getCurrentChanges(DateUtil.now(), phasesForCurrent, category, paging)
-                    : changesRepository.getCurrentChanges(DateUtil.now(), phasesForCurrent, category, keyword, paging)
-                : StringUtils.isEmpty(keyword)
-                    ? changesRepository.getPlannedChanges(startDate, endDate, phasesForPlanned, category, paging)
-                    : changesRepository.getPlannedChanges(startDate, endDate, phasesForPlanned, category, keyword, paging);
+                ? getCurrentChanges(category, keyword, paging)
+                : getPlannedChanges(startDate, endDate, category, keyword, paging);
         return changes.stream()
                 .map(changesMapper::mapToVmPlan)
                 .collect(Collectors.toList());
+    }
+
+    private List<Changes> getPlannedChanges(ZonedDateTime startDate, ZonedDateTime endDate,
+                                            String category, String keyword, Pageable paging) {
+        return StringUtils.isEmpty(keyword)
+                ? changesRepository.getPlannedChanges(startDate, endDate, phasesForPlanned, category, paging)
+                : changesRepository.getPlannedChanges(startDate, endDate, phasesForPlanned, category, keyword, paging);
+    }
+
+    private List<Changes> getCurrentChanges(String category, String keyword, Pageable paging) {
+        return StringUtils.isEmpty(keyword)
+                ? changesRepository.getCurrentChanges(DateUtil.now(), phasesForCurrent, category, paging)
+                : changesRepository.getCurrentChanges(DateUtil.now(), phasesForCurrent, category, keyword, paging);
     }
 }
