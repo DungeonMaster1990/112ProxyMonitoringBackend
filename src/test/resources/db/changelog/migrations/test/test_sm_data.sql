@@ -1,5 +1,5 @@
 --@formatter:off
-INSERT INTO monitoring.incidents (incident_id, priority, created_at, description, specialist_id, idented_at)
+INSERT INTO monitoring.incidents (incident_id, priority, created_at, description, manager_id, idented_at)
 VALUES ('Инцидент А_1', '2', '2020-11-16 19:00:00', 'Проблема', 'Иванов Василий 1', '2020-11-16 19:00:00'),
        ('Инцидент А_2', '1', '2020-11-16 19:00:00', 'Проблема', 'Иванов Василий 2', '2020-11-16 19:00:00'),
        ('Инцидент А_3', '1', '2020-11-16 19:00:00', 'Проблема', 'Иванов Василий 3', '2020-11-16 19:00:00'),
