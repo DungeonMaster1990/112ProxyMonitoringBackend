@@ -18,8 +18,6 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public interface ChangesMapper extends ResponseMapper<Changes, VmSmChange> {
 
-    String DELIMITER = ",";
-
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "allAffected", ignore = true)
     @Mapping(target = "changeId", source = "source.header.id")
@@ -44,14 +42,16 @@ public interface ChangesMapper extends ResponseMapper<Changes, VmSmChange> {
     @Mapping(target = "description", source = "source.description.description")
     @Mapping(target = "acceptanceComments", source = "source.description.acceptanceComments")
     @Mapping(target = "plan", source = "source.description.plan")
-    @Mapping(target = "vtbRiskDescription", source = "source.description.vtbRiskDescription")
+    @Mapping(target = "riskDescription", source = "source.description.riskDescription")
     @Mapping(target = "closingComments", source = "source.close.closingComments")
     @Override
     Changes mapToResponse(VmSmChange source);
 
     @Mapping(target = "configurationUnit", ignore = true)
     @Mapping(target = "name", source = "changeId")
-    @Mapping(target = "impactDescription", source = "vtbRiskDescription")
+    @Mapping(target = "status", source = "currentPhase")
+    @Mapping(target = "description", source = "briefDescription")
+    @Mapping(target = "impactDescription", source = "riskDescription")
     @Mapping(target = "degradationRate", source = "initialImpact")
     @Mapping(target = "affectedSystems", source = "allAffected")
     @Mapping(target = "startDate", source = "plannedStartAt")
@@ -61,6 +61,7 @@ public interface ChangesMapper extends ResponseMapper<Changes, VmSmChange> {
     VmPlanInfoResponse mapToInfoResponse(Changes source);
 
     @Mapping(target = "name", constant = "Для сотрудников")
+    // TODO check what to send. mb add briefDescription, or all types of descriptions
     @Mapping(target = "value", source = "description")
     VmPlanDescriptionResponse mapToDescriptionResponse(Changes source);
 
@@ -92,12 +93,6 @@ public interface ChangesMapper extends ResponseMapper<Changes, VmSmChange> {
     default String arrayToPlainString(String[] value) {
         return value == null ? null :
                 Arrays.stream(value).filter(Objects::isNull)
-                        .collect(Collectors.joining(DELIMITER));
+                        .collect(Collectors.joining(Changes.DELIMITER));
     }
-
-    default List<String> stringToArray(String value) {
-        return value == null ? Collections.emptyList() :
-                Arrays.asList(value.split(DELIMITER));
-    }
-
 }

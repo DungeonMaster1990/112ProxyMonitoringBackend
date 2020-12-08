@@ -237,7 +237,7 @@ class PlansControllerTest extends PostgreSQL {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0]['name'])").value("Для сотрудников"))
-                .andExpect(jsonPath("$[0]['value'])").value("Подробное описание"));
+                .andExpect(jsonPath("$[0]['value'])").value("Подробное описание2"));
     }
 
     @NotNull

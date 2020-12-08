@@ -197,10 +197,13 @@ public class Incident implements BaseSmModel, Serializable {
         Matcher matcher = CONFERENCE_LINK_PATTERN.matcher(resolution);
         while (matcher.find()) {
             String url = matcher.group(1);
-            try {
-                new URL(url);
-                return url;
-            } catch (MalformedURLException ignored) {
+            if (url != null && !url.isBlank()) {
+                try {
+                    url = url.strip();
+                    new URL(url);
+                    return url;
+                } catch (MalformedURLException ignored) {
+                }
             }
         }
         return null;

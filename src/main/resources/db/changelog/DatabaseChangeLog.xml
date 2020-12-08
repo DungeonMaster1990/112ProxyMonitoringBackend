@@ -22,6 +22,9 @@
     <changeSet author="AStepchkov" id="consequences" context="prod">
         <sqlFile path="/db/changelog/migrations/consequences.sql"/>
     </changeSet>
+    <changeSet author="AStepchkov" id="update20201208" context="prod">
+        <sqlFile path="/db/changelog/migrations/update20201208.sql"/>
+    </changeSet>
 
 
     <changeSet author="NMarkov" id="test_data" context="test">
