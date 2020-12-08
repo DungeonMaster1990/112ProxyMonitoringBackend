@@ -47,12 +47,14 @@ public interface ChangesMapper extends ResponseMapper<Changes, VmSmChange> {
     @Override
     Changes mapToResponse(VmSmChange source);
 
-    @Mapping(target = "configurationUnit", ignore = true)
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "changeId")
     @Mapping(target = "status", source = "currentPhase")
+    @Mapping(target = "statusType", source = "statusType")
     @Mapping(target = "description", source = "briefDescription")
     @Mapping(target = "impactDescription", source = "riskDescription")
     @Mapping(target = "degradationRate", source = "initialImpact")
+    @Mapping(target = "configurationUnit", ignore = true)
     @Mapping(target = "affectedSystems", source = "allAffected")
     @Mapping(target = "startDate", source = "plannedStartAt")
     @Mapping(target = "finishDate", source = "plannedEndAt")
@@ -65,16 +67,22 @@ public interface ChangesMapper extends ResponseMapper<Changes, VmSmChange> {
     @Mapping(target = "value", source = "description")
     VmPlanDescriptionResponse mapToDescriptionResponse(Changes source);
 
+    // TODO Не возвращать объект manager, если нет имени
     @Mapping(target = "manager.name", source = "requestedBy")
     @Mapping(target = "workers", source = "requestedFor")
     VmPlanWorkersResponse mapToWorkersResponse(Changes source);
 
-    @Mapping(target = "name", source = "source.category.section")
     @Mapping(target = "id", source = "source.category.id")
+    @Mapping(target = "name", source = "source.category.section")
+    @Mapping(target = "count", source = "count")
     VmPlanSectionsResponse mapToVmPlanSections(GroupedChanges source);
 
-    @Mapping(target = "affectedSystems", source = "allAffected")
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "changeId")
+    @Mapping(target = "status", source = "currentPhase")
+    @Mapping(target = "statusType", source = "statusType")
+    @Mapping(target = "description", source = "briefDescription")
+    @Mapping(target = "affectedSystems", source = "allAffected")
     @Mapping(target = "startDate", source = "plannedStartAt")
     VmPlanResponse mapToVmPlan(Changes source);
 
