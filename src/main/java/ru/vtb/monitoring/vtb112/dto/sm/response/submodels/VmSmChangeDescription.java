@@ -19,6 +19,6 @@ public class VmSmChangeDescription {
     private String[] acceptanceComments;
     @JsonAlias("Plan")
     private String[] plan;
-    @JsonAlias("VtbRiskDescription")
-    private String[] vtbRiskDescription;
+    @JsonAlias("RiskDescription")
+    private String[] riskDescription;
 }

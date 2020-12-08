@@ -2,8 +2,8 @@
   "id": "1",
   "name": "Изменение IM-1",
   "status": "Согласование",
-  "description": "Описание",
-  "impactDescription": "Описание последствия",
+  "description": "Краткое описание1",
+  "impactDescription": "Описание последствия1",
   "degradationRate": "Не влияет",
   "affectedSystems": [
     "Платежи",

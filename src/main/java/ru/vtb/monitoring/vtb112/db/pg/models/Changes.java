@@ -24,6 +24,7 @@ import java.util.stream.Stream;
 @Table(name = "changes", schema = "monitoring")
 public class Changes implements BaseSmModel {
 
+    public static final String DELIMITER = ",";
     private static final Set<String> phasesWarn = Set.of("Анализ результатов реализации", "Закрытие");
 
     @Id
@@ -147,8 +148,8 @@ public class Changes implements BaseSmModel {
     private String acceptanceComments;
     @Column(name = "plan")
     private String plan;
-    @Column(name = "vtb_risk_description")
-    private String vtbRiskDescription;
+    @Column(name = "risk_description")
+    private String riskDescription;
     //middle
     @Column(name = "sched_outage_start_at")
     private ZonedDateTime schedOutageStartAt;
@@ -177,7 +178,7 @@ public class Changes implements BaseSmModel {
         return Stream.of(affectedItem, affectedServices, affectedCis, affectedIts, assets)
                 .filter(Objects::nonNull)
                 .filter(affect -> !affect.isBlank())
-                .flatMap(affect -> Arrays.stream(affect.split(",")))
+                .flatMap(affect -> Arrays.stream(affect.split(DELIMITER)))
                 .collect(Collectors.toSet());
     }
 
