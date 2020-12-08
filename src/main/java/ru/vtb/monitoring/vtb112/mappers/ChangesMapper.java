@@ -92,7 +92,7 @@ public interface ChangesMapper extends ResponseMapper<Changes, VmSmChange> {
 
     default String arrayToPlainString(String[] value) {
         return value == null ? null :
-                Arrays.stream(value).filter(Objects::isNull)
+                Arrays.stream(value).filter(Objects::nonNull)
                         .collect(Collectors.joining(Changes.DELIMITER));
     }
 }

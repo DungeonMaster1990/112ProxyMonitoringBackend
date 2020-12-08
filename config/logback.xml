@@ -16,12 +16,7 @@
         <file>${HOME_DIR}/${APP_LOG}.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${HOME_DIR}/archived/${APP_LOG}.%d{yyyy-MM-dd}.%i.zip</fileNamePattern>
-            <!-- each file, size max 5MB -->
             <maxFileSize>5MB</maxFileSize>
-            <!-- total size of all archive files, if total size > 10GB, it will delete old archived file -->
-            <totalSizeCap>10GB</totalSizeCap>
-            <!-- 30 days to keep -->
-            <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
             <charset>UTF-8</charset>
@@ -34,8 +29,6 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${HOME_DIR}/archived/${DEBUG_LOG}.%d{yyyy-MM-dd}.%i.zip</fileNamePattern>
             <maxFileSize>10MB</maxFileSize>
-            <totalSizeCap>10GB</totalSizeCap>
-            <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
             <charset>UTF-8</charset>
@@ -53,8 +46,6 @@
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <fileNamePattern>${HOME_DIR}/archived/${ERROR_LOG}.%d{yyyy-MM-dd}.%i.zip</fileNamePattern>
             <maxFileSize>5MB</maxFileSize>
-            <totalSizeCap>10GB</totalSizeCap>
-            <maxHistory>30</maxHistory>
         </rollingPolicy>
         <encoder>
             <charset>UTF-8</charset>
