@@ -40,7 +40,7 @@ class AccidentsControllerTest extends PostgreSQL {
     private static final String JSON_RESOURCES = "src/test/resources/json/accidents";
 
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private final ZonedDateTime dayNow = ZonedDateTime.parse("2020-11-16T19:00:00.00000+03:00");
+    private final ZonedDateTime dayNow = ZonedDateTime.parse("2020-11-16T11:00:00.00000+03:00");
 
     @Autowired
     private MockMvc mockMvc;

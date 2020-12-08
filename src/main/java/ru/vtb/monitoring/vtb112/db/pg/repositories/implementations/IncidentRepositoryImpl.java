@@ -100,7 +100,7 @@ public class IncidentRepositoryImpl implements IncidentRepositoryCustom {
             predicates.add(join.get("serviceName").in(affectedSystems));
         }
         if (startDate != null) {
-            predicates.add(cb.greaterThanOrEqualTo(from.get("createdAt"), startDate));
+            predicates.add(cb.greaterThanOrEqualTo(from.get("factBeginAt"), startDate));
         }
         if (keyword != null && !keyword.isBlank()) {
             predicates.add(cb.like(from.get("incidentId"), "%" + keyword + "%"));

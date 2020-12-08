@@ -34,27 +34,39 @@ public interface IncidentMapper extends ResponseMapper<Incident, VmSmIncident> {
     @Mapping(target = "value", source = "description")
     VmAccidentDescriptionResponse mapToDescriptionResponse(Incident source);
 
+    // TODO Не возвращать объект manager, если нет имени
     @Mapping(target = "manager.name", source = "managerId")
     @Mapping(target = "workers", source = "incident")
     VmAccidentWorkersResponse mapToWorkersResponse(Incident incident);
 
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "incidentId")
     @Mapping(target = "category", source = "priorityAsCategory")
-    @Mapping(target = "detectionDate", source = "identedAt")
+    @Mapping(target = "status", source = "status")
+    @Mapping(target = "statusType", source = "statusType")
+    @Mapping(target = "description", source = "title")
     @Mapping(target = "affectedSystems", source = "unavailabilities")
+    @Mapping(target = "detectionDate", source = "identedAt")
     VmAccidentResponse mapToApiResponse(Incident incident);
 
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "incidentId")
     @Mapping(target = "category", source = "priorityAsCategory")
+    @Mapping(target = "status", source = "status")
+    @Mapping(target = "statusType", source = "statusType")
+    @Mapping(target = "description", source = "title")
     @Mapping(target = "impactDescription", source = "consequences")
+    @Mapping(target = "failurePoint", source = "failurePoint")
     @Mapping(target = "configurationUnit", source = "configurationItemId")
-    @Mapping(target = "startDate", source = "createdAt")
-    @Mapping(target = "detectionDate", source = "identedAt")
-    @Mapping(target = "predictDate", source = "expiredAt")
-    @Mapping(target = "telegramLink", ignore = true)
     @Mapping(target = "affectedSystems", source = "unavailabilities")
+    @Mapping(target = "startDate", source = "factBeginAt")
+    @Mapping(target = "detectionDate", source = "identedAt")
+    @Mapping(target = "predictDate", source = "eliminationConsequencesAt")
+    @Mapping(target = "conferenceLink", source = "conferenceLink")
+    @Mapping(target = "telegramLink", ignore = true)
     VmAccidentInfoResponse mapToApiInfoResponse(Incident incident);
 
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "name", source = "incidentId")
     VmNewAccidentResponse mapToApiNewResponse(Incident incident);
 
