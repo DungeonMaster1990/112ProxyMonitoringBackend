@@ -74,7 +74,7 @@ public interface ChangesMapper extends ResponseMapper<Changes, VmSmChange> {
     VmPlanWorkersResponse mapToWorkersResponse(Changes source);
 
     @Mapping(target = "id", source = "source.category.id")
-    @Mapping(target = "name", source = "source.category.section")
+    @Mapping(target = "name", source = "source.category.outputSectionName")
     @Mapping(target = "count", source = "count")
     VmPlanSectionsResponse mapToVmPlanSections(GroupedChanges source);
 
