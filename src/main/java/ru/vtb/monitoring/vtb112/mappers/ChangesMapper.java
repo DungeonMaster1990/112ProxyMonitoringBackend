@@ -6,6 +6,7 @@ import org.mapstruct.MappingTarget;
 import ru.vtb.monitoring.vtb112.db.pg.models.Changes;
 import ru.vtb.monitoring.vtb112.db.pg.models.dto.GroupedChanges;
 import ru.vtb.monitoring.vtb112.dto.api.response.*;
+import ru.vtb.monitoring.vtb112.dto.api.submodels.VmManager;
 import ru.vtb.monitoring.vtb112.dto.api.submodels.VmWorker;
 import ru.vtb.monitoring.vtb112.dto.sm.response.VmSmChange;
 
@@ -68,7 +69,7 @@ public interface ChangesMapper extends ResponseMapper<Changes, VmSmChange> {
     VmPlanDescriptionResponse mapToDescriptionResponse(Changes source);
 
     // TODO Не возвращать объект manager, если нет имени
-    @Mapping(target = "manager.name", source = "requestedBy")
+    @Mapping(target = "manager", source = "requestedBy")
     @Mapping(target = "workers", source = "requestedFor")
     VmPlanWorkersResponse mapToWorkersResponse(Changes source);
 
@@ -90,12 +91,21 @@ public interface ChangesMapper extends ResponseMapper<Changes, VmSmChange> {
     void updateChange(Changes changes, @MappingTarget Changes updated);
 
     default List<VmWorker> mapToWorkers(String requestedFor) {
-        if (requestedFor == null) {
+        if (requestedFor == null || requestedFor.isBlank()) {
             return Collections.emptyList();
         }
         VmWorker worker = new VmWorker();
         worker.setName(requestedFor);
         return Collections.singletonList(worker);
+    }
+
+    default VmManager mapToManager(String requestedBy) {
+        if (requestedBy == null || requestedBy.isBlank()) {
+            return null;
+        }
+        VmManager manager = new VmManager();
+        manager.setName(requestedBy);
+        return manager;
     }
 
     default String arrayToPlainString(String[] value) {

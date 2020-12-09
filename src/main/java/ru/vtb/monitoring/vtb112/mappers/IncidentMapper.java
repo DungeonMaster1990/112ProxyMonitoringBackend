@@ -7,6 +7,7 @@ import ru.vtb.monitoring.vtb112.db.pg.models.Incident;
 import ru.vtb.monitoring.vtb112.db.pg.models.Unavailabilities;
 import ru.vtb.monitoring.vtb112.dto.api.enums.BlWorkerStatus;
 import ru.vtb.monitoring.vtb112.dto.api.response.*;
+import ru.vtb.monitoring.vtb112.dto.api.submodels.VmManager;
 import ru.vtb.monitoring.vtb112.dto.api.submodels.VmWorker;
 import ru.vtb.monitoring.vtb112.dto.sm.response.VmSmIncident;
 
@@ -35,7 +36,7 @@ public interface IncidentMapper extends ResponseMapper<Incident, VmSmIncident> {
     VmAccidentDescriptionResponse mapToDescriptionResponse(Incident source);
 
     // TODO Не возвращать объект manager, если нет имени
-    @Mapping(target = "manager.name", source = "managerId")
+    @Mapping(target = "manager", source = "incident")
     @Mapping(target = "workers", source = "incident")
     VmAccidentWorkersResponse mapToWorkersResponse(Incident incident);
 
@@ -90,5 +91,15 @@ public interface IncidentMapper extends ResponseMapper<Incident, VmSmIncident> {
         worker.setRole(incident.getGroupId());
         worker.setStatus(BlWorkerStatus.joined);
         return Collections.singletonList(worker);
+    }
+
+    default VmManager mapToManager(Incident incident) {
+        String manId = incident.getManagerId();
+        if (manId == null || manId.isBlank()) {
+            return null;
+        }
+        VmManager manager = new VmManager();
+        manager.setName(incident.getManagerId());
+        return manager;
     }
 }
