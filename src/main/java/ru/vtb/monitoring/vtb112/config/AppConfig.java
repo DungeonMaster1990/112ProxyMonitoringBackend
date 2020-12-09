@@ -31,9 +31,6 @@ public class AppConfig {
     @Value("${sm.password}")
     private String smPassword;
     @Getter
-    @Value("${sm.port:}")
-    private Integer smPort;
-    @Getter
     @Value("#{'${api.categories}'.split(',')}")
     private List<String> supportedCategories;
 

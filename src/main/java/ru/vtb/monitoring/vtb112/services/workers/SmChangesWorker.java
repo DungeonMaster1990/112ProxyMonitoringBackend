@@ -18,8 +18,7 @@ public class SmChangesWorker extends BaseSmWorker<VmSmChange, Changes> {
                     ChangesRepository changesRepository,
                     ChangesMapper changesMapper,
                     UpdatesRepository updatesRepository) {
-        super(appConfig.getSmPort(),
-                changesRepository,
+        super(changesRepository,
                 changesMapper,
                 updatesRepository,
                 WorkerName.SM_CHANGES,

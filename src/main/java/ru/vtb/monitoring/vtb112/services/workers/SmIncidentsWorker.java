@@ -18,8 +18,7 @@ public class SmIncidentsWorker extends BaseSmWorker<VmSmIncident, Incident> {
                       IncidentRepository incidentRepository,
                       IncidentMapper incidentMapper,
                       UpdatesRepository updatesRepository) {
-        super(appConfig.getSmPort(),
-                incidentRepository,
+        super(incidentRepository,
                 incidentMapper,
                 updatesRepository,
                 WorkerName.SM_INCIDENTS,

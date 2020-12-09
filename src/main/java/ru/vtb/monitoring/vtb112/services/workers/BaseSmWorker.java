@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +16,13 @@ import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.SmRepository;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.UpdatesRepository;
 import ru.vtb.monitoring.vtb112.dto.sm.response.VmBaseModel;
 import ru.vtb.monitoring.vtb112.dto.sm.response.wrappers.VmBaseResponseWrapper;
-import ru.vtb.monitoring.vtb112.dto.sm.response.wrappers.VmModelWrapper;
 import ru.vtb.monitoring.vtb112.mappers.ResponseMapper;
 
-import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+import java.util.PriorityQueue;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -34,12 +36,18 @@ public abstract class BaseSmWorker<T extends VmBaseModel, U extends BaseSmModel>
     private final String workerName;
     private final String url;
 
+    @Value("${sm.limit-per-request}")
+    private Integer countPerRequest;
+    @Value("${sm.max-pages}")
+    private Integer smMaxPages;
+    @Value("${sm.port:}")
+    private Integer smPort;
+
     @Autowired
     @Qualifier("smRestTemplate")
     private RestTemplate restTemplate;
 
-    protected BaseSmWorker(Integer smPort,
-                           SmRepository<U> repository,
+    protected BaseSmWorker(SmRepository<U> repository,
                            ResponseMapper<U, T> responseMapper,
                            UpdatesRepository updatesRepository,
                            WorkerName workerName,
@@ -48,77 +56,73 @@ public abstract class BaseSmWorker<T extends VmBaseModel, U extends BaseSmModel>
         this.repository = repository;
         this.updatesRepository = updatesRepository;
         this.workerName = workerName.getName();
-        this.url = buildUrl(smPort, requestString);
-    }
-
-    protected static String buildQuery(Instant updateTime) {
-        String dateTimeString = updateTime.toString();
-        return String.format("UpdatedAt>'%s'", dateTimeString);
-    }
-
-    protected static String buildUrl(Integer smPort, String requestString) {
-        var serverPort = smPort == null ? "?" : ("?serverPort=" + smPort + '&');
-        return requestString + serverPort + "view={view}&query={query}";
+        this.url = requestString;
     }
 
     protected void process() {
-        Updates update;
-        ResponseEntity<VmBaseResponseWrapper<T>> response;
+        Updates update = updatesRepository.getUpdateEntityByServiceName(workerName);
 
-        try {
-            update = updatesRepository.getUpdateEntityByServiceName(workerName);
-            var updateTime = update.getUpdateTime().toInstant();
-
-            log.debug("Try to load for service: {}, updateTime: {}, request: {}",
-                    workerName,
-                    updateTime,
-                    url
-            );
-            response = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<>() {
-            }, "expand", buildQuery(updateTime));
-
-            log.debug("Load data for service: {}, updateTime: {}, response: {}",
-                    workerName,
-                    updateTime,
-                    response
-            );
-        } catch (Exception exception) {
-            log.error("Exception during process in worker {}", workerName, exception);
-            return;
+        PriorityQueue<ZonedDateTime> maxTimestampPQ = new PriorityQueue<>(Comparator.reverseOrder());
+        int curIteration = 0;
+        int totalRowsProcessed = 0;
+        int iterationProcessedRows = countPerRequest;
+        while (curIteration++ < smMaxPages && iterationProcessedRows == countPerRequest) {
+            try {
+                iterationProcessedRows = processSinglePage(update, curIteration, maxTimestampPQ);
+                totalRowsProcessed += iterationProcessedRows;
+            } catch (Exception exception) {
+                log.error("Exception during process in worker {}", workerName, exception);
+                return;
+            }
+            log.info("Processed rows {} on iteration # {} by {} worker",
+                    iterationProcessedRows, curIteration, workerName);
         }
+        Optional.ofNullable(maxTimestampPQ.peek())
+                .ifPresent(maxTimestamp -> {
+                    update.setUpdateTime(maxTimestamp);
+                    updatesRepository.putUpdate(update);
+                });
+
+        log.info("Put {} items to db for sm service: {}, new updateTime: {}", totalRowsProcessed, workerName,
+                update.getUpdateTime().toInstant()
+        );
+    }
+
+    private int processSinglePage(Updates update, int pageNumber, PriorityQueue<ZonedDateTime> maxTimestampPQ) {
+        var updateTime = update.getUpdateTime().toInstant();
+        var requestUrl = SmUtils.buildUrl(url, smPort, updateTime, pageNumber, countPerRequest);
+
+        log.debug("Try to load for service: {}, updateTime: {}, request: {}",
+                workerName, updateTime, requestUrl);
+
+        ResponseEntity<VmBaseResponseWrapper<T>> response = restTemplate.exchange(requestUrl, HttpMethod.GET,
+                null, new ParameterizedTypeReference<>() {});
+
+        log.debug("Load data for service: {}, updateTime: {}, response: {}",
+                workerName, updateTime, response);
+
         VmBaseResponseWrapper<T> body = response.getBody();
 
         if (body == null || !response.getStatusCode().is2xxSuccessful() || body.getReturnCode() > 0) {
-            log.error(String.format("The SM service: %s returns response: %s", workerName, response.toString()));
-            return;
+            log.error("The SM service: {} returns response: {}", workerName, response.toString());
+            return 0;
         }
-
         if (body.getContent() == null || body.getContent().isEmpty()) {
             log.debug("From sm service {} was loaded 0 rows", workerName);
-            return;
+            return 0;
         }
-
         log.debug("From sm service {} was loaded {} entities", workerName, body.getContent().size());
 
-        List<T> result = body.getContent().stream()
-                .map(VmModelWrapper::getModel)
+        List<U> models = body.getContent().stream()
+                .map(modelWrapper -> responseMapper.mapToResponse(modelWrapper.getModel()))
+                .peek(model -> {
+                    if (model.getUpdatedAt() != null) {
+                        maxTimestampPQ.add(model.getUpdatedAt());
+                    }
+                })
                 .collect(Collectors.toList());
-
-        List<U> models = result.stream()
-                .map(responseMapper::mapToResponse)
-                .collect(Collectors.toList());
-
-        models.stream()
-                .filter(u -> u.getUpdatedAt() != null)
-                .max(Comparator.comparing(U::getUpdatedAt))
-                .ifPresent(bm -> update.setUpdateTime(bm.getUpdatedAt()));
-
         repository.putModels(models);
-        updatesRepository.putUpdate(update);
 
-        log.info("Put {} items to db for sm service: {}, new updateTime: {}", models.size(),
-                workerName,
-                update.getUpdateTime().toInstant()
-        );
+        return models.size();
     }
 }
