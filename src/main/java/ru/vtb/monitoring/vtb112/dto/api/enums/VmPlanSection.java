@@ -7,9 +7,9 @@ import java.util.Arrays;
 @Getter
 public enum VmPlanSection {
 
-    EMERGENCY("Экстренное", "Экстренное", 1),
-    STANDARD("Стандартное", "Стандартизованное", 2),
-    NORMAL("Нормальное", "Плановое", 3);
+    EMERGENCY("Экстренное", "Экстренные", 1),
+    STANDARD("Стандартное", "Стандартизованные", 2),
+    NORMAL("Нормальное", "Плановые", 3);
 
 
     private final String section;
