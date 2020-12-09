@@ -126,16 +126,10 @@ public class VerticaWorker {
                         PageRequest.of(pageNumber, verticaLimit));
 
         List<SmRawdataMeasApi> smRawDataMeasApiList =
-                smRawDataMeasVerticaList
-                        .stream()
+                smRawDataMeasVerticaList.stream()
+                        .peek(rawData -> maxTimestampPQ.add(rawData.getTimeStamp()))
                         .map(verticaMapper::mapToSmRawdataMeasApi)
                         .collect(Collectors.toList());
-        smRawdataMeasApiRepository.saveAll(smRawDataMeasApiList);
-
-        maxTimestampPQ.addAll(smRawDataMeasVerticaList.stream()
-                .map(SmRawdataMeasVertica::getTimeStamp)
-                .collect(Collectors.toList()));
-
-        return smRawDataMeasVerticaList.size();
+        return smRawdataMeasApiRepository.saveAll(smRawDataMeasApiList).size();
     }
 }

@@ -18,8 +18,7 @@ public class SmUnavailabilityWorker extends BaseSmWorker<VmSmUnavailability, Una
                            UnavailabilitiesRepository unavailabilitiesRepository,
                            UnavailabilityMapper unavailabilityMapper,
                            UpdatesRepository updatesRepository) {
-        super(appConfig.getSmPort(),
-                unavailabilitiesRepository,
+        super(unavailabilitiesRepository,
                 unavailabilityMapper,
                 updatesRepository,
                 WorkerName.SM_UNAVAILABILITIES,
