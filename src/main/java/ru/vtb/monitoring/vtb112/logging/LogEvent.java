@@ -48,6 +48,7 @@ public enum LogEvent {
     }
 
     public static LogEvent getEventByPath(String path) {
+        if (path != null && path.endsWith("/")) path = path.substring(0, path.length() - 1);
         return LOOKUP.getOrDefault(path, UNKNOWN);
     }
 

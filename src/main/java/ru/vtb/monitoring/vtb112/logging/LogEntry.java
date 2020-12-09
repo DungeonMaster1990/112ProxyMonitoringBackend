@@ -21,6 +21,7 @@ public class LogEntry {
     private Long duration;
     private String clientIpAddress;
     private String userAgent;
+    private String endpoint;
     private String eventCode;
     private String description;
     private Integer result;

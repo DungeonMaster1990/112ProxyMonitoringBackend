@@ -37,14 +37,15 @@ public class CustomRequestInterceptor extends HandlerInterceptorAdapter {
         var principal = Optional.ofNullable(request.getUserPrincipal())
                 .map(Principal::getName)
                 .orElse("");
-        String group = matcher.group(1);
-        var event = LogEvent.getEventByPath(group);
+        String endpoint = matcher.group(1);
+        var event = LogEvent.getEventByPath(endpoint);
         var logEntry = new LogEntry.LogEntryBuilder()
                 .username(principal)
                 .startTime(startTime)
                 .duration(Instant.now().toEpochMilli() - startTime.toEpochMilli())
                 .clientIpAddress(request.getRemoteAddr())
                 .userAgent(request.getHeader("User-Agent"))
+                .endpoint(endpoint)
                 .eventCode(event.getLogCode())
                 .description(event.getDescription())
                 .result(response.getStatus())
