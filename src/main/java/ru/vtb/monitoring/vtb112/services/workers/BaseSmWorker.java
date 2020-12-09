@@ -82,7 +82,6 @@ public abstract class BaseSmWorker<T extends VmBaseModel, U extends BaseSmModel>
                     update.setUpdateTime(maxTimestamp);
                     updatesRepository.putUpdate(update);
                 });
-        updatesRepository.putUpdate(update);
 
         log.info("Put {} items to db for sm service: {}, new updateTime: {}", totalRowsProcessed, workerName,
                 update.getUpdateTime().toInstant()
