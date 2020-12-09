@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
+import java.util.Set;
 
 @Configuration
 public class AppConfig {
@@ -33,6 +34,8 @@ public class AppConfig {
     @Getter
     @Value("#{'${api.categories}'.split(',')}")
     private List<String> supportedCategories;
+    @Getter
+    private final Set<String> closedStatuses = Set.of("Завершено", "Контроль", "Закрыто");
 
     public String getSmIncidentUrl() {
         return this.baseSmUrl + this.smIncidentMethod;

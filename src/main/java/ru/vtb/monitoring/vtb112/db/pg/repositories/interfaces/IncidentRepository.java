@@ -19,8 +19,9 @@ public interface IncidentRepository extends JpaRepository<Incident, Integer>, In
             select * from monitoring.incidents i
              where created_at = (select max(created_at) from monitoring.incidents)
                and i.idented_at is not null
+               and i.priority in (:priorities)
              LIMIT 1""", nativeQuery = true)
-    Optional<Incident> findMaxByCreatedDate();
+    Optional<Incident> findMaxByCreatedDate(@Param("priorities") Collection<String> priorities);
 
     List<Incident> findByIncidentIdIn(List<String> incidentIds);
 

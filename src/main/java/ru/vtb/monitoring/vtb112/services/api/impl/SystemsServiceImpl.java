@@ -2,6 +2,7 @@ package ru.vtb.monitoring.vtb112.services.api.impl;
 
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import ru.vtb.monitoring.vtb112.config.AppConfig;
 import ru.vtb.monitoring.vtb112.db.pg.models.dto.GroupedUnavailabilities;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.IncidentRepository;
 import ru.vtb.monitoring.vtb112.db.pg.repositories.interfaces.UnavailabilitiesRepository;
@@ -16,12 +17,16 @@ import java.util.stream.Collectors;
 @Service
 public class SystemsServiceImpl implements SystemsService {
 
-    private static final Set<String> closedStatuses = Set.of("Завершено", "Контроль", "Закрыто");
     private final IncidentRepository incidentRepository;
     private final SystemMapper systemMapper;
     private final UnavailabilitiesRepository unavailabilitiesRepository;
+    private final Set<String> closedStatuses;
 
-    public SystemsServiceImpl(IncidentRepository incidentRepository, SystemMapper systemMapper, UnavailabilitiesRepository unavailabilitiesRepository) {
+    public SystemsServiceImpl(AppConfig appConfig,
+                              IncidentRepository incidentRepository,
+                              SystemMapper systemMapper,
+                              UnavailabilitiesRepository unavailabilitiesRepository) {
+        this.closedStatuses = appConfig.getClosedStatuses();
         this.incidentRepository = incidentRepository;
         this.systemMapper = systemMapper;
         this.unavailabilitiesRepository = unavailabilitiesRepository;

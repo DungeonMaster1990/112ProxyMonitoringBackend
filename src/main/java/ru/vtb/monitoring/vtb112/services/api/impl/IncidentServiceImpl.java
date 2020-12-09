@@ -43,7 +43,7 @@ public class IncidentServiceImpl implements IncidentService {
 
     @Override
     public VmNewAccidentResponse getNewAccident() {
-        return incidentDAO.findMaxByCreatedDate()
+        return incidentDAO.findMaxByCreatedDate(supportedCategories)
                 .map(incidentMapper::mapToApiNewResponse)
                 .orElse(null);
     }
