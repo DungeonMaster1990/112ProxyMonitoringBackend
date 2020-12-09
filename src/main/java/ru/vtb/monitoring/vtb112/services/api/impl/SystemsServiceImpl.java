@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Service
 public class SystemsServiceImpl implements SystemsService {
 
-    private static final Set<String> closedStatuses = Set.of("Закрыто");
+    private static final Set<String> closedStatuses = Set.of("Завершено", "Контроль", "Закрыто");
     private final IncidentRepository incidentRepository;
     private final SystemMapper systemMapper;
     private final UnavailabilitiesRepository unavailabilitiesRepository;
