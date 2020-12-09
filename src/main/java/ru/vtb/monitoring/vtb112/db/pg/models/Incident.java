@@ -154,7 +154,8 @@ public class Incident implements BaseSmModel, Serializable {
     private ZonedDateTime eliminationConsequencesAt;
 
     @NotFound(action = NotFoundAction.IGNORE)
-    @OneToMany(mappedBy = "incident", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "fault_id", referencedColumnName = "incident_id")
     private List<Unavailabilities> unavailabilities = new ArrayList<>();
 
     public void setManagerId(String managerId) {
