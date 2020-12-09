@@ -7,15 +7,18 @@ import java.util.Arrays;
 @Getter
 public enum VmPlanSection {
 
-    EMERGENCY("Экстренное", 1),
-    STANDARD("Стандартное", 2),
-    NORMAL("Нормальное", 3);
+    EMERGENCY("Экстренное", "Экстренные", 1),
+    STANDARD("Стандартное", "Стандартизованные", 2),
+    NORMAL("Нормальное", "Плановые", 3);
+
 
     private final String section;
+    private final String outputSectionName;
     private final int id;
 
-    VmPlanSection(String section, int id) {
+    VmPlanSection(String section, String outputSectionName, int id) {
         this.section = section;
+        this.outputSectionName = outputSectionName;
         this.id = id;
     }
 

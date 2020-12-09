@@ -27,9 +27,9 @@ import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -119,7 +119,7 @@ class AccidentsControllerTest extends PostgreSQL {
     }
 
     @Test
-    void testAccidentsWorkers() throws Exception {
+    void testAccidentsWorkersOnlyManager() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                 .get(PathConstants.ACCIDENTS + "/workers")
                 .param("id", "4")
@@ -128,6 +128,20 @@ class AccidentsControllerTest extends PostgreSQL {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(getJson("workers.json")));
+    }
+
+    @Test
+    void testAccidentsWorkersEmptyManager() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                .get(PathConstants.ACCIDENTS + "/workers")
+                .param("id", "14")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding("UTF-8"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$['workers'][*]", hasSize(1)))
+                .andExpect(jsonPath("$['workers'][0]['name']").value("Петров Семен"))
+                .andExpect(jsonPath("$['manager']").doesNotExist());
     }
 
     @Test

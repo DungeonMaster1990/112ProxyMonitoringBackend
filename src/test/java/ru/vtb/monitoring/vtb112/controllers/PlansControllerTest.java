@@ -214,8 +214,35 @@ class PlansControllerTest extends PostgreSQL {
                 .characterEncoding("UTF-8"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$['manager']['name'])").value("Иванов Василий"))
-                .andExpect(jsonPath("$['workers'][0]['name'])").value("Петров Иван"));
+                .andExpect(jsonPath("$['manager']['name']").value("Иванов Василий"))
+                .andExpect(jsonPath("$['workers'][0]['name']").value("Петров Иван"));
+    }
+
+    @Test
+    void testPlansWorkersEmptyManager() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                .get(PathConstants.PLANS + "/workers")
+                .param("id", "4")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding("UTF-8"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$['workers'][*]", hasSize(1)))
+                .andExpect(jsonPath("$['workers'][0]['name']").value("Петров Иван"))
+                .andExpect(jsonPath("$['manager']").doesNotExist());
+    }
+
+    @Test
+    void testPlansWorkersWorkersOnlyManager() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders
+                .get(PathConstants.PLANS + "/workers")
+                .param("id", "5")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .characterEncoding("UTF-8"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$['workers']").doesNotExist())
+                .andExpect(jsonPath("$['manager']['name']").value("Иванов Василий"));
     }
 
     @Test
