@@ -11,7 +11,7 @@ import java.util.Set;
 @Service
 public class FailurePointsServiceImpl implements FailurePointsService {
 
-    private static final Set<String> closedStatuses = Set.of("Закрыто");
+    private static final Set<String> closedStatuses = Set.of("Завершено", "Контроль", "Закрыто");
     private final IncidentRepository incidentRepository;
 
     public FailurePointsServiceImpl(IncidentRepository incidentRepository) {
